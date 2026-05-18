@@ -1,5 +1,28 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import {
+  Shirt, Palette, Armchair, Wheat, Sparkles, Box,
+  Cpu, BookOpen, Lamp, Scissors, Music, Leaf, Pencil, Camera,
+  Tag,
+} from 'lucide-react'
+import styles from './CategoriesSection.module.css'
+
+const categoryIcons: Record<string, React.ReactNode> = {
+  fashion:     <Shirt size={28} />,
+  art:         <Palette size={28} />,
+  furniture:   <Armchair size={28} />,
+  food:        <Wheat size={28} />,
+  beauty:      <Sparkles size={28} />,
+  sculpture:   <Box size={28} />,
+  electronics: <Cpu size={28} />,
+  books:       <BookOpen size={28} />,
+  homeware:    <Lamp size={28} />,
+  textiles:    <Scissors size={28} />,
+  music:       <Music size={28} />,
+  wellness:    <Leaf size={28} />,
+  drawings:    <Pencil size={28} />,
+  photography: <Camera size={28} />,
+}
 
 async function getCategories() {
   return await prisma.category.findMany({
@@ -12,62 +35,25 @@ export default async function CategoriesSection() {
   const categories = await getCategories()
 
   return (
-    <section style={{ padding: '52px 32px', background: '#FAFAF9' }}>
-      {/* Header */}
-      <div style={{
-        display: 'flex', justifyContent: 'space-between',
-        alignItems: 'center', marginBottom: '28px'
-      }}>
+    <section className={styles.section}>
+      <div className={styles.header}>
         <div>
-          <h2 style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: '28px', fontWeight: '700', color: '#1a1a1a'
-          }}>
-            Browse by{' '}
-            <span style={{ color: '#C2410C' }}>Category</span>
+          <h2 className={styles.heading}>
+            Browse by <span className={styles.headingAccent}>Category</span>
           </h2>
-          <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '4px' }}>
-            Every category. Every product. African made.
-          </p>
+          <p className={styles.subtitle}>Every category. Every product. African made.</p>
         </div>
-        <Link href="/categories" style={{
-          fontSize: '14px', color: '#C2410C',
-          textDecoration: 'none', fontWeight: '500'
-        }}>
-          See all →
-        </Link>
+        <Link href="/categories" className={styles.seeAll}>See all →</Link>
       </div>
 
-      {/* Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
-        gap: '12px'
-      }}>
+      <div className={styles.grid}>
         {categories.map(cat => (
-          <Link
-            key={cat.id}
-            href={`/shop?category=${cat.slug}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <div style={{
-              background: '#fff',
-              border: '1px solid #e5e7eb',
-              borderRadius: '12px',
-              padding: '20px 12px',
-              textAlign: 'center',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            }}>
-              <div style={{ fontSize: '32px', marginBottom: '10px' }}>
-                {cat.icon}
+          <Link key={cat.id} href={`/shop?category=${cat.slug}`} className={styles.cardLink}>
+            <div className={styles.card}>
+              <div className={styles.icon}>
+                {categoryIcons[cat.slug] ?? <Tag size={28} />}
               </div>
-              <div style={{
-                fontSize: '13px', fontWeight: '500',
-                color: '#1a1a1a', marginBottom: '3px'
-              }}>
-                {cat.name}
-              </div>
+              <div className={styles.name}>{cat.name}</div>
             </div>
           </Link>
         ))}

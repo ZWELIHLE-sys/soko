@@ -1,0 +1,35 @@
+.strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.item {
+  padding: 22px 16px;
+  text-align: center;
+  border-right: 1px solid #e5e7eb;
+}
+
+.item:last-child {
+  border-right: none;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: #7C2D12;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.sub {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 3px;
+}

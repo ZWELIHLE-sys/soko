@@ -1,0 +1,137 @@
+.preFooter {
+  background: #7C2D12;
+  padding: 20px 32px;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.preFooterItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #FEF3C7;
+}
+
+.footer {
+  background: #fff;
+  padding: 48px 32px 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  background: #7C2D12;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-family: Georgia, serif;
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.logoName {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+.brandDesc {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.7;
+  max-width: 240px;
+}
+
+.brandSub {
+  margin-top: 16px;
+  font-size: 11px;
+  color: #9ca3af;
+  letter-spacing: 1px;
+}
+
+.colTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.colLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.colLink {
+  font-size: 13px;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.colLink:hover {
+  color: #7C2D12;
+}
+
+.bottomRow {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.copyright {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.legalLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.legalLink {
+  font-size: 12px;
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.legalLink:hover {
+  color: #7C2D12;
+}
+
+.patternStrip {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #7C2D12 0px, #7C2D12 12px,
+    #D97706 12px, #D97706 24px,
+    #14532D 24px, #14532D 36px,
+    #C2410C 36px, #C2410C 48px
+  );
+}

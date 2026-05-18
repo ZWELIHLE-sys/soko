@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import SellerSidebar from '@/components/seller/SellerSidebar'
+import styles from './layout.module.css'
 
 export default async function SellerLayout({
   children,
@@ -15,9 +16,9 @@ export default async function SellerLayout({
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#FAFAF9' }}>
+    <div className={styles.wrapper}>
       <SellerSidebar seller={session.user} />
-      <main style={{ flex: 1, padding: '32px', overflowY: 'auto' }}>
+      <main className={styles.main}>
         {children}
       </main>
     </div>

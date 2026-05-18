@@ -1,0 +1,165 @@
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #1C0A00;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+}
+
+.patternStrip {
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    #7C2D12 0px, #7C2D12 8px,
+    #D97706 8px, #D97706 16px,
+    #14532D 16px, #14532D 24px
+  );
+  flex-shrink: 0;
+}
+
+.logoArea {
+  padding: 24px 20px 16px;
+}
+
+.logoLink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  background: #7C2D12;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-family: Georgia, serif;
+  font-weight: 900;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.logoName {
+  color: #FEF3C7;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.sellerCard {
+  margin: 0 16px 20px;
+  padding: 14px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: #7C2D12;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.sellerName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #FEF3C7;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.badgeVerified {
+  background: #14532D;
+}
+
+.badgePending {
+  background: #92400E;
+}
+
+.nav {
+  flex: 1;
+  padding: 0 12px;
+}
+
+.navLink {
+  text-decoration: none;
+  display: block;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background 0.2s;
+  color: #A8A29E;
+}
+
+.navItem:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.navItemActive {
+  background: #7C2D12;
+  color: #FEF3C7;
+}
+
+.navLabel {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.navLabelActive {
+  font-weight: 500;
+  color: #FEF3C7;
+}
+
+.signOutArea {
+  padding: 16px 12px 24px;
+}
+
+.signOutBtn {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #A8A29E;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.signOutBtn:hover {
+  background: rgba(255,255,255,0.06);
+}

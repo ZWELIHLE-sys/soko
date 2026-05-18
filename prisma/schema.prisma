@@ -7,49 +7,312 @@ datasource db {
   provider = "postgresql"
 }
 
+// ================================
+// LOCATION HIERARCHY
+// Province → District → City → Seller/Buyer/Product
+// Same structure scales SA → Africa → World
+// ================================
+
+enum LocationType {
+  CONTINENT
+  COUNTRY
+  PROVINCE
+  DISTRICT
+  CITY
+}
+
+model Location {
+  id       String       @id @default(cuid())
+  name     String
+  type     LocationType
+  code     String?      // e.g. "KZN", "GP", "ZA"
+  parentId String?
+
+  // Self relation — this is the tree structure
+  parent   Location?  @relation("LocationTree", fields: [parentId], references: [id])
+  children Location[] @relation("LocationTree")
+
+  // Everything in Soko is tagged to a location
+  sellers  Seller[]
+  users    User[]
+  products Product[]
+  riders   Rider[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ================================
+// USERS — Buyers and Admins
+// ================================
+
+enum UserRole {
+  BUYER
+  ADMIN
+}
+
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  sessions      Session[]
+  id         String   @id @default(cuid())
+  email      String   @unique
+  name       String
+  phone      String?
+  password   String
+  role       UserRole @default(BUYER)
+  avatar     String?
+  isVerified Boolean  @default(false)
+
+  // Location — which city this buyer is in
+  locationId String?
+  location   Location? @relation(fields: [locationId], references: [id])
+
+  // Relations
+  orders     Order[]
+  reviews    Review[]
+  wishlist   Wishlist[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+// ================================
+// SELLERS — African Creators
+// ================================
 
-  @@unique([provider, providerAccountId])
+enum SellerStatus {
+  PENDING     // Applied, waiting for review
+  VERIFIED    // PA Verified badge granted
+  SUSPENDED   // Violated rules
+  REJECTED    // Did not meet requirements
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Seller {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  name        String
+  brandName   String       // Their shop name e.g. "Nomvula's Beadwork"
+  phone       String
+  password    String
+  bio         String?      // Their story
+  avatar      String?
+  banner      String?      // Shop banner image
+  status      SellerStatus @default(PENDING)
+  isVerified  Boolean      @default(false)
+
+  // Location — which city this seller operates from
+  locationId  String
+  location    Location     @relation(fields: [locationId], references: [id])
+
+  // What category they mainly sell
+  categoryId  String
+  category    Category     @relation(fields: [categoryId], references: [id])
+
+  // Verification proof — photo/video of them making the product
+  proofUrl    String?
+
+  // Relations
+  products    Product[]
+  orders      Order[]
+  reviews     Review[]
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+// ================================
+// CATEGORIES
+// ================================
 
-  @@unique([identifier, token])
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique  // e.g. "Fashion", "Art", "Furniture"
+  slug        String    @unique  // e.g. "fashion", "art", "furniture"
+  icon        String?            // emoji or icon name
+  description String?
+  isActive    Boolean   @default(true)
+
+  // Relations
+  sellers     Seller[]
+  products    Product[]
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
+
+// ================================
+// PRODUCTS — What Sellers List
+// ================================
+
+enum ProductStatus {
+  DRAFT      // Seller still writing details
+  ACTIVE     // Live on the marketplace
+  SOLD_OUT   // No stock left
+  SUSPENDED  // Admin removed it
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  stock       Int           @default(1)
+  status      ProductStatus @default(DRAFT)
+  images      String[]      // Array of image URLs from Cloudinary
+
+  // Who made it
+  sellerId    String
+  seller      Seller        @relation(fields: [sellerId], references: [id])
+
+  // What category
+  categoryId  String
+  category    Category      @relation(fields: [categoryId], references: [id])
+
+  // Where it was made — city of origin
+  locationId  String
+  location    Location      @relation(fields: [locationId], references: [id])
+
+  // Relations
+  orderItems  OrderItem[]
+  reviews     Review[]
+  wishlist    Wishlist[]
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// ================================
+// ORDERS
+// ================================
+
+enum OrderStatus {
+  PENDING      // Just placed
+  CONFIRMED    // Seller confirmed
+  PACKED       // Ready for pickup
+  IN_TRANSIT   // With rider or courier
+  DELIVERED    // Received by buyer
+  CANCELLED    // Cancelled
+  REFUNDED     // Money returned
+}
+
+enum DeliveryTier {
+  SOKO_RIDER    // Local ground fleet
+  COURIER_GUY   // The Courier Guy
+  FASTWAY       // Fastway Couriers
+  PARGO         // Pargo pickup point
+  DHL           // DHL Express international
+  ARAMEX        // Aramex Africa
+}
+
+model Order {
+  id             String       @id @default(cuid())
+  orderNumber    String       @unique @default(cuid())
+  status         OrderStatus  @default(PENDING)
+  totalAmount    Float
+  deliveryFee    Float
+  deliveryTier   DeliveryTier
+  trackingNumber String?
+
+  // Who bought
+  buyerId        String
+  buyer          User         @relation(fields: [buyerId], references: [id])
+
+  // Who sold
+  sellerId       String
+  seller         Seller       @relation(fields: [sellerId], references: [id])
+
+  // Delivery address
+  deliveryAddress String
+  deliveryCityId  String
+
+  // Rider if Soko Rider was used
+  riderId        String?
+  rider          Rider?       @relation(fields: [riderId], references: [id])
+
+  // Items in this order
+  items          OrderItem[]
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  price     Float   // Price at time of purchase
+
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+// ================================
+// SOKO RIDERS — Local Delivery
+// ================================
+
+enum RiderStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+model Rider {
+  id         String     @id @default(cuid())
+  name       String
+  phone      String     @unique
+  email      String     @unique
+  password   String
+  vehicle    String     // "motorbike", "van", "bakkie"
+  status     RiderStatus @default(ACTIVE)
+  isVerified Boolean    @default(false)
+
+  // Which city they operate in
+  locationId String
+  location   Location   @relation(fields: [locationId], references: [id])
+
+  orders     Order[]
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+// ================================
+// REVIEWS
+// ================================
+
+model Review {
+  id        String  @id @default(cuid())
+  rating    Int     // 1 to 5
+  comment   String?
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+
+  sellerId  String
+  seller    Seller  @relation(fields: [sellerId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+// ================================
+// WISHLIST
+// ================================
+
+model Wishlist {
+  id        String  @id @default(cuid())
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId]) // Can't wishlist same product twice
+}
+
+

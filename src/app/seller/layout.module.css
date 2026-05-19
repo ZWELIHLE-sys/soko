@@ -1,0 +1,100 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: #FAFAF9;
+}
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.brand {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brandIcon {
+  width: 36px;
+  height: 36px;
+  background: #7C2D12;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-size: 16px;
+  font-weight: 900;
+  font-family: Georgia, serif;
+}
+
+.brandName {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+.brandSub {
+  font-size: 10px;
+  color: #9ca3af;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 8px 4px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.navLink:hover {
+  background: #f3f4f6;
+  color: #1a1a1a;
+}
+
+.navLinkActive {
+  background: #fff7ed;
+  color: #7C2D12;
+}
+
+.main {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+}

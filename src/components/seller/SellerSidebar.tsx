@@ -3,19 +3,16 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
-import {
-  LayoutDashboard, ShoppingBag, Plus, Package,
-  Store, Settings, ShieldCheck, Clock, LogOut,
-} from 'lucide-react'
+import { ShieldCheck, Clock, LogOut } from 'lucide-react'
 import styles from './SellerSidebar.module.css'
 
 const navItems = [
-  { label: 'Dashboard',   href: '/seller/dashboard',   icon: <LayoutDashboard size={16} /> },
-  { label: 'My Products', href: '/seller/products',    icon: <ShoppingBag size={16} /> },
-  { label: 'Add Product', href: '/seller/products/new',icon: <Plus size={16} /> },
-  { label: 'Orders',      href: '/seller/orders',      icon: <Package size={16} /> },
-  { label: 'My Shop',     href: '/seller/shop',        icon: <Store size={16} /> },
-  { label: 'Settings',    href: '/seller/settings',    icon: <Settings size={16} /> },
+  { label: 'Dashboard',   href: '/seller/dashboard' },
+  { label: 'My Products', href: '/seller/products' },
+  { label: 'Add Product', href: '/seller/products/new' },
+  { label: 'Orders',      href: '/seller/orders' },
+  { label: 'My Shop',     href: '/seller/shop' },
+  { label: 'Settings',    href: '/seller/settings' },
 ]
 
 type SellerInfo = {
@@ -63,7 +60,6 @@ export default function SellerSidebar({ seller }: { seller: SellerInfo }) {
           return (
             <Link key={item.href} href={item.href} className={styles.navLink}>
               <div className={`${styles.navItem} ${isActive ? styles.navItemActive : ''}`}>
-                {item.icon}
                 <span className={`${styles.navLabel} ${isActive ? styles.navLabelActive : ''}`}>
                   {item.label}
                 </span>

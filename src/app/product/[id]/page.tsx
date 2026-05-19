@@ -93,27 +93,28 @@ export default function ProductDetailPage() {
     const cart: CartItem[] = JSON.parse(localStorage.getItem('soko_cart') || '[]')
     const existingIndex = cart.findIndex(item => item.productId === product.id)
 
-    if (existingIndex > -1) {
-      cart[existingIndex].quantity += quantity
-    } else {
-      cart.push({
-        productId: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.images[0] || '',
-        sellerName: product.seller.brandName,
-        locationName: product.location.name,
-        categoryIcon: product.category.icon,
-        quantity,
-        sellerId: product.seller.id,
-      })
-    }
-
-    localStorage.setItem('soko_cart', JSON.stringify(cart))
-    setAddingToCart(false)
-    setCartMessage('Added to cart!')
-    setTimeout(() => setCartMessage(''), 3000)
+  if (existingIndex > -1) {
+    cart[existingIndex].quantity += quantity
+  } else {
+    cart.push({
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0] || '',
+      sellerName: product.seller.brandName,
+      locationName: product.location.name,
+      categoryIcon: product.category.icon,
+      quantity,
+      sellerId: product.seller.id,
+    })
   }
+
+  localStorage.setItem('soko_cart', JSON.stringify(cart))
+  window.dispatchEvent(new Event('soko_cart_updated'))  // ← ADD THIS LINE
+  setAddingToCart(false)
+  setCartMessage('Added to cart!')
+  setTimeout(() => setCartMessage(''), 3000)
+}
 
   if (loading) {
     return (

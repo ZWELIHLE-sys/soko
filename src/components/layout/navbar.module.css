@@ -1,19 +1,24 @@
-.nav {
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 50;
+.strip {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #7C2D12 0px, #7C2D12 12px,
+    #D97706 12px, #D97706 24px,
+    #14532D 24px, #14532D 36px,
+    #C2410C 36px, #C2410C 48px
+  );
 }
 
-.inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px;
-  height: 60px;
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 14px 32px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .brand {
@@ -24,54 +29,197 @@
 }
 
 .brandIcon {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   background: #7C2D12;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FEF3C7;
-  font-size: 15px;
-  font-weight: 900;
   font-family: Georgia, serif;
+  font-weight: 900;
+  font-size: 18px;
 }
 
 .brandName {
   font-family: Georgia, serif;
-  font-size: 18px;
   font-weight: 700;
+  font-size: 18px;
   color: #7C2D12;
 }
 
-.links {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.brandSub {
+  font-size: 9px;
+  color: #9ca3af;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.link {
-  padding: 7px 14px;
-  border-radius: 8px;
+.navLinks {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.navLink {
   font-size: 14px;
-  font-weight: 500;
   color: #6b7280;
   text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s;
 }
 
-.link:hover {
-  background: #f3f4f6;
+.navLink:hover {
   color: #1a1a1a;
 }
 
-.linkPrimary {
-  background: #7C2D12;
-  color: #FEF3C7;
-  margin-left: 4px;
+.right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-.linkPrimary:hover {
-  background: #6b2510;
+/* Cart */
+.cartBtn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  cursor: pointer;
+  color: #374151;
+  text-decoration: none;
+}
+
+.cartBtn:hover {
+  background: #f9fafb;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #7C2D12;
   color: #FEF3C7;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User dropdown */
+.userBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+}
+
+.userBtn:hover {
+  background: #f9fafb;
+}
+
+.userAvatar {
+  width: 28px;
+  height: 28px;
+  background: #7C2D12;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dropdownWrap {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  width: 180px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.dropdownLink {
+  display: block;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #374151;
+  text-decoration: none;
+}
+
+.dropdownLink:hover {
+  background: #f9fafb;
+}
+
+.dropdownDivider {
+  border-top: 1px solid #f3f4f6;
+}
+
+.dropdownSignOut {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #DC2626;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdownSignOut:hover {
+  background: #fff5f5;
+}
+
+/* Auth buttons */
+.signInBtn {
+  padding: 8px 16px;
+  border: 1.5px solid #7C2D12;
+  color: #7C2D12;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signInBtn:hover {
+  background: #fff7ed;
+}
+
+.startSellingBtn {
+  padding: 8px 16px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.startSellingBtn:hover {
+  background: #6b2510;
 }

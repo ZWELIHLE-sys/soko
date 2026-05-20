@@ -1,0 +1,157 @@
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Stat cards */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  display: block;
+}
+
+.statCard:hover {
+  border-color: #d1d5db;
+}
+
+.statIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.statIconOrders    { background: #FEF3C7; color: #7C2D12; }
+.statIconDelivered { background: #DCFCE7; color: #14532D; }
+.statIconProgress  { background: #FEF9C3; color: #92400E; }
+.statIconSpent     { background: #EFF6FF; color: #1D4ED8; }
+
+.statValue {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.statValueOrders    { color: #7C2D12; }
+.statValueDelivered { color: #14532D; }
+.statValueProgress  { color: #92400E; }
+.statValueSpent     { color: #1D4ED8; }
+
+.statLabel {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Quick actions */
+.actionsSection {
+  margin-bottom: 32px;
+}
+
+.actionsTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+}
+
+.actionBtnPrimary {
+  background: #7C2D12;
+  color: #FEF3C7;
+}
+
+.actionBtnSecondary {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+/* Impact */
+.impact {
+  background: #1C0A00;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.impactLabel {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.impactTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 12px;
+}
+
+.impactText {
+  font-size: 14px;
+  color: #A8A29E;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  max-width: 480px;
+}
+
+.impactItems {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.impactItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #FDE68A;
+}

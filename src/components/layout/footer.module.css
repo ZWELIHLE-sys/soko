@@ -50,6 +50,22 @@
   margin-top: 2px;
 }
 
+.nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.navLink {
+  font-size: 13px;
+  color: #A8A29E;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: #FEF3C7;
+}
+
 .copy {
   font-size: 12px;
   color: #57534E;

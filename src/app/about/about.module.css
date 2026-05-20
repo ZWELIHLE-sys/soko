@@ -1,0 +1,290 @@
+.page {
+  min-height: 100vh;
+  background: #FAFAF9;
+}
+
+/* ── Hero ── */
+.hero {
+  background: #1C0A00;
+  padding: 72px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.kenteLeft {
+  position: absolute;
+  top: 0; left: 0;
+  width: 120px; height: 100%;
+  opacity: 0.15;
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+}
+
+.kenteRight {
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 100%;
+  opacity: 0.15;
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+}
+
+.kenteA { background: #C2410C; height: 60px; }
+.kenteB { background: #D97706; height: 60px; }
+.kenteC { background: #14532D; height: 60px; }
+.kenteD { background: #7C2D12; height: 60px; }
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.heroTitle {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: #FEF3C7;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.heroAccent {
+  color: #D97706;
+}
+
+.heroSub {
+  font-size: 16px;
+  color: #A8A29E;
+  line-height: 1.8;
+}
+
+/* ── Content ── */
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 32px;
+}
+
+/* ── Meaning card ── */
+.meaningCard {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 36px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.cardEyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+.zuluGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.zuluItem {
+  padding: 20px;
+  background: #1C0A00;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.zuluWord {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #D97706;
+  margin-bottom: 8px;
+}
+
+.zuluMeaning {
+  font-size: 13px;
+  color: #FDE68A;
+  line-height: 1.5;
+}
+
+/* ── Story ── */
+.storySection {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.storyText {
+  font-size: 16px;
+  color: #374151;
+  line-height: 1.9;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Sacred Rules ── */
+.rulesCard {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 36px;
+  margin-bottom: 40px;
+}
+
+.rulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ruleItem {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #FAFAF9;
+  border-radius: 12px;
+  border: 1px solid #f3f4f6;
+}
+
+.ruleNum {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #e5e7eb;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.ruleBody {}
+
+.ruleTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.ruleDesc {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Behind Vuna ── */
+.behindCard {
+  background: #1C0A00;
+  border-radius: 16px;
+  padding: 36px;
+  margin-bottom: 40px;
+}
+
+.behindEyebrow {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.behindTitle {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 14px;
+}
+
+.behindText {
+  font-size: 14px;
+  color: #A8A29E;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.behindLink {
+  font-size: 13px;
+  color: #D97706;
+}
+
+/* ── CTA ── */
+.cta {
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.ctaSub {
+  font-size: 15px;
+  color: #6b7280;
+  max-width: 400px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctaPrimary:hover {
+  background: #6b2510;
+}
+
+.ctaSecondary {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.ctaSecondary:hover {
+  background: #f9fafb;
+}

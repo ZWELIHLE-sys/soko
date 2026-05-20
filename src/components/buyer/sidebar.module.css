@@ -1,0 +1,155 @@
+.aside {
+  width: 240px;
+  min-height: 100vh;
+  background: #1C0A00;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+}
+
+.strip {
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    #7C2D12 0px, #7C2D12 8px,
+    #D97706 8px, #D97706 16px,
+    #14532D 16px, #14532D 24px
+  );
+}
+
+.logoWrap {
+  padding: 24px 20px 16px;
+}
+
+.logoLink {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  background: #7C2D12;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-family: Georgia, serif;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.logoName {
+  color: #FEF3C7;
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.userBox {
+  margin: 0 16px 20px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  background: #D97706;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1C0A00;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #FEF3C7;
+}
+
+.userRole {
+  font-size: 11px;
+  color: #A8A29E;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav {
+  flex: 1;
+  padding: 0 12px;
+}
+
+.navLink {
+  text-decoration: none;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  background: transparent;
+}
+
+.navItemActive {
+  background: #7C2D12;
+}
+
+.navIcon {
+  color: #A8A29E;
+  flex-shrink: 0;
+}
+
+.navIconActive {
+  color: #FEF3C7;
+}
+
+.navLabel {
+  font-size: 13px;
+  font-weight: 400;
+  color: #A8A29E;
+}
+
+.navLabelActive {
+  font-weight: 500;
+  color: #FEF3C7;
+}
+
+.signOutWrap {
+  padding: 16px 12px 24px;
+}
+
+.signOutBtn {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #A8A29E;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.signOutBtn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #FEF3C7;
+}

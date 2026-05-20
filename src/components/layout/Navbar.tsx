@@ -15,12 +15,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const updateCount = () => {
-      const cart: CartItem[] = JSON.parse(localStorage.getItem('soko_cart') || '[]')
+      const cart: CartItem[] = JSON.parse(localStorage.getItem('vuna_cart') || '[]')
       setCartCount(cart.reduce((sum, item) => sum + item.quantity, 0))
     }
     updateCount()
-    window.addEventListener('soko_cart_updated', updateCount)
-    return () => window.removeEventListener('soko_cart_updated', updateCount)
+    window.addEventListener('vuna_cart_updated', updateCount)
+    return () => window.removeEventListener('vuna_cart_updated', updateCount)
   }, [])
 
   return (
@@ -29,10 +29,10 @@ export default function Navbar() {
 
       <nav className={styles.nav}>
         <Link href="/" className={styles.brand}>
-          <div className={styles.brandIcon}>S</div>
+          <div className={styles.brandIcon}>V</div>
           <div>
-            <div className={styles.brandName}>Soko</div>
-            <div className={styles.brandSub}>To The World</div>
+            <div className={styles.brandName}>Vuna</div>
+            <div className={styles.brandSub}>Reap What Africa Makes</div>
           </div>
         </Link>
 

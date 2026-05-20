@@ -8,7 +8,7 @@ export default function Footer() {
           <div className={styles.brandIcon}>S</div>
           <div>
             <div className={styles.brandText}>Vuna</div>
-            <div className={styles.tagline}>Africa To The World</div>
+            <div className={styles.tagline}>Reap What Africa Makes</div>
           </div>
         </div>
         <div className={styles.copy}>

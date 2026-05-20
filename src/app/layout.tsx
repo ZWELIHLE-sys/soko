@@ -3,7 +3,7 @@ import './globals.css'
 import Providers from './providers'
 
 export const metadata: Metadata = {
-  title: 'Vuna — To The World',
+  title: 'Vuna — Reap What Africa Makes',
   description: "Africa's own marketplace. Every product African made, African owned.",
 }
 

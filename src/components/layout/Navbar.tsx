@@ -32,7 +32,7 @@ export default function Navbar() {
           <div className={styles.brandIcon}>S</div>
           <div>
             <div className={styles.brandName}>Vuna</div>
-            <div className={styles.brandSub}>To The World</div>
+            <div className={styles.brandSub}>Reap What Africa Makes</div>
           </div>
         </Link>
 

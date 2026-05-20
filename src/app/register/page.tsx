@@ -15,7 +15,7 @@ export default function RegisterPage() {
           <div className={styles.logoBox}>
             <div className={styles.logoIcon}>S</div>
             <div className={styles.logoTitle}>Join Vuna</div>
-            <div className={styles.logoSub}>Africa&apos;s own marketplace — To The World</div>
+            <div className={styles.logoSub}>Africa&apos;s own marketplace — Reap What Africa Makes</div>
           </div>
 
           <div className={styles.grid}>

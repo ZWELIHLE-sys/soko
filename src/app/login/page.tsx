@@ -47,7 +47,7 @@ export default function LoginPage() {
           <div className={styles.logoBox}>
             <div className={styles.logoIcon}>S</div>
             <div className={styles.logoTitle}>Vuna</div>
-            <div className={styles.logoSub}>To The World</div>
+            <div className={styles.logoSub}>Reap What Africa Makes</div>
           </div>
 
           <div className={styles.card}>

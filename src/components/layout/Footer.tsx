@@ -7,12 +7,12 @@ export default function Footer() {
         <div className={styles.brand}>
           <div className={styles.brandIcon}>S</div>
           <div>
-            <div className={styles.brandText}>Soko</div>
+            <div className={styles.brandText}>Vuna</div>
             <div className={styles.tagline}>Africa To The World</div>
           </div>
         </div>
         <div className={styles.copy}>
-          &copy; {new Date().getFullYear()} Soko. All rights reserved.
+          &copy; {new Date().getFullYear()} Vuna. All rights reserved.
         </div>
       </div>
     </footer>

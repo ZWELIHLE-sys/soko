@@ -105,14 +105,14 @@ export default function SellerRegisterPage() {
         <div className={styles.wrapper}>
 
           <div className={styles.heading}>
-            <div className={styles.title}>Apply To Sell on Soko</div>
-            <p className={styles.subtitle}>Your craft deserves the world. Apply for your Soko Verified badge.</p>
+            <div className={styles.title}>Apply To Sell on Vuna</div>
+            <p className={styles.subtitle}>Your craft deserves the world. Apply for your Vuna Verified badge.</p>
           </div>
 
           <div className={styles.sacredBadges}>
             <div className={styles.badge}><Globe size={14} /> African owned</div>
             <div className={styles.badge}><HandHeart size={14} /> Hand produced</div>
-            <div className={styles.badge}><ShieldCheck size={14} /> Soko Verified</div>
+            <div className={styles.badge}><ShieldCheck size={14} /> Vuna Verified</div>
           </div>
 
           <div className={styles.card}>
@@ -228,12 +228,12 @@ export default function SellerRegisterPage() {
                 disabled={loading}
                 className={`${styles.button} ${loading ? styles.buttonLoading : ''}`}
               >
-                {loading ? 'Submitting application...' : <><Globe size={15} /> Apply To Sell on Soko</>}
+                {loading ? 'Submitting application...' : <><Globe size={15} /> Apply To Sell on Vuna</>}
               </button>
             </form>
 
             <div className={styles.cardFooter}>
-              Your application will be reviewed within 24 hours. We verify every seller to protect the authenticity of Soko.
+              Your application will be reviewed within 24 hours. We verify every seller to protect the authenticity of Vuna.
             </div>
           </div>
 

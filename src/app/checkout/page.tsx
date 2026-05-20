@@ -24,7 +24,7 @@ interface CartItem {
 interface Location { id: string; name: string }
 
 const deliveryOptions = [
-  { value: 'SOKO_RIDER',  label: 'Soko Rider',       Icon: Bike,    price: 45,  days: 'Same day (local)' },
+  { value: 'SOKO_RIDER',  label: 'Vuna Rider',       Icon: Bike,    price: 45,  days: 'Same day (local)' },
   { value: 'COURIER_GUY', label: 'The Courier Guy',   Icon: Truck,   price: 89,  days: '3-5 business days' },
   { value: 'FASTWAY',     label: 'Fastway Couriers',  Icon: Package, price: 75,  days: '4-6 business days' },
   { value: 'PARGO',       label: 'Pargo Pickup',      Icon: Store,   price: 55,  days: '5-7 business days' },
@@ -44,7 +44,7 @@ export default function CheckoutPage() {
 
   const [cart] = useState<CartItem[]>(() => {
     if (typeof window === 'undefined') return []
-    return JSON.parse(localStorage.getItem('soko_cart') || '[]')
+    return JSON.parse(localStorage.getItem('vuna_cart') || '[]')
   })
   const [provinces, setProvinces] = useState<Location[]>([])
   const [districts, setDistricts] = useState<Location[]>([])
@@ -145,7 +145,7 @@ export default function CheckoutPage() {
         firstName: form.firstName,
         lastName:  form.lastName,
         email:     session?.user?.email || '',
-        itemName:  `Soko Order — ${cart.length} item${cart.length !== 1 ? 's' : ''}`,
+        itemName:  `Vuna Order — ${cart.length} item${cart.length !== 1 ? 's' : ''}`,
       })
     })
 

@@ -30,14 +30,14 @@ export default function CartPage() {
   const router = useRouter()
   const [cart, setCart]       = useState<CartItem[]>(() => {
     if (typeof window === 'undefined') return []
-    return JSON.parse(localStorage.getItem('soko_cart') || '[]')
+    return JSON.parse(localStorage.getItem('vuna_cart') || '[]')
   })
   const [loading, setLoading] = useState(false)
 
   const updateCart = (updated: CartItem[]) => {
     setCart(updated)
-    localStorage.setItem('soko_cart', JSON.stringify(updated))
-    window.dispatchEvent(new Event('soko_cart_updated'))
+    localStorage.setItem('vuna_cart', JSON.stringify(updated))
+    window.dispatchEvent(new Event('vuna_cart_updated'))
   }
 
   const updateQuantity = (productId: string, qty: number) => {
@@ -191,7 +191,7 @@ export default function CartPage() {
 
               <div className={styles.promise}>
                 <div className={styles.promiseItem}><Handshake size={12} /> Every item handmade by Africans</div>
-                <div className={styles.promiseItem}><BadgeCheck size={12} /> All sellers Soko verified</div>
+                <div className={styles.promiseItem}><BadgeCheck size={12} /> All sellers Vuna verified</div>
                 <div className={styles.promiseItem}><Truck size={12} /> Delivered across South Africa</div>
               </div>
             </div>

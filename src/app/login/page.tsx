@@ -46,13 +46,13 @@ export default function LoginPage() {
 
           <div className={styles.logoBox}>
             <div className={styles.logoIcon}>S</div>
-            <div className={styles.logoTitle}>Soko</div>
+            <div className={styles.logoTitle}>Vuna</div>
             <div className={styles.logoSub}>To The World</div>
           </div>
 
           <div className={styles.card}>
             <h1 className={styles.cardTitle}>Welcome back</h1>
-            <p className={styles.cardSub}>Sign in to your Soko account</p>
+            <p className={styles.cardSub}>Sign in to your Vuna account</p>
 
             <div className={styles.roleToggle}>
               {(['BUYER', 'SELLER'] as const).map(r => (
@@ -107,7 +107,7 @@ export default function LoginPage() {
 
             <div className={styles.footer}>
               Don&apos;t have an account?{' '}
-              <Link href="/register" className={styles.link}>Join Soko</Link>
+              <Link href="/register" className={styles.link}>Join Vuna</Link>
             </div>
           </div>
         </div>

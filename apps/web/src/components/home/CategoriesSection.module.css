@@ -1,0 +1,77 @@
+.section {
+  padding: 52px 32px;
+  background: #FAFAF9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.heading {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.headingAccent {
+  color: #C2410C;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.seeAll {
+  font-size: 14px;
+  color: #C2410C;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.seeAll:hover {
+  text-decoration: underline;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.cardLink {
+  text-decoration: none;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  border-color: #C2410C;
+  background: #fff7ed;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  color: #C2410C;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+}

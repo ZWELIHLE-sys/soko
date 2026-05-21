@@ -1,0 +1,57 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.9.3
+2 info using node@v22.18.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\CASH\.npmrc
+5 silly config load:file:C:\dev\vuna\%APPDATA%\npm\etc\npmrc
+6 verbose title npm install pnpm
+7 verbose argv "install" "--global" "pnpm"
+8 verbose logfile logs-max:10 dir:C:\dev\vuna\%APPDATA%\npm-cache\_logs\2026-05-21T12_18_38_677Z-
+9 verbose logfile C:\dev\vuna\%APPDATA%\npm-cache\_logs\2026-05-21T12_18_38_677Z-debug-0.log
+10 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 silly idealTree buildDeps
+14 silly fetch manifest pnpm@*
+15 silly packumentCache full:https://registry.npmjs.org/pnpm cache-miss
+16 http cache https://registry.npmjs.org/pnpm 247ms (cache hit)
+17 silly packumentCache full:https://registry.npmjs.org/pnpm set size:5389064 disposed:false
+18 silly placeDep ROOT pnpm@11.1.3 OK for:  want: *
+19 silly reify mark retired [
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\node_modules\\pnpm',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpm',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpm.cmd',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpm.ps1',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpx',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpx.cmd',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpx.ps1',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pn',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pn.cmd',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pn.ps1',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnx',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnx.cmd',
+19 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnx.ps1'
+19 silly reify ]
+20 silly reify moves {
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\node_modules\\pnpm': 'C:\\dev\\vuna\\%APPDATA%\\npm\\node_modules\\.pnpm-EYOlsMqj',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpm': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnpm-WBXSgGG5',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpm.cmd': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnpm.cmd-c8t9Pw27',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpm.ps1': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnpm.ps1-mR6JRuFj',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpx': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnpx-4MaxU6ks',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpx.cmd': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnpx.cmd-6vvRN433',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnpx.ps1': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnpx.ps1-xrey1cI3',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pn': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pn-JjqkrZ3u',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pn.cmd': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pn.cmd-OYkMT8sS',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pn.ps1': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pn.ps1-UH46B5bJ',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnx': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnx-AcGVJPMy',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnx.cmd': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnx.cmd-OzhFlYaT',
+20 silly reify   'C:\\dev\\vuna\\%APPDATA%\\npm\\pnx.ps1': 'C:\\dev\\vuna\\%APPDATA%\\npm\\.pnx.ps1-ho1ntQLa'
+20 silly reify }
+21 http cache pnpm@https://registry.npmjs.org/pnpm/-/pnpm-11.1.3.tgz 0ms (cache hit)
+22 silly CHANGE node_modules/pnpm
+23 verbose cwd C:\dev\vuna
+24 verbose os Windows_NT 10.0.26200
+25 verbose node v22.18.0
+26 verbose npm  v10.9.3
+27 verbose exit 0
+28 info ok

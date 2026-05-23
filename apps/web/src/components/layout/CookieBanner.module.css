@@ -1,0 +1,73 @@
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1C0A00;
+  border-top: 2px solid #7C2D12;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  z-index: 1000;
+}
+
+.text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FEF3C7;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.titleIcon {
+  color: #D97706;
+  flex-shrink: 0;
+}
+
+.desc {
+  font-size: 12px;
+  color: #A8A29E;
+  line-height: 1.5;
+}
+
+.link {
+  color: #D97706;
+  text-decoration: underline;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btnDecline {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #A8A29E;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btnAccept {
+  padding: 8px 20px;
+  background: #7C2D12;
+  border: none;
+  border-radius: 6px;
+  color: #FEF3C7;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}

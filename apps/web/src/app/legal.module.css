@@ -1,0 +1,373 @@
+.page {
+  min-height: 100vh;
+  background: #FAFAF9;
+}
+
+/* ── Hero — uchansi background matching shop/sellers ── */
+.hero {
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
+    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    center / cover no-repeat;
+  padding: 56px 32px 48px;
+  text-align: center;
+}
+
+.heroInner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.breadLink {
+  color: #A8A29E;
+  text-decoration: none;
+}
+.breadLink:hover { color: #FEF3C7; }
+
+.breadSep { color: #57534E; }
+
+.breadCurrent {
+  color: #FEF3C7;
+  font-weight: 500;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: #D97706;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.heroTitle {
+  font-family: Georgia, serif;
+  font-size: 42px;
+  font-weight: 900;
+  color: #FEF3C7;
+  margin: 0 0 14px;
+  line-height: 1.1;
+}
+
+.heroSub {
+  font-size: 13px;
+  color: #A8A29E;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Body container ── */
+.body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 52px 32px 80px;
+}
+
+/* ── POPIA compliance badge ── */
+.popiaBadge {
+  background: #fff;
+  border: 1.5px solid #7C2D12;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.popiaBadgeIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #7C2D12;
+}
+
+.popiaBadgeTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7C2D12;
+  margin-bottom: 4px;
+}
+
+.popiaBadgeText {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* ── Sections ── */
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionHeading {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #7C2D12;
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #F3F0EE;
+}
+
+.bodyText {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.bodyTextMt {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.8;
+  margin-bottom: 12px;
+  margin-top: 16px;
+}
+
+.listItem {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.8;
+  margin-bottom: 6px;
+  padding-left: 8px;
+}
+
+.subHeading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7C2D12;
+  margin: 20px 0 8px;
+}
+
+/* ── Info officer box ── */
+.infoBox {
+  background: #FAFAF9;
+  border-left: 3px solid #7C2D12;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+
+.infoBoxTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.infoRow {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 5px;
+}
+
+/* ── Category label (For Buyers / For Sellers) ── */
+.categoryLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 16px 0 8px;
+}
+
+/* ── Purpose / partner rows ── */
+.purposeRow {
+  display: flex;
+  gap: 16px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.purposeKey {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7C2D12;
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.purposeVal {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.partnerRow {
+  display: flex;
+  gap: 16px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.partnerKey {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7C2D12;
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.partnerVal {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* ── Data retention table ── */
+.retentionRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 14px;
+  background: #fff;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 14px;
+}
+
+.retentionRow:first-of-type { border-radius: 8px 8px 0 0; border: 1px solid #e5e7eb; border-bottom: 1px solid #F3F4F6; }
+.retentionRow:last-of-type  { border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb; border-top: none; }
+
+.retentionType { color: #374151; font-weight: 500; }
+
+.retentionPeriod { color: #9CA3AF; font-style: italic; }
+
+/* ── POPIA rights cards ── */
+.rightCard {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-left: 3px solid #7C2D12;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 8px;
+}
+
+.rightCardIcon { flex-shrink: 0; color: #7C2D12; }
+
+.rightCardTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #7C2D12;
+  margin-bottom: 3px;
+}
+
+.rightCardText { font-size: 13px; color: #374151; line-height: 1.5; }
+
+/* ── Sacred Rules box ── */
+.sacredBox {
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.92), rgba(28, 10, 0, 0.92)),
+    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&dpr=1')
+    center / cover no-repeat;
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+  margin-bottom: 40px;
+}
+
+.sacredEyebrow {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.sacredTitle {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 16px;
+}
+
+.sacredRule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #FDE68A;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.sacredRuleIcon {
+  flex-shrink: 0;
+  color: #D97706;
+}
+
+.sacredNote {
+  font-size: 12px;
+  color: #78716C;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+/* ── Contact card ── */
+.contactCard {
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.92), rgba(28, 10, 0, 0.92)),
+    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&dpr=1')
+    center / cover no-repeat;
+  border-radius: 14px;
+  padding: 36px 28px;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.contactEyebrow {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.contactTitle {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin: 0 0 14px;
+}
+
+.contactText {
+  font-size: 14px;
+  color: #A8A29E;
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+.contactHighlight { color: #FEF3C7; font-weight: 600; }
+
+.contactAccent { color: #D97706; font-weight: 600; }
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .hero     { padding: 40px 20px 36px; }
+  .heroTitle { font-size: 30px; }
+  .body     { padding: 36px 20px 60px; }
+  .purposeRow, .partnerRow { flex-direction: column; gap: 4px; }
+  .purposeKey, .partnerKey { min-width: unset; }
+}

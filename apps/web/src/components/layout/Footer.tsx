@@ -1,10 +1,15 @@
 import Link from 'next/link'
 import styles from './footer.module.css'
 
-const footerLinks = [
+const mainLinks = [
   { label: 'Shop',    href: '/shop' },
   { label: 'Sellers', href: '/sellers' },
   { label: 'About',   href: '/about' },
+]
+
+const legalLinks = [
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/terms' },
 ]
 
 export default function Footer() {
@@ -20,7 +25,7 @@ export default function Footer() {
         </div>
 
         <nav className={styles.nav}>
-          {footerLinks.map(link => (
+          {mainLinks.map(link => (
             <Link key={link.href} href={link.href} className={styles.navLink}>
               {link.label}
             </Link>
@@ -30,6 +35,15 @@ export default function Footer() {
         <div className={styles.copy}>
           &copy; {new Date().getFullYear()} Vuna. All rights reserved.
         </div>
+      </div>
+
+      <div className={styles.legal}>
+        {legalLinks.map(link => (
+          <Link key={link.href} href={link.href} className={styles.legalLink}>
+            {link.label}
+          </Link>
+        ))}
+        <span className={styles.legalNote}>Umzila-AfriRoute (Pty) Ltd · POPIA Compliant</span>
       </div>
     </footer>
   )

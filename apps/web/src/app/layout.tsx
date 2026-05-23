@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Providers from './providers'
+import CookieBanner from '@/components/layout/CookieBanner'
+
 
 export const metadata: Metadata = {
   title: 'Vuna — Reap What Africa Makes',
@@ -16,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>{children}</Providers>
+        <CookieBanner />
       </body>
     </html>
   )

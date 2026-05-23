@@ -11,7 +11,8 @@
     "db:generate": "prisma generate --config prisma.config.ts",
     "db:push":     "prisma db push --config prisma.config.ts",
     "db:migrate":  "prisma migrate dev --config prisma.config.ts",
-    "db:studio":   "prisma studio --config prisma.config.ts"
+    "db:studio":   "prisma studio --config prisma.config.ts",
+    "db:seed":     "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "prisma": "^7.8.0",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

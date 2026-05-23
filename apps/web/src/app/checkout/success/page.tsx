@@ -14,8 +14,8 @@ const promiseItems = [
 
 export default function CheckoutSuccess() {
   useEffect(() => {
-    localStorage.removeItem('soko_cart')
-    window.dispatchEvent(new Event('soko_cart_updated'))
+    localStorage.removeItem('vuna_cart')
+    window.dispatchEvent(new Event('vuna_cart_updated'))
   }, [])
 
   return (
@@ -33,7 +33,7 @@ export default function CheckoutSuccess() {
           </p>
 
           <div className={styles.promise}>
-            <div className={styles.promiseLabel}>The Soko Promise</div>
+            <div className={styles.promiseLabel}>The Vuna Promise</div>
             {promiseItems.map(({ Icon, text }) => (
               <div key={text} className={styles.promiseItem}>
                 <Icon size={13} />

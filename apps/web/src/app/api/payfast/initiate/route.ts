@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       m_payment_id:  orderId,
       amount:        parseFloat(amount).toFixed(2),
       item_name:     itemName,
-      item_description: 'African made products — Soko marketplace',
+      item_description: 'African made products — Vuna marketplace',
     })
 
     return NextResponse.json({ fields })

@@ -21,8 +21,6 @@ export default async function FeaturedProducts() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.divider} />
-
       <div className={styles.header}>
         <div>
           <h2 className={styles.heading}>
@@ -38,7 +36,7 @@ export default async function FeaturedProducts() {
           <div className={styles.emptyIcon}><Sprout size={48} /></div>
           <div className={styles.emptyTitle}>The first products are coming</div>
           <p className={styles.emptyText}>
-            Soko is just getting started. Be the first African creator
+            Vuna is just getting started. Be the first African creator
             to list your work and reach the world.
           </p>
           <Link href="/register/seller" className={styles.emptyBtn}>
@@ -54,7 +52,7 @@ export default async function FeaturedProducts() {
                   {product.category.icon}
                   {product.seller.isVerified && (
                     <span className={styles.verifiedBadge}>
-                      <ShieldCheck size={10} /> Soko
+                      <ShieldCheck size={10} /> Vuna
                     </span>
                   )}
                 </div>

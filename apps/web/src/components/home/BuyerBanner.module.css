@@ -1,0 +1,111 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.82), rgba(28, 10, 0, 0.82)),
+    url('https://images.pexels.com/photos/9130275/pexels-photo-9130275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    center / cover no-repeat;
+  border-radius: 20px;
+  padding: 48px;
+  margin: 0 32px 48px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  min-width: 260px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: #D97706;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.heading {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #FEF3C7;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.description {
+  font-size: 15px;
+  color: #D6D3D1;
+  line-height: 1.7;
+  max-width: 440px;
+  margin-bottom: 20px;
+}
+
+.perks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #FDE68A;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.btnPrimary {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.btnPrimary:hover {
+  background: #6b2510;
+}
+
+.btnOutline {
+  display: inline-block;
+  padding: 14px 28px;
+  background: transparent;
+  color: #FEF3C7;
+  border: 1.5px solid #FEF3C7;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.15s;
+}
+
+.btnOutline:hover {
+  background: rgba(254, 243, 199, 0.1);
+}
+
+@media (max-width: 768px) {
+  .section  { margin: 0 16px 32px; padding: 36px 24px; }
+  .heading  { font-size: 22px; }
+}

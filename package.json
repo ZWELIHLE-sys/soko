@@ -12,7 +12,8 @@
     "db:generate": "turbo run db:generate --filter=@vuna/db",
     "db:push": "turbo run db:push --filter=@vuna/db",
     "db:migrate": "turbo run db:migrate --filter=@vuna/db",
-    "db:studio": "turbo run db:studio --filter=@vuna/db"
+    "db:studio": "turbo run db:studio --filter=@vuna/db",
+    "db:seed": "turbo run db:seed --filter=@vuna/db"
   },
   "devDependencies": {
     "turbo": "^2.0.0"

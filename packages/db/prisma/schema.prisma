@@ -92,11 +92,13 @@ model Seller {
   brandName   String       // Their shop name e.g. "Nomvula's Beadwork"
   phone       String
   password    String
-  bio         String?      // Their story
-  avatar      String?
-  banner      String?      // Shop banner image
-  status      SellerStatus @default(PENDING)
-  isVerified  Boolean      @default(false)
+  bio             String?      // Their story
+  suburb          String?      // Specific area / neighbourhood within their city
+  customCategory  String?      // Used when seller selects "Other" category
+  avatar          String?
+  banner          String?      // Shop banner image
+  status          SellerStatus @default(PENDING)
+  isVerified      Boolean      @default(false)
 
   // Location — which city this seller operates from
   locationId  String
@@ -106,8 +108,8 @@ model Seller {
   categoryId  String
   category    Category     @relation(fields: [categoryId], references: [id])
 
-  // Verification proof — photo/video of them making the product
-  proofUrl    String?
+  // Verification proof — photos of seller making their product (anti-scam)
+  proofUrls   String[]     @default([])
 
   // Relations
   products    Product[]

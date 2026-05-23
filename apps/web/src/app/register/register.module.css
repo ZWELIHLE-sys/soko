@@ -7,12 +7,9 @@
 
 .patternStrip {
   height: 6px;
-  background: repeating-linear-gradient(
+  background: linear-gradient(
     90deg,
-    #7C2D12 0px, #7C2D12 12px,
-    #D97706 12px, #D97706 24px,
-    #14532D 24px, #14532D 36px,
-    #C2410C 36px, #C2410C 48px
+    #1C0A00 0%, #7C2D12 20%, #D97706 50%, #7C2D12 80%, #1C0A00 100%
   );
 }
 

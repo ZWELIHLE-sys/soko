@@ -1,0 +1,160 @@
+.wrap {
+  margin-bottom: 24px;
+}
+
+.intro {
+  background: rgba(124, 45, 18, 0.05);
+  border: 1px solid rgba(124, 45, 18, 0.15);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.introText {
+  font-size: 12px;
+  color: #57211A;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.slots {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slot {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.slotFilled {
+  border-color: #7C2D12;
+}
+
+.slotHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+}
+
+.slotNum {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.slotFilled .slotNum {
+  background: #16a34a;
+}
+
+.slotIcon {
+  color: #D97706;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.slotLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+.slotDesc {
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.slotRemove {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: #fee2e2;
+  color: #991b1b;
+  border: none;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.addBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 20px 16px;
+  background: #FAFAF9;
+  border: none;
+  border-top: 1px dashed #d1d5db;
+  cursor: pointer;
+  color: #7C2D12;
+  transition: background 0.15s;
+}
+
+.addBtn:hover {
+  background: rgba(124,45,18,0.04);
+}
+
+.addBtnLabel {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.addBtnHint {
+  font-size: 11px;
+  color: #9ca3af;
+  line-height: 1.4;
+  text-align: center;
+  max-width: 320px;
+}
+
+.preview {
+  position: relative;
+  height: 160px;
+  cursor: pointer;
+  border-top: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.previewImg {
+  object-fit: cover;
+}
+
+.previewOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+
+.preview:hover .previewOverlay {
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+}

@@ -3,17 +3,6 @@
   background: #fff;
 }
 
-.divider {
-  height: 4px;
-  margin-bottom: 48px;
-  background: repeating-linear-gradient(
-    90deg,
-    #14532D 0px, #14532D 8px,
-    #D97706 8px, #D97706 16px,
-    #7C2D12 16px, #7C2D12 24px,
-    #C2410C 24px, #C2410C 32px
-  );
-}
 
 .header {
   display: flex;

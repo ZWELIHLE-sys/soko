@@ -13,8 +13,8 @@ export default function RegisterPage() {
         <div className={styles.wrapper}>
 
           <div className={styles.logoBox}>
-            <div className={styles.logoIcon}>S</div>
-            <div className={styles.logoTitle}>Join Soko</div>
+            <div className={styles.logoIcon}>V</div>
+            <div className={styles.logoTitle}>Join Vuna</div>
             <div className={styles.logoSub}>Africa&apos;s own marketplace — To The World</div>
           </div>
 
@@ -37,11 +37,11 @@ export default function RegisterPage() {
           </div>
 
           <div className={styles.sacredRules}>
-            <div className={styles.sacredTitle}>Soko&apos;s 3 Sacred Rules for Sellers</div>
+            <div className={styles.sacredTitle}>Vuna&apos;s 3 Sacred Rules for Sellers</div>
             <div className={styles.sacredList}>
               <div className={styles.sacredItem}><Globe size={14} /> African owned</div>
               <div className={styles.sacredItem}><HandHeart size={14} /> Hand produced</div>
-              <div className={styles.sacredItem}><ShieldCheck size={14} /> Soko Verified</div>
+              <div className={styles.sacredItem}><ShieldCheck size={14} /> Vuna Verified</div>
             </div>
           </div>
 

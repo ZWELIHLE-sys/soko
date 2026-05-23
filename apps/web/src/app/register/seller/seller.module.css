@@ -5,12 +5,9 @@
 
 .patternStrip {
   height: 6px;
-  background: repeating-linear-gradient(
+  background: linear-gradient(
     90deg,
-    #7C2D12 0px, #7C2D12 12px,
-    #D97706 12px, #D97706 24px,
-    #14532D 24px, #14532D 36px,
-    #C2410C 36px, #C2410C 48px
+    #1C0A00 0%, #7C2D12 20%, #D97706 50%, #7C2D12 80%, #1C0A00 100%
   );
 }
 
@@ -34,7 +31,7 @@
   font-family: Georgia, serif;
   font-size: 22px;
   font-weight: 700;
-  color: #14532D;
+  color: #7C2D12;
 }
 
 .subtitle {
@@ -102,6 +99,11 @@
   margin-bottom: 6px;
 }
 
+.labelOptional {
+  font-weight: 400;
+  color: #9ca3af;
+}
+
 .input {
   width: 100%;
   padding: 10px 12px;
@@ -133,6 +135,55 @@
   box-sizing: border-box;
   background: #fff;
   cursor: pointer;
+}
+
+/* ── Category picker ── */
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.categoryOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 12px;
+  background: #FAFAF9;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.categoryOption:hover { border-color: #7C2D12; }
+
+.categoryOptionSelected {
+  border-color: #7C2D12;
+  background: rgba(124, 45, 18, 0.04);
+}
+
+.categoryOptionIcon {
+  color: #D97706;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.categoryOptionName {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.categoryOptionDesc {
+  font-size: 11px;
+  color: #9ca3af;
+  line-height: 1.3;
 }
 
 .error {

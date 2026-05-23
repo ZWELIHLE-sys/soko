@@ -12,6 +12,9 @@ export async function POST(req: NextRequest) {
       phone,
       brandName,
       bio,
+      suburb,
+      customCategory,
+      proofUrls,
       locationId,
       categoryId,
     } = body
@@ -20,6 +23,20 @@ export async function POST(req: NextRequest) {
     if (!name || !email || !password || !phone || !brandName || !locationId || !categoryId) {
       return NextResponse.json(
         { error: 'All fields are required' },
+        { status: 400 }
+      )
+    }
+
+    if (categoryId === 'cat-other' && !customCategory?.trim()) {
+      return NextResponse.json(
+        { error: 'Please describe what you make' },
+        { status: 400 }
+      )
+    }
+
+    if (!proofUrls || proofUrls.length === 0) {
+      return NextResponse.json(
+        { error: 'Please upload at least one photo of you making your product' },
         { status: 400 }
       )
     }
@@ -48,6 +65,9 @@ export async function POST(req: NextRequest) {
         phone,
         brandName,
         bio,
+        suburb:         suburb         || null,
+        customCategory: customCategory || null,
+        proofUrls:      proofUrls      || [],
         locationId,
         categoryId,
         status: 'PENDING',

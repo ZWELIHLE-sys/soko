@@ -2,8 +2,6 @@ import Link from 'next/link'
 import { Globe } from 'lucide-react'
 import styles from './Hero.module.css'
 
-const colors = ['#C2410C', '#D97706', '#14532D', '#7C2D12']
-
 const stats = [
   { num: '9', label: 'SA Provinces' },
   { num: '14', label: 'Categories' },
@@ -14,12 +12,6 @@ const stats = [
 export default function Hero() {
   return (
     <section className={styles.section}>
-      <div className={styles.kenteBg}>
-        {Array.from({ length: 30 }).map((_, i) => (
-          <div key={i} className={styles.kenteBlock} style={{ background: colors[i % colors.length] }} />
-        ))}
-      </div>
-
       <div className={styles.content}>
         <div className={styles.tag}>
           <Globe size={12} />
@@ -41,7 +33,7 @@ export default function Hero() {
         </p>
 
         <div className={styles.buttons}>
-          <Link href="/shop" className={styles.btnPrimary}>Shop African Made</Link>
+          <Link href="/register/buyer" className={styles.btnPrimary}>Shop African Made</Link>
           <Link href="/register/seller" className={styles.btnOutline}>Sell Your Work</Link>
         </div>
 

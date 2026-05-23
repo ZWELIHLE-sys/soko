@@ -90,7 +90,7 @@ export default function ProductDetailPage() {
 
     setAddingToCart(true)
 
-    const cart: CartItem[] = JSON.parse(localStorage.getItem('soko_cart') || '[]')
+    const cart: CartItem[] = JSON.parse(localStorage.getItem('vuna_cart') || '[]')
     const existingIndex = cart.findIndex(item => item.productId === product.id)
 
   if (existingIndex > -1) {
@@ -109,8 +109,8 @@ export default function ProductDetailPage() {
     })
   }
 
-  localStorage.setItem('soko_cart', JSON.stringify(cart))
-  window.dispatchEvent(new Event('soko_cart_updated'))  // ← ADD THIS LINE
+  localStorage.setItem('vuna_cart', JSON.stringify(cart))
+  window.dispatchEvent(new Event('vuna_cart_updated'))  // ← ADD THIS LINE
   setAddingToCart(false)
   setCartMessage('Added to cart!')
   setTimeout(() => setCartMessage(''), 3000)
@@ -184,7 +184,7 @@ export default function ProductDetailPage() {
               {product.seller.isVerified && (
                 <div className={styles.verifiedBadge}>
                   <BadgeCheck size={13} />
-                  Soko Verified
+                  Vuna Verified
                 </div>
               )}
             </div>
@@ -268,9 +268,9 @@ export default function ProductDetailPage() {
             </Link>
 
             <div className={styles.promise}>
-              <div className={styles.promiseLabel}>The Soko Promise</div>
+              <div className={styles.promiseLabel}>The Vuna Promise</div>
               <div className={styles.promiseItem}><Handshake size={13} /> Handmade by a real African creator</div>
-              <div className={styles.promiseItem}><BadgeCheck size={13} /> Seller verified by Soko team</div>
+              <div className={styles.promiseItem}><BadgeCheck size={13} /> Seller verified by Vuna team</div>
               <div className={styles.promiseItem}><Globe size={13} /> Supporting African livelihoods</div>
             </div>
           </div>
@@ -286,13 +286,13 @@ export default function ProductDetailPage() {
                 <span className={styles.sellerName}>{product.seller.brandName}</span>
                 {product.seller.isVerified && (
                   <span className={styles.sellerVerified}>
-                    <BadgeCheck size={11} /> Soko Verified
+                    <BadgeCheck size={11} /> Vuna Verified
                   </span>
                 )}
               </div>
               <div className={styles.sellerInfo}>
                 <MapPin size={12} />
-                {product.seller.location.name} &middot; {product.seller._count.products} product{product.seller._count.products !== 1 ? 's' : ''} on Soko
+                {product.seller.location.name} &middot; {product.seller._count.products} product{product.seller._count.products !== 1 ? 's' : ''} on Vuna
               </div>
               {product.seller.bio && (
                 <p className={styles.sellerBio}>{product.seller.bio}</p>

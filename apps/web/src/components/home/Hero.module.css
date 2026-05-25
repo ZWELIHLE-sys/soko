@@ -1,7 +1,7 @@
-.section {
+﻿.section {
   background:
     linear-gradient(rgba(28, 10, 0, 0.87), rgba(28, 10, 0, 0.87)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   padding: 72px 32px;
   position: relative;
@@ -121,13 +121,13 @@
   margin-top: 2px;
 }
 
-/* ── Animations ── */
+/* â”€â”€ Animations â”€â”€ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Responsive ── */
+/* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 768px) {
   .section { padding: 48px 20px; }
   .heading { font-size: 36px; }

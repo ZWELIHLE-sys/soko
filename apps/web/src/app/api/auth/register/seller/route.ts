@@ -15,6 +15,9 @@ export async function POST(req: NextRequest) {
       suburb,
       customCategory,
       proofUrls,
+      videoUrl,
+      socialMediaLink,
+      hasDeclaration,
       locationId,
       categoryId,
     } = body
@@ -56,7 +59,7 @@ export async function POST(req: NextRequest) {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12)
 
-    // Create seller â€” status starts as PENDING until admin verifies
+    // Create seller — status starts as PENDING until admin verifies
     const seller = await prisma.seller.create({
       data: {
         name,
@@ -67,7 +70,10 @@ export async function POST(req: NextRequest) {
         bio,
         suburb:         suburb         || null,
         customCategory: customCategory || null,
-        proofUrls:      proofUrls      || [],
+        proofUrls:       proofUrls      || [],
+        videoUrl:        videoUrl       || null,
+        socialMediaLink: socialMediaLink || null,
+        hasDeclaration:  hasDeclaration  || false,
         locationId,
         categoryId,
         status: 'PENDING',

@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import { PAYFAST_URL } from '@/lib/payfast'
-import { Bike, Truck, Package, Store, Globe, Lock, BadgeCheck } from 'lucide-react'
+import { Globe, Lock, BadgeCheck, Info } from 'lucide-react'
 import styles from './checkout.module.css'
 
 interface CartItem {
@@ -22,14 +22,6 @@ interface CartItem {
 }
 
 interface Location { id: string; name: string }
-
-const deliveryOptions = [
-  { value: 'SOKO_RIDER',  label: 'Vuna Rider',       Icon: Bike,    price: 45,  days: 'Same day (local)' },
-  { value: 'COURIER_GUY', label: 'The Courier Guy',   Icon: Truck,   price: 89,  days: '3-5 business days' },
-  { value: 'FASTWAY',     label: 'Fastway Couriers',  Icon: Package, price: 75,  days: '4-6 business days' },
-  { value: 'PARGO',       label: 'Pargo Pickup',      Icon: Store,   price: 55,  days: '5-7 business days' },
-  { value: 'DHL',         label: 'DHL Express',       Icon: Globe,   price: 245, days: '1-2 business days' },
-]
 
 const securityItems = [
   { Icon: Lock,       text: '256-bit SSL secured' },
@@ -54,14 +46,13 @@ export default function CheckoutPage() {
   const [error, setError]         = useState('')
 
   const [form, setForm] = useState({
-    firstName:    '',
-    lastName:     '',
-    phone:        '',
-    address:      '',
-    provinceId:   '',
-    districtId:   '',
-    cityId:       '',
-    deliveryTier: 'COURIER_GUY',
+    firstName:  '',
+    lastName:   '',
+    phone:      '',
+    address:    '',
+    provinceId: '',
+    districtId: '',
+    cityId:     '',
   })
 
   useEffect(() => {
@@ -89,10 +80,7 @@ export default function CheckoutPage() {
     }
   }, [payFastFields])
 
-  const selectedDelivery = deliveryOptions.find(d => d.value === form.deliveryTier)!
-  const subtotal  = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const deliveryFee = selectedDelivery?.price || 89
-  const total = subtotal + deliveryFee
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   const handleProvinceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDistricts([])
@@ -123,8 +111,8 @@ export default function CheckoutPage() {
         items: cart,
         deliveryAddress: form.address,
         deliveryCityId:  form.cityId,
-        deliveryTier:    form.deliveryTier,
-        deliveryFee,
+        deliveryTier:    'SELLER_ARRANGED',
+        deliveryFee:     0,
       })
     })
 
@@ -141,7 +129,7 @@ export default function CheckoutPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         orderId:   orderData.orders[0].id,
-        amount:    total.toFixed(2),
+        amount:    subtotal.toFixed(2),
         firstName: form.firstName,
         lastName:  form.lastName,
         email:     session?.user?.email || '',
@@ -258,26 +246,22 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Delivery method */}
-              <div className={styles.card}>
-                <div className={styles.cardLabel}>Delivery Method</div>
-                <div className={styles.deliveryList}>
-                  {deliveryOptions.map(({ value, label, Icon, price, days }) => (
-                    <div
-                      key={value}
-                      onClick={() => setForm({ ...form, deliveryTier: value })}
-                      className={`${styles.deliveryOption} ${form.deliveryTier === value ? styles.deliveryOptionActive : ''}`}
-                    >
-                      <div className={styles.deliveryLeft}>
-                        <Icon size={18} className={styles.deliveryIcon} />
-                        <div>
-                          <div className={styles.deliveryName}>{label}</div>
-                          <div className={styles.deliveryDays}>{days}</div>
-                        </div>
-                      </div>
-                      <div className={styles.deliveryPrice}>R{price}</div>
-                    </div>
-                  ))}
+              {/* TODO: DHL API integration
+                  Replace this notice with a real-time delivery method selector.
+                  Flow: buyer location + seller location → DHL rate API → show cost + ETA.
+                  Vuna generates waybill on order confirm, buyer gets tracking number.
+                  DeliveryTier enum already has DHL — just switch from SELLER_ARRANGED.
+                  Reference: packages/db/prisma/schema.prisma DeliveryTier enum */}
+              {/* Delivery notice */}
+              <div className={styles.deliveryNotice}>
+                <Info size={16} className={styles.deliveryNoticeIcon} />
+                <div>
+                  <div className={styles.deliveryNoticeTitle}>Delivery arranged by the seller</div>
+                  <div className={styles.deliveryNoticeText}>
+                    Once your order is confirmed, the seller will contact you directly
+                    to arrange delivery and confirm any associated cost. Your delivery
+                    address above will be shared with them.
+                  </div>
                 </div>
               </div>
             </div>
@@ -317,14 +301,14 @@ export default function CheckoutPage() {
                   <span>R{subtotal.toFixed(2)}</span>
                 </div>
                 <div className={styles.totalRow}>
-                  <span>Delivery ({selectedDelivery?.label})</span>
-                  <span>R{deliveryFee.toFixed(2)}</span>
+                  <span>Delivery</span>
+                  <span className={styles.totalRowMuted}>Confirmed by seller</span>
                 </div>
               </div>
 
               <div className={styles.grandTotal}>
-                <span className={styles.grandTotalLabel}>Total</span>
-                <span className={styles.grandTotalAmount}>R{total.toFixed(2)}</span>
+                <span className={styles.grandTotalLabel}>Total (excl. delivery)</span>
+                <span className={styles.grandTotalAmount}>R{subtotal.toFixed(2)}</span>
               </div>
 
               {error && (

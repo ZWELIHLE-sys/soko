@@ -19,6 +19,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json()
+    // TODO: DHL API integration — when DHL is active, deliveryTier will be 'DHL',
+    // deliveryFee will be the real DHL rate, and a waybill should be generated here
+    // via the DHL Express API and stored on the order (add trackingNumber field).
     const { items, deliveryAddress, deliveryCityId, deliveryTier, deliveryFee } = body
 
     if (!items || items.length === 0) {

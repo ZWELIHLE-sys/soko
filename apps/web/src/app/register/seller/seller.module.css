@@ -104,6 +104,104 @@
   color: #9ca3af;
 }
 
+.labelRequired {
+  font-weight: 400;
+  color: #7C2D12;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.labelIcon {
+  display: inline;
+  vertical-align: middle;
+  margin-right: 5px;
+  color: #7C2D12;
+}
+
+.fieldHint {
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.uploadBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1.5px dashed #D97706;
+  border-radius: 8px;
+  color: #D97706;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+}
+
+.uploadBtn:hover {
+  background: #fffbeb;
+}
+
+.videoSelected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #fffbeb;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.videoRemove {
+  margin-left: auto;
+  font-size: 12px;
+  color: #DC2626;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.videoErrorMsg {
+  font-size: 12px;
+  color: #DC2626;
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: #FEF2F2;
+  border-radius: 6px;
+}
+
+.declarationBox {
+  background: #1C0A00;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.declarationLabel {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: #FDE68A;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.declarationCheck {
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: #D97706;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
 .input {
   width: 100%;
   padding: 10px 12px;

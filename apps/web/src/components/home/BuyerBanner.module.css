@@ -1,11 +1,11 @@
-.section {
+﻿.section {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40px;
   background:
     linear-gradient(rgba(28, 10, 0, 0.82), rgba(28, 10, 0, 0.82)),
-    url('https://images.pexels.com/photos/9130275/pexels-photo-9130275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/african-market.jpg')
     center / cover no-repeat;
   border-radius: 20px;
   padding: 48px;

@@ -59,7 +59,9 @@ model User {
   password   String
   role       UserRole @default(BUYER)
   avatar     String?
-  isVerified Boolean  @default(false)
+  isVerified         Boolean   @default(false)
+  emailVerifyToken   String?   // 6-digit OTP (plain, short-lived)
+  emailVerifyExpiry  DateTime?
 
   // Location — which city this buyer is in
   locationId String?
@@ -108,8 +110,12 @@ model Seller {
   categoryId  String
   category    Category     @relation(fields: [categoryId], references: [id])
 
-  // Verification proof — photos of seller making their product (anti-scam)
-  proofUrls   String[]     @default([])
+  // Verification proof
+  proofUrls          String[]  @default([])   // 3 required photos
+  materialsPhotoUrl  String?                  // materials/tools photo
+  videoUrl           String?                  // 30-60 sec craft video
+  socialMediaLink    String?                  // optional Instagram/TikTok/Facebook
+  hasDeclaration     Boolean   @default(false) // legal self-declaration checkbox
 
   // Relations
   products    Product[]
@@ -196,12 +202,20 @@ enum OrderStatus {
 }
 
 enum DeliveryTier {
-  SOKO_RIDER    // Local ground fleet
-  COURIER_GUY   // The Courier Guy
-  FASTWAY       // Fastway Couriers
-  PARGO         // Pargo pickup point
-  DHL           // DHL Express international
-  ARAMEX        // Aramex Africa
+  SELLER_ARRANGED // Current: buyer and seller coordinate delivery directly
+
+  // TODO: DHL API integration — contact DHL Express South Africa for SME/eCommerce
+  // partnership programme. Vuna holds a platform-level DHL account, negotiates bulk
+  // rates, and sellers book pickups from the seller dashboard. Vuna generates the
+  // waybill via DHL API and buyer receives a tracking number automatically.
+  // See: apps/web/src/app/checkout/page.tsx and apps/web/src/app/api/orders/create/route.ts
+  DHL             // DHL Express — platform-level account (future)
+
+  SOKO_RIDER      // Vuna Rider local fleet (future)
+  COURIER_GUY     // The Courier Guy (future)
+  FASTWAY         // Fastway Couriers (future)
+  PARGO           // Pargo pickup point (future)
+  ARAMEX          // Aramex Africa (future)
 }
 
 model Order {

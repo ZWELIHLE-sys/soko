@@ -1,4 +1,4 @@
-import Navbar from '@/components/layout/Navbar'
+﻿import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
 import FadeIn from '@/components/ui/FadeIn'
@@ -92,8 +92,8 @@ export default function AboutPage() {
               </div>
             </div>
             <img
-              src="https://images.pexels.com/photos/15859553/pexels-photo-15859553.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&dpr=1"
-              alt="African handcrafted wooden utensils and spoons"
+              src="/images/african-weave.jpg"
+              alt="African handwoven baskets with geometric patterns"
               className={styles.storyImage}
             />
           </div>

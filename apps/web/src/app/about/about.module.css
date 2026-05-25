@@ -1,13 +1,13 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #FAFAF9;
 }
 
-/* ── Hero ── */
+/* â”€â”€ Hero â”€â”€ */
 .hero {
   background:
     linear-gradient(rgba(28, 10, 0, 0.86), rgba(28, 10, 0, 0.86)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   padding: 80px 32px;
   text-align: center;
@@ -72,18 +72,18 @@
   line-height: 1.8;
 }
 
-/* ── Content ── */
+/* â”€â”€ Content â”€â”€ */
 .content {
   max-width: 800px;
   margin: 0 auto;
   padding: 64px 32px;
 }
 
-/* ── Meaning card ── */
+/* â”€â”€ Meaning card â”€â”€ */
 .meaningCard {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/cat-textiles.jpg')
     center / cover no-repeat;
   border-radius: 16px;
   border: none;
@@ -129,7 +129,7 @@
   line-height: 1.5;
 }
 
-/* ── Story ── */
+/* â”€â”€ Story â”€â”€ */
 .storySection {
   margin-bottom: 40px;
   display: grid;
@@ -163,7 +163,7 @@
   gap: 16px;
 }
 
-/* ── Sacred Rules ── */
+/* â”€â”€ Sacred Rules â”€â”€ */
 .rulesCard {
   background: transparent;
   padding: 0;
@@ -211,11 +211,11 @@
   margin: 0;
 }
 
-/* ── Behind Vuna ── */
+/* â”€â”€ Behind Vuna â”€â”€ */
 .behindCard {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&dpr=1')
+    url('/images/african-market.jpg')
     center / cover no-repeat;
   border-radius: 16px;
   padding: 36px;
@@ -251,7 +251,7 @@
   color: #D97706;
 }
 
-/* ── CTA ── */
+/* â”€â”€ CTA â”€â”€ */
 .cta {
   text-align: center;
 }
@@ -309,7 +309,7 @@
   background: #f9fafb;
 }
 
-/* ── Responsive ── */
+/* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 768px) {
   .heroTitle      { font-size: 36px; }
   .storySection   { grid-template-columns: 1fr; }

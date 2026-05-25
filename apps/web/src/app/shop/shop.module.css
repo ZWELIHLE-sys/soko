@@ -1,13 +1,13 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #FAFAF9;
 }
 
-/* ── Hero ── */
+/* â”€â”€ Hero â”€â”€ */
 .hero {
   background:
     linear-gradient(rgba(28, 10, 0, 0.86), rgba(28, 10, 0, 0.86)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   padding: 44px 32px 40px;
 }
@@ -38,10 +38,6 @@
   font-weight: 500;
 }
 
-.heroIcon {
-  color: #D97706;
-  margin-bottom: 12px;
-}
 
 .heroTitle {
   font-family: Georgia, serif;
@@ -57,14 +53,14 @@
   color: #A8A29E;
 }
 
-/* ── Inner ── */
+/* â”€â”€ Inner â”€â”€ */
 .inner {
   max-width: 1100px;
   margin: 0 auto;
   padding: 52px 32px 64px;
 }
 
-/* ── Empty state ── */
+/* â”€â”€ Empty state â”€â”€ */
 .emptyState {
   text-align: center;
   padding: 24px 0 40px;
@@ -145,7 +141,7 @@
 
 .emptySellerLink:hover { text-decoration: underline; }
 
-/* ── Other categories ── */
+/* â”€â”€ Other categories â”€â”€ */
 .otherCategories {
   padding-top: 16px;
   border-top: 1px solid #e5e7eb;
@@ -194,7 +190,7 @@
   align-items: center;
 }
 
-/* ── Product grid ── */
+/* â”€â”€ Product grid â”€â”€ */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

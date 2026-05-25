@@ -2,6 +2,7 @@ import Link from 'next/link'
 import styles from './footer.module.css'
 
 const mainLinks = [
+  { label: 'Home',    href: '/' },
   { label: 'Shop',    href: '/shop' },
   { label: 'Sellers', href: '/sellers' },
   { label: 'About',   href: '/about' },

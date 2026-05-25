@@ -1,13 +1,13 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #FAFAF9;
 }
 
-/* ── Hero — uchansi background matching shop/sellers ── */
+/* -- Hero — uchansi background matching shop/sellers -- */
 .hero {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   padding: 56px 32px 48px;
   text-align: center;
@@ -18,7 +18,7 @@
   margin: 0 auto;
 }
 
-/* ── Breadcrumb ── */
+/* â”€â”€ Breadcrumb â”€â”€ */
 .breadcrumb {
   display: flex;
   align-items: center;
@@ -66,14 +66,14 @@
   line-height: 1.6;
 }
 
-/* ── Body container ── */
+/* â”€â”€ Body container â”€â”€ */
 .body {
   max-width: 800px;
   margin: 0 auto;
   padding: 52px 32px 80px;
 }
 
-/* ── POPIA compliance badge ── */
+/* â”€â”€ POPIA compliance badge â”€â”€ */
 .popiaBadge {
   background: #fff;
   border: 1.5px solid #7C2D12;
@@ -104,7 +104,7 @@
   line-height: 1.6;
 }
 
-/* ── Sections ── */
+/* â”€â”€ Sections â”€â”€ */
 .section {
   margin-bottom: 40px;
 }
@@ -149,7 +149,7 @@
   margin: 20px 0 8px;
 }
 
-/* ── Info officer box ── */
+/* â”€â”€ Info officer box â”€â”€ */
 .infoBox {
   background: #FAFAF9;
   border-left: 3px solid #7C2D12;
@@ -173,7 +173,7 @@
   margin-bottom: 5px;
 }
 
-/* ── Category label (For Buyers / For Sellers) ── */
+/* â”€â”€ Category label (For Buyers / For Sellers) â”€â”€ */
 .categoryLabel {
   font-size: 13px;
   font-weight: 600;
@@ -183,7 +183,7 @@
   margin: 16px 0 8px;
 }
 
-/* ── Purpose / partner rows ── */
+/* â”€â”€ Purpose / partner rows â”€â”€ */
 .purposeRow {
   display: flex;
   gap: 16px;
@@ -232,7 +232,7 @@
   line-height: 1.5;
 }
 
-/* ── Data retention table ── */
+/* â”€â”€ Data retention table â”€â”€ */
 .retentionRow {
   display: flex;
   justify-content: space-between;
@@ -250,7 +250,7 @@
 
 .retentionPeriod { color: #9CA3AF; font-style: italic; }
 
-/* ── POPIA rights cards ── */
+/* â”€â”€ POPIA rights cards â”€â”€ */
 .rightCard {
   display: flex;
   gap: 14px;
@@ -273,11 +273,11 @@
 
 .rightCardText { font-size: 13px; color: #374151; line-height: 1.5; }
 
-/* ── Sacred Rules box ── */
+/* â”€â”€ Sacred Rules box â”€â”€ */
 .sacredBox {
   background:
     linear-gradient(rgba(28, 10, 0, 0.92), rgba(28, 10, 0, 0.92)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   border-radius: 14px;
   padding: 28px 28px 24px;
@@ -323,11 +323,11 @@
   line-height: 1.5;
 }
 
-/* ── Contact card ── */
+/* â”€â”€ Contact card â”€â”€ */
 .contactCard {
   background:
     linear-gradient(rgba(28, 10, 0, 0.92), rgba(28, 10, 0, 0.92)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   border-radius: 14px;
   padding: 36px 28px;
@@ -363,7 +363,7 @@
 
 .contactAccent { color: #D97706; font-weight: 600; }
 
-/* ── Mobile ── */
+/* â”€â”€ Mobile â”€â”€ */
 @media (max-width: 640px) {
   .hero     { padding: 40px 20px 36px; }
   .heroTitle { font-size: 30px; }

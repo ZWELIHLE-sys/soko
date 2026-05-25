@@ -48,7 +48,7 @@ export default function BuyerRegisterPage() {
       return
     }
 
-    router.push('/login?registered=buyer')
+    router.push(`/verify-email?email=${encodeURIComponent(form.email)}`)
   }
 
   return (

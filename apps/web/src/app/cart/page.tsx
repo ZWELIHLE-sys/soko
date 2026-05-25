@@ -52,8 +52,6 @@ export default function CartPage() {
   }
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const delivery = subtotal > 0 ? 89 : 0
-  const total    = subtotal + delivery
 
   const totalItems = cart.reduce((s, i) => s + i.quantity, 0)
 
@@ -167,17 +165,17 @@ export default function CartPage() {
                   <span>R{subtotal.toFixed(2)}</span>
                 </div>
                 <div className={styles.summarySubLine}>
-                  <span>Estimated delivery</span>
-                  <span>R{delivery.toFixed(2)}</span>
+                  <span>Delivery</span>
+                  <span className={styles.summaryMuted}>Confirmed by seller</span>
                 </div>
                 <p className={styles.summaryNote}>
-                  Final delivery cost calculated at checkout based on your location.
+                  Delivery is arranged directly between you and the seller after your order is placed.
                 </p>
               </div>
 
               <div className={styles.summaryTotal}>
-                <span className={styles.summaryTotalLabel}>Total</span>
-                <span className={styles.summaryTotalAmount}>R{total.toFixed(2)}</span>
+                <span className={styles.summaryTotalLabel}>Total (excl. delivery)</span>
+                <span className={styles.summaryTotalAmount}>R{subtotal.toFixed(2)}</span>
               </div>
 
               <button className={styles.checkoutBtn} onClick={handleCheckout} disabled={loading}>
@@ -192,7 +190,7 @@ export default function CartPage() {
               <div className={styles.promise}>
                 <div className={styles.promiseItem}><Handshake size={12} /> Every item handmade by Africans</div>
                 <div className={styles.promiseItem}><BadgeCheck size={12} /> All sellers Vuna verified</div>
-                <div className={styles.promiseItem}><Truck size={12} /> Delivered across South Africa</div>
+                <div className={styles.promiseItem}><Truck size={12} /> Seller arranges delivery directly</div>
               </div>
             </div>
           </div>

@@ -1,13 +1,13 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #FAFAF9;
 }
 
-/* ── Hero ── */
+/* â”€â”€ Hero â”€â”€ */
 .hero {
   background:
     linear-gradient(rgba(28, 10, 0, 0.84), rgba(28, 10, 0, 0.84)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   padding: 80px 32px 72px;
   text-align: center;
@@ -95,7 +95,7 @@
 
 .heroBuyerLink:hover { text-decoration: underline; }
 
-/* ── Stats strip ── */
+/* â”€â”€ Stats strip â”€â”€ */
 .statsStrip {
   background: #fff;
   border-bottom: 1px solid #f3f4f6;
@@ -132,14 +132,14 @@
   letter-spacing: 0.8px;
 }
 
-/* ── Content ── */
+/* â”€â”€ Content â”€â”€ */
 .content {
   max-width: 900px;
   margin: 0 auto;
   padding: 64px 32px;
 }
 
-/* ── Benefits ── */
+/* â”€â”€ Benefits â”€â”€ */
 .sectionEyebrow {
   font-size: 11px;
   font-weight: 600;
@@ -190,7 +190,7 @@
   line-height: 1.7;
 }
 
-/* ── How it works ── */
+/* â”€â”€ How it works â”€â”€ */
 .stepsSection {
   margin-bottom: 64px;
 }
@@ -235,11 +235,11 @@
   margin: 0;
 }
 
-/* ── Rules banner ── */
+/* â”€â”€ Rules banner â”€â”€ */
 .rulesBanner {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/woven-rope.jpg')
     center / cover no-repeat;
   border-radius: 16px;
   padding: 40px 36px;
@@ -305,7 +305,7 @@
   font-style: italic;
 }
 
-/* ── Sellers showcase ── */
+/* â”€â”€ Sellers showcase â”€â”€ */
 .showcaseSection {
   margin-bottom: 64px;
 }
@@ -410,7 +410,7 @@
   font-weight: 600;
 }
 
-/* ── Empty sellers ── */
+/* â”€â”€ Empty sellers â”€â”€ */
 .emptyState {
   text-align: center;
   padding: 32px 0;
@@ -453,11 +453,11 @@
 
 .emptySellerLink:hover { text-decoration: underline; }
 
-/* ── CTA ── */
+/* â”€â”€ CTA â”€â”€ */
 .ctaBanner {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('https://images.pexels.com/photos/9130275/pexels-photo-9130275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/african-market.jpg')
     center / cover no-repeat;
   border-radius: 16px;
   padding: 52px 48px;

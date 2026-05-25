@@ -290,6 +290,11 @@
   line-height: 1.5;
 }
 
+.summaryMuted {
+  font-style: italic;
+  color: #9ca3af;
+}
+
 .summaryTotal {
   display: flex;
   justify-content: space-between;

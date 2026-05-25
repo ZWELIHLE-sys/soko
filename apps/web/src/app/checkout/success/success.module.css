@@ -77,6 +77,10 @@
   justify-content: center;
 }
 
+.actionLink {
+  text-decoration: none;
+}
+
 .primaryBtn {
   padding: 12px 24px;
   background: #7C2D12;

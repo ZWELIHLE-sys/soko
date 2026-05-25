@@ -9,6 +9,7 @@ import styles from './navbar.module.css'
 interface CartItem { quantity: number }
 
 const navLinks = [
+  { label: 'Home',    href: '/' },
   { label: 'Shop',    href: '/shop' },
   { label: 'Sellers', href: '/sellers' },
   { label: 'About',   href: '/about' },

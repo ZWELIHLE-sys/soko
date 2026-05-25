@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { PrismaClient } from '../src/generated/prisma/client'
-import { LocationType, SellerStatus, ProductStatus } from '../src/generated/prisma/enums'
+import { LocationType } from '../src/generated/prisma/enums'
 import { PrismaPg } from '@prisma/adapter-pg'
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
@@ -542,7 +542,12 @@ async function main() {
     })
   }
 
-  // ── TEST SELLERS ──────────────────────────────────────────────────────────
+  /* ── TEST SELLERS & PRODUCTS removed ─────────────────────────────────────
+     Real sellers register via /register/seller and are verified by the admin.
+     Real products are listed by verified sellers via the seller dashboard.
+  ── */
+
+  /*
   const testSellers = [
     {
       id: 'seller-nomvula',
@@ -624,9 +629,7 @@ async function main() {
   for (const seller of testSellers) {
     await prisma.seller.upsert({ where: { id: seller.id }, update: {}, create: seller })
   }
-  console.log('Test sellers seeded: 5 verified sellers')
 
-  // ── TEST PRODUCTS ──────────────────────────────────────────────────────────
   const testProducts = [
     {
       id: 'prod-beads-1',
@@ -729,7 +732,7 @@ async function main() {
   for (const product of testProducts) {
     await prisma.product.upsert({ where: { id: product.id }, update: {}, create: product })
   }
-  console.log('Test products seeded: 8 active products across 5 sellers')
+  */
 
   console.log('Vuna database seeded successfully!')
   console.log('Locations: Africa -> SA -> 9 Provinces -> Districts -> Cities')

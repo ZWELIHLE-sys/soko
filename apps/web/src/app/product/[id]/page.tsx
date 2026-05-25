@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import FadeIn from '@/components/ui/FadeIn'
 import styles from './product.module.css'
 
 interface Review {
@@ -164,6 +165,7 @@ export default function ProductDetailPage() {
           <span className={styles.breadCurrent}>{product.name}</span>
         </nav>
 
+        <FadeIn>
         <div className={styles.productGrid}>
 
           {/* Images */}
@@ -275,8 +277,10 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+        </FadeIn>
 
         {/* Seller */}
+        <FadeIn delay={80}>
         <div className={styles.card}>
           <h2 className={styles.cardTitle}>About The Seller</h2>
           <div className={styles.sellerRow}>
@@ -300,8 +304,10 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+        </FadeIn>
 
         {/* Reviews */}
+        <FadeIn delay={80}>
         <div className={styles.card}>
           <h2 className={styles.cardTitle}>
             Reviews {product.reviews.length > 0 && `(${product.reviews.length})`}
@@ -328,6 +334,7 @@ export default function ProductDetailPage() {
             </div>
           )}
         </div>
+        </FadeIn>
 
       </div>
 

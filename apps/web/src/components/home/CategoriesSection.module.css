@@ -1,41 +1,31 @@
 .section {
-  padding: 0 0 52px;
+  padding: 0 32px 52px;
   background: #FAFAF9;
 }
 
-/* ── Image banner ── */
-.imageBanner {
-  background:
-    linear-gradient(rgba(124, 45, 18, 0.78), rgba(124, 45, 18, 0.78)),
-    url('https://images.pexels.com/photos/15859553/pexels-photo-15859553.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
-    center / cover no-repeat;
-  padding: 52px 32px 40px;
-  margin-bottom: 0;
+/* -- Section header -- */
+.sectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 40px 0 24px;
 }
 
 .heading {
   font-family: Georgia, serif;
   font-size: 28px;
   font-weight: 700;
-  color: #FEF3C7;
+  color: #1a1a1a;
+  margin-bottom: 4px;
 }
 
 .headingAccent {
-  color: #D97706;
+  color: #7C2D12;
 }
 
 .subtitle {
   font-size: 14px;
-  color: #D6D3D1;
-  margin-top: 6px;
-}
-
-/* ── See all row ── */
-.headerRow {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 16px 32px 20px;
+  color: #6b7280;
 }
 
 .seeAll {
@@ -43,59 +33,66 @@
   color: #7C2D12;
   text-decoration: none;
   font-weight: 600;
+  white-space: nowrap;
+  padding-bottom: 2px;
 }
 
 .seeAll:hover {
   text-decoration: underline;
 }
 
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding: 0 32px;
+/* -- Photo card grid -- */
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
 
-.cardLink {
+.photoCard {
+  min-height: 200px;
+}
+
+.photoCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px 20px;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
   text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
 }
 
-.card {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+.photoCard:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
 
-.card:hover {
-  border-color: #7C2D12;
-  color: #7C2D12;
+.photoCardLabel {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 4px;
+  line-height: 1.2;
 }
 
-.icon {
-  color: #D97706;
-  display: flex;
-  align-items: center;
-}
-
-.name {
-  font-size: 13px;
-  font-weight: 500;
-  color: inherit;
+.photoCardSub {
+  font-size: 12px;
+  color: #D6D3D1;
+  line-height: 1.4;
 }
 
 @media (max-width: 768px) {
-  .imageBanner { padding: 36px 20px 28px; }
-  .heading     { font-size: 22px; }
-  .headerRow   { padding: 12px 20px 16px; }
-  .grid        { padding: 0 20px; gap: 8px; }
+  .section       { padding: 0 16px 40px; }
+  .sectionHeader { padding: 32px 0 20px; }
+  .heading       { font-size: 22px; }
+  .photoGrid     { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .photoCard     { min-height: 160px; }
+}
+
+@media (max-width: 480px) {
+  .photoGrid { grid-template-columns: 1fr; }
+  .photoCard { min-height: 140px; }
 }

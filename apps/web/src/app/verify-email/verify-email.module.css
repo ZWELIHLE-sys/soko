@@ -1,0 +1,164 @@
+.page {
+  min-height: 100vh;
+  background: #FAFAF9;
+}
+
+.patternStrip {
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    #1C0A00 0%, #7C2D12 20%, #D97706 50%, #7C2D12 80%, #1C0A00 100%
+  );
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 16px;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.iconWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.icon {
+  color: #7C2D12;
+}
+
+.cardTitle {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1C0A00;
+  margin-bottom: 10px;
+}
+
+.cardSub {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.emailHighlight {
+  color: #7C2D12;
+}
+
+.field {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.otpInput {
+  width: 100%;
+  padding: 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  text-align: center;
+  color: #1C0A00;
+  background: #fff;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.otpInput:focus {
+  border-color: #7C2D12;
+}
+
+.error {
+  background: #FEF2F2;
+  color: #DC2626;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.button {
+  width: 100%;
+  padding: 13px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.buttonLoading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.footer {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.link {
+  color: #7C2D12;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Success state */
+.successBox {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.successIcon {
+  color: #14532D;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.successTitle {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #14532D;
+  margin-bottom: 8px;
+}
+
+.successText {
+  font-size: 14px;
+  color: #6b7280;
+}

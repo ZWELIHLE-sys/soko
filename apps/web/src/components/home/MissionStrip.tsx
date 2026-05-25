@@ -5,7 +5,8 @@ const missions = [
   { icon: <HandHeart size={24} />, label: 'Hand Produced', sub: 'Made by real African people' },
   { icon: <ShieldCheck size={24} />, label: 'Vuna Verified', sub: 'Every seller checked by us' },
   { icon: <Globe size={24} />, label: 'African Owned', sub: '100% — no exceptions' },
-  { icon: <Truck size={24} />, label: 'SA Delivery', sub: 'Local riders + couriers' },
+  // TODO: DHL API integration — update label to 'DHL Delivery' and sub to 'Tracked door-to-door'
+  { icon: <Truck size={24} />, label: 'Direct Delivery', sub: 'Seller arranges with you' },
 ]
 
 export default function MissionStrip() {

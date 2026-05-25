@@ -1,7 +1,7 @@
-.section {
+﻿.section {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('https://images.pexels.com/photos/36319633/pexels-photo-36319633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+    url('/images/craft-basket.jpg')
     center / cover no-repeat;
   border-radius: 16px;
   margin: 0 32px 48px;

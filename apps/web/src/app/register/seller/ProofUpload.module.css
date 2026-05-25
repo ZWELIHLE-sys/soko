@@ -35,6 +35,20 @@
   border-color: #7C2D12;
 }
 
+.slotError {
+  border-color: #DC2626;
+}
+
+.slotErrorMsg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #DC2626;
+  padding: 6px 14px;
+  background: #FEF2F2;
+}
+
 .slotHeader {
   display: flex;
   align-items: flex-start;

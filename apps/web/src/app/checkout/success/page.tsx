@@ -8,7 +8,7 @@ import styles from './success.module.css'
 
 const promiseItems = [
   { Icon: Handshake, text: 'Made by a real African creator' },
-  { Icon: Truck,     text: 'Delivery tracking on the way' },
+  { Icon: Truck,     text: 'Seller will contact you to arrange delivery' },
   { Icon: Globe,     text: 'Your purchase supports livelihoods' },
 ]
 
@@ -43,10 +43,10 @@ export default function CheckoutSuccess() {
           </div>
 
           <div className={styles.actions}>
-            <Link href="/buyer/orders" style={{ textDecoration: 'none' }}>
+            <Link href="/buyer/orders" className={styles.actionLink}>
               <button className={styles.primaryBtn}>Track My Order</button>
             </Link>
-            <Link href="/shop" style={{ textDecoration: 'none' }}>
+            <Link href="/shop" className={styles.actionLink}>
               <button className={styles.secondaryBtn}>Keep Shopping</button>
             </Link>
           </div>

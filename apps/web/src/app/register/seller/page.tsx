@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   Globe, HandHeart, ShieldCheck,
   Shirt, Palette, Armchair, Wheat, Sparkles, Box,
   Cpu, BookOpen, Lamp, Scissors, Hammer, Leaf, Pencil, Camera,
-  PenLine,
+  PenLine, Video, Link2,
 } from 'lucide-react'
 import styles from './seller.module.css'
 import ProofUpload from './ProofUpload'
@@ -45,14 +45,42 @@ export default function SellerRegisterPage() {
     phone: '', brandName: '', bio: '',
     categoryId: '', customCategory: '',
     provinceId: '', districtId: '', locationId: '', suburb: '',
+    socialMediaLink: '',
   })
 
   const emptySlots = () => [
     { file: null, preview: null },
     { file: null, preview: null },
     { file: null, preview: null },
+    { file: null, preview: null },
   ]
   const [proofSlots, setProofSlots] = useState<{ file: File | null; preview: string | null }[]>(emptySlots)
+  const [videoFile, setVideoFile]           = useState<File | null>(null)
+  const [videoError, setVideoError]         = useState('')
+  const [hasDeclaration, setHasDeclaration] = useState(false)
+  const videoInputRef = useRef<HTMLInputElement>(null)
+
+  const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/quicktime', 'video/webm']
+  const MAX_VIDEO_MB = 150
+  const MAX_VIDEO_BYTES = MAX_VIDEO_MB * 1024 * 1024
+
+  const handleVideoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    if (!ALLOWED_VIDEO_TYPES.includes(file.type)) {
+      setVideoError('Unsupported video format. Please use a standard video from your phone or camera.')
+      e.target.value = ''
+      return
+    }
+    if (file.size > MAX_VIDEO_BYTES) {
+      setVideoError(`Video is too large — maximum size is ${MAX_VIDEO_MB} MB`)
+      e.target.value = ''
+      return
+    }
+    setVideoError('')
+    setVideoFile(file)
+    e.target.value = ''
+  }
 
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -107,15 +135,23 @@ export default function SellerRegisterPage() {
       return
     }
     const filledSlots = proofSlots.filter(s => s.file)
-    if (filledSlots.length < 3) {
-      setError('Please add all 3 proof photos before submitting')
+    if (filledSlots.length < 4) {
+      setError('Please add all 4 proof photos before submitting')
+      return
+    }
+    if (!videoFile) {
+      setError('Please add your craft video (30–60 seconds)')
+      return
+    }
+    if (!hasDeclaration) {
+      setError('Please confirm the self-declaration before submitting')
       return
     }
 
     setLoading(true)
-
-    // Upload proof photos first
     setUploadingProof(true)
+
+    // Upload 4 proof photos
     const proofUrls: string[] = []
     for (const { file } of filledSlots) {
       if (!file) continue
@@ -132,6 +168,21 @@ export default function SellerRegisterPage() {
       }
       proofUrls.push(upData.url)
     }
+
+    // Upload video
+    const vfd = new FormData()
+    vfd.append('file', videoFile)
+    vfd.append('folder', 'vuna/proof/videos')
+    const vup = await fetch('/api/upload', { method: 'POST', body: vfd })
+    const vupData = await vup.json()
+    if (!vup.ok) {
+      setError('Video upload failed. Please try again.')
+      setLoading(false)
+      setUploadingProof(false)
+      return
+    }
+    const videoUrl: string = vupData.url
+
     setUploadingProof(false)
 
     const res = await fetch('/api/auth/register/seller', {
@@ -148,7 +199,10 @@ export default function SellerRegisterPage() {
         customCategory: form.customCategory || undefined,
         locationId: form.locationId,
         suburb: form.suburb || undefined,
+        socialMediaLink: form.socialMediaLink || undefined,
         proofUrls,
+        videoUrl,
+        hasDeclaration: true,
       })
     })
 
@@ -332,6 +386,76 @@ export default function SellerRegisterPage() {
 
               <ProofUpload value={proofSlots} onChange={setProofSlots} />
 
+              {/* Video upload */}
+              <div className={styles.field}>
+                <label className={styles.label}>
+                  <Video size={14} className={styles.labelIcon} />
+                  Craft video — 30 to 60 seconds <span className={styles.labelRequired}>Required</span>
+                </label>
+                <p className={styles.fieldHint}>
+                  Record yourself making or working on your product. You do not need to speak —
+                  just show your hands and your craft.
+                </p>
+                {videoFile ? (
+                  <div className={styles.videoSelected}>
+                    <Video size={16} />
+                    <span>{videoFile.name} ({(videoFile.size / (1024 * 1024)).toFixed(1)} MB)</span>
+                    <button type="button" className={styles.videoRemove} onClick={() => { setVideoFile(null); setVideoError('') }}>Remove</button>
+                  </div>
+                ) : (
+                  <button type="button" className={styles.uploadBtn} onClick={() => videoInputRef.current?.click()}>
+                    <Video size={18} /> Choose video file
+                  </button>
+                )}
+                {videoError && (
+                  <div className={styles.videoErrorMsg}>{videoError}</div>
+                )}
+                <input
+                  ref={videoInputRef}
+                  type="file"
+                  accept="video/mp4,video/quicktime,video/webm"
+                  style={{ display: 'none' }}
+                  onChange={handleVideoSelect}
+                />
+              </div>
+
+              {/* Social media */}
+              <div className={styles.field}>
+                <label className={styles.label}>
+                  <Link2 size={14} className={styles.labelIcon} />
+                  Social media link <span className={styles.labelOptional}>(optional)</span>
+                </label>
+                <p className={styles.fieldHint}>
+                  Instagram, Facebook or TikTok where you show your craft. Not required —
+                  especially if you are just starting out.
+                </p>
+                <input
+                  className={styles.input}
+                  type="url"
+                  placeholder="e.g. https://www.instagram.com/yourcraft"
+                  value={form.socialMediaLink}
+                  onChange={e => setForm({ ...form, socialMediaLink: e.target.value })}
+                />
+              </div>
+
+              {/* Declaration */}
+              <div className={styles.declarationBox}>
+                <label className={styles.declarationLabel}>
+                  <input
+                    type="checkbox"
+                    className={styles.declarationCheck}
+                    checked={hasDeclaration}
+                    onChange={e => setHasDeclaration(e.target.checked)}
+                    required
+                  />
+                  <span>
+                    I declare that all products I list on Vuna are personally made, grown or produced
+                    by me or my registered business. I understand that listing fraudulent products will
+                    result in immediate removal and legal action.
+                  </span>
+                </label>
+              </div>
+
               {error && <div className={styles.error}>{error}</div>}
 
               <button
@@ -339,7 +463,7 @@ export default function SellerRegisterPage() {
                 disabled={loading}
                 className={`${styles.button} ${loading ? styles.buttonLoading : ''}`}
               >
-                {uploadingProof ? 'Uploading your photos...' : loading ? 'Submitting application...' : <><Globe size={15} /> Apply To Sell on Vuna</>}
+                {uploadingProof ? 'Uploading photos and video...' : loading ? 'Submitting application...' : <><Globe size={15} /> Apply To Sell on Vuna</>}
               </button>
             </form>
 

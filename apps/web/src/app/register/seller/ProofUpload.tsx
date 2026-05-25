@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
-import { Hammer, Building2, Users, X, ImageUp } from 'lucide-react'
+import { Hammer, Building2, Users, Wrench, X, ImageUp, AlertCircle } from 'lucide-react'
 import styles from './ProofUpload.module.css'
 
 interface Slot {
@@ -35,7 +35,18 @@ const SLOTS: Slot[] = [
     hint: 'Someone who can confirm you make this yourself, standing next to your work',
     icon: <Users size={20} />,
   },
+  {
+    id: 'materials',
+    label: 'Your materials or tools',
+    desc: 'The raw materials or tools you use to make your product',
+    hint: 'e.g. beads and thread, chisels and wood, ingredients, fabric and needles',
+    icon: <Wrench size={20} />,
+  },
 ]
+
+const ALLOWED_PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+const MAX_PHOTO_MB = 10
+const MAX_PHOTO_BYTES = MAX_PHOTO_MB * 1024 * 1024
 
 interface SlotState {
   file: File | null
@@ -52,11 +63,30 @@ export default function ProofUpload({ value, onChange }: Props) {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
   ]
+  const [errors, setErrors] = useState<(string | null)[]>([null, null, null, null])
+
+  const setSlotError = (idx: number, msg: string | null) => {
+    setErrors(prev => prev.map((e, i) => i === idx ? msg : e))
+  }
 
   const handleSelect = (idx: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+
+    if (!ALLOWED_PHOTO_TYPES.includes(file.type)) {
+      setSlotError(idx, 'Only JPEG, PNG or WebP photos are accepted')
+      e.target.value = ''
+      return
+    }
+    if (file.size > MAX_PHOTO_BYTES) {
+      setSlotError(idx, `Photo is too large — maximum size is ${MAX_PHOTO_MB} MB`)
+      e.target.value = ''
+      return
+    }
+
+    setSlotError(idx, null)
     const next = value.map((s, i) => {
       if (i !== idx) return s
       if (s.preview) URL.revokeObjectURL(s.preview)
@@ -67,6 +97,7 @@ export default function ProofUpload({ value, onChange }: Props) {
   }
 
   const handleRemove = (idx: number) => {
+    setSlotError(idx, null)
     const next = value.map((s, i) => {
       if (i !== idx) return s
       if (s.preview) URL.revokeObjectURL(s.preview)
@@ -79,8 +110,8 @@ export default function ProofUpload({ value, onChange }: Props) {
     <div className={styles.wrap}>
       <div className={styles.intro}>
         <p className={styles.introText}>
-          No ID required. Instead, show us 3 real photos that prove you make your product yourself.
-          Each slot has a specific purpose — all 3 are required before your application can be reviewed.
+          No ID required. Show us 4 photos that prove you make your product yourself.
+          All 4 are required. JPEG, PNG or WebP · Max {MAX_PHOTO_MB} MB each.
         </p>
       </div>
 
@@ -88,8 +119,9 @@ export default function ProofUpload({ value, onChange }: Props) {
         {SLOTS.map((slot, idx) => {
           const state = value[idx]
           const filled = !!state?.preview
+          const error = errors[idx]
           return (
-            <div key={slot.id} className={`${styles.slot} ${filled ? styles.slotFilled : ''}`}>
+            <div key={slot.id} className={`${styles.slot} ${filled ? styles.slotFilled : ''} ${error ? styles.slotError : ''}`}>
               <div className={styles.slotHeader}>
                 <span className={styles.slotNum}>{idx + 1}</span>
                 <span className={styles.slotIcon}>{slot.icon}</span>
@@ -103,6 +135,12 @@ export default function ProofUpload({ value, onChange }: Props) {
                   </button>
                 )}
               </div>
+
+              {error && (
+                <div className={styles.slotErrorMsg}>
+                  <AlertCircle size={13} /> {error}
+                </div>
+              )}
 
               {filled ? (
                 <div
@@ -134,7 +172,7 @@ export default function ProofUpload({ value, onChange }: Props) {
               <input
                 ref={inputRefs[idx]}
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp"
                 style={{ display: 'none' }}
                 onChange={e => handleSelect(idx, e)}
               />

@@ -106,56 +106,35 @@
   cursor: not-allowed;
 }
 
-/* Delivery method */
-.deliveryList {
+/* Delivery notice */
+.deliveryNotice {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.deliveryOption {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px;
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
-  cursor: pointer;
-  background: #fff;
-}
-
-.deliveryOptionActive {
-  border-color: #7C2D12;
+  gap: 12px;
+  align-items: flex-start;
   background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-left: 3px solid #7C2D12;
+  border-radius: 0 10px 10px 0;
+  padding: 14px 16px;
 }
 
-.deliveryLeft {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.deliveryIcon {
+.deliveryNoticeIcon {
   color: #7C2D12;
   flex-shrink: 0;
-}
-
-.deliveryName {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1a1a1a;
-}
-
-.deliveryDays {
-  font-size: 12px;
-  color: #9ca3af;
   margin-top: 2px;
 }
 
-.deliveryPrice {
-  font-size: 15px;
-  font-weight: 700;
+.deliveryNoticeTitle {
+  font-size: 14px;
+  font-weight: 600;
   color: #7C2D12;
+  margin-bottom: 4px;
+}
+
+.deliveryNoticeText {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.6;
 }
 
 /* Order summary */
@@ -241,6 +220,11 @@
   font-size: 13px;
   color: #6b7280;
   margin-bottom: 8px;
+}
+
+.totalRowMuted {
+  font-style: italic;
+  color: #9ca3af;
 }
 
 .grandTotal {

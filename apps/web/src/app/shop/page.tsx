@@ -8,23 +8,24 @@ import {
   Cpu, BookOpen, Lamp, Scissors, Hammer, Leaf, Pencil, Camera,
   Tag, Sprout, ArrowLeft, ShieldCheck, MapPin,
 } from 'lucide-react'
+import FadeIn from '@/components/ui/FadeIn'
 import styles from './shop.module.css'
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  fashion:     <Shirt size={40} />,
-  art:         <Palette size={40} />,
-  furniture:   <Armchair size={40} />,
-  food:        <Wheat size={40} />,
-  beauty:      <Sparkles size={40} />,
-  sculpture:   <Box size={40} />,
-  electronics: <Cpu size={40} />,
-  books:       <BookOpen size={40} />,
-  homeware:    <Lamp size={40} />,
-  textiles:    <Scissors size={40} />,
-  metalwork:   <Hammer size={40} />,
-  wellness:    <Leaf size={40} />,
-  drawings:    <Pencil size={40} />,
-  photography: <Camera size={40} />,
+  fashion:     <Shirt size={32} />,
+  art:         <Palette size={32} />,
+  furniture:   <Armchair size={32} />,
+  food:        <Wheat size={32} />,
+  beauty:      <Sparkles size={32} />,
+  sculpture:   <Box size={32} />,
+  electronics: <Cpu size={32} />,
+  books:       <BookOpen size={32} />,
+  homeware:    <Lamp size={32} />,
+  textiles:    <Scissors size={32} />,
+  metalwork:   <Hammer size={32} />,
+  wellness:    <Leaf size={32} />,
+  drawings:    <Pencil size={32} />,
+  photography: <Camera size={32} />,
 }
 
 const categoryIconsSmall: Record<string, React.ReactNode> = {
@@ -73,8 +74,6 @@ export default async function ShopPage({
     orderBy: { name: 'asc' },
   })
 
-  const heroIcon = category ? (categoryIcons[category.slug] ?? <Tag size={40} />) : null
-
   return (
     <div className={styles.page}>
       <Navbar />
@@ -93,7 +92,6 @@ export default async function ShopPage({
             )}
           </nav>
 
-          {heroIcon && <div className={styles.heroIcon}>{heroIcon}</div>}
           <h1 className={styles.heroTitle}>
             {category ? category.name : 'All Products'}
           </h1>
@@ -103,11 +101,12 @@ export default async function ShopPage({
         </div>
       </div>
 
+      <FadeIn>
       <div className={styles.inner}>
         {products.length === 0 ? (
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>
-              {heroIcon ?? <Sprout size={52} />}
+              <Sprout size={52} />
             </div>
             <h2 className={styles.emptyTitle}>
               {category
@@ -202,6 +201,7 @@ export default async function ShopPage({
           </div>
         )}
       </div>
+      </FadeIn>
 
       <Footer />
     </div>

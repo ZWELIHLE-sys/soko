@@ -3,7 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   position: relative;
   background:
-    linear-gradient(rgba(28, 10, 0, 0.84), rgba(28, 10, 0, 0.84)),
+    linear-gradient(rgba(28, 10, 0, 0.62), rgba(28, 10, 0, 0.62)),
     url('/images/woven-rope.jpg')
     center / cover no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);

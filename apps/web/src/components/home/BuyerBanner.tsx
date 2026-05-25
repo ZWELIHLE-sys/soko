@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ShoppingBag, ShieldCheck, Truck } from 'lucide-react'
+import FadeIn from '@/components/ui/FadeIn'
 import styles from './BuyerBanner.module.css'
 
 const perks = [
@@ -12,6 +13,7 @@ const perks = [
 export default function BuyerBanner() {
   return (
     <section className={styles.section}>
+      <FadeIn>
       <div className={styles.content}>
         <div className={styles.eyebrow}>For Shoppers</div>
         <h2 className={styles.heading}>
@@ -31,7 +33,9 @@ export default function BuyerBanner() {
           ))}
         </div>
       </div>
+      </FadeIn>
 
+      <FadeIn delay={100}>
       <div className={styles.actions}>
         <Link href="/register/buyer" className={styles.btnPrimary}>
           Create Free Account →
@@ -40,6 +44,7 @@ export default function BuyerBanner() {
           Sign In
         </Link>
       </div>
+      </FadeIn>
     </section>
   )
 }

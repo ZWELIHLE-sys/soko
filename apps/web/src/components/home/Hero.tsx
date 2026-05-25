@@ -18,11 +18,6 @@ export default function Hero() {
           Africa&apos;s Own Marketplace
         </div>
 
-        <h1 className={styles.heading}>
-          Reap What<br />
-          <span className={styles.headingAccent}>Africa Makes</span>
-        </h1>
-
         <div className={styles.slogan}>VUNA — REAP WHAT AFRICA MAKES</div>
 
         <p className={styles.description}>

@@ -1,7 +1,7 @@
 ﻿.section {
   background:
-    linear-gradient(rgba(28, 10, 0, 0.87), rgba(28, 10, 0, 0.87)),
-    url('/images/uchansi.jpg')
+    linear-gradient(rgba(28, 10, 0, 0.75), rgba(28, 10, 0, 0.75)),
+    url('/images/african-market.jpg')
     center / cover no-repeat;
   padding: 72px 32px;
   position: relative;
@@ -11,8 +11,10 @@
 
 .content {
   max-width: 640px;
+  margin: 0 auto;
   position: relative;
   z-index: 1;
+  text-align: center;
 }
 
 .tag {
@@ -54,13 +56,14 @@
   color: #D6D3D1;
   max-width: 480px;
   line-height: 1.8;
-  margin-bottom: 32px;
+  margin: 0 auto 32px;
 }
 
 .buttons {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 48px;
 }
 
@@ -102,6 +105,7 @@
   padding-top: 28px;
   border-top: 1px solid #3D1A00;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .statNum {

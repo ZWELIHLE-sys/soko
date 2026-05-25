@@ -14,21 +14,11 @@ export default function HomePage() {
     <main>
       <Navbar />
       <Hero />
-      <FadeIn>
-        <MissionStrip />
-      </FadeIn>
-      <FadeIn delay={80}>
-        <CategoriesSection />
-      </FadeIn>
-      <FadeIn delay={80}>
-        <FeaturedProducts />
-      </FadeIn>
-      <FadeIn delay={80}>
-        <BuyerBanner />
-      </FadeIn>
-      <FadeIn delay={80}>
-        <SellerBanner />
-      </FadeIn>
+      <MissionStrip />
+      <CategoriesSection />
+      <FeaturedProducts />
+      <BuyerBanner />
+      <SellerBanner />
       <Footer />
     </main>
   )

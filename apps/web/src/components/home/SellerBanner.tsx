@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ShieldCheck } from 'lucide-react'
+import FadeIn from '@/components/ui/FadeIn'
 import styles from './SellerBanner.module.css'
 
 const perks = [
@@ -11,6 +12,7 @@ const perks = [
 export default function SellerBanner() {
   return (
     <section className={styles.section}>
+      <FadeIn>
       <div className={styles.content}>
         <div className={styles.eyebrow}>For African Creators</div>
         <h2 className={styles.heading}>
@@ -23,7 +25,9 @@ export default function SellerBanner() {
           just your craft and your story.
         </p>
       </div>
+      </FadeIn>
 
+      <FadeIn delay={100}>
       <div className={styles.actions}>
         <Link href="/register/seller" className={styles.btn}>
           Start Selling Today →
@@ -37,6 +41,7 @@ export default function SellerBanner() {
           ))}
         </div>
       </div>
+      </FadeIn>
     </section>
   )
 }

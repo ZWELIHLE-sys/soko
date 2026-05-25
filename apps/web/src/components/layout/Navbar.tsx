@@ -11,6 +11,7 @@ interface CartItem { quantity: number }
 const navLinks = [
   { label: 'Home',    href: '/' },
   { label: 'Shop',    href: '/shop' },
+  { label: 'Market',  href: '/market' },
   { label: 'Sellers', href: '/sellers' },
   { label: 'About',   href: '/about' },
 ]

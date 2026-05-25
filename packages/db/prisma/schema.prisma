@@ -118,9 +118,10 @@ model Seller {
   hasDeclaration     Boolean   @default(false) // legal self-declaration checkbox
 
   // Relations
-  products    Product[]
-  orders      Order[]
-  reviews     Review[]
+  products       Product[]
+  orders         Order[]
+  reviews        Review[]
+  marketListings MarketListing[]
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -311,6 +312,56 @@ model Review {
   product   Product @relation(fields: [productId], references: [id])
 
   createdAt DateTime @default(now())
+}
+
+// ================================
+// VUNA MARKET — Monthly Pop-Up Market
+// Admin creates the event and sets dates manually.
+// Sellers apply; admin approves. Countdown shown on landing page.
+// ================================
+
+model Market {
+  id                  String   @id @default(cuid())
+  title               String   // e.g. "Vuna Winter Market"
+  description         String?
+  theme               String?  // e.g. "Winter Warmers"
+  startDate           DateTime
+  endDate             DateTime
+  applicationDeadline DateTime
+  bannerImage         String?
+  isActive            Boolean  @default(true)
+  maxListings         Int?
+
+  listings  MarketListing[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum MarketListingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model MarketListing {
+  id         String              @id @default(cuid())
+  status     MarketListingStatus @default(PENDING)
+  sellerNote String?
+  adminNote  String?
+  approvedAt DateTime?
+  productIds String[]            @default([])
+
+  marketId  String
+  market    Market @relation(fields: [marketId], references: [id])
+
+  sellerId  String
+  seller    Seller @relation(fields: [sellerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([marketId, sellerId])
 }
 
 // ================================

@@ -1,0 +1,329 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-size: 14px;
+  color: #6b7280;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+}
+.newBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #7C2D12;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.newBtn:hover { background: #6b2510; }
+
+/* ── Create form ── */
+.formCard {
+  background: #fff;
+  border: 1.5px solid #e8e0db;
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 28px;
+}
+.formTitle {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 20px;
+}
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.input {
+  border: 1.5px solid #e0d5d0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #fafaf9;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+.input:focus { border-color: #7C2D12; }
+.textarea {
+  border: 1.5px solid #e0d5d0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #fafaf9;
+  outline: none;
+  transition: border-color 0.15s;
+  resize: vertical;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+.textarea:focus { border-color: #7C2D12; }
+.saveBtn {
+  margin-top: 20px;
+  background: #7C2D12;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.saveBtn:hover:not(:disabled) { background: #6b2510; }
+.saveBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Market summary card ── */
+.marketCard {
+  background: #7C2D12;
+  color: #fff;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+}
+.marketCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.marketTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.marketTheme {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+  margin-top: 2px;
+}
+.marketDates {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+}
+.stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+.stat {
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+}
+.statNum {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #fff;
+  display: block;
+  line-height: 1.1;
+}
+.statApproved { color: #86efac; }
+.deadlineRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ── Sections ── */
+.section { margin-bottom: 36px; }
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+}
+.iconGreen { color: #16a34a; }
+.iconRed   { color: #dc2626; }
+
+/* ── Listing rows ── */
+.listingList { display: flex; flex-direction: column; gap: 12px; }
+.listingRow {
+  background: #fff;
+  border: 1px solid #e8e0db;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.listingMain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.listingBrand {
+  font-family: Georgia, serif;
+  font-size: 15px;
+  color: #1a1a1a;
+  display: block;
+  margin-bottom: 3px;
+}
+.listingMeta {
+  font-size: 12px;
+  color: #6b7280;
+  display: block;
+}
+.sellerNote {
+  font-size: 13px;
+  color: #374151;
+  margin: 8px 0 0;
+  font-style: italic;
+  line-height: 1.55;
+}
+.listingActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.statusBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+.statusPENDING  { background: #fef3c7; color: #92400e; }
+.statusAPPROVED { background: #dcfce7; color: #166534; }
+.statusREJECTED { background: #fee2e2; color: #991b1b; }
+
+.approveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #dcfce7;
+  color: #166534;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.approveBtn:hover:not(:disabled) { background: #bbf7d0; }
+.rejectBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #fee2e2;
+  color: #991b1b;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.rejectBtn:hover:not(:disabled) { background: #fecaca; }
+.approveBtn:disabled, .rejectBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.rejectForm {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f0ebe8;
+}
+.rejectInput {
+  flex: 1;
+  border: 1.5px solid #e0d5d0;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: 13px;
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+.rejectInput:focus { border-color: #dc2626; }
+.confirmRejectBtn {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.confirmRejectBtn:hover { background: #b91c1c; }
+
+/* ── Empty ── */
+.empty {
+  text-align: center;
+  padding: 64px 24px;
+  color: #9ca3af;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.empty p {
+  font-size: 14px;
+  max-width: 340px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .formGrid { grid-template-columns: 1fr; }
+  .listingMain { flex-direction: column; }
+  .marketCardHeader { flex-direction: column; }
+}

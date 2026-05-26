@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
+import Image from 'next/image'
 import { Store, ShoppingBag, CheckCircle, AlertTriangle, CalendarDays, Lock } from 'lucide-react'
 import styles from './apply.module.css'
 
@@ -41,7 +42,7 @@ export default function MarketApplyPage() {
 
   useEffect(() => {
     if (status === 'loading') return
-    if (!session || session.user.role !== 'SELLER') {
+    if (!session || session.user?.role !== 'SELLER') {
       router.push('/login?callbackUrl=/market/apply')
       return
     }
@@ -147,7 +148,7 @@ export default function MarketApplyPage() {
             <h2 className={styles.successTitle}>Application submitted!</h2>
             <p className={styles.successSub}>
               Your application for <strong>{market.title}</strong> is under review.
-              We'll contact you once it's approved.
+              We&apos;ll contact you once it&apos;s approved.
             </p>
             <button className={styles.backBtn} onClick={() => router.push('/market')}>
               View the market page
@@ -215,7 +216,7 @@ export default function MarketApplyPage() {
                   >
                     <div className={styles.productImg}>
                       {p.images[0] ? (
-                        <img src={p.images[0]} alt={p.name} className={styles.productImgEl} />
+                        <Image src={p.images[0]} alt={p.name} fill className={styles.productImgEl} sizes="120px" />
                       ) : (
                         <div className={styles.productImgFallback}>
                           <ShoppingBag size={20} />

@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import {
-  CalendarDays, Store, CheckCircle, XCircle, Clock, Plus, ChevronDown, ChevronUp
+  CalendarDays, Store, CheckCircle, XCircle, Clock, Plus, ChevronUp
 } from 'lucide-react'
 import styles from './admin-market.module.css'
 
@@ -50,21 +50,21 @@ export default function AdminMarketPage() {
     startDate: '', endDate: '', applicationDeadline: '', maxListings: '',
   })
 
-  useEffect(() => {
-    if (status === 'loading') return
-    if (!session || session.user.role !== 'ADMIN') {
-      router.push('/login')
-      return
-    }
-    loadMarket()
-  }, [session, status])
-
-  const loadMarket = () => {
+  const loadMarket = useCallback(() => {
     fetch('/api/market/current')
       .then(r => r.json())
       .then(data => { setMarket(data.market); setLoading(false) })
       .catch(() => setLoading(false))
-  }
+  }, [])
+
+  useEffect(() => {
+    if (status === 'loading') return
+    if (!session || session.user?.role !== 'ADMIN') {
+      router.push('/login')
+      return
+    }
+    loadMarket()
+  }, [session, status, router, loadMarket])
 
   const handleCreate = async () => {
     if (!form.title || !form.startDate || !form.endDate || !form.applicationDeadline) return
@@ -274,7 +274,6 @@ function ListingRow({
   onApprove: () => void
   onReject: (note: string) => void
 }) {
-  const [expanded, setExpanded] = useState(false)
   const [rejectNote, setRejectNote] = useState('')
   const [showReject, setShowReject] = useState(false)
 

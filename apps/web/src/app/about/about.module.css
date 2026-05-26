@@ -9,8 +9,7 @@
     linear-gradient(rgba(28, 10, 0, 0.86), rgba(28, 10, 0, 0.86)),
     url('/images/uchansi.jpg')
     center / cover no-repeat;
-  padding: 80px 32px;
-  text-align: center;
+  padding: 32px 32px 28px;
   position: relative;
   overflow: hidden;
 }
@@ -18,7 +17,7 @@
 .heroInner {
   position: relative;
   z-index: 1;
-  max-width: 640px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
@@ -27,7 +26,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .breadLink {
@@ -50,16 +49,19 @@
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .heroTitle {
   font-family: Georgia, serif;
-  font-size: 48px;
-  font-weight: 900;
-  color: #FEF3C7;
-  line-height: 1.1;
-  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #D97706;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .heroAccent {
@@ -67,9 +69,10 @@
 }
 
 .heroSub {
-  font-size: 16px;
+  font-size: 14px;
   color: #A8A29E;
-  line-height: 1.8;
+  line-height: 1.7;
+  text-align: center;
 }
 
 /* â”€â”€ Content â”€â”€ */
@@ -83,11 +86,11 @@
 .meaningCard {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('/images/cat-textiles.jpg')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   border-radius: 16px;
   border: none;
-  padding: 36px;
+  padding: 24px 28px;
   margin-bottom: 40px;
   text-align: center;
 }
@@ -98,17 +101,17 @@
   color: #D97706;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .zuluGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 12px;
 }
 
 .zuluItem {
-  padding: 20px;
+  padding: 14px 16px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(254, 243, 199, 0.1);
   border-radius: 12px;
@@ -117,10 +120,10 @@
 
 .zuluWord {
   font-family: Georgia, serif;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 700;
   color: #D97706;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .zuluMeaning {
@@ -132,18 +135,6 @@
 /* â”€â”€ Story â”€â”€ */
 .storySection {
   margin-bottom: 40px;
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 40px;
-  align-items: start;
-}
-
-.storyImage {
-  width: 100%;
-  height: 360px;
-  object-fit: cover;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(28, 10, 0, 0.15);
 }
 
 .sectionTitle {
@@ -215,10 +206,10 @@
 .behindCard {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
-    url('/images/african-market.jpg')
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   border-radius: 16px;
-  padding: 36px;
+  padding: 24px 28px;
   margin-bottom: 40px;
 }
 
@@ -228,22 +219,22 @@
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .behindTitle {
   font-family: Georgia, serif;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #FEF3C7;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .behindText {
-  font-size: 14px;
+  font-size: 13px;
   color: #A8A29E;
-  line-height: 1.8;
-  margin-bottom: 16px;
+  line-height: 1.75;
+  margin-bottom: 0;
 }
 
 .behindLink {
@@ -311,7 +302,7 @@
 
 /* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 768px) {
-  .heroTitle      { font-size: 36px; }
+  .heroTitle      { font-size: 16px; }
   .storySection   { grid-template-columns: 1fr; }
   .storyImage     { height: 240px; order: -1; }
   .zuluGrid       { grid-template-columns: 1fr; }

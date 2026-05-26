@@ -1,13 +1,12 @@
 import Link from 'next/link'
-import { ShoppingBag, ShieldCheck, Truck } from 'lucide-react'
+import { ShieldCheck } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './BuyerBanner.module.css'
 
 const perks = [
-  { Icon: ShoppingBag, text: 'Free to create an account' },
-  { Icon: ShieldCheck, text: 'Every seller Vuna verified' },
-  // TODO: DHL API integration — update to 'DHL tracked delivery' once live
-  { Icon: Truck,       text: 'Seller arranges delivery with you' },
+  'Free account, no commitment',
+  'Every seller Vuna verified',
+  'Delivery arranged with seller',
 ]
 
 export default function BuyerBanner() {
@@ -21,28 +20,30 @@ export default function BuyerBanner() {
         </h2>
         <p className={styles.description}>
           Create a free account and start buying directly from
-          verified African creators. Every product is handmade,
-          authentic — and delivery is arranged directly between you and the seller.
+          verified African creators. Handmade, authentic products —
+          delivery arranged directly with the seller.
         </p>
-        <div className={styles.perks}>
-          {perks.map(({ Icon, text }) => (
-            <div key={text} className={styles.perk}>
-              <Icon size={14} />
-              {text}
-            </div>
-          ))}
-        </div>
       </div>
       </FadeIn>
 
       <FadeIn delay={100}>
       <div className={styles.actions}>
-        <Link href="/register/buyer" className={styles.btnPrimary}>
-          Create Free Account →
-        </Link>
-        <Link href="/login" className={styles.btnOutline}>
-          Sign In
-        </Link>
+        <div className={styles.btnGroup}>
+          <Link href="/register/buyer" className={styles.btnPrimary}>
+            Create Free Account →
+          </Link>
+          <Link href="/login" className={styles.btnOutline}>
+            Sign In
+          </Link>
+        </div>
+        <div className={styles.perks}>
+          {perks.map(perk => (
+            <div key={perk} className={styles.perk}>
+              <ShieldCheck size={14} />
+              {perk}
+            </div>
+          ))}
+        </div>
       </div>
       </FadeIn>
     </section>

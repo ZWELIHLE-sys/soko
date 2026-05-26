@@ -3,14 +3,14 @@
   grid-template-columns: repeat(4, 1fr);
   position: relative;
   background:
-    linear-gradient(rgba(28, 10, 0, 0.62), rgba(28, 10, 0, 0.62)),
-    url('/images/woven-rope.jpg')
+    linear-gradient(rgba(28, 10, 0, 0.72), rgba(28, 10, 0, 0.72)),
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .item {
-  padding: 28px 16px;
+  padding: 20px 16px;
   text-align: center;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;

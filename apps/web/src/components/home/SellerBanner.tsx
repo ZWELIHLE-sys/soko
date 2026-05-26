@@ -16,7 +16,7 @@ export default function SellerBanner() {
       <div className={styles.content}>
         <div className={styles.eyebrow}>For African Creators</div>
         <h2 className={styles.heading}>
-          Your craft deserves<br />the whole world
+          Your craft deserves<br />its stage
         </h2>
         <p className={styles.description}>
           Join Vuna and sell your clothing, art, food, furniture or any

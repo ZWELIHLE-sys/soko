@@ -5,7 +5,7 @@ import FadeIn from '@/components/ui/FadeIn'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  BadgeCheck, Banknote, Globe, ShieldCheck, Sprout, Hammer,
+  BadgeCheck, Banknote, Globe, ShieldCheck, Sprout,
 } from 'lucide-react'
 import styles from './sellers.module.css'
 
@@ -90,10 +90,6 @@ export default async function SellersPage() {
             <span className={styles.breadCurrent}>Sellers</span>
           </nav>
           <div className={styles.heroEyebrow}>Join Vuna Sellers</div>
-          <h1 className={styles.heroTitle}>
-            Sell What<br />
-            <span className={styles.heroAccent}>Africa Makes</span>
-          </h1>
           <p className={styles.heroSub}>
             Turn your craft, your harvest, your art into income.
             Vuna gives you the platform. Africa gives you the story.
@@ -113,22 +109,20 @@ export default async function SellersPage() {
       <div className={styles.statsStrip}>
         <div className={styles.statsInner}>
           <div className={styles.stat}>
-            <div className={styles.statNum}>14</div>
-            <div className={styles.statLabel}>Categories</div>
+            <div className={styles.statNum}>100%</div>
+            <div className={styles.statLabel}>African Made</div>
           </div>
           <div className={styles.stat}>
-            <div className={styles.statNum}>9</div>
-            <div className={styles.statLabel}>SA Provinces</div>
+            <div className={styles.statNum}>∞</div>
+            <div className={styles.statLabel}>Cape to Cairo</div>
           </div>
           <div className={styles.stat}>
             <div className={styles.statNum}>48h</div>
             <div className={styles.statLabel}>Verification Time</div>
           </div>
           <div className={styles.stat}>
-            <div className={styles.statNum}>
-              <Globe size={28} />
-            </div>
-            <div className={styles.statLabel}>Global Reach</div>
+            <div className={styles.statNum}>Free</div>
+            <div className={styles.statLabel}>To Apply & List</div>
           </div>
         </div>
       </div>

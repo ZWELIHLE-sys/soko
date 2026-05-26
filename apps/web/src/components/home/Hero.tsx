@@ -3,10 +3,10 @@ import { Globe } from 'lucide-react'
 import styles from './Hero.module.css'
 
 const stats = [
-  { num: '9', label: 'SA Provinces' },
-  { num: '14', label: 'Categories' },
+  { num: '∞', label: 'Cape to Cairo' },
+  { num: '100%', label: 'African Made' },
   { num: '3', label: 'Sacred Rules' },
-  { num: null, label: 'Global Reach' },
+  { num: 'Free', label: 'To Join & List' },
 ]
 
 export default function Hero() {
@@ -36,7 +36,7 @@ export default function Hero() {
           {stats.map(stat => (
             <div key={stat.label}>
               <div className={styles.statNum}>
-                {stat.num ?? <Globe size={28} />}
+                {stat.num}
               </div>
               <div className={styles.statLabel}>{stat.label}</div>
             </div>

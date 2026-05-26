@@ -92,9 +92,11 @@ export default async function ShopPage({
             )}
           </nav>
 
-          <h1 className={styles.heroTitle}>
-            {category ? category.name : 'All Products'}
-          </h1>
+          {category ? (
+            <h1 className={styles.heroTitle}>{category.name}</h1>
+          ) : (
+            <div className={styles.heroEyebrow}>Categories &amp; Products</div>
+          )}
           <p className={styles.heroSub}>
             {category?.description ?? 'Every product. African made. Vuna verified.'}
           </p>

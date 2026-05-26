@@ -41,11 +41,7 @@ export default function AboutPage() {
             <span className={styles.breadSep}>/</span>
             <span className={styles.breadCurrent}>About</span>
           </nav>
-          <div className={styles.heroEyebrow}>Our Story</div>
-          <h1 className={styles.heroTitle}>
-            Reap What<br />
-            <span className={styles.heroAccent}>Africa Makes</span>
-          </h1>
+          <h1 className={styles.heroTitle}>Reap What Africa Makes</h1>
           <p className={styles.heroSub}>A word. A harvest. A movement.</p>
         </div>
       </div>
@@ -91,11 +87,6 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            <img
-              src="/images/african-weave.jpg"
-              alt="African handwoven baskets with geometric patterns"
-              className={styles.storyImage}
-            />
           </div>
         </FadeIn>
 

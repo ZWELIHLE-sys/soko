@@ -10,6 +10,16 @@
     url('/images/uchansi.jpg')
     center / cover no-repeat;
   padding: 44px 32px 40px;
+  text-align: center;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: #D97706;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
 }
 
 .heroInner {
@@ -22,7 +32,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .breadLink {

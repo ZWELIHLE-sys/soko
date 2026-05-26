@@ -2,14 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
+  gap: 24px;
   background:
     linear-gradient(rgba(28, 10, 0, 0.82), rgba(28, 10, 0, 0.82)),
     url('/images/uchansi.jpg')
     center / cover no-repeat;
-  border-radius: 20px;
-  padding: 48px;
-  margin: 0 32px 48px;
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin: 0 32px 32px;
   flex-wrap: wrap;
   overflow: hidden;
 }
@@ -25,30 +25,30 @@
   color: #D97706;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .heading {
   font-family: Georgia, serif;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
   color: #FEF3C7;
   line-height: 1.25;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .description {
-  font-size: 15px;
+  font-size: 13px;
   color: #D6D3D1;
-  line-height: 1.7;
+  line-height: 1.65;
   max-width: 440px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .perks {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .perk {
@@ -69,13 +69,19 @@
   align-items: center;
 }
 
+.btnGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .btnPrimary {
   display: inline-block;
-  padding: 14px 28px;
+  padding: 10px 20px;
   background: #7C2D12;
   color: #FEF3C7;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
@@ -89,12 +95,12 @@
 
 .btnOutline {
   display: inline-block;
-  padding: 14px 28px;
+  padding: 10px 20px;
   background: transparent;
   color: #FEF3C7;
   border: 1.5px solid #FEF3C7;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   text-decoration: none;
   text-align: center;
@@ -106,6 +112,6 @@
 }
 
 @media (max-width: 768px) {
-  .section  { margin: 0 16px 32px; padding: 36px 24px; }
-  .heading  { font-size: 22px; }
+  .section  { margin: 0 16px 24px; padding: 22px 20px; }
+  .heading  { font-size: 18px; }
 }

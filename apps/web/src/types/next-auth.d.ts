@@ -1,4 +1,4 @@
-import { DefaultSession } from 'next-auth'
+export {}
 
 declare module 'next-auth' {
   interface Session {
@@ -7,7 +7,10 @@ declare module 'next-auth' {
       role: string
       isVerified: boolean
       brandName?: string
-    } & DefaultSession['user']
+      name?: string | null
+      email?: string | null
+      image?: string | null
+    }
   }
 
   interface User {
@@ -15,6 +18,9 @@ declare module 'next-auth' {
     role: string
     isVerified: boolean
     brandName?: string
+    name?: string | null
+    email?: string | null
+    image?: string | null
   }
 }
 

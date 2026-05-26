@@ -68,9 +68,11 @@ model User {
   location   Location? @relation(fields: [locationId], references: [id])
 
   // Relations
-  orders     Order[]
-  reviews    Review[]
-  wishlist   Wishlist[]
+  orders        Order[]
+  reviews       Review[]
+  wishlist      Wishlist[]
+  bids          Bid[]          @relation("UserBids")
+  wonAuctions   Auction[]      @relation("AuctionWinner")
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -122,6 +124,7 @@ model Seller {
   orders         Order[]
   reviews        Review[]
   marketListings MarketListing[]
+  auctions       Auction[]
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -142,6 +145,7 @@ model Category {
   // Relations
   sellers     Seller[]
   products    Product[]
+  auctions    Auction[]
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -362,6 +366,64 @@ model MarketListing {
   updatedAt DateTime @updatedAt
 
   @@unique([marketId, sellerId])
+}
+
+// ================================
+// VUNA AUCTIONS — Members-Only Bidding
+// Separate page design. Seller creates auction with start/reserve price.
+// Admin approves before going live. Real-time bidding via polling.
+// ================================
+
+enum AuctionStatus {
+  PENDING    // Awaiting admin approval
+  APPROVED   // Admin approved, not yet started
+  LIVE       // Bidding is open
+  ENDED      // Time expired — winner determined
+  CANCELLED  // Admin or seller cancelled
+}
+
+model Auction {
+  id           String        @id @default(cuid())
+  title        String
+  description  String
+  images       String[]      @default([])
+  startPrice   Float
+  reservePrice Float?        // Hidden minimum — if not met, no sale
+  currentBid   Float?        // Updated on each valid bid
+  startTime    DateTime
+  endTime      DateTime
+  status       AuctionStatus @default(PENDING)
+  adminNote    String?
+
+  // Who is selling
+  sellerId     String
+  seller       Seller        @relation(fields: [sellerId], references: [id])
+
+  // Category for display
+  categoryId   String
+  category     Category      @relation(fields: [categoryId], references: [id])
+
+  // Winner after auction ends
+  winnerId     String?
+  winner       User?         @relation("AuctionWinner", fields: [winnerId], references: [id])
+
+  bids         Bid[]
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Bid {
+  id        String   @id @default(cuid())
+  amount    Float
+
+  auctionId String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+
+  bidderId  String
+  bidder    User     @relation("UserBids", fields: [bidderId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 // ================================

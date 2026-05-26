@@ -1,0 +1,296 @@
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-size: 14px;
+  color: #6b7280;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ── Header ── */
+.header {
+  margin-bottom: 28px;
+}
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+}
+.subtitle {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+/* ── Stats strip ── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.statCard {
+  background: #fff;
+  border: 1px solid #e8e0db;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.statNum {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1;
+}
+.statGreen { color: #16a34a; }
+.statLive  { color: #7C2D12; }
+.statLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e8e0db;
+  padding-bottom: 0;
+}
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab:hover { color: #374151; }
+.tabActive  { color: #7C2D12; border-bottom-color: #7C2D12; font-weight: 600; }
+.tabCount {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 1px 7px;
+}
+.tabCountActive { background: #fce7de; color: #7C2D12; }
+
+/* ── Auction list ── */
+.auctionList { display: flex; flex-direction: column; gap: 12px; }
+.auctionRow {
+  background: #fff;
+  border: 1px solid #e8e0db;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.auctionMain {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.auctionInfo { flex: 1; min-width: 0; }
+.auctionTitle {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.auctionMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 5px;
+}
+.auctionDates {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* ── Actions ── */
+.auctionActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+.statusPENDING   { background: #fef3c7; color: #92400e; }
+.statusAPPROVED  { background: #dbeafe; color: #1d4ed8; }
+.statusLIVE      { background: #dcfce7; color: #166534; }
+.statusENDED     { background: #f3f4f6; color: #6b7280; }
+.statusCANCELLED { background: #fee2e2; color: #991b1b; }
+
+.liveDot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #16a34a;
+  animation: pulse 2s ease infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 2px rgba(22,163,74,0.3); }
+  50%     { box-shadow: 0 0 0 5px rgba(22,163,74,0.1); }
+}
+
+.approveBtn, .liveBtn, .cancelBtn, .expandBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.approveBtn { background: #dcfce7; color: #166534; }
+.approveBtn:hover:not(:disabled) { background: #bbf7d0; }
+.liveBtn    { background: #fce7de; color: #7C2D12; }
+.liveBtn:hover:not(:disabled)    { background: #fcd5c7; }
+.cancelBtn  { background: #fee2e2; color: #991b1b; }
+.cancelBtn:hover:not(:disabled)  { background: #fecaca; }
+.expandBtn  { background: #f3f4f6; color: #374151; padding: 7px 9px; }
+.expandBtn:hover { background: #e5e7eb; }
+.approveBtn:disabled, .liveBtn:disabled, .cancelBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Expanded detail ── */
+.auctionDetail {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0ebe8;
+}
+.auctionDescription {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.65;
+  margin: 0 0 14px;
+}
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.detailLabel {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #9ca3af;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.detailVal {
+  font-size: 13px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+.adminNoteRow {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* ── Cancel form ── */
+.cancelForm {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f0ebe8;
+}
+.cancelInput {
+  flex: 1;
+  border: 1.5px solid #e0d5d0;
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: 13px;
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+.cancelInput:focus { border-color: #dc2626; }
+.confirmCancelBtn {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.confirmCancelBtn:hover { background: #b91c1c; }
+
+/* ── Empty ── */
+.empty {
+  text-align: center;
+  padding: 64px 24px;
+  color: #9ca3af;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.empty p {
+  font-size: 14px;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .statsRow   { grid-template-columns: repeat(2, 1fr); }
+  .detailGrid { grid-template-columns: repeat(2, 1fr); }
+  .auctionMain { flex-direction: column; }
+  .auctionActions { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .tabs { overflow-x: auto; }
+}

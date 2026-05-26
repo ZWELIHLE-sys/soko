@@ -1,0 +1,209 @@
+.page {
+  min-height: 100vh;
+  background: #FAFAF9;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ── */
+.hero {
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.82), rgba(28, 10, 0, 0.82)),
+    url('/images/african-market.jpg')
+    center / cover no-repeat;
+  padding: 56px 24px 48px;
+  text-align: center;
+}
+.eyebrow {
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #D97706;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.heroTitle {
+  font-family: Georgia, serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 400;
+  color: #fff;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+.heroSub {
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 480px;
+}
+
+/* ── Inner ── */
+.inner {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  width: 100%;
+}
+
+/* ── Form card ── */
+.formCard {
+  background: #fff;
+  border: 1.5px solid #e8e0db;
+  border-radius: 16px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ── Field ── */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.label {
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #374151;
+}
+.optional {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #9ca3af;
+  margin-left: 4px;
+  font-size: 11px;
+}
+.input, .select {
+  border: 1.5px solid #e0d5d0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #fafaf9;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input:focus, .select:focus { border-color: #7C2D12; }
+.textarea {
+  border: 1.5px solid #e0d5d0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #1a1a1a;
+  background: #fafaf9;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+.textarea:focus { border-color: #7C2D12; }
+.hint {
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
+/* ── Two-column row ── */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* ── Error ── */
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #991b1b;
+}
+
+/* ── Submit ── */
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #7C2D12;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+  margin-top: 4px;
+}
+.submitBtn:hover:not(:disabled) { background: #6b2510; }
+.submitBtn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Success ── */
+.successWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 80px 24px;
+  text-align: center;
+}
+.successIcon { color: #16a34a; }
+.successTitle {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+}
+.successSub {
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #6b7280;
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0;
+}
+.doneBtn {
+  margin-top: 8px;
+  background: #7C2D12;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.doneBtn:hover { background: #6b2510; }
+
+@media (max-width: 640px) {
+  .formCard { padding: 24px 18px; }
+  .twoCol   { grid-template-columns: 1fr; }
+}

@@ -9,11 +9,12 @@ import styles from './navbar.module.css'
 interface CartItem { quantity: number }
 
 const navLinks = [
-  { label: 'Home',    href: '/' },
-  { label: 'Shop',    href: '/shop' },
-  { label: 'Market',  href: '/market' },
-  { label: 'Sellers', href: '/sellers' },
-  { label: 'About',   href: '/about' },
+  { label: 'Home',     href: '/' },
+  { label: 'Shop',     href: '/shop' },
+  { label: 'Market',   href: '/market' },
+  { label: 'Auctions', href: '/auctions' },
+  { label: 'Sellers',  href: '/sellers' },
+  { label: 'About',    href: '/about' },
 ]
 
 export default function Navbar() {

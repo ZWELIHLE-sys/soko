@@ -27,8 +27,10 @@ interface Auction {
   images: string[]
   startPrice: number
   currentBid: number | null
-  startTime: string
-  endTime: string
+  auctionEvent: {
+    biddingStartDate: string
+    biddingEndDate: string
+  } | null
   status: string
   seller: {
     brandName: string
@@ -88,7 +90,8 @@ export default function AuctionDetailPage() {
   // Live countdown
   useEffect(() => {
     if (!auction) return
-    const tick = () => setTimeLeft(getTimeLeft(auction.endTime))
+    const endDate = auction.auctionEvent?.biddingEndDate ?? ''
+    const tick = () => setTimeLeft(endDate ? getTimeLeft(endDate) : '')
     tick()
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
@@ -226,7 +229,7 @@ export default function AuctionDetailPage() {
                 <div className={`${styles.timeValue} ${isLive ? styles.timeLive : ''}`}>
                   <Clock size={14} />
                   {isEnded ? 'Closed' : isUpcoming
-                    ? new Date(auction.startTime).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short' })
+                    ? new Date(auction.auctionEvent?.biddingStartDate ?? '').toLocaleDateString('en-ZA', { day: 'numeric', month: 'short' })
                     : timeLeft}
                 </div>
               </div>
@@ -285,7 +288,7 @@ export default function AuctionDetailPage() {
             {isUpcoming && (
               <div className={styles.upcomingNote}>
                 <Clock size={14} />
-                Bidding opens {new Date(auction.startTime).toLocaleDateString('en-ZA', { weekday: 'long', day: 'numeric', month: 'long' })}
+                Bidding opens {new Date(auction.auctionEvent?.biddingStartDate ?? '').toLocaleDateString('en-ZA', { weekday: 'long', day: 'numeric', month: 'long' })}
               </div>
             )}
           </div>

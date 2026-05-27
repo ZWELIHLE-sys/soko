@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Globe } from 'lucide-react'
 import styles from './Hero.module.css'
 
 const stats = [
@@ -13,16 +12,11 @@ export default function Hero() {
   return (
     <section className={styles.section}>
       <div className={styles.content}>
-        <div className={styles.tag}>
-          <Globe size={12} />
-          Africa&apos;s Own Marketplace
-        </div>
-
         <div className={styles.slogan}>VUNA — REAP WHAT AFRICA MAKES</div>
 
         <p className={styles.description}>
-          Every product on Vuna is African made, African owned and
-          Vuna verified. From the grandmother in Limpopo making pottery,
+          Every product on Vuna is African made and Vuna verified.
+          From the grandmother in Limpopo making pottery,
           to the designer in Durban stitching streetwear — if African
           hands built it, it belongs here.
         </p>

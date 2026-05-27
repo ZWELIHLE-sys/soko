@@ -1,0 +1,207 @@
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Verification alerts */
+.alertBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #FEF3C7;
+  border: 1px solid #D97706;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #92400E;
+  line-height: 1.5;
+}
+
+.alertBannerRed {
+  background: #FEE2E2;
+  border-color: #EF4444;
+  color: #991B1B;
+}
+
+.alertIcon { flex-shrink: 0; margin-top: 1px; }
+
+.verifiedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #DCFCE7;
+  color: #14532D;
+  border: 1px solid #86EFAC;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Stats */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s;
+}
+
+.statCard:hover { border-color: #d1d5db; }
+
+.statIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.statIconProducts { background: #FEF3C7; color: #7C2D12; }
+.statIconPending  { background: #FEF9C3; color: #92400E; }
+.statIconOrders   { background: #EFF6FF; color: #1D4ED8; }
+.statIconEarnings { background: #DCFCE7; color: #14532D; }
+
+.statValue {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.statValueProducts { color: #7C2D12; }
+.statValuePending  { color: #92400E; }
+.statValueOrders   { color: #1D4ED8; }
+.statValueEarnings { color: #14532D; }
+
+.statLabel { font-size: 13px; color: #6b7280; }
+
+/* Quick actions */
+.actionsSection { margin-bottom: 32px; }
+
+.actionsTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.actionBtnPrimary {
+  background: #7C2D12;
+  color: #FEF3C7;
+}
+
+.actionBtnPrimary:hover { background: #6b2510; }
+
+.actionBtnSecondary {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.actionBtnSecondary:hover { background: #f9fafb; }
+
+/* Harvest panel */
+.harvest {
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.90), rgba(28, 10, 0, 0.90)),
+    url('/images/uchansi.jpg')
+    center / cover no-repeat;
+  border-radius: 16px;
+  padding: 28px 32px;
+}
+
+.harvestLabel {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.harvestTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 10px;
+}
+
+.harvestText {
+  font-size: 13px;
+  color: #A8A29E;
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
+
+.harvestStats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.harvestStat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.harvestStatNum {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #D97706;
+  line-height: 1;
+}
+
+.harvestStatLabel {
+  font-size: 12px;
+  color: #78716C;
+}

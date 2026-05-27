@@ -13,9 +13,10 @@ export async function GET() {
   const auctions = await prisma.auction.findMany({
     orderBy: { createdAt: 'desc' },
     include: {
-      seller:   { select: { brandName: true, email: true, location: { select: { name: true } } } },
-      category: { select: { name: true } },
-      _count:   { select: { bids: true } },
+      seller:       { select: { brandName: true, email: true, location: { select: { name: true } } } },
+      category:     { select: { name: true } },
+      auctionEvent: { select: { title: true, biddingStartDate: true, biddingEndDate: true } },
+      _count:       { select: { bids: true } },
     },
   })
 

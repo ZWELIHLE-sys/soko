@@ -52,17 +52,30 @@ export default async function MarketPage() {
         <Navbar />
         <div className={styles.comingSoonHero}>
           <div className={styles.heroInner}>
-            <div className={styles.eyebrow}>Vuna Market</div>
-            <h1 className={styles.heroTitle}>Something Special Is Coming</h1>
+            <div className={styles.eyebrow}>One of a Kind</div>
+            <h1 className={styles.heroTitle}>Vuna Market</h1>
             <p className={styles.heroSub}>
-              The Vuna Market is a monthly pop-up where verified African creators bring their best
-              work together in one place. Dates are announced ahead of time — follow us to be first to know.
+              A curated pop-up of verified African makers. Limited stalls, handpicked sellers.
+              Next date being announced — check back here first.
             </p>
-            <Link href="/shop" className={styles.shopBtn}>
-              <ShoppingBag size={16} />
-              Browse the shop while you wait
+            <Link href="/shop" className={styles.shopBadge}>
+              <ShoppingBag size={12} />
+              Browse Shop
             </Link>
           </div>
+        </div>
+
+        <div className={styles.inner}>
+          <FadeIn>
+            <div className={styles.emptyState}>
+              <Store size={48} className={styles.emptyIcon} />
+              <h2 className={styles.emptyTitle}>No market events yet</h2>
+              <p className={styles.emptySub}>
+                When the Vuna team announces the next market, confirmed sellers and their
+                products will appear right here. Come back on announcement day.
+              </p>
+            </div>
+          </FadeIn>
         </div>
         <Footer />
       </div>
@@ -80,7 +93,6 @@ export default async function MarketPage() {
 
       {/* Hero */}
       <div className={styles.hero}>
-        <div className={styles.heroOverlay} />
         <div className={styles.heroInner}>
           <div className={styles.eyebrow}>
             {isLive ? '🟢 Live Now' : 'Vuna Market'}

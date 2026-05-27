@@ -119,12 +119,20 @@ model Seller {
   socialMediaLink    String?                  // optional Instagram/TikTok/Facebook
   hasDeclaration     Boolean   @default(false) // legal self-declaration checkbox
 
+  // Payment / banking details (for direct EFT payouts)
+  bankName      String?
+  accountHolder String?
+  accountNumber String?
+  accountType   String?  // "Cheque", "Savings", "Current"
+  branchCode    String?
+
   // Relations
   products       Product[]
   orders         Order[]
   reviews        Review[]
   marketListings MarketListing[]
   auctions       Auction[]
+  makerInResidenceMarkets Market[] @relation("MarketMakerInResidence")
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -170,6 +178,10 @@ model Product {
   stock       Int           @default(1)
   status      ProductStatus @default(DRAFT)
   images      String[]      // Array of image URLs from Cloudinary
+
+  // Bulk pricing — optional; when set, buyers ordering >= bulkMinQty pay bulkPrice per unit
+  bulkMinQty  Int?
+  bulkPrice   Float?
 
   // Who made it
   sellerId    String
@@ -326,15 +338,19 @@ model Review {
 
 model Market {
   id                  String   @id @default(cuid())
-  title               String   // e.g. "Vuna Winter Market"
+  title               String
   description         String?
-  theme               String?  // e.g. "Winter Warmers"
+  theme               String?
   startDate           DateTime
   endDate             DateTime
   applicationDeadline DateTime
   bannerImage         String?
   isActive            Boolean  @default(true)
-  maxListings         Int?
+  maxListings         Int?     // stall limit — scarcity is intentional
+
+  // Featured seller for this market event
+  makerInResidenceId  String?
+  makerInResident     Seller?  @relation("MarketMakerInResidence", fields: [makerInResidenceId], references: [id])
 
   listings  MarketListing[]
 
@@ -349,12 +365,13 @@ enum MarketListingStatus {
 }
 
 model MarketListing {
-  id         String              @id @default(cuid())
-  status     MarketListingStatus @default(PENDING)
-  sellerNote String?
-  adminNote  String?
-  approvedAt DateTime?
-  productIds String[]            @default([])
+  id          String              @id @default(cuid())
+  status      MarketListingStatus @default(PENDING)
+  sellerNote  String?
+  adminNote   String?
+  approvedAt  DateTime?
+  stallNumber Int?                // assigned by admin when approved
+  productIds  String[]            @default([])
 
   marketId  String
   market    Market @relation(fields: [marketId], references: [id])
@@ -369,48 +386,80 @@ model MarketListing {
 }
 
 // ================================
-// VUNA AUCTIONS — Members-Only Bidding
-// Separate page design. Seller creates auction with start/reserve price.
-// Admin approves before going live. Real-time bidding via polling.
+// VUNA AUCTIONS — Curated Auction Events
+// Admin creates an AuctionEvent (like an auction house catalogue).
+// Sellers submit individual items (Auction) to that event.
+// Admin approves items into the catalogue.
+// On biddingStartDate the event goes LIVE — all approved items bid simultaneously.
+// Hammer prices are published publicly after the event ends.
 // ================================
 
+enum AuctionEventStatus {
+  ANNOUNCED      // Visible to sellers — submissions open
+  CATALOGUE_OPEN // Submissions closed — catalogue visible to buyers, bidding not yet open
+  LIVE           // Bidding is open
+  ENDED          // Auction concluded — results published
+}
+
+model AuctionEvent {
+  id                 String             @id @default(cuid())
+  title              String             // e.g. "Vuna Heritage Auction — July 2026"
+  description        String?
+  theme              String?            // e.g. "Contemporary African Craft"
+  bannerImage        String?
+  status             AuctionEventStatus @default(ANNOUNCED)
+  submissionDeadline DateTime           // Sellers must submit by this date
+  catalogueOpenDate  DateTime           // Catalogue published to buyers (preview period)
+  biddingStartDate   DateTime           // Bidding opens
+  biddingEndDate     DateTime           // Hammer falls
+  isActive           Boolean            @default(true)
+
+  items              Auction[]
+
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+}
+
 enum AuctionStatus {
-  PENDING    // Awaiting admin approval
-  APPROVED   // Admin approved, not yet started
-  LIVE       // Bidding is open
-  ENDED      // Time expired — winner determined
-  CANCELLED  // Admin or seller cancelled
+  PENDING    // Submitted — awaiting admin review for the catalogue
+  APPROVED   // In the catalogue — visible during preview, bidding when event goes LIVE
+  LIVE       // Actively receiving bids
+  ENDED      // Bidding closed — winner determined
+  CANCELLED  // Rejected or withdrawn
 }
 
 model Auction {
-  id           String        @id @default(cuid())
-  title        String
-  description  String
-  images       String[]      @default([])
-  startPrice   Float
-  reservePrice Float?        // Hidden minimum — if not met, no sale
-  currentBid   Float?        // Updated on each valid bid
-  startTime    DateTime
-  endTime      DateTime
-  status       AuctionStatus @default(PENDING)
-  adminNote    String?
+  id              String        @id @default(cuid())
+  title           String
+  description     String
+  artistStatement String?       // 2-3 sentences from the maker about this piece
+  images          String[]      @default([])
+  startPrice      Float
+  reservePrice    Float?        // Hidden minimum — if not met, no sale
+  currentBid      Float?        // Updated on each valid bid
+  status          AuctionStatus @default(PENDING)
+  adminNote       String?
+
+  // Linked to an auction event (admin creates the event, seller submits items to it)
+  auctionEventId  String?
+  auctionEvent    AuctionEvent? @relation(fields: [auctionEventId], references: [id])
 
   // Who is selling
-  sellerId     String
-  seller       Seller        @relation(fields: [sellerId], references: [id])
+  sellerId        String
+  seller          Seller        @relation(fields: [sellerId], references: [id])
 
   // Category for display
-  categoryId   String
-  category     Category      @relation(fields: [categoryId], references: [id])
+  categoryId      String
+  category        Category      @relation(fields: [categoryId], references: [id])
 
   // Winner after auction ends
-  winnerId     String?
-  winner       User?         @relation("AuctionWinner", fields: [winnerId], references: [id])
+  winnerId        String?
+  winner          User?         @relation("AuctionWinner", fields: [winnerId], references: [id])
 
-  bids         Bid[]
+  bids            Bid[]
 
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model Bid {

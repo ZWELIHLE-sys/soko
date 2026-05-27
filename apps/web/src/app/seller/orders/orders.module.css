@@ -1,0 +1,236 @@
+.header { margin-bottom: 28px; }
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.subtitle { font-size: 14px; color: #6b7280; }
+
+.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
+
+/* Sections */
+.section { margin-bottom: 32px; }
+
+.sectionLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+/* Order card */
+.orderCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.orderHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  cursor: pointer;
+  gap: 12px;
+}
+
+.orderHead:hover { background: #fafafa; }
+
+.orderLeft { display: flex; flex-direction: column; gap: 2px; }
+
+.orderNum {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-family: 'Courier New', monospace;
+}
+
+.orderDate { font-size: 12px; color: #9ca3af; }
+
+.orderRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.orderAmount {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Status badges */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.statusPending    { background: #FEF3C7; color: #92400E; }
+.statusConfirmed  { background: #DBEAFE; color: #1D4ED8; }
+.statusPacked     { background: #EDE9FE; color: #5B21B6; }
+.statusInTransit  { background: #FEF9C3; color: #713F12; }
+.statusDelivered  { background: #DCFCE7; color: #14532D; }
+.statusCancelled  { background: #FEE2E2; color: #991B1B; }
+.statusRefunded   { background: #F3F4F6; color: #374151; }
+
+/* Order body */
+.orderBody {
+  border-top: 1px solid #f3f4f6;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.buyerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.buyerName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.buyerContact {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #7C2D12;
+  text-decoration: none;
+}
+
+.contactLink:hover { text-decoration: underline; }
+
+.deliveryInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Items */
+.items { display: flex; flex-direction: column; gap: 10px; }
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.itemThumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  background: #f3f4f6;
+}
+
+.itemThumbFallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7C2D12, #9A3515);
+}
+
+.itemInfo { flex: 1; min-width: 0; }
+
+.itemName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemMeta { font-size: 12px; color: #9ca3af; }
+
+.itemTotal {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+/* Actions */
+.actionRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.nextBtn {
+  padding: 9px 20px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.nextBtn:hover:not(:disabled) { background: #6b2510; }
+.nextBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.cancelBtn {
+  padding: 9px 16px;
+  background: transparent;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cancelBtn:hover:not(:disabled) { background: #FEF2F2; }
+.cancelBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Empty state */
+.empty { text-align: center; padding: 48px 24px; }
+.emptyIcon { color: #7C2D12; margin: 0 auto 16px; display: block; }
+.emptyTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #7C2D12;
+  margin-bottom: 8px;
+}
+.emptyText { font-size: 14px; color: #6b7280; max-width: 380px; margin: 0 auto; line-height: 1.7; }
+
+@media (max-width: 640px) {
+  .orderHead { padding: 14px 16px; }
+  .orderBody { padding: 14px 16px; }
+  .buyerRow  { flex-direction: column; }
+}

@@ -21,11 +21,16 @@ export async function POST(req: NextRequest) {
 
   // Use a transaction to prevent bid conflicts
   const result = await prisma.$transaction(async (tx) => {
-    const auction = await tx.auction.findUnique({ where: { id: auctionId } })
+    const auction = await tx.auction.findUnique({
+      where: { id: auctionId },
+      include: { auctionEvent: { select: { biddingEndDate: true } } },
+    })
 
     if (!auction) throw new Error('Auction not found')
     if (auction.status !== 'LIVE') throw new Error('Auction is not live')
-    if (auction.endTime <= new Date()) throw new Error('Auction has ended')
+    if (auction.auctionEvent?.biddingEndDate && auction.auctionEvent.biddingEndDate <= new Date()) {
+      throw new Error('Auction has ended')
+    }
 
     const minBid = auction.currentBid
       ? auction.currentBid + 1

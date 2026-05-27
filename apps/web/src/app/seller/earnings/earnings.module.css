@@ -1,0 +1,248 @@
+.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
+
+.header { margin-bottom: 28px; }
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.subtitle { font-size: 14px; color: #6b7280; }
+
+/* Summary cards */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.summaryCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 22px 20px;
+}
+
+.summaryCardPending { border-color: #FDE68A; }
+.summaryCardTotal   { border-color: #A7F3D0; }
+
+.summaryIcon        { color: #7C2D12; margin-bottom: 12px; }
+.summaryIconPending { color: #D97706; margin-bottom: 12px; }
+.summaryIconTotal   { color: #14532D; margin-bottom: 12px; }
+
+.summaryAmount        { font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #7C2D12; margin-bottom: 4px; }
+.summaryAmountPending { font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #D97706; margin-bottom: 4px; }
+.summaryAmountTotal   { font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #14532D; margin-bottom: 4px; }
+
+.summaryLabel { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
+.summaryNote  { font-size: 12px; color: #9ca3af; }
+
+/* PayFast banner */
+.payfastBanner {
+  background:
+    linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
+    url('/images/uchansi.jpg')
+    center / cover no-repeat;
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+}
+
+.payfastEyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: #D97706;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.payfastTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 10px;
+}
+
+.payfastText {
+  font-size: 13px;
+  color: #A8A29E;
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 560px;
+}
+
+.payfastSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.payfastStep {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.stepNum {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #7C2D12;
+  flex-shrink: 0;
+  line-height: 1;
+  min-width: 28px;
+}
+
+.stepTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FEF3C7;
+  margin-bottom: 2px;
+}
+
+.stepDesc { font-size: 12px; color: #78716C; line-height: 1.5; }
+
+.payfastNote {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #57534E;
+  font-style: italic;
+}
+
+/* Sections */
+.section { margin-bottom: 32px; }
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+.emptySmall { font-size: 13px; color: #9ca3af; padding: 8px 0; }
+
+/* Monthly bars */
+.monthTable { display: flex; flex-direction: column; gap: 10px; }
+
+.monthRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.monthLabel {
+  font-size: 12px;
+  color: #6b7280;
+  min-width: 80px;
+}
+
+.monthBarWrap {
+  flex: 1;
+  height: 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.monthBar {
+  height: 100%;
+  background: #7C2D12;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.monthAmount {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  min-width: 90px;
+  text-align: right;
+}
+
+/* Order rows */
+.orderList { display: flex; flex-direction: column; gap: 8px; }
+
+.orderRow {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.orderInfo { flex: 1; min-width: 0; }
+
+.orderNum {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 3px;
+}
+
+.orderDate { font-size: 12px; color: #9ca3af; }
+
+.orderItems {
+  font-size: 12px;
+  color: #6b7280;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.orderRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.paidBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #DCFCE7;
+  color: #14532D;
+}
+
+.pendingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.orderAmt {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+@media (max-width: 640px) {
+  .payfastBanner { padding: 20px 18px; }
+  .payfastSteps  { gap: 12px; }
+  .orderRight    { flex-direction: column; align-items: flex-end; gap: 4px; }
+}

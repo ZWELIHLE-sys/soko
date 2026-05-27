@@ -7,8 +7,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
   const auction = await prisma.auction.findUnique({
     where: { id },
     include: {
-      seller:   { select: { brandName: true, isVerified: true, bio: true, location: { select: { name: true } } } },
-      category: { select: { name: true, slug: true, icon: true } },
+      seller:       { select: { brandName: true, isVerified: true, bio: true, location: { select: { name: true } } } },
+      category:     { select: { name: true, slug: true, icon: true } },
+      auctionEvent: { select: { biddingStartDate: true, biddingEndDate: true, title: true } },
       bids: {
         orderBy: { createdAt: 'desc' },
         take: 20,
@@ -20,8 +21,8 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
 
   if (!auction) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-  // Auto-close if time expired
-  if (auction.status === 'LIVE' && auction.endTime <= new Date()) {
+  // Auto-close if event bidding window has expired
+  if (auction.status === 'LIVE' && auction.auctionEvent?.biddingEndDate && auction.auctionEvent.biddingEndDate <= new Date()) {
     const updated = await prisma.auction.update({
       where: { id },
       data: { status: 'ENDED' },

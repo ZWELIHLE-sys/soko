@@ -14,8 +14,11 @@ interface Auction {
   description: string
   startPrice: number
   reservePrice: number | null
-  startTime: string
-  endTime: string
+  auctionEvent: {
+    title: string
+    biddingStartDate: string
+    biddingEndDate: string
+  } | null
   status: 'PENDING' | 'APPROVED' | 'LIVE' | 'ENDED' | 'CANCELLED'
   adminNote: string | null
   createdAt: string
@@ -192,7 +195,9 @@ function AuctionRow({
           </div>
           <div className={styles.auctionDates}>
             <Clock size={11} />
-            {fmtDateTime(auction.startTime)} — {fmtDateTime(auction.endTime)}
+            {auction.auctionEvent
+              ? `${auction.auctionEvent.title}: ${fmtDateTime(auction.auctionEvent.biddingStartDate)} — ${fmtDateTime(auction.auctionEvent.biddingEndDate)}`
+              : 'No event assigned'}
           </div>
         </div>
 

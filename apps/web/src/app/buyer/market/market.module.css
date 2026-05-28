@@ -1,0 +1,210 @@
+.header { margin-bottom: 28px; }
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.subtitle { font-size: 14px; color: #6b7280; }
+
+.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
+
+/* Market cards */
+.list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.cardBanner {
+  background: linear-gradient(rgba(28,10,0,0.88), rgba(28,10,0,0.88)),
+              url('/images/uchansi.jpg') center / cover no-repeat;
+  padding: 20px 20px 18px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.themePill {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FEF3C7;
+  background: rgba(124,45,18,0.7);
+  border: 1px solid rgba(124,45,18,0.9);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.upcomingPill {
+  font-size: 10px;
+  font-weight: 700;
+  color: #1C0A00;
+  background: #D97706;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardBody { padding: 20px; }
+
+.cardTitle {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.cardDate {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7C2D12;
+  margin-bottom: 10px;
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.stallCount {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.mir {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.viewBtn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7C2D12;
+  text-decoration: none;
+}
+
+.viewBtn:hover { text-decoration: underline; }
+
+/* Bottom banner */
+.banner {
+  background:
+    linear-gradient(rgba(28,10,0,0.88), rgba(28,10,0,0.88)),
+    url('/images/uchansi.jpg') center / cover no-repeat;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.bannerLabel {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.bannerTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 10px;
+}
+
+.bannerText {
+  font-size: 13px;
+  color: #A8A29E;
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
+
+.bannerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.bannerLink:hover { background: #6b2510; }
+
+/* Empty */
+.empty { text-align: center; padding: 48px 24px; }
+
+.emptyIcon {
+  color: #7C2D12;
+  opacity: 0.3;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.emptyTitle {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7C2D12;
+  margin-bottom: 8px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 340px;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.emptyBtn:hover { background: #6b2510; }

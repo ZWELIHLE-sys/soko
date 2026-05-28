@@ -213,3 +213,156 @@
   align-items: center;
   gap: 5px;
 }
+
+.totalNote { color: #9ca3af; font-size: 12px; }
+
+/* Confirm delivery button */
+.confirmBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.confirmBtn:hover:not(:disabled) { background: #6b2510; }
+.confirmBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Item right side */
+.itemRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+/* Review button */
+.reviewBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 9px;
+  background: transparent;
+  border: 1px solid #D97706;
+  border-radius: 20px;
+  color: #D97706;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.reviewBtn:hover { background: #FFFBEB; }
+
+.reviewedTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #14532D;
+}
+
+/* Review modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 440px;
+}
+
+.modalTitle {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.starRow {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.starBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: #d1d5db;
+  line-height: 1;
+}
+
+.starActive { color: #D97706; }
+
+.reviewTextarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.reviewTextarea:focus { border-color: #7C2D12; }
+
+.reviewError {
+  font-size: 13px;
+  color: #991B1B;
+  background: #FEE2E2;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.modalActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.cancelBtn {
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #374151;
+}
+
+.submitReviewBtn {
+  padding: 9px 18px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitReviewBtn:disabled { opacity: 0.6; cursor: not-allowed; }

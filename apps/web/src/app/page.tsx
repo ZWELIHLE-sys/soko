@@ -4,6 +4,7 @@ import Hero from '@/components/home/Hero'
 import MissionStrip from '@/components/home/MissionStrip'
 import CategoriesSection from '@/components/home/CategoriesSection'
 import FeaturedProducts from '@/components/home/FeaturedProducts'
+import Testimonials from '@/components/home/Testimonials'
 import BuyerBanner from '@/components/home/BuyerBanner'
 import SellerBanner from '@/components/home/SellerBanner'
 import Footer from '@/components/layout/Footer'
@@ -17,6 +18,7 @@ export default function HomePage() {
       <MissionStrip />
       <CategoriesSection />
       <FeaturedProducts />
+      <Testimonials />
       <BuyerBanner />
       <SellerBanner />
       <Footer />

@@ -9,3 +9,9 @@
   padding: 32px;
   overflow-y: auto;
 }
+
+@media (max-width: 768px) {
+  .main {
+    padding: 64px 16px 32px;
+  }
+}

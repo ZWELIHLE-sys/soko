@@ -112,9 +112,11 @@
 
 /* Impact */
 .impact {
-  background: #1C0A00;
+  background:
+    linear-gradient(rgba(28,10,0,0.90), rgba(28,10,0,0.90)),
+    url('/images/uchansi.jpg') center / cover no-repeat;
   border-radius: 16px;
-  padding: 28px;
+  padding: 28px 32px;
 }
 
 .impactLabel {

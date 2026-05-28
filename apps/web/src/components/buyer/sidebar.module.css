@@ -1,25 +1,27 @@
 .aside {
   width: 240px;
   min-height: 100vh;
-  background: #1C0A00;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
+  flex-shrink: 0;
+  z-index: 30;
 }
 
+/* Gold strip — distinguishes buyer from seller (seller uses #7C2D12) */
 .strip {
-  height: 5px;
-  background: repeating-linear-gradient(
-    90deg,
-    #7C2D12 0px, #7C2D12 8px,
-    #D97706 8px, #D97706 16px,
-    #14532D 16px, #14532D 24px
-  );
+  height: 3px;
+  background: #D97706;
 }
 
-.logoWrap {
-  padding: 24px 20px 16px;
+.asideHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
 }
 
 .logoLink {
@@ -44,18 +46,27 @@
 }
 
 .logoName {
-  color: #FEF3C7;
+  color: #1a1a1a;
   font-family: Georgia, serif;
   font-weight: 700;
   font-size: 16px;
 }
 
+.closeBtn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+}
+
 .userBox {
   margin: 0 16px 20px;
   padding: 14px;
-  background: rgba(255, 255, 255, 0.06);
+  background: #f9fafb;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid #e5e7eb;
 }
 
 .userAvatar {
@@ -74,13 +85,13 @@
 
 .userName {
   font-size: 13px;
-  font-weight: 500;
-  color: #FEF3C7;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .userRole {
   font-size: 11px;
-  color: #A8A29E;
+  color: #6b7280;
   margin-top: 3px;
   display: flex;
   align-items: center;
@@ -102,54 +113,82 @@
   gap: 10px;
   padding: 10px 12px;
   border-radius: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   background: transparent;
+  transition: background 0.15s;
 }
 
-.navItemActive {
-  background: #7C2D12;
-}
+.navItem:hover { background: #f3f4f6; }
 
-.navIcon {
-  color: #A8A29E;
-  flex-shrink: 0;
-}
+.navItemActive { background: #7C2D12; }
+.navItemActive:hover { background: #7C2D12; }
 
-.navIconActive {
-  color: #FEF3C7;
-}
+.navIcon       { color: #6b7280; flex-shrink: 0; }
+.navIconActive { color: #FEF3C7; flex-shrink: 0; }
 
-.navLabel {
-  font-size: 13px;
-  font-weight: 400;
-  color: #A8A29E;
-}
+.navLabel      { font-size: 13px; font-weight: 400; color: #374151; }
+.navLabelActive { font-size: 13px; font-weight: 500; color: #FEF3C7; }
 
-.navLabelActive {
-  font-weight: 500;
-  color: #FEF3C7;
-}
-
-.signOutWrap {
-  padding: 16px 12px 24px;
-}
+.signOutWrap { padding: 16px 12px 24px; }
 
 .signOutBtn {
   width: 100%;
   padding: 10px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  color: #A8A29E;
+  color: #6b7280;
   font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  transition: background 0.15s;
 }
 
-.signOutBtn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #FEF3C7;
+.signOutBtn:hover { background: #f3f4f6; color: #1a1a1a; }
+
+/* Hamburger — hidden on desktop */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #1a1a1a;
+  padding: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 40;
+}
+
+@media (max-width: 768px) {
+  .aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 45;
+    min-height: unset;
+  }
+
+  .asideOpen { transform: translateX(0); }
+
+  .closeBtn  { display: flex; }
+  .hamburger { display: flex; }
+  .overlay   { display: block; }
 }

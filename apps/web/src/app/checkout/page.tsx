@@ -104,6 +104,9 @@ export default function CheckoutPage() {
 
     setLoading(true)
 
+    // Single paymentRef shared across all orders in this checkout
+    const paymentRef = `vuna_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+
     const orderRes = await fetch('/api/orders/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -113,6 +116,7 @@ export default function CheckoutPage() {
         deliveryCityId:  form.cityId,
         deliveryTier:    'SELLER_ARRANGED',
         deliveryFee:     0,
+        paymentRef,
       })
     })
 
@@ -128,7 +132,7 @@ export default function CheckoutPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        orderId:   orderData.orders[0].id,
+        orderId:   paymentRef,
         amount:    subtotal.toFixed(2),
         firstName: form.firstName,
         lastName:  form.lastName,

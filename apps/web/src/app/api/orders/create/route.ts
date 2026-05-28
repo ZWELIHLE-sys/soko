@@ -1,7 +1,9 @@
-﻿import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@vuna/db'
+
+const COMMISSION_RATE = 0.10
 
 interface CartItem {
   productId: string
@@ -22,13 +24,14 @@ export async function POST(req: NextRequest) {
     // TODO: DHL API integration — when DHL is active, deliveryTier will be 'DHL',
     // deliveryFee will be the real DHL rate, and a waybill should be generated here
     // via the DHL Express API and stored on the order (add trackingNumber field).
-    const { items, deliveryAddress, deliveryCityId, deliveryTier, deliveryFee } = body
+    // Reference: packages/db/prisma/schema.prisma DeliveryTier enum
+    const { items, deliveryAddress, deliveryCityId, deliveryTier, deliveryFee, paymentRef } = body
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: 'No items in cart' }, { status: 400 })
     }
 
-    // Create one order per seller
+    // Group items by seller — one order per seller
     const sellerGroups: Record<string, CartItem[]> = {}
     for (const item of items) {
       if (!sellerGroups[item.sellerId]) sellerGroups[item.sellerId] = []
@@ -41,17 +44,21 @@ export async function POST(req: NextRequest) {
       const itemsTotal = sellerItems.reduce(
         (sum, item) => sum + item.price * item.quantity, 0
       )
+      const orderTotal = itemsTotal + deliveryFee
+      const commission = parseFloat((orderTotal * COMMISSION_RATE).toFixed(2))
 
       const order = await prisma.order.create({
         data: {
-          buyerId:         session.user.id,
+          buyerId:        session.user.id,
           sellerId,
-          totalAmount:     itemsTotal + deliveryFee,
+          totalAmount:    orderTotal,
           deliveryFee,
           deliveryTier,
           deliveryAddress,
           deliveryCityId,
-          status:          'PENDING',
+          status:         'PENDING',
+          paymentRef:     paymentRef ?? null,
+          commission,
           items: {
             create: sellerItems.map((item: CartItem) => ({
               productId: item.productId,

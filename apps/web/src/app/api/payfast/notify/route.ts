@@ -24,10 +24,10 @@ export async function POST(req: NextRequest) {
     const orderId       = data.m_payment_id
 
     if (paymentStatus === 'COMPLETE') {
-      // Update all orders matching this payment
+      // paymentRef is shared across all orders in one checkout (multi-seller support)
       await prisma.order.updateMany({
-        where: { id: orderId },
-        data: { status: 'CONFIRMED' }
+        where: { paymentRef: orderId },
+        data:  { status: 'CONFIRMED' }
       })
     }
 

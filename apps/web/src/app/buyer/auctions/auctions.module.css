@@ -1,0 +1,164 @@
+.header { margin-bottom: 28px; }
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.subtitle { font-size: 14px; color: #6b7280; }
+
+.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
+
+.section { margin-bottom: 36px; }
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.sectionIcon { color: #7C2D12; }
+
+.sectionTitle {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Bid card */
+.list { display: flex; flex-direction: column; gap: 10px; }
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cardWon {
+  border-color: #D97706;
+  background: #FFFBEB;
+}
+
+.cardLeft { flex: 1; min-width: 0; }
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardMeta { font-size: 12px; color: #6b7280; margin-bottom: 4px; }
+
+.cardEvent {
+  font-size: 11px;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.bidStatusBadge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.badgeLeading { background: #DCFCE7; color: #14532D; }
+.badgeOutbid  { background: #FEE2E2; color: #991B1B; }
+
+.wonBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.bidAmount {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+.bidDate { font-size: 11px; color: #9ca3af; }
+
+.viewLink {
+  font-size: 12px;
+  color: #7C2D12;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.viewLink:hover { text-decoration: underline; }
+
+/* Empty state */
+.empty { text-align: center; padding: 48px 24px; }
+
+.emptyIcon {
+  color: #7C2D12;
+  opacity: 0.3;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.emptyTitle {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7C2D12;
+  margin-bottom: 8px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 320px;
+  margin: 0 auto 20px;
+  line-height: 1.7;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.emptyBtn:hover { background: #6b2510; }

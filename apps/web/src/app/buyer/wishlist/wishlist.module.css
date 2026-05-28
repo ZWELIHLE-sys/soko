@@ -1,0 +1,180 @@
+.header {
+  margin-bottom: 28px;
+}
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.subtitle { font-size: 14px; color: #6b7280; }
+
+.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover { box-shadow: 0 4px 16px rgba(28,10,0,0.08); }
+
+.cardImg {
+  height: 160px;
+  position: relative;
+  background: #f3f4f6;
+}
+
+.imgFallback {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7C2D12 0%, #9A3515 100%);
+}
+
+.soldOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.cardBody { padding: 14px; }
+
+.cardCategory {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.cardName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardSeller {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.cardPrice {
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #7C2D12;
+  margin-bottom: 12px;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.viewBtn {
+  flex: 1;
+  padding: 9px 0;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.viewBtn:hover { background: #6b2510; }
+
+.viewBtnDisabled {
+  background: #d1d5db;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+.removeBtn {
+  padding: 9px 10px;
+  background: transparent;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  color: #EF4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.removeBtn:hover:not(:disabled) { background: #FEF2F2; }
+.removeBtn:disabled { opacity: 0.4; }
+
+/* Empty state */
+.empty { text-align: center; padding: 64px 24px; }
+
+.emptyIcon {
+  color: #7C2D12;
+  opacity: 0.35;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.emptyTitle {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #7C2D12;
+  margin-bottom: 8px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 340px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 22px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.emptyBtn:hover { background: #6b2510; }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+}

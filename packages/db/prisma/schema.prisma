@@ -73,6 +73,7 @@ model User {
   wishlist      Wishlist[]
   bids          Bid[]          @relation("UserBids")
   wonAuctions   Auction[]      @relation("AuctionWinner")
+  testimonials  Testimonial[]
 
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -243,6 +244,11 @@ model Order {
   deliveryFee    Float
   deliveryTier   DeliveryTier
   trackingNumber String?
+
+  // PayFast payment tracking
+  paymentRef     String?      // Shared across all orders in one checkout (multi-seller)
+  commission     Float?       // Amount Vuna keeps (10% of totalAmount)
+  payoutStatus   String       @default("PENDING_PAYOUT") // PENDING_PAYOUT → PAID_OUT
 
   // Who bought
   buyerId        String
@@ -493,4 +499,18 @@ model Wishlist {
   @@unique([userId, productId]) // Can't wishlist same product twice
 }
 
+// ================================
+// TESTIMONIALS — Buyer platform feedback shown on home page
+// Admin approves before going live. Auto-approved initially, admin can unpublish.
+// ================================
+model Testimonial {
+  id         String   @id @default(cuid())
+  content    String
+  rating     Int      @default(5)  // 1-5 stars
+  isApproved Boolean  @default(true)
 
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+
+  createdAt  DateTime @default(now())
+}

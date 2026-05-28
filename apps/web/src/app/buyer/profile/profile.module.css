@@ -30,7 +30,15 @@
   border: 1px solid #e5e7eb;
 }
 
-.avatar {
+.avatarWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatarInitial {
   width: 64px;
   height: 64px;
   background: #D97706;
@@ -42,7 +50,29 @@
   font-size: 24px;
   font-weight: 700;
   font-family: Georgia, serif;
-  flex-shrink: 0;
+}
+
+.avatarEditBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  background: #7C2D12;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #FEF3C7;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.uploadingNote {
+  font-size: 11px;
+  color: #D97706;
+  margin-top: 4px;
 }
 
 .avatarName {
@@ -112,6 +142,19 @@
   margin-top: 4px;
 }
 
+.errorMsg {
+  background: #FEE2E2;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #991B1B;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .success {
   background: #DCFCE7;
   border: 1px solid #BBF7D0;
@@ -123,6 +166,35 @@
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.cardNote {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.starRow {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.starBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: #D97706;
+  line-height: 1;
+}
+
+.starActive { color: #D97706; }
+
+.textarea {
+  resize: vertical;
+  font-family: inherit;
 }
 
 .saveBtn {
@@ -143,8 +215,10 @@
 
 .impact {
   margin-top: 20px;
-  padding: 20px;
-  background: #1C0A00;
+  padding: 28px 32px;
+  background:
+    linear-gradient(rgba(28,10,0,0.90), rgba(28,10,0,0.90)),
+    url('/images/uchansi.jpg') center / cover no-repeat;
   border-radius: 14px;
 }
 

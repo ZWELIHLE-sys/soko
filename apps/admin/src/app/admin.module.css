@@ -1,0 +1,274 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: #FAFAF9;
+}
+
+.main {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* ---- Shared page primitives used across all admin pages ---- */
+
+.pageHeader {
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.pageSub {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.btnPrimary {
+  padding: 9px 18px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnPrimary:hover { background: #6B2510; }
+.btnPrimary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnSecondary {
+  padding: 9px 18px;
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnSecondary:hover { background: #f9fafb; }
+.btnSecondary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnDanger {
+  padding: 9px 18px;
+  background: #fff;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnDanger:hover { background: #FEF2F2; }
+.btnDanger:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btnSuccess {
+  padding: 9px 18px;
+  background: #14532D;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btnSuccess:hover { background: #166534; }
+.btnSuccess:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Filter tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 7px 16px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: #6b7280;
+}
+
+.tabActive {
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-color: #7C2D12;
+}
+
+/* Alert banner */
+.alertBanner {
+  background: #FEF9C3;
+  border: 1px solid #D97706;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.alertTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #92400E;
+}
+
+.alertSub {
+  font-size: 12px;
+  color: #B45309;
+  margin-top: 2px;
+}
+
+/* Modal overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.modalTitle {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 16px;
+}
+
+.formLabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #7C2D12;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #fff;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+}
+
+.formTextarea:focus {
+  outline: none;
+  border-color: #7C2D12;
+}
+
+.modalActions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.errorMsg {
+  color: #DC2626;
+  font-size: 12px;
+  margin-top: 4px;
+}

@@ -1,0 +1,74 @@
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.statLink {
+  text-decoration: none;
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+
+.statCard:hover {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.statCardUrgent {
+  border-color: #D97706;
+}
+
+.statTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.statIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.urgentTag {
+  background: #FEF9C3;
+  color: #92400E;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.statValue {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.actionsCard {
+  margin-bottom: 24px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

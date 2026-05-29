@@ -26,9 +26,10 @@ function getTimeLeft(target: string): TimeLeft {
 }
 
 export default function MarketCountdown({ targetDate, label }: Props) {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(targetDate))
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
   useEffect(() => {
+    setTimeLeft(getTimeLeft(targetDate))
     const id = setInterval(() => setTimeLeft(getTimeLeft(targetDate)), 1000)
     return () => clearInterval(id)
   }, [targetDate])

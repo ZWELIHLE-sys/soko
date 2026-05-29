@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Store, CalendarDays, Users, ArrowRight, MapPin } from 'lucide-react'
+import { Store, CalendarDays, Users, ArrowRight, MapPin, Clock } from 'lucide-react'
 import styles from './market.module.css'
 
 interface MarketEvent {
@@ -20,12 +20,13 @@ interface MarketEvent {
 
 export default function BuyerMarketPage() {
   const [markets, setMarkets] = useState<MarketEvent[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading]   = useState(true)
 
   useEffect(() => {
     fetch('/api/buyer/market')
       .then(r => r.json())
       .then(data => { setMarkets(Array.isArray(data) ? data : []); setLoading(false) })
+      .catch(() => setLoading(false))
   }, [])
 
   const formatRange = (start: string, end: string) => {
@@ -37,6 +38,9 @@ export default function BuyerMarketPage() {
     }
     return `${s.toLocaleDateString('en-ZA', opts)} – ${e.toLocaleDateString('en-ZA', { ...opts, year: 'numeric' })}`
   }
+
+  const fmtDate = (d: string) =>
+    new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })
 
   if (loading) return <div className={styles.loading}>Loading market events...</div>
 
@@ -57,24 +61,32 @@ export default function BuyerMarketPage() {
             Market dates are announced here when confirmed. Check back soon — the next event is being planned.
           </p>
           <Link href="/market" className={styles.emptyBtn}>
-            <Store size={14} /> Market Page <ArrowRight size={14} />
+            <Store size={14} /> Explore the Market Page
           </Link>
         </div>
       ) : (
         <div className={styles.list}>
           {markets.map(market => {
-            const upcoming = new Date(market.startDate) > new Date()
+            const now = new Date()
+            const start = new Date(market.startDate)
+            const end   = new Date(market.endDate)
+            const isLive     = now >= start && now <= end
+            const isUpcoming = now < start
+            const isPast     = now > end
+
             return (
-              <div key={market.id} className={styles.card}>
+              <div key={market.id} className={`${styles.card} ${isLive ? styles.cardLive : ''}`}>
+                {/* Banner */}
                 <div className={styles.cardBanner}>
-                  {market.theme && (
-                    <span className={styles.themePill}>{market.theme}</span>
-                  )}
-                  {upcoming && (
-                    <span className={styles.upcomingPill}>Upcoming</span>
-                  )}
+                  <div className={styles.bannerPills}>
+                    {isLive     && <span className={styles.pillLive}>🟢 Live Now</span>}
+                    {isUpcoming && <span className={styles.pillUpcoming}>Upcoming</span>}
+                    {isPast     && <span className={styles.pillPast}>Past Event</span>}
+                    {market.theme && <span className={styles.pillTheme}>{market.theme}</span>}
+                  </div>
                 </div>
 
+                {/* Body */}
                 <div className={styles.cardBody}>
                   <h2 className={styles.cardTitle}>{market.title}</h2>
 
@@ -83,26 +95,40 @@ export default function BuyerMarketPage() {
                     {formatRange(market.startDate, market.endDate)}
                   </div>
 
+                  {isUpcoming && (
+                    <div className={styles.deadlineRow}>
+                      <Clock size={12} />
+                      Seller applications close {fmtDate(market.applicationDeadline)}
+                    </div>
+                  )}
+
                   {market.description && (
                     <p className={styles.cardDesc}>{market.description}</p>
                   )}
 
+                  {market.makerInResident && (
+                    <div className={styles.mir}>
+                      <MapPin size={12} />
+                      Maker in Residence: <strong>{market.makerInResident.brandName}</strong>
+                      {market.makerInResident.bio && (
+                        <span className={styles.mirBio}> — {market.makerInResident.bio}</span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Footer */}
                   <div className={styles.cardFooter}>
                     <div className={styles.stallCount}>
                       <Users size={13} />
                       {market.listings.length} confirmed seller{market.listings.length !== 1 ? 's' : ''}
                     </div>
 
-                    {market.makerInResident && (
-                      <div className={styles.mir}>
-                        <MapPin size={12} />
-                        Maker in Residence: <strong>{market.makerInResident.brandName}</strong>
-                      </div>
-                    )}
-
-                    <Link href="/market" className={styles.viewBtn}>
-                      View Market Page <ArrowRight size={13} />
-                    </Link>
+                    <div className={styles.cardActions}>
+                      <Link href="/market" className={styles.viewBtn}>
+                        {isLive ? 'See Live Market' : isUpcoming ? 'Preview Sellers' : 'View Event'}
+                        <ArrowRight size={13} />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -111,9 +137,10 @@ export default function BuyerMarketPage() {
         </div>
       )}
 
+      {/* Bottom promo banner */}
       <div className={styles.banner}>
         <div className={styles.bannerLabel}>The Vuna Market</div>
-        <h2 className={styles.bannerTitle}>Where Africa gathers every Sunday</h2>
+        <h2 className={styles.bannerTitle}>Where Africa gathers</h2>
         <p className={styles.bannerText}>
           Every Vuna Market is a curated gathering of Africa&apos;s most gifted makers.
           Meet the weavers, potters, designers, and farmers behind the products —

@@ -1,19 +1,26 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { prisma } from '@vuna/db'
 import { Sprout, MapPin, ShieldCheck } from 'lucide-react'
 import styles from './FeaturedProducts.module.css'
 
 async function getFeaturedProducts() {
-  return await prisma.product.findMany({
-    where: { status: 'ACTIVE' },
-    take: 8,
+  const now = new Date()
+  const listings = await prisma.featuredListing.findMany({
+    where: { expiresAt: { gte: now } },
     orderBy: { createdAt: 'desc' },
+    take: 8,
     include: {
-      seller: { select: { brandName: true, isVerified: true } },
-      category: { select: { name: true, icon: true } },
-      location: { select: { name: true } }
-    }
+      product: {
+        include: {
+          seller:   { select: { brandName: true, isVerified: true } },
+          category: { select: { name: true, icon: true } },
+          location: { select: { name: true } },
+        },
+      },
+    },
   })
+  return listings.map(l => l.product)
 }
 
 export default async function FeaturedProducts() {
@@ -49,7 +56,17 @@ export default async function FeaturedProducts() {
             <Link key={product.id} href={`/product/${product.id}`} className={styles.cardLink}>
               <div className={styles.card}>
                 <div className={styles.imageArea}>
-                  {product.category.icon}
+                  {product.images[0] ? (
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      fill
+                      className={styles.cardImg}
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    />
+                  ) : (
+                    <span className={styles.fallbackIcon}>{product.category.icon}</span>
+                  )}
                   {product.seller.isVerified && (
                     <span className={styles.verifiedBadge}>
                       <ShieldCheck size={10} /> Vuna

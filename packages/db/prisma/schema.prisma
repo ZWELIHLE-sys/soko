@@ -178,7 +178,7 @@ model Product {
   price       Float
   stock       Int           @default(1)
   status      ProductStatus @default(DRAFT)
-  images      String[]      // Array of image URLs from Cloudinary
+  images      String[]      @default([])  // Array of image URLs from Cloudinary
 
   // Bulk pricing — optional; when set, buyers ordering >= bulkMinQty pay bulkPrice per unit
   bulkMinQty  Int?
@@ -197,12 +197,29 @@ model Product {
   location    Location      @relation(fields: [locationId], references: [id])
 
   // Relations
-  orderItems  OrderItem[]
-  reviews     Review[]
-  wishlist    Wishlist[]
+  orderItems       OrderItem[]
+  reviews          Review[]
+  wishlist         Wishlist[]
+  featuredListing  FeaturedListing?
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+}
+
+// ================================
+// FEATURED LISTINGS (Home Page Spotlight)
+// ================================
+
+// Phase 1: admin manually pins products with an expiry date
+// Phase 2: isPaidTier flag will be used for paid promoted slots (future)
+model FeaturedListing {
+  id          String   @id @default(cuid())
+  productId   String   @unique
+  product     Product  @relation(fields: [productId], references: [id])
+  expiresAt   DateTime
+  note        String?  // admin note — why this product is featured
+  isPaidTier  Boolean  @default(false) // Phase 2: true = seller paid for placement
+  createdAt   DateTime @default(now())
 }
 
 // ================================
@@ -337,13 +354,19 @@ model Review {
 }
 
 // ================================
-// VUNA MARKET — Monthly Pop-Up Market
-// Admin creates the event and sets dates manually.
-// Sellers apply; admin approves. Countdown shown on landing page.
+// VUNA MARKET — Weekly/Monthly Pop-Up Markets
+// Sunday Vuna Market (weekly), Friday Night Market (monthly).
+// Admin creates events, approves stall applications, assigns stall numbers and Maker in Residence.
 // ================================
 
+enum MarketType {
+  SUNDAY_MARKET       // Weekly — every Sunday 8AM–6PM
+  FRIDAY_NIGHT_MARKET // Monthly — last Friday of every month 5PM–11PM
+}
+
 model Market {
-  id                  String   @id @default(cuid())
+  id                  String     @id @default(cuid())
+  marketType          MarketType @default(SUNDAY_MARKET)
   title               String
   description         String?
   theme               String?
@@ -351,12 +374,12 @@ model Market {
   endDate             DateTime
   applicationDeadline DateTime
   bannerImage         String?
-  isActive            Boolean  @default(true)
-  maxListings         Int?     // stall limit — scarcity is intentional
+  isActive            Boolean    @default(true)
+  maxListings         Int?       // stall limit — scarcity is intentional
 
   // Featured seller for this market event
   makerInResidenceId  String?
-  makerInResident     Seller?  @relation("MarketMakerInResidence", fields: [makerInResidenceId], references: [id])
+  makerInResident     Seller?    @relation("MarketMakerInResidence", fields: [makerInResidenceId], references: [id])
 
   listings  MarketListing[]
 
@@ -371,13 +394,15 @@ enum MarketListingStatus {
 }
 
 model MarketListing {
-  id          String              @id @default(cuid())
-  status      MarketListingStatus @default(PENDING)
-  sellerNote  String?
-  adminNote   String?
-  approvedAt  DateTime?
-  stallNumber Int?                // assigned by admin when approved
-  productIds  String[]            @default([])
+  id           String              @id @default(cuid())
+  status       MarketListingStatus @default(PENDING)
+  sellerNote   String?
+  adminNote    String?
+  approvedAt   DateTime?
+  stallNumber  Int?                // assigned by admin when approved
+  productIds   String[]            @default([])
+  stallMessage String?             // seller's "come see what I brought today" message
+  marketPrice  Float?              // seller's market-only price (shown during market hours only)
 
   marketId  String
   market    Market @relation(fields: [marketId], references: [id])

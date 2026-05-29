@@ -1,0 +1,145 @@
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.liveTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #DCFCE7;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #14532D;
+  font-weight: 500;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: #16A34A;
+  border-radius: 50%;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.serviceCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.serviceLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.serviceStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.alertsCard {
+  margin-bottom: 24px;
+}
+
+.alertsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alertItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.alertWarn  { background: #FEF9C3; color: #92400E; }
+.alertError { background: #FEE2E2; color: #991B1B; }
+.alertOk    { background: #DCFCE7; color: #14532D; }
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 700px) {
+  .metricsGrid { grid-template-columns: 1fr; }
+}
+
+.metricRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #FAFAF9;
+  border-radius: 8px;
+}
+
+.metricLabel {
+  font-size: 13px;
+  color: #374151;
+}
+
+.metricValue {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+.orderRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.orderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: #FAFAF9;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.orderBuyer  { font-weight: 500; color: #1a1a1a; }
+.orderArrow  { color: #9ca3af; }
+.orderSeller { color: #6b7280; }
+
+.orderMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orderAmount { font-weight: 600; color: #7C2D12; }
+.orderDate   { font-size: 11px; color: #9ca3af; }

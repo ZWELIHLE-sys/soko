@@ -1,0 +1,87 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sellerCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.sellerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.sellerInfo {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  background: #7C2D12;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: Georgia, serif;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+
+.meta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 3px;
+}
+
+.metaIcons {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #9ca3af;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.metaIcons span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.counts {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.btns {
+  display: flex;
+  gap: 8px;
+}

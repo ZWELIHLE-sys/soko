@@ -1,0 +1,93 @@
+.searchInput {
+  margin-bottom: 20px;
+  max-width: 360px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buyerCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #7C2D12;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FEF3C7;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: Georgia, serif;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.meta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statVal {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+.statLbl {
+  font-size: 10px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.joined {
+  font-size: 11px;
+  color: #9ca3af;
+}

@@ -1,0 +1,473 @@
+/* ── Page layout ─────────────────────────────────────────────────────────── */
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── Create form ──────────────────────────────────────────────────────────── */
+
+.createForm {
+  margin-bottom: 28px;
+}
+
+.createNote {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: #FEF9C3;
+  border-radius: 8px;
+  border-left: 3px solid #D97706;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20px;
+}
+
+@media (max-width: 640px) {
+  .formGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Events list ──────────────────────────────────────────────────────────── */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.eventCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.eventHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.eventHeaderLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.eventTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.eventTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.eventTheme {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+/* ── Date pipeline ────────────────────────────────────────────────────────── */
+
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.pipeStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  min-width: 90px;
+}
+
+.pipeStepDone {
+  background: #DCFCE7;
+  border-color: #86EFAC;
+}
+
+.pipeLabel {
+  font-size: 10px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pipeDate {
+  font-size: 11px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.pipeStepDone .pipeLabel,
+.pipeStepDone .pipeDate {
+  color: #14532D;
+}
+
+.pipeDivider {
+  width: 16px;
+  height: 1px;
+  background: #d1d5db;
+  flex-shrink: 0;
+}
+
+/* ── Event stats row ──────────────────────────────────────────────────────── */
+
+.eventStats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.pendingTag {
+  background: #FEF9C3;
+  color: #92400E;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.eventControls {
+  flex-shrink: 0;
+}
+
+.endedBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  background: #F3F4F6;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+/* ── Items panel ──────────────────────────────────────────────────────────── */
+
+.itemsPanel {
+  border-top: 1px solid #f3f4f6;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Individual item card ─────────────────────────────────────────────────── */
+
+.itemCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #FAFAF9;
+}
+
+.imageThumbs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 14px 0;
+}
+
+.thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.itemBody {
+  padding: 12px 16px 14px;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.itemTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.itemMeta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* ── Pricing row ──────────────────────────────────────────────────────────── */
+
+.pricingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.priceTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #374151;
+  background: #F3F4F6;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.reserveTag {
+  background: #FEF9C3;
+  color: #92400E;
+}
+
+.reserveNote {
+  color: #B45309;
+  font-size: 10px;
+  margin-left: 2px;
+}
+
+/* ── Artist statement ─────────────────────────────────────────────────────── */
+
+.artistStatement {
+  font-size: 13px;
+  color: #374151;
+  font-style: italic;
+  border-left: 3px solid #7C2D12;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 8px;
+}
+
+.itemDesc {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+/* ── LIVE bidding row ─────────────────────────────────────────────────────── */
+
+.liveRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  background: #F0FDF4;
+  border: 1px solid #86EFAC;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.currentBid {
+  font-size: 13px;
+  color: #14532D;
+}
+
+.bidCount {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.noBids {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.reserveMet {
+  font-size: 11px;
+  font-weight: 600;
+  color: #14532D;
+  background: #DCFCE7;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.reserveNotMet {
+  font-size: 11px;
+  font-weight: 600;
+  color: #991B1B;
+  background: #FEE2E2;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.viewBidsBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #7C2D12;
+  border: 1px solid #7C2D12;
+  background: #fff;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.viewBidsBtn:hover {
+  background: #FEF3C7;
+}
+
+/* ── ENDED hammer row ─────────────────────────────────────────────────────── */
+
+.hammerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #FEF9C3;
+  border: 1px solid #D97706;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.hammerLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.winnerLabel {
+  font-size: 13px;
+  color: #374151;
+}
+
+.hammerPrice {
+  font-size: 15px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+/* ── Admin note ───────────────────────────────────────────────────────────── */
+
+.adminNote {
+  font-size: 12px;
+  color: #374151;
+  background: #EFF6FF;
+  border-left: 3px solid #3B82F6;
+  padding: 6px 10px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 8px;
+}
+
+/* ── Item action buttons ──────────────────────────────────────────────────── */
+
+.itemActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Review modal ─────────────────────────────────────────────────────────── */
+
+.modalNote {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* ── Bid history modal ────────────────────────────────────────────────────── */
+
+.bidsList {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.bidRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  background: #fff;
+}
+
+.bidRow:last-child {
+  border-bottom: none;
+}
+
+.bidRowTop {
+  background: #FEF9C3;
+}
+
+.bidLeft {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bidder {
+  font-size: 13px;
+  color: #374151;
+}
+
+.bidRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bidAmount {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.bidAmountTop {
+  color: #7C2D12;
+  font-size: 16px;
+}
+
+.bidTime {
+  font-size: 11px;
+  color: #9ca3af;
+}

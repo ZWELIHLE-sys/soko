@@ -734,6 +734,20 @@ async function main() {
   }
   */
 
+  // Admin user
+  await prisma.user.upsert({
+    where:  { email: 'admin@vuna.co.za' },
+    update: { role: 'ADMIN', isVerified: true },
+    create: {
+      id:         'user-admin',
+      email:      'admin@vuna.co.za',
+      name:       'Vuna Admin',
+      password:   '$2b$10$acmv/Z92MhpVEpCR4LZtRuoWvBugcOWEEUvCtdjo9NDrpKK2MvjCm',
+      role:       'ADMIN',
+      isVerified: true,
+    },
+  })
+
   console.log('Vuna database seeded successfully!')
   console.log('Locations: Africa -> SA -> 9 Provinces -> Districts -> Cities')
   console.log('Categories: 14 African product categories ready')

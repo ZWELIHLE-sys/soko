@@ -1,15 +1,26 @@
 import { PrismaClient } from './generated/prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 
+type PrismaClientType = InstanceType<typeof PrismaClient>
+
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+  prisma: PrismaClientType | undefined
 }
 
-function createPrismaClient() {
+function createPrismaClient(): PrismaClientType {
   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
   return new PrismaClient({ adapter })
 }
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient()
+function getPrisma(): PrismaClientType {
+  if (!globalForPrisma.prisma) {
+    globalForPrisma.prisma = createPrismaClient()
+  }
+  return globalForPrisma.prisma
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+export const prisma: PrismaClientType = new Proxy({} as PrismaClientType, {
+  get(_target, prop) {
+    return (getPrisma() as unknown as Record<string, unknown>)[prop as string]
+  },
+})

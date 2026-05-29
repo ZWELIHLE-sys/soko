@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@vuna/db'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session || session.user?.role !== 'SELLER') {
@@ -19,7 +21,18 @@ export async function GET() {
     prisma.auctionEvent.findMany({
       where: { isActive: true },
       orderBy: { biddingStartDate: 'asc' },
-      include: { _count: { select: { items: true } } },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        theme: true,
+        status: true,
+        submissionDeadline: true,
+        catalogueOpenDate: true,
+        biddingStartDate: true,
+        biddingEndDate: true,
+        _count: { select: { items: true } },
+      },
     }),
     prisma.auction.findMany({
       where: { sellerId: seller.id },

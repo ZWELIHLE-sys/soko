@@ -8,7 +8,6 @@ type ExtendedJWT = JWT & {
   id?: string
   role?: string
   isVerified?: boolean
-  brandName?: string
 }
 
 export const authOptions: NextAuthOptions = {
@@ -18,7 +17,6 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email:    { label: 'Email',    type: 'email' },
         password: { label: 'Password', type: 'password' },
-        role:     { label: 'Role',     type: 'text' },
       },
 
       async authorize(credentials) {
@@ -38,10 +36,10 @@ export const authOptions: NextAuthOptions = {
         if (user.role !== 'ADMIN') throw new Error('Access denied')
 
         return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
+          id:         user.id,
+          email:      user.email,
+          name:       user.name,
+          role:       user.role,
           isVerified: user.isVerified,
         }
       },
@@ -52,8 +50,8 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       const t = token as ExtendedJWT
       if (user) {
-        t.id   = user.id
-        t.role = (user as ExtendedJWT).role
+        t.id         = user.id
+        t.role       = (user as ExtendedJWT).role
         t.isVerified = (user as ExtendedJWT).isVerified
       }
       return t

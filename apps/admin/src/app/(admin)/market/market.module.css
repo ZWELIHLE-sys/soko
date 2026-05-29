@@ -1,0 +1,429 @@
+/* ── Page layout ────────────────────────────────────────────────────────── */
+
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+/* ── Event type legend ───────────────────────────────────────────────────── */
+
+.typeLegend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legendTime {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ── Create form ─────────────────────────────────────────────────────────── */
+
+.createForm {
+  margin-bottom: 24px;
+}
+
+.typeSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.typeBtn {
+  padding: 14px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s;
+}
+
+.typeBtn:hover {
+  border-color: #7C2D12;
+}
+
+.typeBtnActive {
+  border-color: #7C2D12;
+  background: #FEF3C7;
+}
+
+.typeBtnLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+.typeBtnTime {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 20px;
+}
+
+/* ── Market card list ────────────────────────────────────────────────────── */
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.marketCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.marketCardInactive {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.marketHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.marketHeaderLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.marketTitleRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.marketTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.marketMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.marketStats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.marketStats svg {
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+.pendingTag {
+  background: #FEF9C3;
+  color: #92400E;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ── Maker in Residence row ──────────────────────────────────────────────── */
+
+.mirRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  flex-wrap: wrap;
+}
+
+.mirLabel {
+  color: #6b7280;
+}
+
+.mirName {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.mirAssignBtn {
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid #D97706;
+  border-radius: 6px;
+  background: #FEF9C3;
+  color: #92400E;
+  cursor: pointer;
+}
+
+.mirAssignBtn:hover {
+  background: #FDE68A;
+}
+
+.mirChangeBtn {
+  padding: 3px 8px;
+  font-size: 11px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  cursor: pointer;
+}
+
+.mirChangeBtn:hover {
+  background: #f9fafb;
+}
+
+.mirRemoveBtn {
+  padding: 3px 8px;
+  font-size: 11px;
+  border: 1px solid #FECACA;
+  border-radius: 6px;
+  background: #fff;
+  color: #DC2626;
+  cursor: pointer;
+}
+
+.mirRemoveBtn:hover {
+  background: #FEF2F2;
+}
+
+/* ── Card right controls ─────────────────────────────────────────────────── */
+
+.marketControls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Listings panel ──────────────────────────────────────────────────────── */
+
+.listingsPanel {
+  border-top: 1px solid #f3f4f6;
+  padding: 0 24px 16px;
+}
+
+.listingRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.listingRow:last-child {
+  border-bottom: none;
+}
+
+.listingLeft {
+  flex: 1;
+  min-width: 0;
+}
+
+.listingSeller {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+
+.listingMeta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.stallMessage {
+  font-size: 13px;
+  color: #374151;
+  font-style: italic;
+  background: #F9FAFB;
+  border-left: 3px solid #7C2D12;
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 6px;
+}
+
+.marketPriceTag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #14532D;
+  background: #DCFCE7;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+
+.productCount {
+  font-size: 11px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.adminNote {
+  font-size: 12px;
+  color: #374151;
+  background: #EFF6FF;
+  border-left: 3px solid #3B82F6;
+  padding: 6px 10px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 4px;
+}
+
+.stallBadge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7C2D12;
+  background: #FEF3C7;
+  border: 1px solid #D97706;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 4px;
+}
+
+.sellerNote {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.listingActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ── MiR modal ───────────────────────────────────────────────────────────── */
+
+.mirDesc {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.searchWrap {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.searchInput {
+  padding-left: 34px !important;
+}
+
+.sellerPickerList {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.sellerPickerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.1s;
+}
+
+.sellerPickerRow:last-child {
+  border-bottom: none;
+}
+
+.sellerPickerRow:hover:not(:disabled) {
+  background: #FEF9C3;
+}
+
+.sellerPickerRow:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sellerPickerAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #7C2D12;
+  color: #FEF3C7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sellerPickerInfo {
+  flex: 1;
+}
+
+.sellerPickerName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.sellerPickerMeta {
+  font-size: 12px;
+  color: #6b7280;
+}

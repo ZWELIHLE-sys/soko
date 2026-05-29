@@ -180,11 +180,17 @@ function SubmitForm({
   const uploadImage = async (file: File) => {
     if (images.length >= 5) return
     setUploading(true)
-    const fd = new FormData(); fd.append('file', file); fd.append('folder', 'vuna/auctions')
-    const res = await fetch('/api/upload', { method: 'POST', body: fd })
-    const data = await res.json()
-    if (data.url) setImages(p => [...p, data.url])
-    setUploading(false)
+    try {
+      const fd = new FormData(); fd.append('file', file); fd.append('folder', 'vuna/auctions')
+      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (data.url) setImages(p => [...p, data.url])
+      else setError(data.error ?? 'Image upload failed.')
+    } catch {
+      setError('Image upload failed. Please try again.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   const handleSubmit = async () => {

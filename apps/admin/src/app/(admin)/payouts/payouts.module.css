@@ -1,0 +1,122 @@
+.summary {
+  margin-bottom: 24px;
+  max-width: 280px;
+}
+
+.summaryLabel {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.summaryAmount {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #7C2D12;
+}
+
+.summaryNote {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toolbarActions {
+  display: flex;
+  gap: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payoutCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: default;
+}
+
+.payoutCardSelected {
+  border-color: #7C2D12;
+  background: #FEF9F6;
+}
+
+.payoutRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.checkbox {
+  margin-top: 2px;
+  accent-color: #7C2D12;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.paidIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.payoutInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.payoutSeller {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.payoutMeta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.bankInfo {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 4px;
+  font-family: monospace;
+}
+
+.payoutAmounts {
+  text-align: right;
+}
+
+.payoutGross {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.payoutComm {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.payoutNet {
+  font-size: 12px;
+  color: #14532D;
+  margin-top: 2px;
+}

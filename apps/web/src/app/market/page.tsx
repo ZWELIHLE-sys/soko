@@ -76,6 +76,11 @@ export default async function MarketPage() {
               </p>
             </div>
           </FadeIn>
+          <div className={styles.historyFooter}>
+            <Link href="/market/history" className={styles.historyLink}>
+              View market history →
+            </Link>
+          </div>
         </div>
         <Footer />
       </div>
@@ -251,6 +256,12 @@ export default async function MarketPage() {
             })}
           </div>
         )}
+
+        <div className={styles.historyFooter}>
+          <Link href="/market/history" className={styles.historyLink}>
+            View market history →
+          </Link>
+        </div>
 
       </div>
       <Footer />

@@ -1,54 +1,13 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@vuna/db'
+import { requireSeller, unauthorized } from '@/lib/auth-helpers'
+import { getSellerAuctionEvents } from '@/services/auctions'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user?.role !== 'SELLER') {
-    return NextResponse.json({ error: 'Seller login required' }, { status: 401 })
-  }
+  const seller = await requireSeller()
+  if (!seller) return unauthorized('Seller login required')
 
-  const seller = await prisma.seller.findUnique({
-    where: { email: session.user.email! },
-    select: { id: true },
-  })
-  if (!seller) return NextResponse.json({ error: 'Seller not found' }, { status: 404 })
-
-  const [events, myItems] = await Promise.all([
-    prisma.auctionEvent.findMany({
-      where: { isActive: true },
-      orderBy: { biddingStartDate: 'asc' },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        theme: true,
-        status: true,
-        submissionDeadline: true,
-        catalogueOpenDate: true,
-        biddingStartDate: true,
-        biddingEndDate: true,
-        _count: { select: { items: true } },
-      },
-    }),
-    prisma.auction.findMany({
-      where: { sellerId: seller.id },
-      orderBy: { createdAt: 'desc' },
-      include: {
-        category: { select: { name: true } },
-        auctionEvent: {
-          select: {
-            id: true, title: true, status: true,
-            biddingStartDate: true, biddingEndDate: true,
-          },
-        },
-        _count: { select: { bids: true } },
-      },
-    }),
-  ])
-
+  const [events, myItems] = await getSellerAuctionEvents(seller.id)
   return NextResponse.json({ events, myItems })
 }

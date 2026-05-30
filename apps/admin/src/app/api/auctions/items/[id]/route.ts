@@ -1,53 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@vuna/db'
+import { requireAdmin, unauthorized, notFound } from '@/lib/auth-helpers'
+import { getAuctionItem, updateAuctionItem } from '@/services/auctions'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
   const { id } = await params
-
-  const item = await prisma.auction.findUnique({
-    where: { id },
-    include: {
-      seller:   { select: { brandName: true } },
-      category: { select: { name: true } },
-      winner:   { select: { name: true } },
-      bids: {
-        orderBy: { amount: 'desc' },
-        include: {
-          bidder: { select: { name: true } },
-        },
-      },
-    },
-  })
-
-  if (!item) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  const item = await getAuctionItem(id)
+  if (!item) return notFound()
   return NextResponse.json(item)
 }
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
   const { id } = await params
   const { status, adminNote } = await req.json()
-
-  const auction = await prisma.auction.update({
-    where: { id },
-    data: {
-      status,
-      adminNote: adminNote ?? null,
-    },
-  })
-
+  const auction = await updateAuctionItem(id, { status, adminNote })
   return NextResponse.json(auction)
 }

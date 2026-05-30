@@ -1,17 +1,14 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { requireAdmin, unauthorized } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
-  const now = new Date()
+  const now    = new Date()
   const last24h = new Date(now.getTime() - 24 * 60 * 60 * 1000)
   const last7d  = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 
@@ -19,7 +16,7 @@ export async function GET() {
     newSellers24h, newBuyers24h, newOrders24h,
     newSellers7d,  newBuyers7d,  newOrders7d,
     pendingProducts, outOfStock,
-    recentOrders
+    recentOrders,
   ] = await Promise.all([
     prisma.seller.count({ where: { createdAt: { gte: last24h } } }),
     prisma.user.count({ where: { createdAt: { gte: last24h }, role: 'BUYER' } }),
@@ -30,12 +27,13 @@ export async function GET() {
     prisma.product.count({ where: { status: 'DRAFT' } }),
     prisma.product.count({ where: { stock: 0 } }),
     prisma.order.findMany({
-      take: 10, orderBy: { createdAt: 'desc' },
+      take: 10,
+      orderBy: { createdAt: 'desc' },
       include: {
-        buyer: { select: { name: true } },
+        buyer:  { select: { name: true } },
         seller: { select: { brandName: true } },
-      }
-    })
+      },
+    }),
   ])
 
   return NextResponse.json({
@@ -47,6 +45,6 @@ export async function GET() {
       databaseStatus: 'healthy',
       paymentsStatus: 'operational',
     },
-    recentOrders
+    recentOrders,
   })
 }

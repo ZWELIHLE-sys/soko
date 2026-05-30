@@ -1,26 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { requireBuyerId, unauthorized, badRequest } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'BUYER') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const buyerId = await requireBuyerId()
+  if (!buyerId) return unauthorized()
 
   const items = await prisma.wishlist.findMany({
-    where: { userId: session.user.id },
+    where: { userId: buyerId },
     orderBy: { createdAt: 'desc' },
     include: {
       product: {
         select: {
-          id: true,
-          name: true,
-          price: true,
-          images: true,
-          status: true,
-          seller: { select: { brandName: true } },
+          id: true, name: true, price: true, images: true, status: true,
+          seller:   { select: { brandName: true } },
           category: { select: { name: true } },
         },
       },
@@ -31,19 +24,15 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'BUYER') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const buyerId = await requireBuyerId()
+  if (!buyerId) return unauthorized()
 
   const { productId } = await req.json()
-  if (!productId) {
-    return NextResponse.json({ error: 'productId required' }, { status: 400 })
-  }
+  if (!productId) return badRequest('productId required')
 
   const item = await prisma.wishlist.upsert({
-    where: { userId_productId: { userId: session.user.id, productId } },
-    create: { userId: session.user.id, productId },
+    where: { userId_productId: { userId: buyerId, productId } },
+    create: { userId: buyerId, productId },
     update: {},
   })
 
@@ -51,19 +40,12 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'BUYER') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const buyerId = await requireBuyerId()
+  if (!buyerId) return unauthorized()
 
   const { productId } = await req.json()
-  if (!productId) {
-    return NextResponse.json({ error: 'productId required' }, { status: 400 })
-  }
+  if (!productId) return badRequest('productId required')
 
-  await prisma.wishlist.deleteMany({
-    where: { userId: session.user.id, productId },
-  })
-
+  await prisma.wishlist.deleteMany({ where: { userId: buyerId, productId } })
   return NextResponse.json({ ok: true })
 }

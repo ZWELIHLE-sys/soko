@@ -1,26 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { requireBuyerId, unauthorized, badRequest } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'BUYER') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const buyerId = await requireBuyerId()
+  if (!buyerId) return unauthorized()
 
   const { content, rating } = await req.json()
-
-  if (!content?.trim()) {
-    return NextResponse.json({ error: 'Please write something before submitting.' }, { status: 400 })
-  }
+  if (!content?.trim()) return badRequest('Please write something before submitting.')
 
   const testimonial = await prisma.testimonial.create({
-    data: {
-      userId:  session.user.id,
-      content: content.trim(),
-      rating:  rating ? parseInt(rating) : 5,
-    },
+    data: { userId: buyerId, content: content.trim(), rating: rating ? parseInt(rating) : 5 },
   })
 
   return NextResponse.json(testimonial, { status: 201 })

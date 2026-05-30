@@ -1,23 +1,16 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { requireAdmin, unauthorized } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
 
 export const dynamic = 'force-dynamic'
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
   const { id } = await params
   const { isApproved } = await req.json()
 
-  const testimonial = await prisma.testimonial.update({
-    where: { id },
-    data: { isApproved },
-  })
-
+  const testimonial = await prisma.testimonial.update({ where: { id }, data: { isApproved } })
   return NextResponse.json(testimonial)
 }

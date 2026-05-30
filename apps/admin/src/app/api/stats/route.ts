@@ -1,21 +1,18 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { requireAdmin, unauthorized } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
   const [
     totalSellers, pendingSellers, verifiedSellers,
     totalBuyers, totalProducts, activeProducts,
     totalOrders, pendingOrders, deliveredOrders,
-    revenue
+    revenue,
   ] = await Promise.all([
     prisma.seller.count(),
     prisma.seller.count({ where: { status: 'PENDING' } }),
@@ -26,20 +23,17 @@ export async function GET() {
     prisma.order.count(),
     prisma.order.count({ where: { status: 'PENDING' } }),
     prisma.order.count({ where: { status: 'DELIVERED' } }),
-    prisma.order.aggregate({
-      where: { status: 'DELIVERED' },
-      _sum: { totalAmount: true }
-    })
+    prisma.order.aggregate({ where: { status: 'DELIVERED' }, _sum: { totalAmount: true } }),
   ])
 
-  const totalRevenue = revenue._sum.totalAmount ?? 0
+  const totalRevenue  = revenue._sum.totalAmount ?? 0
   const vunaCommission = totalRevenue * 0.10
 
   return NextResponse.json({
-    sellers: { total: totalSellers, pending: pendingSellers, verified: verifiedSellers },
-    buyers: { total: totalBuyers },
+    sellers:  { total: totalSellers, pending: pendingSellers, verified: verifiedSellers },
+    buyers:   { total: totalBuyers },
     products: { total: totalProducts, active: activeProducts },
-    orders: { total: totalOrders, pending: pendingOrders, delivered: deliveredOrders },
-    finance: { totalRevenue, vunaCommission }
+    orders:   { total: totalOrders, pending: pendingOrders, delivered: deliveredOrders },
+    finance:  { totalRevenue, vunaCommission },
   })
 }

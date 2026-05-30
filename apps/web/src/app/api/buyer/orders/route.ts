@@ -1,33 +1,10 @@
-﻿import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@vuna/db'
+import { NextResponse } from 'next/server'
+import { requireBuyerId, unauthorized } from '@/lib/auth-helpers'
+import { getBuyerOrders } from '@/services/orders'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-
-  if (!session || session.user.role !== 'BUYER') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
-
-  const orders = await prisma.order.findMany({
-    where: { buyerId: session.user.id },
-    orderBy: { createdAt: 'desc' },
-    include: {
-      seller: { select: { brandName: true } },
-      items: {
-        include: {
-          product: {
-            select: {
-              name: true,
-              images: true,
-              category: { select: { icon: true } }
-            }
-          }
-        }
-      }
-    }
-  })
-
+  const buyerId = await requireBuyerId()
+  if (!buyerId) return unauthorized()
+  const orders = await getBuyerOrders(buyerId)
   return NextResponse.json(orders)
 }

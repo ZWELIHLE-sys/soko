@@ -23,8 +23,9 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetch('/api/stats')
-      .then(r => r.json())
-      .then(data => { setStats(data); setLoading(false) })
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data?.sellers) setStats(data); setLoading(false) })
+      .catch(() => setLoading(false))
   }, [])
 
   const cards = stats ? [
@@ -45,11 +46,11 @@ export default function AdminDashboard() {
         <p className={shared.pageSub}>Platform overview — everything happening on Vuna right now.</p>
       </div>
 
-      {stats && stats.sellers.pending > 0 && (
+      {stats?.sellers?.pending > 0 && (
         <div className={shared.alertBanner}>
           <div>
             <div className={shared.alertTitle}>
-              {stats.sellers.pending} seller{stats.sellers.pending !== 1 ? 's' : ''} waiting for verification
+              {stats?.sellers.pending} seller{stats?.sellers.pending !== 1 ? 's' : ''} waiting for verification
             </div>
             <div className={shared.alertSub}>
               Review and verify sellers to keep Vuna&apos;s quality standard high.

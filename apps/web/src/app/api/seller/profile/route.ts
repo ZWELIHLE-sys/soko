@@ -1,41 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@vuna/db'
+import { requireSeller, unauthorized } from '@/lib/auth-helpers'
+import { getSellerProfile, updateSellerProfile } from '@/services/sellers'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user?.role !== 'SELLER') {
-    return NextResponse.json({ error: 'Seller login required' }, { status: 401 })
-  }
-
-  const seller = await prisma.seller.findUnique({
-    where: { email: session.user.email! },
-    include: { location: true, category: true },
-  })
-  if (!seller) return NextResponse.json({ error: 'Seller not found' }, { status: 404 })
-
-  return NextResponse.json(seller)
+  const seller = await requireSeller()
+  if (!seller) return unauthorized('Seller login required')
+  const profile = await getSellerProfile(seller.id)
+  return NextResponse.json(profile)
 }
 
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user?.role !== 'SELLER') {
-    return NextResponse.json({ error: 'Seller login required' }, { status: 401 })
-  }
-
-  const seller = await prisma.seller.findUnique({
-    where: { email: session.user.email! },
-  })
-  if (!seller) return NextResponse.json({ error: 'Seller not found' }, { status: 404 })
+  const seller = await requireSeller()
+  if (!seller) return unauthorized('Seller login required')
 
   const { bio, avatar, banner, phone, suburb,
           bankName, accountHolder, accountNumber, accountType, branchCode } = await req.json()
 
-  const updated = await prisma.seller.update({
-    where: { id: seller.id },
-    data: { bio, avatar, banner, phone, suburb,
-            bankName, accountHolder, accountNumber, accountType, branchCode },
+  const updated = await updateSellerProfile(seller.id, {
+    bio, avatar, banner, phone, suburb,
+    bankName, accountHolder, accountNumber, accountType, branchCode,
   })
   return NextResponse.json(updated)
 }

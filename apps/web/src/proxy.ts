@@ -1,35 +1,22 @@
-import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
-export default withAuth(
-  function middleware(req) {
-    const token = req.nextauth.token
-    const path = req.nextUrl.pathname
+export async function proxy(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const path = req.nextUrl.pathname
 
-    // Seller tries to access buyer dashboard
-    if (path.startsWith('/buyer') && token?.role !== 'BUYER') {
-      return NextResponse.redirect(new URL('/login', req.url))
-    }
+  if (!token) return NextResponse.redirect(new URL('/login', req.url))
 
-    // Buyer tries to access seller dashboard
-    if (path.startsWith('/seller') && token?.role !== 'SELLER') {
-      return NextResponse.redirect(new URL('/login', req.url))
-    }
+  if (path.startsWith('/buyer') && token.role !== 'BUYER')
+    return NextResponse.redirect(new URL('/login', req.url))
 
-    // Non-admin tries to access admin panel
-    if (path.startsWith('/admin') && token?.role !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/login', req.url))
-    }
+  if (path.startsWith('/seller') && token.role !== 'SELLER')
+    return NextResponse.redirect(new URL('/login', req.url))
 
-    return NextResponse.next()
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => !!token
-    }
-  }
-)
+  return NextResponse.next()
+}
 
 export const config = {
-  matcher: ['/buyer/:path*', '/seller/:path*', '/admin/:path*']
+  matcher: ['/buyer/:path*', '/seller/:path*'],
 }

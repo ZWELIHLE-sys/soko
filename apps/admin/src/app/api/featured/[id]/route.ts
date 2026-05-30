@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@vuna/db'
+import { requireAdmin, unauthorized } from '@/lib/auth-helpers'
+import { removeFeaturedListing } from '@/services/featured'
 
 export const dynamic = 'force-dynamic'
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
   const { id } = await params
-  await prisma.featuredListing.delete({ where: { id } })
+  await removeFeaturedListing(id)
   return NextResponse.json({ ok: true })
 }

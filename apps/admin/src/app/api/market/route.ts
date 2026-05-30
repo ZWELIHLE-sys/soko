@@ -1,58 +1,35 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { prisma } from '@vuna/db'
+import { requireAdmin, unauthorized, badRequest } from '@/lib/auth-helpers'
+import { listMarkets, createMarket } from '@/services/market'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
-
-  const markets = await prisma.market.findMany({
-    orderBy: { startDate: 'desc' },
-    include: {
-      makerInResident: { select: { id: true, brandName: true } },
-      _count: { select: { listings: true } },
-      listings: {
-        where: { status: 'PENDING' },
-        select: { id: true },
-      },
-    },
-  })
-
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
+  const markets = await listMarkets()
   return NextResponse.json(markets)
 }
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions)
-  if (!session || session.user.role !== 'ADMIN') {
-    return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
-  }
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
 
   const body = await req.json()
-  const {
-    marketType, title, description, theme,
-    startDate, endDate, applicationDeadline, maxListings,
-  } = body
+  const { marketType, title, description, theme, startDate, endDate, applicationDeadline, maxListings } = body
 
-  if (!title || !startDate || !endDate || !applicationDeadline) {
-    return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
-  }
+  if (!title || !startDate || !endDate || !applicationDeadline)
+    return badRequest('Missing required fields')
 
-  const market = await prisma.market.create({
-    data: {
-      marketType:          marketType || 'SUNDAY_MARKET',
-      title,
-      description:         description || null,
-      theme:               theme || null,
-      startDate:           new Date(startDate),
-      endDate:             new Date(endDate),
-      applicationDeadline: new Date(applicationDeadline),
-      maxListings:         maxListings ? parseInt(maxListings) : null,
-    },
+  const market = await createMarket({
+    marketType,
+    title,
+    description,
+    theme,
+    startDate,
+    endDate,
+    applicationDeadline,
+    maxListings: maxListings ? parseInt(maxListings) : null,
   })
 
   return NextResponse.json(market)

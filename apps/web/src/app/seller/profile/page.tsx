@@ -1,29 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
-import { ShieldCheck, Clock, XCircle, UploadCloud, CheckCircle2, Banknote, ImageIcon, User } from 'lucide-react'
+import { ShieldCheck, Clock, XCircle, CheckCircle2, User } from 'lucide-react'
 import styles from './profile.module.css'
-
-interface SellerProfile {
-  name: string
-  email: string
-  brandName: string
-  phone: string
-  bio: string | null
-  suburb: string | null
-  avatar: string | null
-  banner: string | null
-  status: string
-  isVerified: boolean
-  location: { name: string }
-  category: { name: string }
-  bankName: string | null
-  accountHolder: string | null
-  accountNumber: string | null
-  accountType: string | null
-  branchCode: string | null
-}
+import { AppearanceSection } from './_components/AppearanceSection'
+import { PaymentSection } from './_components/PaymentSection'
+import type { SellerProfile, BankFields } from './_types'
 
 const STATUS_CONFIG: Record<string, { label: string; cls: string; Icon: React.ElementType }> = {
   PENDING:   { label: 'Under Review',  cls: styles.statusPending,   Icon: Clock       },
@@ -39,11 +21,9 @@ export default function SellerProfilePage() {
   const [suburb, setSuburb]     = useState('')
   const [avatar, setAvatar]     = useState<string | null>(null)
   const [banner, setBanner]     = useState<string | null>(null)
-  const [bankName, setBankName]           = useState('')
-  const [accountHolder, setAccountHolder] = useState('')
-  const [accountNumber, setAccountNumber] = useState('')
-  const [accountType, setAccountType]     = useState('')
-  const [branchCode, setBranchCode]       = useState('')
+  const [bank, setBank]         = useState<BankFields>({
+    bankName: '', accountHolder: '', accountNumber: '', accountType: '', branchCode: '',
+  })
   const [uploading, setUploading] = useState<'avatar' | 'banner' | null>(null)
   const [saving, setSaving]       = useState(false)
   const [success, setSuccess]     = useState(false)
@@ -56,11 +36,13 @@ export default function SellerProfilePage() {
       setSuburb(data.suburb ?? '')
       setAvatar(data.avatar)
       setBanner(data.banner)
-      setBankName(data.bankName ?? '')
-      setAccountHolder(data.accountHolder ?? '')
-      setAccountNumber(data.accountNumber ?? '')
-      setAccountType(data.accountType ?? '')
-      setBranchCode(data.branchCode ?? '')
+      setBank({
+        bankName:      data.bankName      ?? '',
+        accountHolder: data.accountHolder ?? '',
+        accountNumber: data.accountNumber ?? '',
+        accountType:   data.accountType   ?? '',
+        branchCode:    data.branchCode    ?? '',
+      })
     })
   }, [])
 
@@ -71,7 +53,7 @@ export default function SellerProfilePage() {
     fd.append('folder', `vuna/sellers/${type}`)
     const res  = await fetch('/api/upload', { method: 'POST', body: fd })
     const data = await res.json()
-    if (data.url) type === 'avatar' ? setAvatar(data.url) : setBanner(data.url)
+    if (data.url) { if (type === 'avatar') setAvatar(data.url); else setBanner(data.url) }
     setUploading(null)
   }
 
@@ -81,10 +63,7 @@ export default function SellerProfilePage() {
     await fetch('/api/seller/profile', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        bio, phone, suburb, avatar, banner,
-        bankName, accountHolder, accountNumber, accountType, branchCode,
-      }),
+      body: JSON.stringify({ bio, phone, suburb, avatar, banner, ...bank }),
     })
     setSaving(false)
     setSuccess(true)
@@ -97,8 +76,6 @@ export default function SellerProfilePage() {
 
   return (
     <div className={styles.page}>
-
-      {/* Page header */}
       <div className={styles.pageHeader}>
         <div>
           <h1 className={styles.title}>{profile.brandName}</h1>
@@ -112,71 +89,14 @@ export default function SellerProfilePage() {
       </div>
 
       <form onSubmit={handleSave}>
+        <AppearanceSection
+          brandName={profile.brandName}
+          banner={banner}
+          avatar={avatar}
+          uploading={uploading}
+          onUpload={uploadImage}
+        />
 
-        {/* Store appearance */}
-        <div className={styles.card}>
-          <div className={styles.cardLabel}>
-            <ImageIcon size={14} className={styles.cardLabelIcon} />
-            Store Appearance
-          </div>
-          <p className={styles.cardNote}>This is what buyers see when they visit your store page.</p>
-
-          {/* Banner */}
-          <div className={styles.appearanceRow}>
-            <div className={styles.appearanceLabel}>Store Banner</div>
-            <div className={styles.bannerPreview}>
-              {banner ? (
-                <Image src={banner} alt="Store banner" fill style={{ objectFit: 'cover' }} sizes="660px" />
-              ) : (
-                <div className={styles.bannerFallback} />
-              )}
-              <label className={styles.bannerUploadBtn}>
-                <UploadCloud size={13} />
-                {uploading === 'banner' ? 'Uploading...' : 'Change Banner'}
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  style={{ display: 'none' }}
-                  disabled={!!uploading}
-                  onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f, 'banner') }}
-                />
-              </label>
-            </div>
-            <div className={styles.fieldHint}>Recommended 1200×400px · JPEG/PNG/WebP · max 10MB</div>
-          </div>
-
-          {/* Avatar */}
-          <div className={styles.appearanceRow}>
-            <div className={styles.appearanceLabel}>Profile Photo</div>
-            <div className={styles.avatarRow}>
-              <label className={styles.avatarWrap}>
-                {avatar ? (
-                  <Image src={avatar} alt="Avatar" fill style={{ objectFit: 'cover' }} sizes="72px" />
-                ) : (
-                  <div className={styles.avatarInitial}>
-                    {profile.brandName.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                <div className={styles.avatarOverlay}>
-                  <UploadCloud size={13} />
-                </div>
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  style={{ display: 'none' }}
-                  disabled={!!uploading}
-                  onChange={e => { const f = e.target.files?.[0]; if (f) uploadImage(f, 'avatar') }}
-                />
-              </label>
-              <div>
-                <div className={styles.avatarName}>{profile.brandName}</div>
-                <div className={styles.fieldHint}>Click to change · JPEG/PNG/WebP · max 10MB</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Store details */}
         <div className={styles.card}>
           <div className={styles.cardLabel}>
             <User size={14} className={styles.cardLabelIcon} />
@@ -198,22 +118,13 @@ export default function SellerProfilePage() {
           <div className={styles.fieldRow}>
             <div className={styles.field}>
               <label className={styles.label}>Phone Number</label>
-              <input
-                className={styles.input}
-                type="tel"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
-                placeholder="e.g. 071 234 5678"
-              />
+              <input className={styles.input} type="tel" value={phone}
+                onChange={e => setPhone(e.target.value)} placeholder="e.g. 071 234 5678" />
             </div>
             <div className={styles.field}>
               <label className={styles.label}>Suburb / Neighbourhood</label>
-              <input
-                className={styles.input}
-                value={suburb}
-                onChange={e => setSuburb(e.target.value)}
-                placeholder="e.g. Umlazi, Soweto, Sea Point"
-              />
+              <input className={styles.input} value={suburb}
+                onChange={e => setSuburb(e.target.value)} placeholder="e.g. Umlazi, Soweto, Sea Point" />
             </div>
           </div>
 
@@ -229,68 +140,10 @@ export default function SellerProfilePage() {
           </div>
         </div>
 
-        {/* Payment details */}
-        <div className={`${styles.card} ${styles.cardPayment}`}>
-          <div className={styles.cardLabel}>
-            <Banknote size={14} className={styles.cardLabelIcon} />
-            Payment Details
-          </div>
-          <p className={styles.cardNote}>
-            Your bank details are shared with buyers for direct EFT payments. Kept private — only shown at checkout.
-          </p>
-
-          <div className={styles.fieldRow}>
-            <div className={styles.field}>
-              <label className={styles.label}>Bank Name</label>
-              <input
-                className={styles.input}
-                value={bankName}
-                onChange={e => setBankName(e.target.value)}
-                placeholder="e.g. FNB, Capitec, Standard Bank"
-              />
-            </div>
-            <div className={styles.field}>
-              <label className={styles.label}>Account Type</label>
-              <select className={styles.input} value={accountType} onChange={e => setAccountType(e.target.value)}>
-                <option value="">Select type</option>
-                <option value="Cheque">Cheque</option>
-                <option value="Savings">Savings</option>
-                <option value="Current">Current</option>
-              </select>
-            </div>
-          </div>
-
-          <div className={styles.field}>
-            <label className={styles.label}>Account Holder Name</label>
-            <input
-              className={styles.input}
-              value={accountHolder}
-              onChange={e => setAccountHolder(e.target.value)}
-              placeholder="As it appears on your bank account"
-            />
-          </div>
-
-          <div className={styles.fieldRow}>
-            <div className={styles.field}>
-              <label className={styles.label}>Account Number</label>
-              <input
-                className={styles.input}
-                value={accountNumber}
-                onChange={e => setAccountNumber(e.target.value)}
-                placeholder="Your account number"
-              />
-            </div>
-            <div className={styles.field}>
-              <label className={styles.label}>Branch Code</label>
-              <input
-                className={styles.input}
-                value={branchCode}
-                onChange={e => setBranchCode(e.target.value)}
-                placeholder="e.g. 250655"
-              />
-            </div>
-          </div>
-        </div>
+        <PaymentSection
+          {...bank}
+          onChange={(field, value) => setBank(b => ({ ...b, [field]: value }))}
+        />
 
         {success && (
           <div className={styles.successMsg}>

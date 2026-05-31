@@ -38,10 +38,22 @@ export async function getAuctionEvent(eventId: string) {
     include: {
       items: {
         include: {
-          seller:   { select: { brandName: true } },
+          seller: {
+            select: {
+              brandName: true,
+              locationId: true,
+              location: { select: { name: true } },
+            },
+          },
           category: { select: { name: true } },
-          winner:   { select: { name: true } },
-          _count:   { select: { bids: true } },
+          winner: {
+            select: {
+              name: true,
+              locationId: true,
+              location: { select: { name: true } },
+            },
+          },
+          _count: { select: { bids: true } },
         },
         orderBy: { createdAt: 'asc' },
       },
@@ -66,9 +78,21 @@ export async function getAuctionItem(itemId: string) {
   return prisma.auction.findUnique({
     where: { id: itemId },
     include: {
-      seller:   { select: { brandName: true } },
+      seller: {
+        select: {
+          brandName: true,
+          locationId: true,
+          location: { select: { name: true } },
+        },
+      },
       category: { select: { name: true } },
-      winner:   { select: { name: true } },
+      winner: {
+        select: {
+          name: true,
+          locationId: true,
+          location: { select: { name: true } },
+        },
+      },
       bids: {
         orderBy: { amount: 'desc' },
         include: { bidder: { select: { name: true } } },

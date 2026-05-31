@@ -18,9 +18,9 @@ export interface AuctionItem {
   currentBid:      number | null
   status:          string
   adminNote:       string | null
-  seller:          { brandName: string }
-  category:        { name: string }
-  winner:          { name: string } | null
+  seller:   { brandName: string; locationId: string; location: { name: string } | null }
+  category: { name: string }
+  winner:   { name: string; locationId: string; location: { name: string } | null } | null
   _count:          { bids: number }
 }
 

@@ -8,6 +8,7 @@ import {
   BadgeCheck, Banknote, Globe, ShieldCheck, Sprout,
 } from 'lucide-react'
 import styles from './sellers.module.css'
+import { SellersFilter } from './_components/SellersFilter'
 
 const benefits = [
   {
@@ -53,8 +54,8 @@ const rules = [
   },
   {
     num: '02',
-    title: 'Hand Produced',
-    desc: 'Every product must be made by the seller themselves.',
+    title: 'Maker Made',
+    desc: 'Every product must be made, grown or built by the seller themselves.',
   },
   {
     num: '03',
@@ -63,20 +64,32 @@ const rules = [
   },
 ]
 
-async function getVerifiedSellers() {
-  return prisma.seller.findMany({
-    where: { isVerified: true, status: 'VERIFIED' },
-    take: 8,
+export default async function SellersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; locationId?: string }>
+}) {
+  const { q, locationId } = await searchParams
+
+  const sellers = await prisma.seller.findMany({
+    where: {
+      isVerified: true,
+      status: 'VERIFIED',
+      ...(q ? {
+        OR: [
+          { brandName: { contains: q, mode: 'insensitive' } },
+          { name:      { contains: q, mode: 'insensitive' } },
+          { bio:       { contains: q, mode: 'insensitive' } },
+        ],
+      } : {}),
+      ...(locationId ? { locationId } : {}),
+    },
     orderBy: { brandName: 'asc' },
     include: {
       location: { select: { name: true } },
       category: { select: { name: true } },
     },
   })
-}
-
-export default async function SellersPage() {
-  const sellers = await getVerifiedSellers()
 
   return (
     <div className={styles.page}>
@@ -122,7 +135,7 @@ export default async function SellersPage() {
           </div>
           <div className={styles.stat}>
             <div className={styles.statNum}>Free</div>
-            <div className={styles.statLabel}>To Apply & List</div>
+            <div className={styles.statLabel}>To Apply &amp; List</div>
           </div>
         </div>
       </div>
@@ -189,20 +202,37 @@ export default async function SellersPage() {
             <div className={styles.sectionEyebrow}>Our Creators</div>
             <h2 className={styles.sectionTitle}>Meet the People Behind the Products</h2>
 
+            <SellersFilter
+              initialQ={q ?? ''}
+              initialLocationId={locationId ?? ''}
+            />
+
             {sellers.length === 0 ? (
               <div className={styles.emptyState}>
                 <div className={styles.emptyIcon}><Sprout size={48} /></div>
-                <h3 className={styles.emptyTitle}>Our creator community is being verified</h3>
+                <h3 className={styles.emptyTitle}>
+                  {q || locationId
+                    ? 'No sellers match your search'
+                    : 'Our creator community is being verified'}
+                </h3>
                 <p className={styles.emptySub}>
-                  African makers are applying and being reviewed right now.
-                  Check back soon to meet the creators whose work you will be able to buy on Vuna.
+                  {q || locationId
+                    ? 'Try a different name or location to find creators near you.'
+                    : 'African makers are applying and being reviewed right now. Check back soon to meet the creators whose work you will be able to buy on Vuna.'}
                 </p>
-                <p className={styles.emptySellerCta}>
-                  Are you an African creator?{' '}
-                  <Link href="/register/seller" className={styles.emptySellerLink}>
-                    Apply to sell your work →
+                {(q || locationId) && (
+                  <Link href="/sellers" className={styles.emptySellerLink}>
+                    View all sellers →
                   </Link>
-                </p>
+                )}
+                {!q && !locationId && (
+                  <p className={styles.emptySellerCta}>
+                    Are you an African creator?{' '}
+                    <Link href="/register/seller" className={styles.emptySellerLink}>
+                      Apply to sell your work →
+                    </Link>
+                  </p>
+                )}
               </div>
             ) : (
               <div className={styles.sellerGrid}>

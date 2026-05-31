@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
@@ -50,7 +50,7 @@ export default function BuyerProfilePage() {
     setAvatar(data.url)
   }
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     setSaving(true)
@@ -67,7 +67,7 @@ export default function BuyerProfilePage() {
     setTimeout(() => setSuccess(false), 3000)
   }
 
-  const handleTestimonial = async (e: React.FormEvent) => {
+  const handleTestimonial = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setTError('')
     setTSaving(true)
@@ -122,7 +122,7 @@ export default function BuyerProfilePage() {
         <div>
           <div className={styles.avatarName}>{name || session?.user?.name}</div>
           <div className={styles.avatarRole}>
-            Vuna Shopper · Supporting African creators
+            Vuna Shopper Â· Supporting African creators
           </div>
           {uploading && <div className={styles.uploadingNote}>Uploading photo...</div>}
         </div>
@@ -214,7 +214,7 @@ export default function BuyerProfilePage() {
           <div className={styles.errorMsg}><AlertTriangle size={14} /> {tError}</div>
         )}
         {tSuccess && (
-          <div className={styles.success}><CheckCircle2 size={14} /> Thank you — your feedback has been submitted!</div>
+          <div className={styles.success}><CheckCircle2 size={14} /> Thank you â€” your feedback has been submitted!</div>
         )}
 
         <button type="submit" disabled={tSaving} className={styles.saveBtn}>

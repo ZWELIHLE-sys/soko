@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './shop.module.css'
+import { ShopFilters } from './_components/ShopFilters'
 
 const categoryIcons: Record<string, React.ReactNode> = {
   fashion:     <Shirt size={32} />,
@@ -48,9 +49,9 @@ const categoryIconsSmall: Record<string, React.ReactNode> = {
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>
+  searchParams: Promise<{ category?: string; q?: string; locationId?: string }>
 }) {
-  const { category: categorySlug } = await searchParams
+  const { category: categorySlug, q, locationId } = await searchParams
 
   const category = categorySlug
     ? await prisma.category.findUnique({ where: { slug: categorySlug } })
@@ -60,6 +61,13 @@ export default async function ShopPage({
     where: {
       status: 'ACTIVE',
       ...(category ? { categoryId: category.id } : {}),
+      ...(q ? {
+        OR: [
+          { name:        { contains: q, mode: 'insensitive' } },
+          { description: { contains: q, mode: 'insensitive' } },
+        ],
+      } : {}),
+      ...(locationId ? { locationId } : {}),
     },
     orderBy: { createdAt: 'desc' },
     include: {
@@ -92,16 +100,27 @@ export default async function ShopPage({
             )}
           </nav>
 
-          {category ? (
+          {q ? (
+            <h1 className={styles.heroTitle}>Results for &ldquo;{q}&rdquo;</h1>
+          ) : category ? (
             <h1 className={styles.heroTitle}>{category.name}</h1>
           ) : (
             <div className={styles.heroEyebrow}>Categories &amp; Products</div>
           )}
+
           <p className={styles.heroSub}>
-            {category?.description ?? 'Every product. African made. Vuna verified.'}
+            {q
+              ? `${products.length} product${products.length !== 1 ? 's' : ''} found`
+              : category?.description ?? 'Every product. African made. Vuna verified.'}
           </p>
         </div>
       </div>
+
+      <ShopFilters
+        categorySlug={categorySlug ?? ''}
+        initialQ={q ?? ''}
+        initialLocationId={locationId ?? ''}
+      />
 
       <FadeIn>
       <div className={styles.inner}>
@@ -111,20 +130,28 @@ export default async function ShopPage({
               <Sprout size={52} />
             </div>
             <h2 className={styles.emptyTitle}>
-              {category
-                ? `${category.name} products are on their way`
-                : 'The harvest is coming'}
+              {q
+                ? `No products found for "${q}"`
+                : category
+                  ? `${category.name} products are on their way`
+                  : 'The harvest is coming'}
             </h2>
             <p className={styles.emptySub}>
-              {category
-                ? `Verified African makers who create ${category.name.toLowerCase()} are joining Vuna. Register as a buyer to be ready when the first listings go live.`
-                : 'African makers are being verified and their products are almost here. Register now so you are ready to shop the moment the first listing goes live.'}
+              {q
+                ? 'Try a different search term, or browse by category.'
+                : category
+                  ? `Verified African makers who create ${category.name.toLowerCase()} are joining Vuna. Register as a buyer to be ready when the first listings go live.`
+                  : 'African makers are being verified and their products are almost here. Register now so you are ready to shop the moment the first listing goes live.'}
             </p>
 
             <div className={styles.emptyActions}>
-              <Link href="/register/buyer" className={styles.emptyBtn}>
-                Register to Shop →
-              </Link>
+              {q ? (
+                <Link href="/shop" className={styles.emptyBtn}>Browse all products</Link>
+              ) : (
+                <Link href="/register/buyer" className={styles.emptyBtn}>
+                  Register to Shop →
+                </Link>
+              )}
               {category && (
                 <Link href="/shop" className={styles.emptySecondary}>
                   <ArrowLeft size={14} /> Browse all categories
@@ -132,34 +159,38 @@ export default async function ShopPage({
               )}
             </div>
 
-            <p className={styles.emptySellerNote}>
-              Are you an African creator?{' '}
-              <Link href="/register/seller" className={styles.emptySellerLink}>
-                Apply to sell your work on Vuna →
-              </Link>
-            </p>
+            {!q && (
+              <p className={styles.emptySellerNote}>
+                Are you an African creator?{' '}
+                <Link href="/register/seller" className={styles.emptySellerLink}>
+                  Apply to sell your work on Vuna →
+                </Link>
+              </p>
+            )}
 
-            <div className={styles.otherCategories}>
-              <div className={styles.otherLabel}>
-                {categorySlug ? 'Browse other categories' : 'Browse by category'}
+            {!q && (
+              <div className={styles.otherCategories}>
+                <div className={styles.otherLabel}>
+                  {categorySlug ? 'Browse other categories' : 'Browse by category'}
+                </div>
+                <div className={styles.otherGrid}>
+                  {allCategories
+                    .filter(c => c.slug !== categorySlug)
+                    .map(c => (
+                      <Link
+                        key={c.id}
+                        href={`/shop?category=${c.slug}`}
+                        className={styles.otherCard}
+                      >
+                        <span className={styles.otherCardIcon}>
+                          {categoryIconsSmall[c.slug] ?? <Tag size={16} />}
+                        </span>
+                        {c.name}
+                      </Link>
+                    ))}
+                </div>
               </div>
-              <div className={styles.otherGrid}>
-                {allCategories
-                  .filter(c => c.slug !== categorySlug)
-                  .map(c => (
-                    <Link
-                      key={c.id}
-                      href={`/shop?category=${c.slug}`}
-                      className={styles.otherCard}
-                    >
-                      <span className={styles.otherCardIcon}>
-                        {categoryIconsSmall[c.slug] ?? <Tag size={16} />}
-                      </span>
-                      {c.name}
-                    </Link>
-                  ))}
-              </div>
-            </div>
+            )}
           </div>
         ) : (
           <div className={styles.grid}>

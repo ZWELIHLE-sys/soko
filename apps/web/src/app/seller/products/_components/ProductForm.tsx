@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Image from 'next/image'
 import { X, UploadCloud, AlertTriangle } from 'lucide-react'
@@ -15,7 +15,7 @@ interface Props {
   onFormChange: (updates: Partial<ProductFormData>) => void
   onImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void
   onRemoveImage: (idx: number) => void
-  onSubmit: (e: React.FormEvent) => void
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 export function ProductForm({ view, form, categories, uploading, saving, error, onFormChange, onImageUpload, onRemoveImage, onSubmit }: Props) {
@@ -64,7 +64,7 @@ export function ProductForm({ view, form, categories, uploading, saving, error, 
           rows={4}
           value={form.description}
           onChange={e => onFormChange({ description: e.target.value })}
-          placeholder="Tell buyers about your product — the materials, the process, the story."
+          placeholder="Tell buyers about your product â€” the materials, the process, the story."
         />
       </div>
 
@@ -96,7 +96,7 @@ export function ProductForm({ view, form, categories, uploading, saving, error, 
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label}>Product Photos (max 5 · JPEG/PNG/WebP · 10 MB each)</label>
+        <label className={styles.label}>Product Photos (max 5 Â· JPEG/PNG/WebP Â· 10 MB each)</label>
         <div className={styles.imageGrid}>
           {form.images.map((url, i) => (
             <div key={i} className={styles.imageThumb}>
@@ -127,7 +127,7 @@ export function ProductForm({ view, form, categories, uploading, saving, error, 
         <span className={styles.sectionDividerLabel}>Bulk Pricing (Optional)</span>
       </div>
       <p className={styles.sectionHint}>
-        Set a discounted price for buyers who order in large quantities — useful for agricultural products, fabric, beads, etc.
+        Set a discounted price for buyers who order in large quantities â€” useful for agricultural products, fabric, beads, etc.
       </p>
       <div className={styles.twoCol}>
         <div className={styles.field}>

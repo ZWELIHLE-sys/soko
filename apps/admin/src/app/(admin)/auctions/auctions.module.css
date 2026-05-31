@@ -226,9 +226,30 @@
 }
 
 .itemMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
   font-size: 12px;
   color: #6b7280;
   margin-top: 2px;
+}
+
+.itemLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #7C2D12;
+}
+
+.winnerLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #6b7280;
+  margin-left: 4px;
 }
 
 /* ── Pricing row ──────────────────────────────────────────────────────────── */

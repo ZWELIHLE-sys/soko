@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import shared from '../../admin.module.css'
 import styles from './products.module.css'
+import { AdminLocationFilter } from '@/components/AdminLocationFilter'
 
 interface Product {
   id: string
@@ -28,14 +29,18 @@ const FILTERS = ['ALL', 'ACTIVE', 'DRAFT', 'SOLD_OUT', 'SUSPENDED']
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading]   = useState(true)
-  const [filter, setFilter]     = useState('ALL')
-  const [updating, setUpdating] = useState<string | null>(null)
+  const [filter, setFilter]         = useState('ALL')
+  const [updating, setUpdating]     = useState<string | null>(null)
+  const [locationId, setLocationId] = useState('')
 
   useEffect(() => {
-    fetch('/api/products')
+    setLoading(true)
+    const url = locationId ? `/api/products?locationId=${locationId}` : '/api/products'
+    fetch(url)
       .then(r => r.json())
       .then(data => { setProducts(Array.isArray(data) ? data : []); setLoading(false) })
-  }, [])
+      .catch(() => setLoading(false))
+  }, [locationId])
 
   const updateStatus = async (id: string, status: string) => {
     setUpdating(id)
@@ -70,6 +75,8 @@ export default function AdminProductsPage() {
           </button>
         ))}
       </div>
+
+      <AdminLocationFilter value={locationId} onChange={setLocationId} />
 
       {loading ? (
         <div className={shared.loading}>Loading products...</div>

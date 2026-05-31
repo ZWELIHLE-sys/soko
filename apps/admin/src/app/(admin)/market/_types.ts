@@ -18,9 +18,11 @@ export interface MarketListing {
   marketPrice:  number | null
   productIds:   string[]
   seller: {
-    brandName: string
-    email:     string
-    _count:    { products: number }
+    brandName:  string
+    email:      string
+    locationId: string
+    location:   { name: string } | null
+    _count:     { products: number }
   }
 }
 

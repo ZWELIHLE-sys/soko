@@ -98,6 +98,21 @@
   transition: color 0.15s;
 }
 
+/* ── Product search link ── */
+.productSearchLink {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #7C2D12;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 16px;
+  background: rgba(124, 45, 18, 0.06);
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.productSearchLink:hover { background: rgba(124, 45, 18, 0.12); }
+
 /* ── Empty ── */
 .empty {
   font-size: 13px;

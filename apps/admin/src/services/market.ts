@@ -43,7 +43,12 @@ export async function getMarket(marketId: string) {
       listings: {
         include: {
           seller: {
-            select: { brandName: true, email: true, _count: { select: { products: true } } },
+            select: {
+              brandName: true, email: true,
+              locationId: true,
+              location: { select: { name: true } },
+              _count: { select: { products: true } },
+            },
           },
         },
         orderBy: { createdAt: 'asc' },

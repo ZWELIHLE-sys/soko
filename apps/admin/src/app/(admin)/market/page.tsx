@@ -10,6 +10,7 @@ import { CreateMarketForm } from './_components/CreateMarketForm'
 import { MarketCard } from './_components/MarketCard'
 import { ReviewModal } from './_components/ReviewModal'
 import { MirModal } from './_components/MirModal'
+import { AdminLocationFilter } from '@/components/AdminLocationFilter'
 
 export default function AdminMarketPage() {
   const [markets, setMarkets]         = useState<Market[]>([])
@@ -34,6 +35,7 @@ export default function AdminMarketPage() {
   const [assigningMir, setAssigningMir]   = useState(false)
 
   const [togglingActive, setTogglingActive] = useState<string | null>(null)
+  const [locationId, setLocationId]         = useState('')
 
   useEffect(() => {
     fetch('/api/market')
@@ -176,6 +178,8 @@ export default function AdminMarketPage() {
         />
       )}
 
+      <AdminLocationFilter value={locationId} onChange={setLocationId} />
+
       {loading ? (
         <div className={shared.loading}>Loading markets...</div>
       ) : (
@@ -185,7 +189,11 @@ export default function AdminMarketPage() {
               key={market.id}
               market={market}
               isOpen={expanded === market.id}
-              listings={listings[market.id]}
+              listings={
+                locationId && listings[market.id]
+                  ? listings[market.id].filter(l => l.seller.locationId === locationId)
+                  : listings[market.id]
+              }
               togglingActive={togglingActive}
               updatingListing={updating}
               onToggle={() => toggleMarket(market.id)}

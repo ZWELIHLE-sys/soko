@@ -16,12 +16,75 @@ async function main() {
     create: { id: 'continent-africa', name: 'Africa', type: LocationType.CONTINENT, code: 'AF' }
   })
 
-  // COUNTRY
+  // COUNTRY — South Africa (unlocked — primary market)
   const southAfrica = await prisma.location.upsert({
     where: { id: 'country-za' },
-    update: {},
-    create: { id: 'country-za', name: 'South Africa', type: LocationType.COUNTRY, code: 'ZA', parentId: africa.id }
+    update: { isUnlocked: true },
+    create: { id: 'country-za', name: 'South Africa', type: LocationType.COUNTRY, code: 'ZA', parentId: africa.id, isUnlocked: true }
   })
+
+  // ALL OTHER AFRICAN COUNTRIES — seeded but locked until admin unlocks
+  const africanCountries = [
+    { id: 'country-dz', name: 'Algeria',                        code: 'DZ' },
+    { id: 'country-ao', name: 'Angola',                         code: 'AO' },
+    { id: 'country-bj', name: 'Benin',                          code: 'BJ' },
+    { id: 'country-bw', name: 'Botswana',                       code: 'BW' },
+    { id: 'country-bf', name: 'Burkina Faso',                   code: 'BF' },
+    { id: 'country-bi', name: 'Burundi',                        code: 'BI' },
+    { id: 'country-cv', name: 'Cabo Verde',                     code: 'CV' },
+    { id: 'country-cm', name: 'Cameroon',                       code: 'CM' },
+    { id: 'country-cf', name: 'Central African Republic',       code: 'CF' },
+    { id: 'country-td', name: 'Chad',                           code: 'TD' },
+    { id: 'country-km', name: 'Comoros',                        code: 'KM' },
+    { id: 'country-cd', name: 'DR Congo',                       code: 'CD' },
+    { id: 'country-cg', name: 'Republic of Congo',              code: 'CG' },
+    { id: 'country-dj', name: 'Djibouti',                       code: 'DJ' },
+    { id: 'country-eg', name: 'Egypt',                          code: 'EG' },
+    { id: 'country-gq', name: 'Equatorial Guinea',              code: 'GQ' },
+    { id: 'country-er', name: 'Eritrea',                        code: 'ER' },
+    { id: 'country-sz', name: 'Eswatini',                       code: 'SZ' },
+    { id: 'country-et', name: 'Ethiopia',                       code: 'ET' },
+    { id: 'country-ga', name: 'Gabon',                          code: 'GA' },
+    { id: 'country-gm', name: 'Gambia',                         code: 'GM' },
+    { id: 'country-gh', name: 'Ghana',                          code: 'GH' },
+    { id: 'country-gn', name: 'Guinea',                         code: 'GN' },
+    { id: 'country-gw', name: 'Guinea-Bissau',                  code: 'GW' },
+    { id: 'country-ci', name: "Côte d'Ivoire",                  code: 'CI' },
+    { id: 'country-ke', name: 'Kenya',                          code: 'KE' },
+    { id: 'country-ls', name: 'Lesotho',                        code: 'LS' },
+    { id: 'country-lr', name: 'Liberia',                        code: 'LR' },
+    { id: 'country-ly', name: 'Libya',                          code: 'LY' },
+    { id: 'country-mg', name: 'Madagascar',                     code: 'MG' },
+    { id: 'country-mw', name: 'Malawi',                         code: 'MW' },
+    { id: 'country-ml', name: 'Mali',                           code: 'ML' },
+    { id: 'country-mr', name: 'Mauritania',                     code: 'MR' },
+    { id: 'country-mu', name: 'Mauritius',                      code: 'MU' },
+    { id: 'country-ma', name: 'Morocco',                        code: 'MA' },
+    { id: 'country-mz', name: 'Mozambique',                     code: 'MZ' },
+    { id: 'country-na', name: 'Namibia',                        code: 'NA' },
+    { id: 'country-ne', name: 'Niger',                          code: 'NE' },
+    { id: 'country-ng', name: 'Nigeria',                        code: 'NG' },
+    { id: 'country-rw', name: 'Rwanda',                         code: 'RW' },
+    { id: 'country-st', name: 'São Tomé and Príncipe',          code: 'ST' },
+    { id: 'country-sn', name: 'Senegal',                        code: 'SN' },
+    { id: 'country-sl', name: 'Sierra Leone',                   code: 'SL' },
+    { id: 'country-so', name: 'Somalia',                        code: 'SO' },
+    { id: 'country-sd', name: 'Sudan',                          code: 'SD' },
+    { id: 'country-ss', name: 'South Sudan',                    code: 'SS' },
+    { id: 'country-tz', name: 'Tanzania',                       code: 'TZ' },
+    { id: 'country-tg', name: 'Togo',                           code: 'TG' },
+    { id: 'country-tn', name: 'Tunisia',                        code: 'TN' },
+    { id: 'country-ug', name: 'Uganda',                         code: 'UG' },
+    { id: 'country-zm', name: 'Zambia',                         code: 'ZM' },
+    { id: 'country-zw', name: 'Zimbabwe',                       code: 'ZW' },
+  ]
+  for (const c of africanCountries) {
+    await prisma.location.upsert({
+      where: { id: c.id },
+      update: {},
+      create: { id: c.id, name: c.name, type: LocationType.COUNTRY, code: c.code, parentId: africa.id, isUnlocked: false }
+    })
+  }
 
   // PROVINCES (9 SA Provinces)
   const provinces = [
@@ -516,7 +579,7 @@ async function main() {
     }
   }
 
-  // CATEGORIES (14 African product categories)
+  // CATEGORIES (14 African product categories + Other)
   const categories = [
     { id: 'cat-fashion',     name: 'Fashion & Clothing', slug: 'fashion',     icon: '👗' },
     { id: 'cat-art',         name: 'Art & Paintings',    slug: 'art',         icon: '🎨' },
@@ -750,7 +813,7 @@ async function main() {
 
   console.log('Vuna database seeded successfully!')
   console.log('Locations: Africa -> SA -> 9 Provinces -> Districts -> Cities')
-  console.log('Categories: 14 African product categories ready')
+  console.log('Categories: 14 African + Other (15 total) ready')
 }
 
 main()

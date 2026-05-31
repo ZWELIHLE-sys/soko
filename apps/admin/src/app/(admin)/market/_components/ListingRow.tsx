@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, XCircle } from 'lucide-react'
+import { CheckCircle, XCircle, MapPin } from 'lucide-react'
 import shared from '../../../admin.module.css'
 import styles from '../market.module.css'
 import type { MarketListing } from '../_types'
@@ -22,6 +22,12 @@ export function ListingRow({ listing, updating, onReview }: Props) {
         <div className={styles.listingMeta}>
           {listing.seller.email} · {listing.seller._count.products} products
         </div>
+        {listing.seller.location && (
+          <div className={styles.listingLocation}>
+            <MapPin size={11} />
+            {listing.seller.location.name}
+          </div>
+        )}
 
         {listing.stallMessage && (
           <div className={styles.stallMessage}>&ldquo;{listing.stallMessage}&rdquo;</div>

@@ -10,7 +10,7 @@ function generateOTP(): string {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { name, email, password, phone } = body
+    const { name, email, password, phone, locationId, suburb } = body
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -36,7 +36,9 @@ export async function POST(req: NextRequest) {
         name,
         email,
         password:           hashedPassword,
-        phone:              phone || null,
+        phone:              phone      || null,
+        locationId:         locationId || null,
+        suburb:             suburb     || null,
         role:               'BUYER',
         isVerified:         false,
         emailVerifyToken:   otp,

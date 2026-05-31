@@ -22,11 +22,12 @@ enum LocationType {
 }
 
 model Location {
-  id       String       @id @default(cuid())
-  name     String
-  type     LocationType
-  code     String?      // e.g. "KZN", "GP", "ZA"
-  parentId String?
+  id         String       @id @default(cuid())
+  name       String
+  type       LocationType
+  code       String?      // e.g. "KZN", "GP", "ZA"
+  parentId   String?
+  isUnlocked Boolean      @default(false) // countries only — admin unlocks to open registration
 
   // Self relation — this is the tree structure
   parent   Location?  @relation("LocationTree", fields: [parentId], references: [id])
@@ -51,17 +52,28 @@ enum UserRole {
   ADMIN
 }
 
+enum UserStatus {
+  ACTIVE     // Normal — can shop and bid
+  SUSPENDED  // Admin blocked — cannot transact
+  FLAGGED    // Under review — admin notified
+}
+
 model User {
-  id         String   @id @default(cuid())
-  email      String   @unique
+  id         String     @id @default(cuid())
+  email      String     @unique
   name       String
   phone      String?
   password   String
-  role       UserRole @default(BUYER)
+  role       UserRole   @default(BUYER)
   avatar     String?
-  isVerified         Boolean   @default(false)
-  emailVerifyToken   String?   // 6-digit OTP (plain, short-lived)
-  emailVerifyExpiry  DateTime?
+  status             UserStatus @default(ACTIVE)
+  isVerified         Boolean    @default(false)  // email OTP confirmed
+  isAdminVerified    Boolean    @default(false)  // admin manually verified
+  emailVerifyToken     String?
+  emailVerifyExpiry    DateTime?
+  resetPasswordToken   String?
+  resetPasswordExpiry  DateTime?
+  suburb               String?    // area within their city
 
   // Location — which city this buyer is in
   locationId String?
@@ -118,7 +130,9 @@ model Seller {
   materialsPhotoUrl  String?                  // materials/tools photo
   videoUrl           String?                  // 30-60 sec craft video
   socialMediaLink    String?                  // optional Instagram/TikTok/Facebook
-  hasDeclaration     Boolean   @default(false) // legal self-declaration checkbox
+  hasDeclaration       Boolean   @default(false) // legal self-declaration checkbox
+  resetPasswordToken   String?
+  resetPasswordExpiry  DateTime?
 
   // Payment / banking details (for direct EFT payouts)
   bankName      String?

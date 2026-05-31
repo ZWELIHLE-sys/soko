@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, useCallback } from 'react'
 import { Plus, Package, X } from 'lucide-react'
@@ -69,7 +69,7 @@ export default function SellerProductsPage() {
 
   const closeForm = () => { setView('list'); setEditingId(null); setForm(EMPTY_FORM); setError('') }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
     if (!form.categoryId) { setError('Please select a category.'); return }

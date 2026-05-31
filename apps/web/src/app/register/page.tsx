@@ -40,7 +40,7 @@ export default function RegisterPage() {
             <div className={styles.sacredTitle}>Vuna&apos;s 3 Sacred Rules for Sellers</div>
             <div className={styles.sacredList}>
               <div className={styles.sacredItem}><Globe size={14} /> African owned</div>
-              <div className={styles.sacredItem}><HandHeart size={14} /> Hand produced</div>
+              <div className={styles.sacredItem}><HandHeart size={14} /> Maker made</div>
               <div className={styles.sacredItem}><ShieldCheck size={14} /> Vuna Verified</div>
             </div>
           </div>

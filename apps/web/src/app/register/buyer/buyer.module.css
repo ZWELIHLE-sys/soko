@@ -72,6 +72,18 @@
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input:focus {
+  border-color: #7C2D12;
+  box-shadow: 0 0 0 3px rgba(124, 45, 18, 0.08);
+}
+
+.select:focus {
+  border-color: #7C2D12;
+  box-shadow: 0 0 0 3px rgba(124, 45, 18, 0.08);
+  outline: none;
 }
 
 .error {
@@ -119,5 +131,33 @@
   color: #7C2D12;
   font-weight: 500;
   text-decoration: none;
+}
+
+.sectionLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  margin-top: 8px;
+}
+
+.select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.labelOptional {
+  font-weight: 400;
+  color: #9ca3af;
 }
 

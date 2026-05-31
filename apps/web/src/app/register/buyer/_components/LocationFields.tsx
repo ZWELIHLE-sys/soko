@@ -1,0 +1,78 @@
+'use client'
+
+import styles from '../buyer.module.css'
+import type { Location, BuyerFormState } from '../_types'
+
+interface Props {
+  countries: Location[]
+  provinces: Location[]
+  districts: Location[]
+  cities:    Location[]
+  countryId:  string
+  provinceId: string
+  districtId: string
+  locationId: string
+  suburb:     string
+  onChange: (field: keyof BuyerFormState, value: string) => void
+}
+
+export function LocationFields({ countries, provinces, districts, cities, countryId, provinceId, districtId, locationId, suburb, onChange }: Props) {
+  return (
+    <>
+      <div className={styles.sectionLabel}>Your Location</div>
+
+      <div className={styles.field}>
+        <label className={styles.label}>Country</label>
+        <select className={styles.select} value={countryId}
+          onChange={e => onChange('countryId', e.target.value)}>
+          <option value="">Select country</option>
+          {countries.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+        </select>
+      </div>
+
+      {provinces.length > 0 && (
+        <div className={styles.field}>
+          <label className={styles.label}>Province / Region</label>
+          <select className={styles.select} value={provinceId}
+            onChange={e => onChange('provinceId', e.target.value)}>
+            <option value="">Select province</option>
+            {provinces.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+        </div>
+      )}
+
+      {districts.length > 0 && (
+        <div className={styles.field}>
+          <label className={styles.label}>District</label>
+          <select className={styles.select} value={districtId}
+            onChange={e => onChange('districtId', e.target.value)}>
+            <option value="">Select district</option>
+            {districts.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+          </select>
+        </div>
+      )}
+
+      {cities.length > 0 && (
+        <div className={styles.field}>
+          <label className={styles.label}>City / Town</label>
+          <select className={styles.select} value={locationId}
+            onChange={e => onChange('locationId', e.target.value)}>
+            <option value="">Select city</option>
+            {cities.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+          </select>
+        </div>
+      )}
+
+      {locationId && (
+        <div className={styles.field}>
+          <label className={styles.label}>
+            Suburb / Area <span className={styles.labelOptional}>(optional)</span>
+          </label>
+          <input className={styles.input} type="text"
+            placeholder="e.g. Umlazi D Section, Hillbrow, Madadeni..."
+            value={suburb} onChange={e => onChange('suburb', e.target.value)} />
+        </div>
+      )}
+    </>
+  )
+}

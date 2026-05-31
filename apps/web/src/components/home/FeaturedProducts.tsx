@@ -31,9 +31,8 @@ export default async function FeaturedProducts() {
       <div className={styles.header}>
         <div>
           <h2 className={styles.heading}>
-            Featured <span className={styles.headingAccent}>Products</span>
+            <span className={styles.headingAccent}>Featured Products</span>
           </h2>
-          <p className={styles.subtitle}>Handpicked from verified African sellers</p>
         </div>
         <Link href="/shop" className={styles.viewAll}>View all →</Link>
       </div>

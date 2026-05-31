@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setError('')
     setLoading(true)
@@ -83,14 +83,17 @@ export default function LoginPage() {
               </div>
 
               <div className={styles.fieldLast}>
-                <label className={styles.label}>Password</label>
+                <div className={styles.labelRow}>
+                  <label className={styles.label}>Password</label>
+                  <Link href="/forgot-password" className={styles.forgotLink}>Forgot password?</Link>
+                </div>
                 <input
                   className={styles.input}
                   type="password"
                   required
                   value={form.password}
                   onChange={e => setForm({ ...form, password: e.target.value })}
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                 />
               </div>
 

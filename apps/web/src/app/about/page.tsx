@@ -19,8 +19,8 @@ const sacredRules = [
   },
   {
     num: '02',
-    title: 'Hand Produced',
-    desc: 'Every product is made, grown, built or crafted by the seller themselves. No dropshipping. No reselling. No factories. If your hands did not make it, it does not belong on Vuna.',
+    title: 'Maker Made',
+    desc: 'Every product is made, grown, built or crafted by the seller themselves. No dropshipping. No reselling. No factories. If you did not make it, it does not belong on Vuna.',
   },
   {
     num: '03',
@@ -74,12 +74,11 @@ export default function AboutPage() {
                 </p>
                 <p>We built that door.</p>
                 <p>
-                  The grandmother in rural KwaZulu-Natal who makes pottery that
-                  could sit in a gallery in London. The young designer in Umlazi
-                  stitching streetwear that could sell in Paris. The farmer in Limpopo
-                  pressing moringa powder that could reach shelves in New York.
-                  They existed before Vuna. They just had no platform that was
-                  built for them.
+                  From the grandmother in rural KwaZulu-Natal making pottery,
+                  to the young designer in Umlazi stitching streetwear,
+                  to the farmer in Limpopo pressing moringa powder —
+                  and every maker, grower and creator across the continent in between.
+                  They existed long before Vuna. They just had no platform truly built for them.
                 </p>
                 <p>
                   Vuna is not just a marketplace. Vuna is the harvest of everything

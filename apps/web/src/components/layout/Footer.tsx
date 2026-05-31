@@ -21,7 +21,8 @@ export default function Footer() {
           <div className={styles.brandIcon}>V</div>
           <div>
             <div className={styles.brandText}>Vuna</div>
-            <div className={styles.tagline}>Reap What Africa Makes</div>
+            <div className={styles.tagline}>Marketplace</div>
+            <div className={styles.slogan}>Reap What Africa Makes</div>
           </div>
         </div>
 
@@ -44,7 +45,7 @@ export default function Footer() {
             {link.label}
           </Link>
         ))}
-        <span className={styles.legalNote}>Umzila-AfriRoute (Pty) Ltd · POPIA Compliant</span>
+        <span className={styles.legalNote}>Umzila-AfriRoute</span>
       </div>
     </footer>
   )

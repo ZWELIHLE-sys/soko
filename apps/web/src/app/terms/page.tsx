@@ -14,7 +14,7 @@ const sellerResponsibilities = [
   'Product descriptions and photos must be accurate and honest',
   'You are responsible for the quality of your products',
   'You must fulfil orders within the agreed timeframe',
-  'You must provide valid South African banking details for payouts',
+  'You must provide valid banking details for payouts',
   'You must not list counterfeit, copied or resold products',
 ]
 
@@ -46,7 +46,7 @@ const prohibited = [
 
 const eligibility = [
   'You must be 18 years or older to use Vuna',
-  'You must be a resident of or operating from South Africa or another African country',
+  'You must be a resident of or operating from an African country',
   'You must provide accurate and complete information when registering',
   'One person may not operate multiple accounts',
 ]
@@ -68,8 +68,8 @@ export default function TermsPage() {
 
         <FadeIn>
           <p className={styles.bodyText}>
-            Welcome to Vuna, operated by <strong>Umzila-AfriRoute (Pty) Ltd</strong>. By accessing
-            or using the Vuna platform at vuna.co.za, you agree to be bound by these Terms of Service.
+            Welcome to Vuna, operated by <strong>Umzila-AfriRoute</strong>. By accessing
+            or using the Vuna platform at vunamarketplace.co.za, you agree to be bound by these Terms of Service.
             Please read them carefully.
           </p>
         </FadeIn>
@@ -81,8 +81,8 @@ export default function TermsPage() {
               Vuna&apos;s 3 Sacred Rules — Non-Negotiable For All Sellers
             </div>
             {[
-              { Icon: Globe,      text: 'African Owned — Every seller must be African or South African' },
-              { Icon: HandHeart,  text: 'Hand Produced — Every product must be made, grown or built by the seller personally' },
+              { Icon: Globe,      text: 'African Owned — Every seller must be African' },
+              { Icon: HandHeart,  text: 'Maker Made — Every product must be made, grown or built by the seller personally' },
               { Icon: BadgeCheck, text: 'Vuna Verified — Every seller must complete our verification process before listing' },
             ].map(({ Icon, text }) => (
               <div key={text} className={styles.sacredRule}>
@@ -132,7 +132,7 @@ export default function TermsPage() {
             <p className={styles.bodyText}>
               All sellers must complete the Vuna Verified process before their listings go live.
               Vuna reserves the right to reject or suspend any seller application that does not meet
-              our authenticity requirements. Verification is free and typically completed within 24 hours.
+              our authenticity requirements. Verification is free and typically completed within 48 hours.
             </p>
           </div>
         </FadeIn>
@@ -176,7 +176,7 @@ export default function TermsPage() {
               promote and market their products on the Vuna platform and associated social media channels.
             </p>
             <p className={styles.bodyText}>
-              The Vuna brand, logo, platform design and code are the property of Umzila-AfriRoute (Pty) Ltd
+              The Vuna brand, logo, platform design and code are the property of Umzila-AfriRoute
               and may not be reproduced without written permission.
             </p>
           </div>
@@ -225,7 +225,7 @@ export default function TermsPage() {
               <strong className={styles.contactHighlight}>legal@vuna.co.za</strong>
             </p>
             <p className={styles.contactText}>
-              Umzila-AfriRoute (Pty) Ltd — KwaZulu-Natal, South Africa
+              Umzila-AfriRoute — KwaZulu-Natal, South Africa
             </p>
           </div>
         </FadeIn>

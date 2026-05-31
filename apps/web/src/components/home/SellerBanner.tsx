@@ -5,7 +5,7 @@ import styles from './SellerBanner.module.css'
 
 const perks = [
   'Free to apply',
-  'Verified in 24 hours',
+  'Verified in 48 hours',
   'Sell to the world',
 ]
 

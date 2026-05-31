@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, XCircle, Eye, Trophy, ShieldAlert } from 'lucide-react'
+import { CheckCircle, XCircle, Eye, Trophy, ShieldAlert, MapPin } from 'lucide-react'
 import shared from '../../../admin.module.css'
 import styles from '../auctions.module.css'
 import type { AuctionItem, EventStatus } from '../_types'
@@ -32,7 +32,14 @@ export function AuctionItemCard({ item, eventStatus, onReview, onViewBids }: Pro
         <div className={styles.itemHeader}>
           <div>
             <div className={styles.itemTitle}>{item.title}</div>
-            <div className={styles.itemMeta}>{item.seller.brandName} · {item.category.name}</div>
+            <div className={styles.itemMeta}>
+              {item.seller.brandName} · {item.category.name}
+              {item.seller.location && (
+                <span className={styles.itemLocation}>
+                  <MapPin size={10} /> {item.seller.location.name}
+                </span>
+              )}
+            </div>
           </div>
           <span className={shared.badge} style={{ background: isc.bg, color: isc.color }}>
             {item.status}
@@ -89,7 +96,14 @@ export function AuctionItemCard({ item, eventStatus, onReview, onViewBids }: Pro
               {item.winner ? (
                 <>
                   <Trophy size={14} color="#D97706" />
-                  <span className={styles.winnerLabel}>Sold to <strong>{item.winner.name}</strong></span>
+                  <span className={styles.winnerLabel}>
+                    Sold to <strong>{item.winner.name}</strong>
+                    {item.winner.location && (
+                      <span className={styles.winnerLocation}>
+                        <MapPin size={10} /> {item.winner.location.name}
+                      </span>
+                    )}
+                  </span>
                   <span className={styles.hammerPrice}>R{item.currentBid?.toFixed(2) ?? '—'}</span>
                   {item.reservePrice != null && (
                     <span className={reserveMet ? styles.reserveMet : styles.reserveNotMet}>

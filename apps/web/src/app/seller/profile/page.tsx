@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { ShieldCheck, Clock, XCircle, CheckCircle2, User } from 'lucide-react'
@@ -57,7 +57,7 @@ export default function SellerProfilePage() {
     setUploading(null)
   }
 
-  const handleSave = async (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSaving(true)
     await fetch('/api/seller/profile', {
@@ -79,12 +79,12 @@ export default function SellerProfilePage() {
       <div className={styles.pageHeader}>
         <div>
           <h1 className={styles.title}>{profile.brandName}</h1>
-          <p className={styles.subtitle}>{profile.location.name} · {profile.category.name}</p>
+          <p className={styles.subtitle}>{profile.location.name} Â· {profile.category.name}</p>
         </div>
         <div className={`${styles.statusBadge} ${statusCfg.cls}`}>
           <statusCfg.Icon size={13} />
           {statusCfg.label}
-          {profile.status === 'PENDING' && <span className={styles.statusHint}> — review within 48h</span>}
+          {profile.status === 'PENDING' && <span className={styles.statusHint}> â€” review within 48h</span>}
         </div>
       </div>
 

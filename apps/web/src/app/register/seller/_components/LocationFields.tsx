@@ -4,9 +4,11 @@ import styles from '../seller.module.css'
 import type { Location, SellerFormState } from '../_types'
 
 interface Props {
+  countries: Location[]
   provinces: Location[]
   districts: Location[]
   cities: Location[]
+  countryId: string
   provinceId: string
   districtId: string
   locationId: string
@@ -14,19 +16,30 @@ interface Props {
   onChange: (field: keyof SellerFormState, value: string) => void
 }
 
-export function LocationFields({ provinces, districts, cities, provinceId, districtId, locationId, suburb, onChange }: Props) {
+export function LocationFields({ countries, provinces, districts, cities, countryId, provinceId, districtId, locationId, suburb, onChange }: Props) {
   return (
     <>
       <div className={styles.sectionLabel}>Your Location</div>
 
       <div className={styles.field}>
-        <label className={styles.label}>Province</label>
-        <select className={styles.select} required value={provinceId}
-          onChange={e => onChange('provinceId', e.target.value)}>
-          <option value="">Select province</option>
-          {provinces.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+        <label className={styles.label}>Country</label>
+        <select className={styles.select} required value={countryId}
+          onChange={e => onChange('countryId', e.target.value)}>
+          <option value="">Select country</option>
+          {countries.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
       </div>
+
+      {provinces.length > 0 && (
+        <div className={styles.field}>
+          <label className={styles.label}>Province / Region</label>
+          <select className={styles.select} required value={provinceId}
+            onChange={e => onChange('provinceId', e.target.value)}>
+            <option value="">Select province</option>
+            {provinces.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+        </div>
+      )}
 
       {districts.length > 0 && (
         <div className={styles.field}>

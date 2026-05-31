@@ -1,7 +1,8 @@
 import { prisma } from '@vuna/db'
 
-export async function listOrders() {
+export async function listOrders(opts?: { locationId?: string }) {
   return prisma.order.findMany({
+    where: opts?.locationId ? { seller: { locationId: opts.locationId } } : undefined,
     orderBy: { createdAt: 'desc' },
     include: {
       buyer:  { select: { name: true, email: true } },

@@ -100,7 +100,7 @@
   cursor: pointer;
   transition: all 0.2s;
   background: transparent;
-  color: #6b7280;
+  color: #7C2D12;
 }
 
 .roleBtnActive {
@@ -116,12 +116,26 @@
   margin-bottom: 24px;
 }
 
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
 .label {
   display: block;
   font-size: 13px;
   font-weight: 500;
   color: #374151;
   margin-bottom: 6px;
+}
+
+.forgotLink {
+  font-size: 12px;
+  color: #7C2D12;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .input {
@@ -132,6 +146,12 @@
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input:focus {
+  border-color: #7C2D12;
+  box-shadow: 0 0 0 3px rgba(124, 45, 18, 0.08);
 }
 
 .error {

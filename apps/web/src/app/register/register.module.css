@@ -67,6 +67,7 @@
 
 .cardLink {
   text-decoration: none;
+  color: inherit;
 }
 
 .card {
@@ -85,13 +86,14 @@
 }
 
 .cardSeller:hover {
-  border-color: #14532D;
-  background: #f0fdf4;
+  border-color: #7C2D12;
+  background: #fff7ed;
 }
 
 .cardIcon {
   font-size: 40px;
   margin-bottom: 12px;
+  color: #7C2D12;
 }
 
 .cardTitle {

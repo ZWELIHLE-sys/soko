@@ -2,13 +2,36 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Search } from 'lucide-react'
+import {
+  Search, Shirt, Palette, Sofa, Wheat, Sparkles, Gem,
+  Cpu, BookOpen, Home, Scissors, Hammer, Leaf, PenLine,
+  Camera, Package, type LucideIcon,
+} from 'lucide-react'
 import styles from './CategorySearch.module.css'
+
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  fashion:     Shirt,
+  art:         Palette,
+  furniture:   Sofa,
+  food:        Wheat,
+  beauty:      Sparkles,
+  sculpture:   Gem,
+  electronics: Cpu,
+  books:       BookOpen,
+  homeware:    Home,
+  textiles:    Scissors,
+  metalwork:   Hammer,
+  wellness:    Leaf,
+  drawings:    PenLine,
+  photography: Camera,
+  other:       Package,
+}
 
 interface Category {
   id: string
   name: string
   slug: string
+  icon: string | null
   description: string | null
 }
 
@@ -44,21 +67,33 @@ export default function CategorySearch({ categories }: { categories: Category[] 
       </div>
 
       {q && (
-        filtered.length === 0 ? (
-          <p className={styles.empty}>No categories match &ldquo;{q}&rdquo;</p>
-        ) : (
-          <div className={styles.pillRow}>
-            {filtered.map(cat => (
-              <Link
-                key={cat.id}
-                href={`/shop?category=${cat.slug}`}
-                className={styles.pill}
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
-        )
+        <>
+          {filtered.length === 0 ? (
+            <p className={styles.empty}>No categories match &ldquo;{q}&rdquo;</p>
+          ) : (
+            <div className={styles.pillRow}>
+              {filtered.map(cat => {
+                const Icon = CATEGORY_ICONS[cat.slug] ?? Package
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/shop?category=${cat.slug}`}
+                    className={styles.pill}
+                  >
+                    <span className={styles.pillIcon}><Icon size={13} /></span>
+                    {cat.name}
+                  </Link>
+                )
+              })}
+            </div>
+          )}
+          <Link
+            href={`/shop?q=${encodeURIComponent(q)}`}
+            className={styles.productSearchLink}
+          >
+            Search all products for &ldquo;{q}&rdquo; →
+          </Link>
+        </>
       )}
     </div>
   )

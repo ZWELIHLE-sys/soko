@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: 'Seller application submitted! We will review and verify your account within 24 hours.',
+        message: 'Seller application submitted! We will review and verify your account within 48 hours.',
         seller
       },
       { status: 201 }

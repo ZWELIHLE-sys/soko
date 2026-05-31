@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
@@ -25,10 +25,8 @@ export default function CheckoutPage() {
   const router = useRouter()
   const payformRef = useRef<HTMLFormElement>(null)
 
-  const [cart] = useState<CartItem[]>(() => {
-    if (typeof window === 'undefined') return []
-    return JSON.parse(localStorage.getItem('vuna_cart') || '[]')
-  })
+  const [cart, setCart]           = useState<CartItem[]>([])
+  const [cartLoaded, setCartLoaded] = useState(false)
   const [provinces, setProvinces] = useState<Location[]>([])
   const [districts, setDistricts] = useState<Location[]>([])
   const [cities, setCities]       = useState<Location[]>([])
@@ -38,10 +36,16 @@ export default function CheckoutPage() {
   const [form, setForm]       = useState<DeliveryFormState>(EMPTY_FORM)
 
   useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem('vuna_cart') || '[]'))
+    setCartLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (!cartLoaded) return
     if (!session) { router.push('/login?redirect=/checkout'); return }
     if (cart.length === 0) { router.push('/cart'); return }
     fetch('/api/locations/provinces').then(r => r.json()).then(setProvinces)
-  }, [session, router, cart.length])
+  }, [session, router, cart.length, cartLoaded])
 
   useEffect(() => {
     if (!form.provinceId) return
@@ -72,7 +76,7 @@ export default function CheckoutPage() {
     setForm(f => ({ ...f, districtId: e.target.value, cityId: '' }))
   }
 
-  const handlePlaceOrder = async (e: React.FormEvent) => {
+  const handlePlaceOrder = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setError('')
     if (!form.cityId) { setError('Please select your city'); return }

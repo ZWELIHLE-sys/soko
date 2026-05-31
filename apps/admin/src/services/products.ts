@@ -1,8 +1,11 @@
 import { prisma } from '@vuna/db'
 
-export async function listProducts(query?: string, limit?: number) {
+export async function listProducts(query?: string, limit?: number, locationId?: string) {
   return prisma.product.findMany({
-    where: query ? { status: 'ACTIVE', name: { contains: query, mode: 'insensitive' } } : undefined,
+    where: (query || locationId) ? {
+      ...(query      ? { name: { contains: query, mode: 'insensitive' } } : {}),
+      ...(locationId ? { locationId } : {}),
+    } : undefined,
     orderBy: { createdAt: 'desc' },
     take: limit,
     include: {

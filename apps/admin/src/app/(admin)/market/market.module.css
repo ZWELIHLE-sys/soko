@@ -274,6 +274,15 @@
   margin-bottom: 6px;
 }
 
+.listingLocation {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #7C2D12;
+  margin-bottom: 6px;
+}
+
 .stallMessage {
   font-size: 13px;
   color: #374151;

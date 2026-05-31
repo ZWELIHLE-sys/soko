@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
@@ -92,7 +92,7 @@ export default function BuyerOrdersPage() {
     load()
   }
 
-  const submitReview = async (e: React.FormEvent) => {
+  const submitReview = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!reviewForm) return
     setReviewError('')
@@ -175,7 +175,7 @@ export default function BuyerOrdersPage() {
           <Package size={48} className={styles.emptyIcon} />
           <h2 className={styles.emptyTitle}>No orders yet</h2>
           <p className={styles.emptyText}>
-            Discover and support African creators — your first order is waiting.
+            Discover and support African creators â€” your first order is waiting.
           </p>
           <Link href="/shop" className={styles.emptyBtn}>
             Start Shopping <ArrowRight size={14} />
@@ -216,7 +216,7 @@ export default function BuyerOrdersPage() {
                       </div>
                       <div className={styles.itemInfo}>
                         <div className={styles.itemName}>{item.product.name}</div>
-                        <div className={styles.itemMeta}>Qty: {item.quantity} · R{item.price.toFixed(2)} each</div>
+                        <div className={styles.itemMeta}>Qty: {item.quantity} Â· R{item.price.toFixed(2)} each</div>
                       </div>
                       <div className={styles.itemRight}>
                         <div className={styles.itemPrice}>R{(item.price * item.quantity).toFixed(2)}</div>

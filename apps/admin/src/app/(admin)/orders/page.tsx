@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import shared from '../../admin.module.css'
 import styles from './orders.module.css'
+import { AdminLocationFilter } from '@/components/AdminLocationFilter'
 
 interface Order {
   id: string
@@ -31,14 +32,18 @@ const FILTERS = ['ALL', 'PENDING', 'CONFIRMED', 'PACKED', 'IN_TRANSIT', 'DELIVER
 export default function AdminOrdersPage() {
   const [orders, setOrders]   = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter]   = useState('ALL')
-  const [expanded, setExpanded] = useState<string | null>(null)
+  const [filter, setFilter]         = useState('ALL')
+  const [expanded, setExpanded]     = useState<string | null>(null)
+  const [locationId, setLocationId] = useState('')
 
   useEffect(() => {
-    fetch('/api/orders')
+    setLoading(true)
+    const url = locationId ? `/api/orders?locationId=${locationId}` : '/api/orders'
+    fetch(url)
       .then(r => r.json())
       .then(data => { setOrders(Array.isArray(data) ? data : []); setLoading(false) })
-  }, [])
+      .catch(() => setLoading(false))
+  }, [locationId])
 
   const filtered = filter === 'ALL' ? orders : orders.filter(o => o.status === filter)
 
@@ -60,6 +65,8 @@ export default function AdminOrdersPage() {
           </button>
         ))}
       </div>
+
+      <AdminLocationFilter value={locationId} onChange={setLocationId} />
 
       {loading ? (
         <div className={shared.loading}>Loading orders...</div>

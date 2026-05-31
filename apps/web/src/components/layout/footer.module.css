@@ -50,6 +50,13 @@
   margin-top: 2px;
 }
 
+.slogan {
+  font-size: 11px;
+  color: #D97706;
+  font-style: italic;
+  margin-top: 3px;
+}
+
 .nav {
   display: flex;
   gap: 20px;

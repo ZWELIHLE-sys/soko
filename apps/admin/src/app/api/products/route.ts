@@ -9,10 +9,11 @@ export async function GET(req: NextRequest) {
   if (!session) return unauthorized()
 
   const { searchParams } = new URL(req.url)
-  const q     = searchParams.get('q') ?? ''
-  const limit = parseInt(searchParams.get('limit') ?? '0') || undefined
+  const q          = searchParams.get('q')          ?? ''
+  const limit      = parseInt(searchParams.get('limit') ?? '0') || undefined
+  const locationId = searchParams.get('locationId') ?? undefined
 
-  const products = await listProducts(q || undefined, limit)
+  const products = await listProducts(q || undefined, limit, locationId)
   return NextResponse.json(products)
 }
 

@@ -10,6 +10,7 @@ import { CreateEventForm } from './_components/CreateEventForm'
 import { EventCard } from './_components/EventCard'
 import { ItemReviewModal } from './_components/ItemReviewModal'
 import { BidHistoryModal } from './_components/BidHistoryModal'
+import { AdminLocationFilter } from '@/components/AdminLocationFilter'
 
 export default function AdminAuctionsPage() {
   const [events, setEvents]         = useState<AuctionEvent[]>([])
@@ -31,6 +32,7 @@ export default function AdminAuctionsPage() {
   const [bids, setBids]               = useState<Bid[]>([])
   const [bidsLoading, setBidsLoading] = useState(false)
   const [bidsTitle, setBidsTitle]     = useState('')
+  const [locationId, setLocationId]   = useState('')
 
   useEffect(() => {
     fetch('/api/auctions/events')
@@ -144,6 +146,8 @@ export default function AdminAuctionsPage() {
         />
       )}
 
+      <AdminLocationFilter value={locationId} onChange={setLocationId} />
+
       {loading ? (
         <div className={shared.loading}>Loading auction events...</div>
       ) : (
@@ -153,7 +157,11 @@ export default function AdminAuctionsPage() {
               key={event.id}
               event={event}
               isOpen={expanded === event.id}
-              items={items[event.id]}
+              items={
+                locationId && items[event.id]
+                  ? items[event.id].filter(i => i.seller.locationId === locationId)
+                  : items[event.id]
+              }
               transitioning={transitioning}
               onToggle={() => toggleEvent(event.id)}
               onTransition={next => transitionStatus(event.id, next)}

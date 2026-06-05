@@ -1,4 +1,4 @@
-.header {
+﻿.header {
   margin-bottom: 28px;
 }
 
@@ -121,8 +121,8 @@
 
 /* Status variants */
 .statusPending    { background: #FEF9C3; color: #92400E; }
-.statusConfirmed  { background: #EFF6FF; color: #1D4ED8; }
-.statusPacked     { background: #EDE9FE; color: #6D28D9; }
+.statusConfirmed  { background: #D1FAE5; color: #065F46; }
+.statusPacked     { background: #FFEDD5; color: #7C2D12; }
 .statusInTransit  { background: #FEF3C7; color: #D97706; }
 .statusDelivered  { background: #DCFCE7; color: #14532D; }
 .statusCancelled  { background: #FEE2E2; color: #991B1B; }

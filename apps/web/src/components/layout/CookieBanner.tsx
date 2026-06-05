@@ -36,20 +36,16 @@ export default function CookieBanner() {
   return (
     <div className={styles.banner}>
       <div className={styles.text}>
-        <div className={styles.title}><Cookie size={15} className={styles.titleIcon} /> We use essential cookies</div>
+        <div className={styles.title}><Cookie size={15} className={styles.titleIcon} /> We use essential cookies only</div>
         <div className={styles.desc}>
-          Vuna uses essential cookies to keep you logged in. We do not use tracking or advertising
-          cookies. By continuing you accept our{' '}
-          <Link href="/privacy" className={styles.link}>Privacy Policy</Link>
-          {' '}in compliance with POPIA.
+          Vuna uses essential cookies to keep you logged in and your cart saved.
+          No tracking. No advertising. See our{' '}
+          <Link href="/privacy" className={styles.link}>Privacy Policy</Link>.
         </div>
       </div>
       <div className={styles.buttons}>
-        <button className={styles.btnDecline} onClick={() => setConsent('essential_only')}>
-          Essential only
-        </button>
-        <button className={styles.btnAccept} onClick={() => setConsent('accepted')}>
-          Accept
+        <button className={styles.btnAccept} onClick={() => setConsent('acknowledged')}>
+          Got it
         </button>
       </div>
     </div>

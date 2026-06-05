@@ -83,6 +83,11 @@
   margin-bottom: 16px;
 }
 
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .categoryGrid { grid-template-columns: 1fr; }
+}
+
 .field {
   margin-bottom: 16px;
 }

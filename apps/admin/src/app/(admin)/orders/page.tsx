@@ -19,9 +19,9 @@ interface Order {
 
 const statusStyle: Record<string, { color: string; bg: string }> = {
   PENDING:    { color: '#92400E', bg: '#FEF9C3' },
-  CONFIRMED:  { color: '#1D4ED8', bg: '#EFF6FF' },
-  PACKED:     { color: '#6D28D9', bg: '#EDE9FE' },
-  IN_TRANSIT: { color: '#0369A1', bg: '#E0F2FE' },
+  CONFIRMED:  { color: '#9A3412', bg: '#FED7AA' },
+  PACKED:     { color: '#7C2D12', bg: '#FFEDD5' },
+  IN_TRANSIT: { color: '#065F46', bg: '#D1FAE5' },
   DELIVERED:  { color: '#14532D', bg: '#DCFCE7' },
   CANCELLED:  { color: '#374151', bg: '#F3F4F6' },
   REFUNDED:   { color: '#991B1B', bg: '#FEE2E2' },

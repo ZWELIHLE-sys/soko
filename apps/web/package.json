@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
-    "@vuna/db": "workspace:*",
-    "@vuna/types": "workspace:*",
+    "@vuna/db": "*",
+    "@vuna/types": "*",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "lucide-react": "^1.16.0",

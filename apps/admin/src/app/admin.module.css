@@ -6,9 +6,12 @@
 
 .main {
   flex: 1;
-  padding: 32px;
   overflow-y: auto;
   min-width: 0;
+}
+
+.mainInner {
+  padding: 32px;
 }
 
 /* ---- Shared page primitives used across all admin pages ---- */

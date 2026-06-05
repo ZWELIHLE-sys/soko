@@ -1,4 +1,4 @@
-import { Globe, HandHeart, BadgeCheck } from 'lucide-react'
+﻿import { Globe, HandHeart, BadgeCheck } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
@@ -200,7 +200,7 @@ export default function TermsPage() {
             <p className={styles.bodyText}>
               Vuna reserves the right to suspend or permanently terminate any account that violates
               these Terms of Service, our 3 Sacred Rules, or applicable South African law. Users may
-              also close their own accounts by contacting support@vuna.co.za.
+              also close their own accounts by contacting support@vunamarketplace.co.za.
             </p>
           </div>
         </FadeIn>
@@ -222,7 +222,7 @@ export default function TermsPage() {
             <h2 className={styles.contactTitle}>Questions About These Terms?</h2>
             <p className={styles.contactText}>
               Contact us at{' '}
-              <strong className={styles.contactHighlight}>legal@vuna.co.za</strong>
+              <strong className={styles.contactHighlight}>legal@vunamarketplace.co.za</strong>
             </p>
             <p className={styles.contactText}>
               Umzila-AfriRoute — KwaZulu-Natal, South Africa

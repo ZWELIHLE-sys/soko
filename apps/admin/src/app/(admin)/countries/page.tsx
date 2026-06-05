@@ -30,8 +30,10 @@ export default function AdminCountriesPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ isUnlocked: !country.isUnlocked }),
     })
-    const updated = await res.json()
-    setCountries(cs => cs.map(c => c.id === updated.id ? updated : c))
+    if (res.ok) {
+      const updated = await res.json()
+      setCountries(cs => cs.map(c => c.id === updated.id ? updated : c))
+    }
     setToggling(null)
   }
 

@@ -49,7 +49,7 @@ export default function BuyerMarketPage() {
       <div className={styles.header}>
         <h1 className={styles.title}>Vuna Market</h1>
         <p className={styles.subtitle}>
-          Our monthly pop-up — African makers, handmade goods, one place.
+          Our weekly pop-up — African makers, growers and builders, one place.
         </p>
       </div>
 

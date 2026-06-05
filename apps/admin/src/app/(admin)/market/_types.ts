@@ -53,7 +53,7 @@ export const TYPE_TIMES: Record<MarketType, string> = {
 
 export const TYPE_COLOR: Record<MarketType, { color: string; bg: string }> = {
   SUNDAY_MARKET:       { color: '#92400E', bg: '#FEF9C3' },
-  FRIDAY_NIGHT_MARKET: { color: '#5B21B6', bg: '#EDE9FE' },
+  FRIDAY_NIGHT_MARKET: { color: '#1C0A00', bg: '#FEF3C7' },
 }
 
 export const LISTING_STATUS_STYLE: Record<string, { color: string; bg: string }> = {
@@ -63,7 +63,7 @@ export const LISTING_STATUS_STYLE: Record<string, { color: string; bg: string }>
 }
 
 export const EVENT_STATUS_STYLE: Record<string, { color: string; bg: string }> = {
-  UPCOMING: { color: '#1D4ED8', bg: '#EFF6FF' },
+  UPCOMING: { color: '#9A3412', bg: '#FFEDD5' },
   LIVE:     { color: '#14532D', bg: '#DCFCE7' },
   ENDED:    { color: '#6B7280', bg: '#F3F4F6' },
 }

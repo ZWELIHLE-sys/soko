@@ -227,6 +227,13 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.sellerCard:hover {
+  box-shadow: 0 8px 28px rgba(28, 10, 0, 0.1);
+  transform: translateY(-3px);
+  border-color: #d6c9c0;
 }
 
 .sellerHeader {

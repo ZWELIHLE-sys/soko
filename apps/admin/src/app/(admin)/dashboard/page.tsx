@@ -31,8 +31,8 @@ export default function AdminDashboard() {
   const cards = stats ? [
     { label: 'Pending Sellers',  value: stats.sellers.pending,   Icon: Clock,       color: '#92400E', bg: '#FEF9C3', link: '/sellers',  urgent: stats.sellers.pending > 0 },
     { label: 'Verified Sellers', value: stats.sellers.verified,  Icon: CheckCircle, color: '#14532D', bg: '#DCFCE7', link: '/sellers',  urgent: false },
-    { label: 'Active Products',  value: stats.products.active,   Icon: Package,     color: '#1D4ED8', bg: '#EFF6FF', link: '/products', urgent: false },
-    { label: 'Total Buyers',     value: stats.buyers.total,      Icon: Users,       color: '#6D28D9', bg: '#EDE9FE', link: '/buyers',   urgent: false },
+    { label: 'Active Products',  value: stats.products.active,   Icon: Package,     color: '#065F46', bg: '#D1FAE5', link: '/products', urgent: false },
+    { label: 'Total Buyers',     value: stats.buyers.total,      Icon: Users,       color: '#9A3412', bg: '#FFEDD5', link: '/buyers',   urgent: false },
     { label: 'Pending Orders',   value: stats.orders.pending,    Icon: ShoppingBag, color: '#92400E', bg: '#FEF9C3', link: '/orders',   urgent: stats.orders.pending > 0 },
     { label: 'Total Revenue',    value: `R${stats.finance.totalRevenue.toFixed(2)}`, Icon: DollarSign, color: '#14532D', bg: '#DCFCE7', link: '/payouts', urgent: false },
     { label: 'Vuna Commission',  value: `R${stats.finance.vunaCommission.toFixed(2)}`, Icon: Banknote, color: '#7C2D12', bg: '#FEF3C7', link: '/payouts', urgent: false },

@@ -1,4 +1,4 @@
-.header {
+﻿.header {
   margin-bottom: 24px;
 }
 
@@ -13,6 +13,16 @@
 .subtitle {
   font-size: 14px;
   color: #6b7280;
+}
+
+.errorBanner {
+  background: #FEE2E2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
 }
 
 /* Verification alerts */
@@ -84,7 +94,7 @@
 
 .statIconProducts { background: #FEF3C7; color: #7C2D12; }
 .statIconPending  { background: #FEF9C3; color: #92400E; }
-.statIconOrders   { background: #EFF6FF; color: #1D4ED8; }
+.statIconOrders   { background: #D1FAE5; color: #065F46; }
 .statIconEarnings { background: #DCFCE7; color: #14532D; }
 
 .statValue {
@@ -96,7 +106,7 @@
 
 .statValueProducts { color: #7C2D12; }
 .statValuePending  { color: #92400E; }
-.statValueOrders   { color: #1D4ED8; }
+.statValueOrders   { color: #065F46; }
 .statValueEarnings { color: #14532D; }
 
 .statLabel { font-size: 13px; color: #6b7280; }

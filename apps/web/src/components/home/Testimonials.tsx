@@ -1,5 +1,6 @@
 import { prisma } from '@vuna/db'
 import { Star } from 'lucide-react'
+import FadeIn from '@/components/ui/FadeIn'
 import styles from './Testimonials.module.css'
 
 async function getTestimonials() {
@@ -28,34 +29,38 @@ export default async function Testimonials() {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
-        <div className={styles.eyebrow}>Uvunile — You Have Reaped</div>
-        <h2 className={styles.heading}>What our buyers say</h2>
-        <p className={styles.sub}>
-          Real people. Real purchases. Real impact on African creators.
-        </p>
+        <FadeIn>
+          <div className={styles.eyebrow}>Uvunile — You Have Reaped</div>
+          <h2 className={styles.heading}>What our buyers say</h2>
+          <p className={styles.sub}>
+            Real people. Real purchases. Real impact on African creators.
+          </p>
+        </FadeIn>
 
         <div className={styles.grid}>
-          {testimonials.map(t => (
-            <div key={t.id} className={styles.card}>
-              <div className={styles.stars}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={14}
-                    fill={i < t.rating ? '#D97706' : 'none'}
-                    color={i < t.rating ? '#D97706' : '#d1d5db'}
-                  />
-                ))}
-              </div>
-              <p className={styles.content}>&ldquo;{t.content}&rdquo;</p>
-              <div className={styles.author}>
-                <div className={styles.authorAvatar}>
-                  {t.user.name?.charAt(0).toUpperCase()}
+          <FadeIn stagger>
+            {testimonials.map(t => (
+              <div key={t.id} className={styles.card}>
+                <div className={styles.stars}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      fill={i < t.rating ? '#D97706' : 'none'}
+                      color={i < t.rating ? '#D97706' : '#d1d5db'}
+                    />
+                  ))}
                 </div>
-                <div className={styles.authorName}>{t.user.name}</div>
+                <p className={styles.content}>&ldquo;{t.content}&rdquo;</p>
+                <div className={styles.author}>
+                  <div className={styles.authorAvatar}>
+                    {t.user.name?.charAt(0).toUpperCase()}
+                  </div>
+                  <div className={styles.authorName}>{t.user.name}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </FadeIn>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
+﻿.loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
 
 /* Hero banner */
 .heroBanner {
@@ -79,7 +79,7 @@
 }
 
 .eventOpen     { background: #FEF3C7; color: #92400E; }
-.eventCat      { background: #DBEAFE; color: #1D4ED8; }
+.eventCat      { background: #D1FAE5; color: #065F46; }
 .eventLive     { background: #DCFCE7; color: #14532D; }
 .eventEnded    { background: #F3F4F6; color: #374151; }
 
@@ -150,7 +150,7 @@
 }
 
 .statusPending   { background: #FEF3C7; color: #92400E; }
-.statusApproved  { background: #DBEAFE; color: #1D4ED8; }
+.statusApproved  { background: #D1FAE5; color: #065F46; }
 .statusLive      { background: #DCFCE7; color: #14532D; }
 .statusEnded     { background: #F3F4F6; color: #374151; }
 .statusCancelled { background: #FEE2E2; color: #991B1B; }

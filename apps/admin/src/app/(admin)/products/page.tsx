@@ -20,7 +20,7 @@ interface Product {
 const statusStyle: Record<string, { color: string; bg: string }> = {
   DRAFT:     { color: '#92400E', bg: '#FEF9C3' },
   ACTIVE:    { color: '#14532D', bg: '#DCFCE7' },
-  SOLD_OUT:  { color: '#1D4ED8', bg: '#EFF6FF' },
+  SOLD_OUT:  { color: '#6b7280', bg: '#F3F4F6' },
   SUSPENDED: { color: '#991B1B', bg: '#FEE2E2' },
 }
 

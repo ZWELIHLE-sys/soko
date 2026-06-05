@@ -16,9 +16,8 @@ export default function Hero() {
 
         <p className={styles.description}>
           Every product on Vuna is African made and Vuna verified.
-          From Cape to Cairo — a grandmother in Limpopo making pottery,
-          to the designer in Lagos stitching streetwear —
-          if African hands built it, it belongs here.
+          From Cape to Cairo — if it&apos;s African made, grown or built,
+          it belongs here. These are tomorrow&apos;s factory owners.
         </p>
 
         <div className={styles.buttons}>

@@ -81,8 +81,10 @@ export default function AboutPage() {
                   They existed long before Vuna. They just had no platform truly built for them.
                 </p>
                 <p>
-                  Vuna is not just a marketplace. Vuna is the harvest of everything
-                  Africa has always been capable of — finally reaching the world.
+                  Vuna is not just a marketplace. We are talking about the future factory owners —
+                  makers, growers, manufacturers, designers, builders — everyone whose work
+                  drives the African economy. Vuna is the harvest of everything Africa has
+                  always been capable of — finally reaching the world.
                 </p>
               </div>
             </div>

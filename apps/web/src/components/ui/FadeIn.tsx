@@ -1,14 +1,18 @@
 'use client'
 
-import { useEffect, useRef, type ReactNode } from 'react'
+import { Children, useEffect, useRef, type ReactNode } from 'react'
 import styles from './FadeIn.module.css'
 
 interface Props {
   children: ReactNode
   delay?: number
+  /** When true, children are staggered with sequential fade-in delays. */
+  stagger?: boolean
+  /** Per-child delay in ms when stagger is true. Default 60. */
+  step?: number
 }
 
-export default function FadeIn({ children, delay = 0 }: Props) {
+function Item({ children, delay }: { children: ReactNode; delay: number }) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -38,4 +42,18 @@ export default function FadeIn({ children, delay = 0 }: Props) {
       {children}
     </div>
   )
+}
+
+export default function FadeIn({ children, delay = 0, stagger = false, step = 60 }: Props) {
+  if (stagger) {
+    return (
+      <>
+        {Children.map(children, (child, i) => (
+          <Item key={i} delay={delay + i * step}>{child}</Item>
+        ))}
+      </>
+    )
+  }
+
+  return <Item delay={delay}>{children}</Item>
 }

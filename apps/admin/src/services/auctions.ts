@@ -1,6 +1,7 @@
-import { prisma } from '@vuna/db'
+import { prisma, tickEventLifecycle } from '@vuna/db'
 
 export async function listAuctionEvents() {
+  await tickEventLifecycle()
   return prisma.auctionEvent.findMany({
     orderBy: { biddingStartDate: 'desc' },
     include: {
@@ -33,6 +34,7 @@ export async function createAuctionEvent(data: {
 }
 
 export async function getAuctionEvent(eventId: string) {
+  await tickEventLifecycle()
   return prisma.auctionEvent.findUnique({
     where: { id: eventId },
     include: {
@@ -62,16 +64,32 @@ export async function getAuctionEvent(eventId: string) {
 }
 
 export async function setEventStatus(eventId: string, status: string) {
-  const [event] = await Promise.all([
-    prisma.auctionEvent.update({ where: { id: eventId }, data: { status: status as never } }),
-    status === 'LIVE'
-      ? prisma.auction.updateMany({ where: { auctionEventId: eventId, status: 'APPROVED' }, data: { status: 'LIVE' } })
-      : Promise.resolve(),
-    status === 'ENDED'
-      ? prisma.auction.updateMany({ where: { auctionEventId: eventId, status: 'LIVE' }, data: { status: 'ENDED' } })
-      : Promise.resolve(),
-  ])
-  return event
+  if (status === 'LIVE') {
+    await prisma.auction.updateMany({
+      where: { auctionEventId: eventId, status: 'APPROVED' },
+      data:  { status: 'LIVE' },
+    })
+  } else if (status === 'ENDED') {
+    // Close items AND assign winners (highest bidder wins regardless of reserve)
+    const items = await prisma.auction.findMany({
+      where:  { auctionEventId: eventId, status: { in: ['APPROVED', 'LIVE'] } },
+      select: {
+        id: true,
+        bids: { orderBy: { amount: 'desc' }, take: 1, select: { bidderId: true } },
+      },
+    })
+    await Promise.all(items.map(item =>
+      prisma.auction.update({
+        where: { id: item.id },
+        data:  { status: 'ENDED', winnerId: item.bids[0]?.bidderId ?? null },
+      })
+    ))
+  }
+
+  return prisma.auctionEvent.update({
+    where: { id: eventId },
+    data:  { status: status as never },
+  })
 }
 
 export async function getAuctionItem(itemId: string) {

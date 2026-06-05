@@ -1,6 +1,7 @@
-import { prisma } from '@vuna/db'
+import { prisma, tickEventLifecycle } from '@vuna/db'
 
 export async function listMarkets() {
+  await tickEventLifecycle()
   return prisma.market.findMany({
     orderBy: { startDate: 'desc' },
     include: {
@@ -36,6 +37,7 @@ export async function createMarket(data: {
 }
 
 export async function getMarket(marketId: string) {
+  await tickEventLifecycle()
   return prisma.market.findUnique({
     where: { id: marketId },
     include: {

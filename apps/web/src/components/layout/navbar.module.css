@@ -218,19 +218,58 @@
 
 .startSellingBtn:hover { background: #6b2510; }
 
-/* Hamburger — hidden on desktop */
+/* Hamburger — hidden on desktop, animated bars on mobile */
 .hamburger {
   display: none;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   width: 40px;
   height: 40px;
   background: none;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   cursor: pointer;
-  color: #374151;
   flex-shrink: 0;
+  padding: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.hamburger:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.hamburger:active {
+  transform: scale(0.95);
+}
+
+.bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #374151;
+  border-radius: 2px;
+  transform-origin: center;
+  transition:
+    transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    opacity   0.2s  cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.hamburgerOpen .bar { background: #7C2D12; }
+
+.hamburgerOpen .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburgerOpen .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburgerOpen .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Mobile menu — React controls render, CSS controls layout */

@@ -13,6 +13,7 @@ export default function BuyerProfilePage() {
   const [name,     setName]     = useState('')
   const [phone,    setPhone]    = useState('')
   const [avatar,   setAvatar]   = useState<string | null>(null)
+  const [loading,  setLoading]  = useState(true)
   const [saving,   setSaving]   = useState(false)
   const [uploading, setUploading] = useState(false)
   const [success,  setSuccess]  = useState(false)
@@ -32,7 +33,9 @@ export default function BuyerProfilePage() {
         setName(data.name ?? '')
         setPhone(data.phone ?? '')
         setAvatar(data.avatar ?? null)
+        setLoading(false)
       })
+      .catch(() => setLoading(false))
   }, [])
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +53,7 @@ export default function BuyerProfilePage() {
     setAvatar(data.url)
   }
 
-  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSave = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setError('')
     setSaving(true)
@@ -67,7 +70,7 @@ export default function BuyerProfilePage() {
     setTimeout(() => setSuccess(false), 3000)
   }
 
-  const handleTestimonial = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleTestimonial = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setTError('')
     setTSaving(true)
@@ -84,6 +87,8 @@ export default function BuyerProfilePage() {
     setTSuccess(true)
     setTimeout(() => setTSuccess(false), 4000)
   }
+
+  if (loading) return <div className={styles.loading}>Loading your profile...</div>
 
   return (
     <div className={styles.page}>
@@ -122,7 +127,7 @@ export default function BuyerProfilePage() {
         <div>
           <div className={styles.avatarName}>{name || session?.user?.name}</div>
           <div className={styles.avatarRole}>
-            Vuna Shopper Â· Supporting African creators
+            Vuna Shopper · Supporting African creators
           </div>
           {uploading && <div className={styles.uploadingNote}>Uploading photo...</div>}
         </div>
@@ -214,7 +219,7 @@ export default function BuyerProfilePage() {
           <div className={styles.errorMsg}><AlertTriangle size={14} /> {tError}</div>
         )}
         {tSuccess && (
-          <div className={styles.success}><CheckCircle2 size={14} /> Thank you â€” your feedback has been submitted!</div>
+          <div className={styles.success}><CheckCircle2 size={14} /> Thank you "” your feedback has been submitted!</div>
         )}
 
         <button type="submit" disabled={tSaving} className={styles.saveBtn}>
@@ -226,8 +231,8 @@ export default function BuyerProfilePage() {
         <div className={styles.impactLabel}>Uvunile</div>
         <p className={styles.impactText}>
           You have reaped from Africa. Every purchase you make on Vuna
-          puts money directly into the hands of an African creator.
-          That is the harvest we are building together.
+          goes directly to an African maker, grower or builder —
+          no middlemen, no exploitation. That is the harvest we are building together.
         </p>
       </div>
     </div>

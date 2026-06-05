@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #FAFAF9;
   display: flex;
@@ -192,4 +192,9 @@
   color: #7C2D12;
   font-weight: 500;
   text-decoration: none;
+}
+
+
+@media (max-width: 560px) {
+  .card { padding: 24px 20px; }
 }

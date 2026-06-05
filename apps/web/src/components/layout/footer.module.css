@@ -104,3 +104,8 @@
   color: #3a2a1a;
   margin-left: auto;
 }
+
+@media (max-width: 640px) {
+  .footer { padding: 28px 20px; }
+  .legalNote { margin-left: 0; }
+}

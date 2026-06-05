@@ -69,7 +69,7 @@ export default function SellerProductsPage() {
 
   const closeForm = () => { setView('list'); setEditingId(null); setForm(EMPTY_FORM); setError('') }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setError('')
     if (!form.categoryId) { setError('Please select a category.'); return }

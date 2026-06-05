@@ -85,6 +85,10 @@
   align-items: start;
 }
 
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
 /* ── Items column ── */
 .clearRow {
   display: flex;

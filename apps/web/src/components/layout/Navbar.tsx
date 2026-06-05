@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { ShoppingCart, Menu, X } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import styles from './navbar.module.css'
 
 interface CartItem { quantity: number }
@@ -103,11 +103,14 @@ export default function Navbar() {
           </div>
 
           <button
-            className={styles.hamburger}
+            className={`${styles.hamburger} ${mobileOpen ? styles.hamburgerOpen : ''}`}
             onClick={() => setMobileOpen(o => !o)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            <span className={styles.bar} />
+            <span className={styles.bar} />
+            <span className={styles.bar} />
           </button>
         </div>
       </nav>

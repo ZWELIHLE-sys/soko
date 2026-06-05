@@ -1,20 +1,7 @@
-import { prisma } from '@vuna/db'
+import { prisma, tickEventLifecycle } from '@vuna/db'
 
 export async function getPublicAuctions() {
-  const now = new Date()
-
-  // Auto-close expired events
-  const expiredEvents = await prisma.auctionEvent.findMany({
-    where: { status: 'LIVE', biddingEndDate: { lte: now } },
-    select: { id: true },
-  })
-  if (expiredEvents.length > 0) {
-    const ids = expiredEvents.map(e => e.id)
-    await Promise.all([
-      prisma.auction.updateMany({ where: { status: 'LIVE', auctionEventId: { in: ids } }, data: { status: 'ENDED' } }),
-      prisma.auctionEvent.updateMany({ where: { id: { in: ids } }, data: { status: 'ENDED' } }),
-    ])
-  }
+  await tickEventLifecycle()
 
   return prisma.auction.findMany({
     where: { status: { in: ['APPROVED', 'LIVE', 'ENDED'] } },
@@ -29,6 +16,7 @@ export async function getPublicAuctions() {
 }
 
 export async function getSellerAuctionEvents(sellerId: string) {
+  await tickEventLifecycle()
   return Promise.all([
     prisma.auctionEvent.findMany({
       where: { isActive: true },
@@ -142,6 +130,7 @@ export async function placeBid(buyerId: string, auctionId: string, amount: numbe
 }
 
 export async function getBuyerAuctions(buyerId: string) {
+  await tickEventLifecycle()
   const [bids, wonAuctions] = await Promise.all([
     prisma.bid.findMany({
       where: { bidderId: buyerId },

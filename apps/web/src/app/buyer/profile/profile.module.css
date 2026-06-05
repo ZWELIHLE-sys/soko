@@ -2,6 +2,13 @@
   max-width: 560px;
 }
 
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
 .header {
   margin-bottom: 28px;
 }

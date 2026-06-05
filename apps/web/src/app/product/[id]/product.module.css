@@ -83,6 +83,11 @@
   margin-bottom: 48px;
 }
 
+@media (max-width: 900px) {
+  .productGrid { grid-template-columns: 1fr; gap: 24px; }
+  .mainImage { height: 320px !important; }
+}
+
 /* ── Images ── */
 .mainImage {
   height: 420px;

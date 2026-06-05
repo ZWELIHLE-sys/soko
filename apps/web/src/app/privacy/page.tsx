@@ -1,4 +1,4 @@
-import Navbar from '@/components/layout/Navbar'
+﻿import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from '../legal.module.css'
@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
               We connect verified African creators with buyers across Africa and beyond.
             </p>
             <p className={styles.bodyText}>
-              For privacy enquiries contact us at <strong>privacy@vuna.co.za</strong>
+              For privacy enquiries contact us at <strong>privacy@vunamarketplace.co.za</strong>
             </p>
           </div>
         </FadeIn>
@@ -133,7 +133,7 @@ export default function PrivacyPolicyPage() {
               <div key={item} className={styles.listItem}>• {item}</div>
             ))}
             <p className={styles.bodyTextMt}>
-              To exercise any of these rights, email <strong>privacy@vuna.co.za</strong>. We will respond within 30 days.
+              To exercise any of these rights, email <strong>privacy@vunamarketplace.co.za</strong>. We will respond within 30 days.
             </p>
           </div>
         </FadeIn>
@@ -162,7 +162,7 @@ export default function PrivacyPolicyPage() {
             <h2 className={styles.sectionHeading}>8. Under 18</h2>
             <p className={styles.bodyText}>
               Vuna is not intended for persons under the age of 18. If you believe a minor has registered,
-              contact us immediately at <strong>privacy@vuna.co.za</strong>.
+              contact us immediately at <strong>privacy@vunamarketplace.co.za</strong>.
             </p>
           </div>
         </FadeIn>
@@ -173,7 +173,7 @@ export default function PrivacyPolicyPage() {
             <h2 className={styles.contactTitle}>Questions About Your Privacy?</h2>
             <p className={styles.contactText}>
               Email us at{' '}
-              <strong className={styles.contactHighlight}>privacy@vuna.co.za</strong>
+              <strong className={styles.contactHighlight}>privacy@vunamarketplace.co.za</strong>
             </p>
             <p className={styles.contactText}>
               You may also lodge a complaint with the Information Regulator of South Africa:<br />

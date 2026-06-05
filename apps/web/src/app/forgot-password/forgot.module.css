@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   min-height: 100vh;
   background: #FAFAF9;
   display: flex;
@@ -182,4 +182,9 @@
   color: #6b7280;
   line-height: 1.6;
   margin-bottom: 24px;
+}
+
+
+@media (max-width: 560px) {
+  .card { padding: 24px 20px; }
 }

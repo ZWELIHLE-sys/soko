@@ -15,8 +15,8 @@ export default function HomePage() {
     <main>
       <Navbar />
       <Hero />
-      <MissionStrip />
-      <CategoriesSection />
+      <FadeIn><MissionStrip /></FadeIn>
+      <FadeIn><CategoriesSection /></FadeIn>
       <FeaturedProducts />
       <Testimonials />
       <BuyerBanner />

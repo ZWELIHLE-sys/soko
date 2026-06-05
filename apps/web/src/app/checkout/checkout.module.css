@@ -37,6 +37,17 @@
   align-items: start;
 }
 
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .container { padding: 20px 16px; }
+  .twoCol { grid-template-columns: 1fr; }
+  .headerTitle { font-size: 24px; }
+  .card { padding: 18px; }
+}
+
 .left {
   display: flex;
   flex-direction: column;

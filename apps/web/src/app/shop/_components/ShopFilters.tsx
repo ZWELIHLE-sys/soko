@@ -98,7 +98,7 @@ export function ShopFilters({ categorySlug, initialQ, initialLocationId }: Props
     router.push(buildUrl({ locationId: id }))
   }
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e: React.SyntheticEvent) => {
     e.preventDefault()
     router.push(buildUrl({ q: search.trim() }))
   }

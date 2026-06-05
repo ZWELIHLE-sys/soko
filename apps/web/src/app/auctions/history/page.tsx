@@ -1,4 +1,4 @@
-import { prisma } from '@vuna/db'
+import { prisma, tickEventLifecycle } from '@vuna/db'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
@@ -14,6 +14,7 @@ function fmtDate(d: Date) {
 }
 
 export default async function AuctionHistoryPage() {
+  await tickEventLifecycle()
   const pastEvents = await prisma.auctionEvent.findMany({
     where: { status: 'ENDED' },
     orderBy: { biddingEndDate: 'desc' },

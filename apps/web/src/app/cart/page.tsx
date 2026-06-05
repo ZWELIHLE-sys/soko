@@ -81,7 +81,7 @@ export default function CartPage() {
             <ShoppingCart size={64} className={styles.emptyIcon} />
             <h2 className={styles.emptyTitle}>Your cart is empty</h2>
             <p className={styles.emptyText}>
-              Discover handmade African products and support local creators.
+              Discover authentic African products and support the makers behind them.
             </p>
             <Link href="/shop" className={styles.browseBtn}>
               Browse African Products
@@ -188,7 +188,7 @@ export default function CartPage() {
               </div>
 
               <div className={styles.promise}>
-                <div className={styles.promiseItem}><Handshake size={12} /> Every item handmade by Africans</div>
+                <div className={styles.promiseItem}><Handshake size={12} /> Every item African made, grown or built</div>
                 <div className={styles.promiseItem}><BadgeCheck size={12} /> All sellers Vuna verified</div>
                 <div className={styles.promiseItem}><Truck size={12} /> Seller arranges delivery directly</div>
               </div>

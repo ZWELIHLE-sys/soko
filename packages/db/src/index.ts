@@ -24,3 +24,5 @@ export const prisma: PrismaClientType = new Proxy({} as PrismaClientType, {
     return (getPrisma() as unknown as Record<string, unknown>)[prop as string]
   },
 })
+
+export { tickEventLifecycle } from './lifecycle'

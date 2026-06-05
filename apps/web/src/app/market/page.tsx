@@ -1,4 +1,4 @@
-import { prisma } from '@vuna/db'
+import { prisma, tickEventLifecycle } from '@vuna/db'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
@@ -11,6 +11,7 @@ import styles from './market.module.css'
 export const revalidate = 60
 
 async function getMarket() {
+  await tickEventLifecycle()
   const now = new Date()
   return prisma.market.findFirst({
     where: { isActive: true, endDate: { gte: now } },

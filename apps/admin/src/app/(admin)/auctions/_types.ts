@@ -40,14 +40,14 @@ export interface AuctionEvent {
 
 export const EVENT_STATUS_STYLE: Record<EventStatus, { color: string; bg: string; label: string }> = {
   ANNOUNCED:      { color: '#92400E', bg: '#FEF9C3', label: 'Announced' },
-  CATALOGUE_OPEN: { color: '#1D4ED8', bg: '#EFF6FF', label: 'Catalogue Open' },
+  CATALOGUE_OPEN: { color: '#9A3412', bg: '#FFEDD5', label: 'Catalogue Open' },
   LIVE:           { color: '#14532D', bg: '#DCFCE7', label: 'Live — Bidding Open' },
   ENDED:          { color: '#374151', bg: '#F3F4F6', label: 'Ended' },
 }
 
 export const ITEM_STATUS_STYLE: Record<string, { color: string; bg: string }> = {
   PENDING:   { color: '#92400E', bg: '#FEF9C3' },
-  APPROVED:  { color: '#1D4ED8', bg: '#EFF6FF' },
+  APPROVED:  { color: '#065F46', bg: '#D1FAE5' },
   LIVE:      { color: '#14532D', bg: '#DCFCE7' },
   ENDED:     { color: '#374151', bg: '#F3F4F6' },
   CANCELLED: { color: '#991B1B', bg: '#FEE2E2' },

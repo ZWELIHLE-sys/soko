@@ -1,19 +1,31 @@
 .page {
   min-height: 100vh;
-  background: #0F172A;
+  background: linear-gradient(135deg, #FAFAF9 0%, #F0FDF4 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #7C2D12 0%, #16A34A 100%);
 }
 
 .card {
-  background: #1E293B;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #FFFFFF;
+  border: 1px solid #e5e7eb;
   border-radius: 16px;
   padding: 40px;
   width: 100%;
   max-width: 380px;
+  box-shadow: 0 12px 40px rgba(28, 10, 0, 0.08);
 }
 
 .brand {
@@ -39,7 +51,7 @@
 }
 
 .brandName {
-  color: #FEF3C7;
+  color: #1a1a1a;
   font-family: Georgia, serif;
   font-weight: 700;
   font-size: 15px;
@@ -47,21 +59,23 @@
 
 .brandSub {
   font-size: 10px;
-  color: #64748B;
+  color: #16A34A;
   letter-spacing: 1px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .title {
   font-family: Georgia, serif;
   font-size: 22px;
   font-weight: 700;
-  color: #F1F5F9;
+  color: #1a1a1a;
   margin-bottom: 6px;
 }
 
 .sub {
   font-size: 13px;
-  color: #64748B;
+  color: #6b7280;
   margin-bottom: 28px;
 }
 
@@ -80,31 +94,35 @@
 .label {
   font-size: 13px;
   font-weight: 500;
-  color: #94A3B8;
+  color: #374151;
 }
 
 .input {
   padding: 10px 14px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #FAFAF9;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  color: #F1F5F9;
+  color: #1a1a1a;
   font-size: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
 .input:focus {
   outline: none;
   border-color: #7C2D12;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(124, 45, 18, 0.08);
 }
 
 .input::placeholder {
-  color: #475569;
+  color: #9ca3af;
 }
 
 .error {
-  color: #FCA5A5;
+  color: #991B1B;
   font-size: 13px;
-  background: rgba(239, 68, 68, 0.1);
+  background: #FEE2E2;
+  border: 1px solid #FECACA;
   border-radius: 6px;
   padding: 8px 12px;
 }

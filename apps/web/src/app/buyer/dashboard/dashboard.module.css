@@ -1,4 +1,4 @@
-.header {
+﻿.header {
   margin-bottom: 32px;
 }
 
@@ -13,6 +13,16 @@
 .subtitle {
   font-size: 14px;
   color: #6b7280;
+}
+
+.errorBanner {
+  background: #FEE2E2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 20px;
 }
 
 /* Stat cards */
@@ -49,7 +59,7 @@
 .statIconOrders    { background: #FEF3C7; color: #7C2D12; }
 .statIconDelivered { background: #DCFCE7; color: #14532D; }
 .statIconProgress  { background: #FEF9C3; color: #92400E; }
-.statIconSpent     { background: #EFF6FF; color: #1D4ED8; }
+.statIconSpent     { background: #D1FAE5; color: #065F46; }
 
 .statValue {
   font-family: Georgia, serif;
@@ -61,7 +71,7 @@
 .statValueOrders    { color: #7C2D12; }
 .statValueDelivered { color: #14532D; }
 .statValueProgress  { color: #92400E; }
-.statValueSpent     { color: #1D4ED8; }
+.statValueSpent     { color: #065F46; }
 
 .statLabel {
   font-size: 13px;

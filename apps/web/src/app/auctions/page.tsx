@@ -1,4 +1,4 @@
-import { prisma } from '@vuna/db'
+import { prisma, tickEventLifecycle } from '@vuna/db'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
@@ -19,19 +19,8 @@ function fmtShort(d: Date) {
 }
 
 export default async function AuctionsPage() {
+  await tickEventLifecycle()
   const now = new Date()
-
-  const expiredEvents = await prisma.auctionEvent.findMany({
-    where: { status: 'LIVE', biddingEndDate: { lte: now } },
-    select: { id: true },
-  })
-  if (expiredEvents.length > 0) {
-    const ids = expiredEvents.map(e => e.id)
-    await Promise.all([
-      prisma.auction.updateMany({ where: { status: 'LIVE', auctionEventId: { in: ids } }, data: { status: 'ENDED' } }),
-      prisma.auctionEvent.updateMany({ where: { id: { in: ids } }, data: { status: 'ENDED' } }),
-    ])
-  }
 
   const activeEvents = await prisma.auctionEvent.findMany({
     where: { isActive: true, status: { in: ['LIVE', 'CATALOGUE_OPEN', 'ANNOUNCED'] } },
@@ -90,16 +79,18 @@ export default async function AuctionsPage() {
         </div>
         <div className={styles.inner}>
           {recentlyEnded.length > 0 ? (
-            <FadeIn>
-              <section className={styles.section}>
+            <section className={styles.section}>
+              <FadeIn>
                 <div className={styles.sectionHeader}>
                   <h2 className={styles.sectionTitle}>Recently Ended</h2>
                 </div>
-                <div className={styles.grid}>
+              </FadeIn>
+              <div className={styles.grid}>
+                <FadeIn stagger>
                   {recentlyEnded.map(a => <AuctionCard key={a.id} auction={a} />)}
-                </div>
-              </section>
-            </FadeIn>
+                </FadeIn>
+              </div>
+            </section>
           ) : (
             <FadeIn>
               <div className={styles.emptyState}>
@@ -163,21 +154,25 @@ export default async function AuctionsPage() {
         )}
 
         {isLive && liveItems.length > 0 && (
-          <FadeIn>
-            <section className={styles.section}>
+          <section className={styles.section}>
+            <FadeIn>
               <div className={styles.sectionHeader}>
                 <span className={styles.liveDot} />
                 <h2 className={styles.sectionTitle}>Bidding Now</h2>
                 <span className={styles.sectionCount}>{liveItems.length}</span>
               </div>
-              <div className={styles.grid}>{liveItems.map(a => <AuctionCard key={a.id} auction={a} />)}</div>
-            </section>
-          </FadeIn>
+            </FadeIn>
+            <div className={styles.grid}>
+              <FadeIn stagger>
+                {liveItems.map(a => <AuctionCard key={a.id} auction={a} />)}
+              </FadeIn>
+            </div>
+          </section>
         )}
 
         {(isCatOpen || isLive) && approvedItems.length > 0 && (
-          <FadeIn delay={60}>
-            <section className={styles.section}>
+          <section className={styles.section}>
+            <FadeIn delay={60}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>{isCatOpen ? 'Catalogue Preview' : 'Coming Up'}</h2>
                 <span className={styles.sectionCount}>{approvedItems.length}</span>
@@ -187,9 +182,13 @@ export default async function AuctionsPage() {
                   Bidding opens {fmtDate(featured.biddingStartDate)}. Browse the catalogue and decide what you want to bid on.
                 </p>
               )}
-              <div className={styles.grid}>{approvedItems.map(a => <AuctionCard key={a.id} auction={a} />)}</div>
-            </section>
-          </FadeIn>
+            </FadeIn>
+            <div className={styles.grid}>
+              <FadeIn stagger>
+                {approvedItems.map(a => <AuctionCard key={a.id} auction={a} />)}
+              </FadeIn>
+            </div>
+          </section>
         )}
 
         {isAnnounced && (
@@ -206,25 +205,33 @@ export default async function AuctionsPage() {
         )}
 
         {endedItems.length > 0 && (
-          <FadeIn delay={80}>
-            <section className={styles.section}>
+          <section className={styles.section}>
+            <FadeIn delay={80}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Recently Ended</h2>
               </div>
-              <div className={styles.grid}>{endedItems.map(a => <AuctionCard key={a.id} auction={a} />)}</div>
-            </section>
-          </FadeIn>
+            </FadeIn>
+            <div className={styles.grid}>
+              <FadeIn stagger>
+                {endedItems.map(a => <AuctionCard key={a.id} auction={a} />)}
+              </FadeIn>
+            </div>
+          </section>
         )}
 
         {recentlyEnded.length > 0 && (
-          <FadeIn delay={100}>
-            <section className={styles.section}>
+          <section className={styles.section}>
+            <FadeIn delay={100}>
               <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Past Auctions</h2>
               </div>
-              <div className={styles.grid}>{recentlyEnded.map(a => <AuctionCard key={a.id} auction={a} />)}</div>
-            </section>
-          </FadeIn>
+            </FadeIn>
+            <div className={styles.grid}>
+              <FadeIn stagger>
+                {recentlyEnded.map(a => <AuctionCard key={a.id} auction={a} />)}
+              </FadeIn>
+            </div>
+          </section>
         )}
 
         <FadeIn delay={120}>

@@ -7,6 +7,7 @@ import {
   Package, CheckCircle2, Truck, CreditCard,
   ShoppingBag, User, Globe, Handshake, Sprout
 } from 'lucide-react'
+import FadeIn from '@/components/ui/FadeIn'
 import styles from './dashboard.module.css'
 
 interface Stats {
@@ -31,88 +32,105 @@ const quickActions = [
 
 const impactItems = [
   { Icon: Globe,     text: 'Supporting African livelihoods' },
-  { Icon: Handshake, text: 'Buying handmade authentic goods' },
+  { Icon: Handshake, text: 'Buying authentic African goods' },
   { Icon: Sprout,    text: 'Growing the African economy' },
 ]
 
 export default function BuyerDashboard() {
   const { data: session } = useSession()
   const [stats, setStats] = useState<Stats | null>(null)
+  const [statsError, setStatsError] = useState(false)
 
   useEffect(() => {
     fetch('/api/buyer/stats')
-      .then(r => r.json())
+      .then(r => r.ok ? r.json() : Promise.reject())
       .then(setStats)
+      .catch(() => setStatsError(true))
   }, [])
 
   const getStatValue = (card: typeof statCards[number]) => {
-    if (!stats) return '—'
+    if (statsError) return '—'
+    if (!stats) return '…'
     if (card.key === null) return `R${stats.totalSpent.toFixed(2)}`
     return String(stats[card.key])
   }
 
   return (
     <div>
-      <div className={styles.header}>
-        <h1 className={styles.title}>
-          Welcome back, {session?.user?.name?.split(' ')[0]}
-        </h1>
-        <p className={styles.subtitle}>
-          Thank you for supporting African creators. Every purchase makes a difference.
-        </p>
-      </div>
+      <FadeIn>
+        <div className={styles.header}>
+          <h1 className={styles.title}>
+            Welcome back, {session?.user?.name?.split(' ')[0]}
+          </h1>
+          <p className={styles.subtitle}>
+            Thank you for supporting African creators. Every purchase makes a difference.
+          </p>
+        </div>
+      </FadeIn>
+
+      {statsError && (
+        <div className={styles.errorBanner}>
+          Could not load your stats. Refresh the page to try again.
+        </div>
+      )}
 
       <div className={styles.statsGrid}>
-        {statCards.map(card => (
-          <Link
-            key={card.label}
-            href={card.link}
-            className={styles.statCard}
-          >
-            <div className={`${styles.statIcon} ${styles[`statIcon${card.variant}` as keyof typeof styles]}`}>
-              <card.Icon size={20} />
-            </div>
-            <div className={`${styles.statValue} ${styles[`statValue${card.variant}` as keyof typeof styles]}`}>
-              {getStatValue(card)}
-            </div>
-            <div className={styles.statLabel}>{card.label}</div>
-          </Link>
-        ))}
-      </div>
-
-      <div className={styles.actionsSection}>
-        <h2 className={styles.actionsTitle}>Quick Actions</h2>
-        <div className={styles.actions}>
-          {quickActions.map(({ label, href, Icon, primary }) => (
+        <FadeIn stagger step={70}>
+          {statCards.map(card => (
             <Link
-              key={label}
-              href={href}
-              className={`${styles.actionBtn} ${primary ? styles.actionBtnPrimary : styles.actionBtnSecondary}`}
+              key={card.label}
+              href={card.link}
+              className={styles.statCard}
             >
-              <Icon size={14} />
-              {label}
+              <div className={`${styles.statIcon} ${styles[`statIcon${card.variant}` as keyof typeof styles]}`}>
+                <card.Icon size={20} />
+              </div>
+              <div className={`${styles.statValue} ${styles[`statValue${card.variant}` as keyof typeof styles]}`}>
+                {getStatValue(card)}
+              </div>
+              <div className={styles.statLabel}>{card.label}</div>
             </Link>
           ))}
-        </div>
+        </FadeIn>
       </div>
 
-      <div className={styles.impact}>
-        <div className={styles.impactLabel}>Uvunile — You Have Reaped From Africa</div>
-        <h2 className={styles.impactTitle}>Every purchase empowers an African creator</h2>
-        <p className={styles.impactText}>
-          When you buy on Vuna your money goes directly to the person
-          who made the product — the grandmother, the designer, the farmer,
-          the craftsman. No middlemen. No factories. Just African hands.
-        </p>
-        <div className={styles.impactItems}>
-          {impactItems.map(({ Icon, text }) => (
-            <div key={text} className={styles.impactItem}>
-              <Icon size={14} />
-              <span>{text}</span>
-            </div>
-          ))}
+      <FadeIn delay={80}>
+        <div className={styles.actionsSection}>
+          <h2 className={styles.actionsTitle}>Quick Actions</h2>
+          <div className={styles.actions}>
+            {quickActions.map(({ label, href, Icon, primary }) => (
+              <Link
+                key={label}
+                href={href}
+                className={`${styles.actionBtn} ${primary ? styles.actionBtnPrimary : styles.actionBtnSecondary}`}
+              >
+                <Icon size={14} />
+                {label}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      </FadeIn>
+
+      <FadeIn delay={120}>
+        <div className={styles.impact}>
+          <div className={styles.impactLabel}>Uvunile — You Have Reaped From Africa</div>
+          <h2 className={styles.impactTitle}>Every purchase empowers an African creator</h2>
+          <p className={styles.impactText}>
+            When you buy on Vuna your money goes directly to the person
+            who made, grew or built the product. No middlemen. No exploitation.
+            Just African work, fairly paid.
+          </p>
+          <div className={styles.impactItems}>
+            {impactItems.map(({ Icon, text }) => (
+              <div key={text} className={styles.impactItem}>
+                <Icon size={14} />
+                <span>{text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </FadeIn>
     </div>
   )
 }

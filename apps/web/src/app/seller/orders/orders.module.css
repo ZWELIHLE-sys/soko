@@ -1,4 +1,4 @@
-.header { margin-bottom: 28px; }
+﻿.header { margin-bottom: 28px; }
 
 .title {
   font-family: Georgia, serif;
@@ -80,8 +80,8 @@
 }
 
 .statusPending    { background: #FEF3C7; color: #92400E; }
-.statusConfirmed  { background: #DBEAFE; color: #1D4ED8; }
-.statusPacked     { background: #EDE9FE; color: #5B21B6; }
+.statusConfirmed  { background: #D1FAE5; color: #065F46; }
+.statusPacked     { background: #FFEDD5; color: #7C2D12; }
 .statusInTransit  { background: #FEF9C3; color: #713F12; }
 .statusDelivered  { background: #DCFCE7; color: #14532D; }
 .statusCancelled  { background: #FEE2E2; color: #991B1B; }

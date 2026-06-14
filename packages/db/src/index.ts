@@ -26,3 +26,10 @@ export const prisma: PrismaClientType = new Proxy({} as PrismaClientType, {
 })
 
 export { tickEventLifecycle } from './lifecycle'
+export {
+  assignPieceToMarket,
+  movePieceToAuction,
+  movePieceToShop,
+  markPieceSold,
+  retirePiece,
+} from './pieces'

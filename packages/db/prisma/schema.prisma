@@ -147,6 +147,7 @@ model Seller {
   reviews        Review[]
   marketListings MarketListing[]
   auctions       Auction[]
+  pieces         Piece[]
   makerInResidenceMarkets Market[] @relation("MarketMakerInResidence")
 
   createdAt   DateTime     @default(now())
@@ -169,6 +170,7 @@ model Category {
   sellers     Seller[]
   products    Product[]
   auctions    Auction[]
+  pieces      Piece[]
 
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -209,6 +211,10 @@ model Product {
   // Where it was made — city of origin
   locationId  String
   location    Location      @relation(fields: [locationId], references: [id])
+
+  // Track B link — when this shop product came from a Piece's journey (post-auction)
+  pieceId     String?
+  piece       Piece?        @relation(fields: [pieceId], references: [id])
 
   // Relations
   orderItems       OrderItem[]
@@ -368,6 +374,46 @@ model Review {
 }
 
 // ================================
+// VUNA PIECES — Track B Special Piece Journey
+// A Piece is a special item that moves through: MARKET → AUCTION → SHOP (if unsold) → SOLD.
+// Regular shop listings (Track A) have no Piece — Product is sold directly.
+// Seller can RETIRE a Piece at any stage (pull from journey).
+// MarketListing, Auction and Product each carry a nullable pieceId.
+// ================================
+
+enum PieceStage {
+  MARKET      // Currently in a market event
+  AUCTION     // Currently in an auction event
+  SHOP        // Available in shop (post-auction, unsold or buy-it-now)
+  SOLD        // Sold — to auction winner or shop buyer
+  RETIRED     // Seller pulled the piece from the journey
+}
+
+model Piece {
+  id           String      @id @default(cuid())
+  title        String      // Stays consistent across stages
+  description  String
+  images       String[]    @default([])
+  currentStage PieceStage  @default(MARKET)
+
+  sellerId     String
+  seller       Seller      @relation(fields: [sellerId], references: [id])
+
+  categoryId   String
+  category     Category    @relation(fields: [categoryId], references: [id])
+
+  // Reverse relations — each stage entry that belongs to this piece
+  marketListings  MarketListing[]
+  auctions        Auction[]
+  products        Product[]
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([sellerId, currentStage])
+}
+
+// ================================
 // VUNA MARKET — Weekly/Monthly Pop-Up Markets
 // Sunday Vuna Market (weekly), Friday Night Market (monthly).
 // Admin creates events, approves stall applications, assigns stall numbers and Maker in Residence.
@@ -423,6 +469,10 @@ model MarketListing {
 
   sellerId  String
   seller    Seller @relation(fields: [sellerId], references: [id])
+
+  // Track B link — when this listing is showcasing a special Piece on its journey
+  pieceId   String?
+  piece     Piece?  @relation(fields: [pieceId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -500,6 +550,10 @@ model Auction {
   // Winner after auction ends
   winnerId        String?
   winner          User?         @relation("AuctionWinner", fields: [winnerId], references: [id])
+
+  // Track B link — when this auction item is on a Piece's journey
+  pieceId         String?
+  piece           Piece?        @relation(fields: [pieceId], references: [id])
 
   bids            Bid[]
 

@@ -30,6 +30,31 @@ export async function GET(
         orderBy: { createdAt: 'desc' },
         take: 10
       },
+      piece: {
+        select: {
+          id: true,
+          title: true,
+          currentStage: true,
+          createdAt: true,
+          marketListings: {
+            select: {
+              id: true,
+              market: { select: { id: true, title: true, startDate: true, endDate: true } },
+            },
+            orderBy: { createdAt: 'asc' },
+          },
+          auctions: {
+            select: {
+              id: true,
+              currentBid: true,
+              startPrice: true,
+              auctionEvent: { select: { id: true, title: true, biddingEndDate: true } },
+              _count: { select: { bids: true } },
+            },
+            orderBy: { createdAt: 'asc' },
+          },
+        },
+      },
     }
   })
 

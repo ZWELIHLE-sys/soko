@@ -3,6 +3,93 @@
   background: #FAFAF9;
 }
 
+/* ── Piece Journey card ── */
+.journeyCard {
+  background: linear-gradient(180deg, #fff7ed 0%, #fff 70%);
+  border: 1px solid #fed7aa;
+}
+
+.journeyEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #7C2D12;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.journeyIntro {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.65;
+  margin: 0 0 24px;
+}
+
+.journeyTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  padding-left: 8px;
+}
+
+.journeyTimeline::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: #fed7aa;
+}
+
+.journeyStep {
+  display: flex;
+  gap: 14px;
+  position: relative;
+}
+
+.journeyDot {
+  position: relative;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  background: #fed7aa;
+  color: #7C2D12;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.journeyDotCurrent {
+  background: #7C2D12;
+  color: #FEF3C7;
+  box-shadow: 0 0 0 4px rgba(124, 45, 18, 0.15);
+}
+
+.journeyStepBody {
+  flex: 1;
+  padding-top: 3px;
+}
+
+.journeyStepTitle {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.journeyStepMeta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
 /* ── Loading ── */
 .loadingWrap {
   display: flex;

@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import {
   LayoutDashboard, Package, ShoppingBag, Store,
-  Gavel, User, Globe, LogOut, Menu, X, ShieldCheck, Banknote,
+  Gavel, User, Globe, LogOut, Menu, X, ShieldCheck, Banknote, Sparkles,
 } from 'lucide-react'
 import styles from './sidebar.module.css'
 
@@ -24,6 +24,7 @@ const navItems = [
   { label: 'Earnings',    href: '/seller/earnings',   Icon: Banknote },
   { label: 'Market',      href: '/seller/market',     Icon: Store },
   { label: 'Auctions',    href: '/seller/auctions',   Icon: Gavel },
+  { label: 'My Pieces',   href: '/seller/pieces',     Icon: Sparkles },
   { label: 'My Profile',  href: '/seller/profile',    Icon: User },
   { label: 'Browse Shop', href: '/shop',              Icon: Globe },
 ]

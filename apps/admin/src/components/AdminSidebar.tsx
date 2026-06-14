@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react'
 import {
   LayoutDashboard, Users, Package, ShoppingBag,
   UserCheck, Wallet, Store, Gavel, MessageSquare,
-  Activity, LogOut, Star, Globe,
+  Activity, LogOut, Star, Globe, Sparkles,
 } from 'lucide-react'
 import styles from './sidebar.module.css'
 
@@ -25,6 +25,7 @@ const navItems = [
   { label: 'Payouts',       href: '/payouts',      Icon: Wallet },
   { label: 'Market',        href: '/market',       Icon: Store },
   { label: 'Auctions',      href: '/auctions',     Icon: Gavel },
+  { label: 'Pieces',        href: '/pieces',       Icon: Sparkles },
   { label: 'Featured',      href: '/featured',     Icon: Star },
   { label: 'Testimonials',  href: '/testimonials', Icon: MessageSquare },
   { label: 'Countries',     href: '/countries',    Icon: Globe },

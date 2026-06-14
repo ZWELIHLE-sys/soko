@@ -1,0 +1,227 @@
+.page {
+  max-width: 640px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #6b7280;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.backLink:hover { color: #7C2D12; }
+
+.header {
+  margin-bottom: 28px;
+}
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleIcon { color: #7C2D12; }
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.form {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  color: #1a1a1a;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input:focus {
+  border-color: #7C2D12;
+  box-shadow: 0 0 0 3px rgba(124, 45, 18, 0.08);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 110px;
+  font-family: inherit;
+}
+
+.hint {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 4px;
+  font-weight: normal;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.imageThumb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
+
+.removeImg {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeImg:hover { background: #DC2626; }
+
+.coverBadge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.uploadBtn {
+  aspect-ratio: 1;
+  border: 2px dashed #d1d5db;
+  background: #FAFAF9;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #6b7280;
+  font-size: 11px;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.uploadBtn:hover:not(:disabled) {
+  border-color: #7C2D12;
+  background: #fff7ed;
+  color: #7C2D12;
+}
+
+.uploadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.error {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.cancelBtn {
+  padding: 11px 22px;
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cancelBtn:hover { background: #f9fafb; }
+
+.submitBtn {
+  padding: 11px 22px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn:hover:not(:disabled) { background: #6B2510; }
+.submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.disclaimer {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #f3f4f6;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+@media (max-width: 560px) {
+  .form { padding: 20px; }
+  .actions { flex-direction: column-reverse; }
+  .cancelBtn, .submitBtn { width: 100%; text-align: center; }
+}

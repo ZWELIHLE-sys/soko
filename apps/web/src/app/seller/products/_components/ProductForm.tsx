@@ -64,7 +64,7 @@ export function ProductForm({ view, form, categories, uploading, saving, error, 
           rows={4}
           value={form.description}
           onChange={e => onFormChange({ description: e.target.value })}
-          placeholder="Tell buyers about your product "” the materials, the process, the story."
+          placeholder="Tell buyers about your product — the materials, the process, the story."
         />
       </div>
 
@@ -127,7 +127,7 @@ export function ProductForm({ view, form, categories, uploading, saving, error, 
         <span className={styles.sectionDividerLabel}>Bulk Pricing (Optional)</span>
       </div>
       <p className={styles.sectionHint}>
-        Set a discounted price for buyers who order in large quantities "” useful for agricultural products, fabric, beads, etc.
+        Set a discounted price for buyers who order in large quantities — useful for agricultural products, fabric, beads, etc.
       </p>
       <div className={styles.twoCol}>
         <div className={styles.field}>

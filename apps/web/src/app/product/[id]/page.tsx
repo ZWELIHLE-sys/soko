@@ -7,7 +7,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   ChevronRight, ArrowLeft, MapPin, BadgeCheck,
-  ShoppingCart, CheckCircle, AlertTriangle, PackageX, Handshake, Globe
+  ShoppingCart, CheckCircle, AlertTriangle, PackageX, Handshake, Globe,
+  Sparkles, Store, Gavel
 } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -19,6 +20,21 @@ interface Review {
   rating: number
   comment: string | null
   user: { name: string; avatar: string | null }
+}
+
+interface PieceJourney {
+  id: string
+  title: string
+  currentStage: 'MARKET' | 'AUCTION' | 'SHOP' | 'SOLD' | 'RETIRED'
+  createdAt: string
+  marketListings: { id: string; market: { id: string; title: string; startDate: string; endDate: string } }[]
+  auctions: {
+    id: string
+    currentBid: number | null
+    startPrice: number
+    auctionEvent: { id: string; title: string; biddingEndDate: string } | null
+    _count: { bids: number }
+  }[]
 }
 
 interface Product {
@@ -42,6 +58,7 @@ interface Product {
   category: { name: string; icon: string | null; slug: string }
   location: { name: string }
   reviews: Review[]
+  piece: PieceJourney | null
 }
 
 interface CartItem {
@@ -278,6 +295,56 @@ export default function ProductDetailPage() {
           </div>
         </div>
         </FadeIn>
+
+        {/* Piece Journey — only shown for Track B pieces */}
+        {product.piece && (
+          <FadeIn delay={60}>
+          <div className={`${styles.card} ${styles.journeyCard}`}>
+            <div className={styles.journeyEyebrow}>
+              <Sparkles size={12} /> A Vuna Journey Piece
+            </div>
+            <h2 className={styles.cardTitle}>This Piece&apos;s Story</h2>
+            <p className={styles.journeyIntro}>
+              This isn&apos;t just a shop listing — it&apos;s a piece that travelled through the Vuna journey
+              before landing here.
+            </p>
+            <div className={styles.journeyTimeline}>
+              {product.piece.marketListings.map(ml => (
+                <div key={ml.id} className={styles.journeyStep}>
+                  <div className={styles.journeyDot}><Store size={11} /></div>
+                  <div className={styles.journeyStepBody}>
+                    <div className={styles.journeyStepTitle}>Debuted at {ml.market.title}</div>
+                    <div className={styles.journeyStepMeta}>
+                      {new Date(ml.market.startDate).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {product.piece.auctions.map(a => (
+                <div key={a.id} className={styles.journeyStep}>
+                  <div className={styles.journeyDot}><Gavel size={11} /></div>
+                  <div className={styles.journeyStepBody}>
+                    <div className={styles.journeyStepTitle}>
+                      Bid at {a.auctionEvent?.title ?? 'auction'}
+                    </div>
+                    <div className={styles.journeyStepMeta}>
+                      {a._count.bids} bid{a._count.bids !== 1 ? 's' : ''}
+                      {a.currentBid && ` · top bid R${a.currentBid.toFixed(2)}`}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className={styles.journeyStep}>
+                <div className={`${styles.journeyDot} ${styles.journeyDotCurrent}`}><CheckCircle size={11} /></div>
+                <div className={styles.journeyStepBody}>
+                  <div className={styles.journeyStepTitle}>Now available in shop</div>
+                  <div className={styles.journeyStepMeta}>You can buy it directly today.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </FadeIn>
+        )}
 
         {/* Seller */}
         <FadeIn delay={80}>

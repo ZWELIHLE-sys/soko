@@ -34,8 +34,8 @@ export default function AdminDashboard() {
     { label: 'Active Products',  value: stats.products.active,   Icon: Package,     color: '#065F46', bg: '#D1FAE5', link: '/products', urgent: false },
     { label: 'Total Buyers',     value: stats.buyers.total,      Icon: Users,       color: '#9A3412', bg: '#FFEDD5', link: '/buyers',   urgent: false },
     { label: 'Pending Orders',   value: stats.orders.pending,    Icon: ShoppingBag, color: '#92400E', bg: '#FEF9C3', link: '/orders',   urgent: stats.orders.pending > 0 },
-    { label: 'Total Revenue',    value: `R${stats.finance.totalRevenue.toFixed(2)}`, Icon: DollarSign, color: '#14532D', bg: '#DCFCE7', link: '/payouts', urgent: false },
-    { label: 'Vuna Commission',  value: `R${stats.finance.vunaCommission.toFixed(2)}`, Icon: Banknote, color: '#7C2D12', bg: '#FEF3C7', link: '/payouts', urgent: false },
+    { label: 'Total Revenue',    value: `R${stats.finance.totalRevenue.toFixed(2)}`, Icon: DollarSign, color: '#14532D', bg: '#DCFCE7', link: '/commissions', urgent: false },
+    { label: 'Vuna Commission',  value: `R${stats.finance.vunaCommission.toFixed(2)}`, Icon: Banknote, color: '#7C2D12', bg: '#FEF3C7', link: '/commissions', urgent: false },
     { label: 'Total Orders',     value: stats.orders.total,      Icon: BarChart2,   color: '#374151', bg: '#F3F4F6', link: '/orders',   urgent: false },
   ] : []
 
@@ -88,7 +88,7 @@ export default function AdminDashboard() {
         <div className={styles.actions}>
           <Link href="/sellers"><button className={shared.btnPrimary}>Verify Sellers</button></Link>
           <Link href="/orders"><button className={shared.btnSecondary}>Manage Orders</button></Link>
-          <Link href="/payouts"><button className={shared.btnSecondary}>Process Payouts</button></Link>
+          <Link href="/commissions"><button className={shared.btnSecondary}>Manage Commissions</button></Link>
           <Link href="/market"><button className={shared.btnSecondary}>Manage Market</button></Link>
           <Link href="/auctions"><button className={shared.btnSecondary}>Manage Auctions</button></Link>
           <Link href="/monitoring"><button className={shared.btnSecondary}>System Monitor</button></Link>

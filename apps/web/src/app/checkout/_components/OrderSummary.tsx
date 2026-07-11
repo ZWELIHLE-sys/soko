@@ -1,13 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { Lock, Globe, BadgeCheck } from 'lucide-react'
+import { Lock, Globe, BadgeCheck, Banknote } from 'lucide-react'
 import type { CartItem } from '../_types'
 import styles from '../checkout.module.css'
 
 const SECURITY_ITEMS = [
-  { Icon: Lock,       text: '256-bit SSL secured' },
-  { Icon: BadgeCheck, text: 'PayFast certified' },
+  { Icon: Banknote,   text: 'Direct EFT to the seller' },
+  { Icon: BadgeCheck, text: 'Every seller Vuna Verified' },
   { Icon: Globe,      text: 'Supporting local makers' },
 ]
 
@@ -49,7 +49,7 @@ export function OrderSummary({ cart, subtotal, loading, error }: Props) {
         </div>
         <div className={styles.totalRow}>
           <span>Delivery</span>
-          <span className={styles.totalRowMuted}>Confirmed by seller</span>
+          <span className={styles.totalRowMuted}>Arranged with seller</span>
         </div>
       </div>
 
@@ -62,11 +62,12 @@ export function OrderSummary({ cart, subtotal, loading, error }: Props) {
 
       <button type="submit" disabled={loading} className={styles.submitBtn}>
         <Lock size={15} />
-        {loading ? 'Processing...' : 'Pay with PayFast'}
+        {loading ? 'Placing order...' : 'Place Order'}
       </button>
 
       <p className={styles.payNote}>
-        You will be redirected to PayFast to complete payment securely.
+        Next step: you&apos;ll see the seller&apos;s banking details to pay them
+        directly via EFT, then upload your proof of payment.
       </p>
 
       <div className={styles.securityBadge}>

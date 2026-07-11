@@ -11,26 +11,3 @@ export async function listOrders(opts?: { locationId?: string }) {
     },
   })
 }
-
-export async function getPayouts() {
-  return prisma.order.findMany({
-    where: { status: 'DELIVERED' },
-    orderBy: { createdAt: 'desc' },
-    include: {
-      seller: {
-        select: {
-          brandName: true, bankName: true, accountHolder: true,
-          accountNumber: true, branchCode: true,
-        },
-      },
-      buyer: { select: { name: true } },
-    },
-  })
-}
-
-export async function markPaidOut(orderIds: string[]) {
-  return prisma.order.updateMany({
-    where: { id: { in: orderIds } },
-    data: { payoutStatus: 'PAID_OUT' },
-  })
-}

@@ -1,11 +1,10 @@
-﻿'use client'
+'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import { PAYFAST_URL } from '@/lib/payfast'
 import styles from './checkout.module.css'
 import type { CartItem, Location, DeliveryFormState } from './_types'
 import { DeliveryForm } from './_components/DeliveryForm'
@@ -23,14 +22,12 @@ const EMPTY_FORM: DeliveryFormState = {
 export default function CheckoutPage() {
   const { data: session } = useSession()
   const router = useRouter()
-  const payformRef = useRef<HTMLFormElement>(null)
 
   const [cart, setCart]           = useState<CartItem[]>([])
   const [cartLoaded, setCartLoaded] = useState(false)
   const [provinces, setProvinces] = useState<Location[]>([])
   const [districts, setDistricts] = useState<Location[]>([])
   const [cities, setCities]       = useState<Location[]>([])
-  const [payFastFields, setPayFastFields] = useState<Record<string, string> | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [form, setForm]       = useState<DeliveryFormState>(EMPTY_FORM)
@@ -58,10 +55,6 @@ export default function CheckoutPage() {
     fetch(`/api/locations/children?parentId=${form.districtId}`)
       .then(r => r.json()).then(setCities)
   }, [form.districtId])
-
-  useEffect(() => {
-    if (payFastFields && payformRef.current) payformRef.current.submit()
-  }, [payFastFields])
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
@@ -117,14 +110,6 @@ export default function CheckoutPage() {
   return (
     <div className={styles.page}>
       <Navbar />
-
-      {payFastFields && (
-        <form ref={payformRef} action={PAYFAST_URL} method="POST" className={styles.payformHidden}>
-          {Object.entries(payFastFields).map(([key, value]) => (
-            <input key={key} type="hidden" name={key} value={value} />
-          ))}
-        </form>
-      )}
 
       <div className={styles.container}>
         <div className={styles.header}>

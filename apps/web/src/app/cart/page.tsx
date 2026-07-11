@@ -166,7 +166,7 @@ export default function CartPage() {
                 </div>
                 <div className={styles.summarySubLine}>
                   <span>Delivery</span>
-                  <span className={styles.summaryMuted}>Confirmed by seller</span>
+                  <span className={styles.summaryMuted}>Arranged with seller</span>
                 </div>
                 <p className={styles.summaryNote}>
                   Delivery is arranged directly between you and the seller after your order is placed.
@@ -184,7 +184,7 @@ export default function CartPage() {
               </button>
 
               <div className={styles.secureNote}>
-                <Lock size={12} /> Secure checkout via PayFast
+                <Lock size={12} /> Pay the seller directly via EFT — Vuna holds them accountable
               </div>
 
               <div className={styles.promise}>

@@ -10,7 +10,8 @@ interface Order {
   orderNumber: string
   status: string
   totalAmount: number
-  payoutStatus: string
+  paymentProofUrl: string | null
+  paymentVerifiedAt: string | null
   createdAt: string
   buyer:  { name: string; email: string }
   seller: { brandName: string }
@@ -99,9 +100,13 @@ export default function AdminOrdersPage() {
                     </span>
                     <span className={styles.orderAmount}>R{order.totalAmount.toFixed(2)}</span>
                     <span className={styles.payoutBadge} style={{
-                      color: order.payoutStatus === 'PAID_OUT' ? '#14532D' : '#92400E',
+                      color: order.paymentVerifiedAt ? '#14532D' : order.paymentProofUrl ? '#9A3412' : '#92400E',
                     }}>
-                      {order.payoutStatus === 'PAID_OUT' ? 'Paid out' : 'Pending payout'}
+                      {order.paymentVerifiedAt
+                        ? 'Payment verified'
+                        : order.paymentProofUrl
+                          ? 'Proof uploaded'
+                          : 'Awaiting payment'}
                     </span>
                   </div>
                 </div>

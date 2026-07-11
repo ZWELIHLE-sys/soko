@@ -153,9 +153,9 @@ export default function AdminFeaturedPage() {
         <div className={styles.phase2Details}>
           {[
             'Seller requests a featured slot from their dashboard — chooses duration (7 / 14 / 30 days)',
-            'Seller pays via PayFast — payment confirmation triggers an admin notification',
+            'Seller pays Vuna via EFT — proof of payment triggers an admin notification',
             'Admin reviews and approves before product appears on home page',
-            'Paid slots are tracked separately — revenue appears in Payouts dashboard',
+            'Paid slots are tracked separately — revenue appears in the Commissions dashboard',
           ].map(item => (
             <div key={item} className={styles.phase2Item}><Info size={13} /> {item}</div>
           ))}

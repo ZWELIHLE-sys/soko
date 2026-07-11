@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Database, CreditCard, Zap, Image, AlertTriangle, CheckCircle } from 'lucide-react'
+import { Database, Mail, Zap, Image, AlertTriangle, CheckCircle } from 'lucide-react'
 import shared from '../../admin.module.css'
 import styles from './monitoring.module.css'
 
@@ -24,10 +24,10 @@ interface MonitoringData {
 }
 
 const systemServices = [
-  { label: 'Database',           key: 'databaseStatus', Icon: Database },
-  { label: 'Payments (PayFast)', key: 'paymentsStatus', Icon: CreditCard },
-  { label: 'API Server',         key: 'apiStatus',      Icon: Zap },
-  { label: 'Image Storage',      key: 'imageStatus',    Icon: Image },
+  { label: 'Database',      key: 'databaseStatus', Icon: Database },
+  { label: 'Email (SMTP)',  key: 'emailStatus',    Icon: Mail },
+  { label: 'API Server',    key: 'apiStatus',      Icon: Zap },
+  { label: 'Image Storage', key: 'imageStatus',    Icon: Image },
 ]
 
 export default function AdminMonitoringPage() {

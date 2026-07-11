@@ -154,7 +154,68 @@
   gap: 16px;
 }
 
-/* â”€â”€ Sacred Rules â”€â”€ */
+/* ── How Vuna Works (roles) ── */
+.rolesCard {
+  background: #fff;
+  border: 1px solid #e8e0db;
+  border-radius: 14px;
+  padding: 32px;
+  margin-bottom: 40px;
+}
+
+.rolesIntro {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.7;
+  margin: 8px 0 28px;
+  max-width: 640px;
+}
+
+.rolesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.roleItem {
+  padding: 18px;
+  background: #FAFAF9;
+  border-radius: 10px;
+  border: 1px solid #f0ebe8;
+}
+
+.roleIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #fff7ed;
+  color: #7C2D12;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.roleTitle {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.roleDesc {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .rolesCard { padding: 24px 20px; }
+}
+
+/* ── Sacred Rules ── */
 .rulesCard {
   background: transparent;
   padding: 0;

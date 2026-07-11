@@ -2,6 +2,7 @@
 
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { ShoppingCart } from 'lucide-react'
 import styles from './navbar.module.css'
@@ -41,10 +42,11 @@ export default function Navbar() {
 
       <nav className={styles.nav}>
         <Link href="/" className={styles.brand} onClick={closeAll}>
-          <div className={styles.brandIcon}>V</div>
-          <div>
-            <div className={styles.brandName}>Vuna</div>
-            <div className={styles.brandSub}>Marketplace</div>
+          <div className={styles.brandIcon}>
+            <Image src="/images/handlogo-mark.png" alt="" fill sizes="46px" className={styles.brandLogo} />
+          </div>
+          <div className={styles.brandWordmark}>
+            <Image src="/images/handlogo-text.png" alt="Vuna Marketplace" fill sizes="96px" className={styles.brandLogo} />
           </div>
         </Link>
 

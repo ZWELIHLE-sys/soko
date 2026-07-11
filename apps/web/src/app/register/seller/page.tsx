@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -16,7 +16,6 @@ import { EMPTY_FORM } from './_types'
 export default function SellerRegisterPage() {
   const router = useRouter()
   const [categories, setCategories] = useState<Category[]>([])
-  const [countries, setCountries]   = useState<Location[]>([])
   const [provinces, setProvinces]   = useState<Location[]>([])
   const [districts, setDistricts]   = useState<Location[]>([])
   const [cities, setCities]         = useState<Location[]>([])
@@ -35,23 +34,9 @@ export default function SellerRegisterPage() {
   const [uploadingProof, setUploadingProof] = useState(false)
 
   useEffect(() => {
-    fetch('/api/locations/countries')
-      .then(r => r.json())
-      .then((data: Location[]) => {
-        setCountries(data)
-        if (data.length === 1) {
-          setForm(f => ({ ...f, countryId: data[0].id }))
-        }
-      })
+    fetch('/api/locations/provinces').then(r => r.json()).then(setProvinces)
     fetch('/api/categories').then(r => r.json()).then(setCategories)
   }, [])
-
-  useEffect(() => {
-    if (!form.countryId) return
-    fetch(`/api/locations/children?parentId=${form.countryId}`)
-      .then(r => r.json())
-      .then(setProvinces)
-  }, [form.countryId])
 
   useEffect(() => {
     if (!form.provinceId) return
@@ -68,12 +53,7 @@ export default function SellerRegisterPage() {
   }, [form.districtId])
 
   const handleField = (field: keyof SellerFormState, value: string) => {
-    if (field === 'countryId') {
-      setProvinces([])
-      setDistricts([])
-      setCities([])
-      setForm(f => ({ ...f, countryId: value, provinceId: '', districtId: '', locationId: '' }))
-    } else if (field === 'provinceId') {
+    if (field === 'provinceId') {
       setDistricts([])
       setCities([])
       setForm(f => ({ ...f, provinceId: value, districtId: '', locationId: '' }))
@@ -186,7 +166,7 @@ export default function SellerRegisterPage() {
           </div>
 
           <div className={styles.sacredBadges}>
-            <div className={styles.badge}><Globe size={14} /> African owned</div>
+            <div className={styles.badge}><Globe size={14} /> Locally owned</div>
             <div className={styles.badge}><HandHeart size={14} /> Maker made</div>
             <div className={styles.badge}><ShieldCheck size={14} /> Vuna Verified</div>
           </div>
@@ -204,9 +184,9 @@ export default function SellerRegisterPage() {
               />
 
               <LocationFields
-                countries={countries} provinces={provinces}
+                provinces={provinces}
                 districts={districts} cities={cities}
-                countryId={form.countryId} provinceId={form.provinceId}
+                provinceId={form.provinceId}
                 districtId={form.districtId} locationId={form.locationId}
                 suburb={form.suburb} onChange={handleField}
               />

@@ -111,7 +111,7 @@ export default async function ShopPage({
           <p className={styles.heroSub}>
             {q
               ? `${products.length} product${products.length !== 1 ? 's' : ''} found`
-              : category?.description ?? 'Every product. African made. Vuna verified.'}
+              : category?.description ?? 'Every product. locally made. Vuna verified.'}
           </p>
         </div>
       </div>
@@ -140,8 +140,8 @@ export default async function ShopPage({
               {q
                 ? 'Try a different search term, or browse by category.'
                 : category
-                  ? `Verified African makers who create ${category.name.toLowerCase()} are joining Vuna. Register as a buyer to be ready when the first listings go live.`
-                  : 'African makers are being verified and their products are almost here. Register now so you are ready to shop the moment the first listing goes live.'}
+                  ? `Verified local makers who create ${category.name.toLowerCase()} are joining Vuna. Register as a buyer to be ready when the first listings go live.`
+                  : 'local makers are being verified and their products are almost here. Register now so you are ready to shop the moment the first listing goes live.'}
             </p>
 
             <div className={styles.emptyActions}>
@@ -161,7 +161,7 @@ export default async function ShopPage({
 
             {!q && (
               <p className={styles.emptySellerNote}>
-                Are you an African creator?{' '}
+                Are you an local maker?{' '}
                 <Link href="/register/seller" className={styles.emptySellerLink}>
                   Apply to sell your work on Vuna →
                 </Link>

@@ -7,7 +7,7 @@ import { CircleCheck, Handshake, Truck, Globe } from 'lucide-react'
 import styles from './success.module.css'
 
 const promiseItems = [
-  { Icon: Handshake, text: 'Made by a real African creator' },
+  { Icon: Handshake, text: 'Made by a real local maker' },
   { Icon: Truck,     text: 'Seller will contact you to arrange delivery' },
   { Icon: Globe,     text: 'Your purchase supports livelihoods' },
 ]
@@ -28,7 +28,7 @@ export default function CheckoutSuccess() {
           </div>
           <h1 className={styles.title}>Order Placed!</h1>
           <p className={styles.subtitle}>
-            Thank you for supporting African creators. Your order has been placed
+            Thank you for supporting local makers. Your order has been placed
             and the seller has been notified. You will receive a confirmation shortly.
           </p>
 

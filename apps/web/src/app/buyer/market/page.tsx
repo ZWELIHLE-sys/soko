@@ -49,7 +49,7 @@ export default function BuyerMarketPage() {
       <div className={styles.header}>
         <h1 className={styles.title}>Vuna Market</h1>
         <p className={styles.subtitle}>
-          Our weekly pop-up — African makers, growers and builders, one place.
+          Our weekly pop-up — local makers, growers and builders, one place.
         </p>
       </div>
 
@@ -140,9 +140,9 @@ export default function BuyerMarketPage() {
       {/* Bottom promo banner */}
       <div className={styles.banner}>
         <div className={styles.bannerLabel}>The Vuna Market</div>
-        <h2 className={styles.bannerTitle}>Where Africa gathers</h2>
+        <h2 className={styles.bannerTitle}>Where home gathers</h2>
         <p className={styles.bannerText}>
-          Every Vuna Market is a curated gathering of Africa&apos;s most gifted makers.
+          Every Vuna Market is a curated gathering of our most gifted local makers.
           Meet the weavers, potters, designers, and farmers behind the products —
           and buy directly from the source.
         </p>

@@ -288,9 +288,9 @@ export default function ProductDetailPage() {
 
             <div className={styles.promise}>
               <div className={styles.promiseLabel}>The Vuna Promise</div>
-              <div className={styles.promiseItem}><Handshake size={13} /> Handmade by a real African creator</div>
+              <div className={styles.promiseItem}><Handshake size={13} /> Made by a real local maker</div>
               <div className={styles.promiseItem}><BadgeCheck size={13} /> Seller verified by Vuna team</div>
-              <div className={styles.promiseItem}><Globe size={13} /> Supporting African livelihoods</div>
+              <div className={styles.promiseItem}><Globe size={13} /> Supporting local livelihoods</div>
             </div>
           </div>
         </div>

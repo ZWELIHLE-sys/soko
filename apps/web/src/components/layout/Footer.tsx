@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './footer.module.css'
 
 const mainLinks = [
@@ -18,11 +19,13 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <div className={styles.brandIcon}>V</div>
+          <div className={styles.brandIcon}>
+            <Image src="/images/handlogo-tree-cream.png" alt="Vuna" fill sizes="44px" className={styles.brandLogo} />
+          </div>
           <div>
             <div className={styles.brandText}>Vuna</div>
             <div className={styles.tagline}>Marketplace</div>
-            <div className={styles.slogan}>Reap What Africa Makes</div>
+            <div className={styles.slogan}>Where Local Is Celebrated And Cherished</div>
           </div>
         </div>
 

@@ -1,7 +1,8 @@
-﻿'use client'
+'use client'
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './forgot.module.css'
 
 export default function ForgotPasswordPage() {
@@ -40,9 +41,10 @@ export default function ForgotPasswordPage() {
         <div className={styles.wrapper}>
 
           <div className={styles.logoBox}>
-            <div className={styles.logoIcon}>V</div>
-            <div className={styles.logoTitle}>Vuna</div>
-            <div className={styles.logoSub}>Reap What Africa Makes</div>
+            <div className={styles.logoImgWrap}>
+              <Image src="/images/handlogo-full.png" alt="Vuna Marketplace" fill sizes="200px" className={styles.logoImg} />
+            </div>
+            <div className={styles.logoSub}>Where Local Is Celebrated And Cherished</div>
           </div>
 
           <div className={styles.card}>

@@ -45,8 +45,8 @@ export default async function FeaturedProducts() {
           <div className={styles.emptyIcon}><Sprout size={48} /></div>
           <div className={styles.emptyTitle}>The first products are coming</div>
           <p className={styles.emptyText}>
-            Vuna is just getting started. Be the first African creator
-            to list your work and reach the world.
+            Vuna is just getting started. Be the first local maker
+            to list your work and reach local buyers.
           </p>
           <Link href="/register/seller" className={styles.emptyBtn}>
             Be The First Seller →

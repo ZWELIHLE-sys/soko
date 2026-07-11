@@ -57,6 +57,23 @@ export default function AdminAuctionsPage() {
     setBidsLoading(false)
   }
 
+  const deleteItem = async (itemId: string) => {
+    if (!confirm('Permanently delete this auction item? This also removes all bids on it.')) return
+    const res = await fetch(`/api/auctions/items/${itemId}`, { method: 'DELETE' })
+    if (!res.ok) {
+      alert('Could not delete the item.')
+      return
+    }
+    // Refresh items for any event containing this id
+    setItems(prev => {
+      const next: typeof prev = {}
+      for (const [eventId, list] of Object.entries(prev)) {
+        next[eventId] = list.filter(i => i.id !== itemId)
+      }
+      return next
+    })
+  }
+
   const toggleEvent = (id: string) => {
     if (expanded === id) { setExpanded(null); return }
     setExpanded(id)
@@ -167,6 +184,7 @@ export default function AdminAuctionsPage() {
               onTransition={next => transitionStatus(event.id, next)}
               onReview={(id, action) => { setReviewId(id); setReviewAction(action) }}
               onViewBids={openBids}
+              onDelete={deleteItem}
             />
           ))}
           {events.length === 0 && <div className={shared.empty}>No auction events yet. Create the first one.</div>}

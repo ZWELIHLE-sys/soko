@@ -27,7 +27,7 @@ export async function GET() {
   ])
 
   const totalRevenue  = revenue._sum.totalAmount ?? 0
-  const vunaCommission = totalRevenue * 0.10
+  const vunaCommission = totalRevenue * 0.05
 
   return NextResponse.json({
     sellers:  { total: totalSellers, pending: pendingSellers, verified: verifiedSellers },

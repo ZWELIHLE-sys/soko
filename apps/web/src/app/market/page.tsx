@@ -56,7 +56,7 @@ export default async function MarketPage() {
             <div className={styles.eyebrow}>One of a Kind</div>
             <h1 className={styles.heroTitle}>Vuna Market</h1>
             <p className={styles.heroSub}>
-              A curated pop-up of verified African makers. Limited stalls, handpicked sellers.
+              A curated pop-up of verified local makers. Limited stalls, handpicked sellers.
               Next date being announced — check back here first.
             </p>
             <Link href="/shop" className={styles.shopBadge}>

@@ -16,10 +16,11 @@ interface Props {
   onTransition: (next: EventStatus) => void
   onReview: (id: string, action: 'APPROVED' | 'CANCELLED') => void
   onViewBids: (item: AuctionItem) => void
+  onDelete: (id: string) => void
 }
 
 export function EventCard({
-  event, isOpen, items, transitioning, onToggle, onTransition, onReview, onViewBids,
+  event, isOpen, items, transitioning, onToggle, onTransition, onReview, onViewBids, onDelete,
 }: Props) {
   const sc         = EVENT_STATUS_STYLE[event.status]
   const transition = STATUS_TRANSITIONS[event.status]
@@ -98,6 +99,7 @@ export function EventCard({
                 eventStatus={event.status}
                 onReview={onReview}
                 onViewBids={onViewBids}
+                onDelete={onDelete}
               />
             ))
           )}

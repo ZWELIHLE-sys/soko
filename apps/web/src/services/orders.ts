@@ -1,6 +1,6 @@
 import { prisma } from '@vuna/db'
 
-const COMMISSION_RATE = 0.10
+const COMMISSION_RATE = 0.05
 
 interface CartItem {
   productId: string
@@ -89,8 +89,80 @@ export async function updateOrderStatus(
     return { error: `Cannot move order from ${order.status} to ${newStatus}` }
   }
 
+  // Gate: moving PENDING → CONFIRMED requires the buyer to have submitted proof of payment
+  // and the seller to have verified it. Cancelling is always allowed.
+  if (order.status === 'PENDING' && newStatus === 'CONFIRMED') {
+    if (!order.paymentVerifiedAt) {
+      return { error: 'You must verify the buyer’s proof of payment before confirming this order.' }
+    }
+  }
+
   const updated = await prisma.order.update({ where: { id: orderId }, data: { status: newStatus as never } })
   return { order: updated }
+}
+
+export async function submitPaymentProof(
+  orderId: string,
+  buyerId: string,
+  proofUrl: string,
+  paymentRef?: string,
+) {
+  const order = await prisma.order.findFirst({ where: { id: orderId, buyerId } })
+  if (!order) return { error: 'Order not found.' }
+  if (order.status !== 'PENDING') return { error: 'Proof of payment can only be added to a pending order.' }
+
+  const updated = await prisma.order.update({
+    where: { id: orderId },
+    data: {
+      paymentProofUrl:    proofUrl,
+      paymentSubmittedAt: new Date(),
+      paymentRef:         paymentRef?.trim() || order.paymentRef,
+    },
+  })
+  return { order: updated }
+}
+
+export async function verifyPaymentReceived(
+  orderId: string,
+  sellerId: string,
+) {
+  const order = await prisma.order.findFirst({ where: { id: orderId, sellerId } })
+  if (!order) return { error: 'Order not found.' }
+  if (order.status !== 'PENDING') return { error: 'Only pending orders can be verified.' }
+  if (!order.paymentProofUrl) return { error: 'Buyer has not submitted proof of payment yet.' }
+  if (order.paymentVerifiedAt) return { error: 'Payment is already verified.' }
+
+  const updated = await prisma.order.update({
+    where: { id: orderId },
+    data:  { paymentVerifiedAt: new Date() },
+  })
+  return { order: updated }
+}
+
+export async function getBuyerOrderForPayment(orderId: string, buyerId: string) {
+  return prisma.order.findFirst({
+    where:   { id: orderId, buyerId },
+    include: {
+      items: {
+        include: {
+          product: { select: { name: true, images: true, category: { select: { icon: true } } } },
+        },
+      },
+      seller: {
+        select: {
+          id:            true,
+          brandName:     true,
+          email:         true,
+          phone:         true,
+          bankName:      true,
+          accountHolder: true,
+          accountNumber: true,
+          accountType:   true,
+          branchCode:    true,
+        },
+      },
+    },
+  })
 }
 
 export async function getSellerOrders(sellerId: string) {

@@ -17,11 +17,9 @@ export function ShopFilters({ categorySlug, initialQ, initialLocationId }: Props
   const router = useRouter()
 
   const [search, setSearch]         = useState(initialQ)
-  const [countries, setCountries]   = useState<Location[]>([])
   const [provinces, setProvinces]   = useState<Location[]>([])
   const [districts, setDistricts]   = useState<Location[]>([])
   const [cities, setCities]         = useState<Location[]>([])
-  const [countryId, setCountryId]   = useState('')
   const [provinceId, setProvinceId] = useState('')
   const [districtId, setDistrictId] = useState('')
   const [cityId, setCityId]         = useState(initialLocationId)
@@ -31,20 +29,11 @@ export function ShopFilters({ categorySlug, initialQ, initialLocationId }: Props
   useEffect(() => { setCityId(initialLocationId) }, [initialLocationId])
 
   useEffect(() => {
-    fetch('/api/locations/countries')
-      .then(r => r.json())
-      .then((data: Location[]) => {
-        setCountries(data)
-        if (data.length === 1) setCountryId(data[0].id)
-      })
-  }, [])
-
-  useEffect(() => {
-    if (!countryId) return
-    fetch(`/api/locations/children?parentId=${countryId}`)
+    fetch('/api/locations/provinces')
       .then(r => r.json())
       .then(setProvinces)
-  }, [countryId])
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     if (!provinceId) return
@@ -70,13 +59,6 @@ export function ShopFilters({ categorySlug, initialQ, initialLocationId }: Props
     if (newLocId) params.set('locationId', newLocId)
     const qs = params.toString()
     return `/shop${qs ? '?' + qs : ''}`
-  }
-
-  const handleCountry = (id: string) => {
-    setProvinceId(''); setDistrictId(''); setCityId('')
-    setProvinces([]); setDistricts([]); setCities([])
-    setCountryId(id)
-    router.push(buildUrl({ locationId: '' }))
   }
 
   const handleProvince = (id: string) => {
@@ -109,15 +91,15 @@ export function ShopFilters({ categorySlug, initialQ, initialLocationId }: Props
   }
 
   const clearLocation = () => {
-    setCountryId(''); setProvinceId(''); setDistrictId(''); setCityId('')
-    setProvinces([]); setDistricts([]); setCities([])
+    setProvinceId(''); setDistrictId(''); setCityId('')
+    setDistricts([]); setCities([])
     router.push(buildUrl({ locationId: '' }))
   }
 
   const clearAll = () => {
     setSearch(''); setCityId('')
-    setCountryId(''); setProvinceId(''); setDistrictId('')
-    setProvinces([]); setDistricts([]); setCities([])
+    setProvinceId(''); setDistrictId('')
+    setDistricts([]); setCities([])
     const params = new URLSearchParams()
     if (categorySlug) params.set('category', categorySlug)
     router.push(`/shop${params.toString() ? '?' + params.toString() : ''}`)
@@ -145,14 +127,6 @@ export function ShopFilters({ categorySlug, initialQ, initialLocationId }: Props
 
       <div className={styles.locationRow}>
         <span className={styles.locationLabel}><MapPin size={12} /> Location</span>
-
-        {countries.length > 0 && (
-          <select className={styles.select} value={countryId}
-            onChange={e => handleCountry(e.target.value)}>
-            <option value="">All countries</option>
-            {countries.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
-        )}
 
         {provinces.length > 0 && (
           <select className={styles.select} value={provinceId}

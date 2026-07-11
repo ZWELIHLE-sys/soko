@@ -6,7 +6,7 @@ import styles from './SellerBanner.module.css'
 const perks = [
   'Free to apply',
   'Verified in 48 hours',
-  'Sell to the world',
+  'Sell to your neighbours',
 ]
 
 export default function SellerBanner() {
@@ -14,13 +14,13 @@ export default function SellerBanner() {
     <section className={styles.section}>
       <FadeIn>
       <div className={styles.content}>
-        <div className={styles.eyebrow}>For African Creators</div>
+        <div className={styles.eyebrow}>For Local Makers</div>
         <h2 className={styles.heading}>
           Your craft deserves<br />its stage
         </h2>
         <p className={styles.description}>
           Join Vuna and sell your clothing, art, food, furniture or any
-          African made product to buyers across South Africa and beyond.
+          locally made product to buyers across the country.
           Apply for your Vuna Verified badge today — no experience needed,
           just your craft and your story.
         </p>

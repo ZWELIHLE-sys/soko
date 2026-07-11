@@ -1,9 +1,9 @@
 ﻿.section {
   background:
-    linear-gradient(rgba(28, 10, 0, 0.75), rgba(28, 10, 0, 0.75)),
-    url('/images/african-market.jpg')
+    linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
+    url('/images/uchansi.jpg')
     center / cover no-repeat;
-  padding: 72px 32px;
+  padding: 56px 32px 52px;
   position: relative;
   overflow: hidden;
   animation: fadeInUp 0.6s ease both;
@@ -46,9 +46,20 @@
 .slogan {
   font-size: 11px;
   color: #D97706;
-  letter-spacing: 5px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.tagline {
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 900;
+  color: #FEF3C7;
+  line-height: 1.15;
+  margin-bottom: 18px;
+  font-style: italic;
 }
 
 .description {

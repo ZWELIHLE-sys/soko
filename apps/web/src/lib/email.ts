@@ -40,7 +40,7 @@ export async function sendPasswordResetEmail(to: string, name: string, resetUrl:
         </p>
         <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;" />
         <p style="color:#9CA3AF;font-size:11px;text-align:center;">
-          Vuna &mdash; Reap What Africa Makes &mdash; Umzila-AfriRoute
+          Vuna &mdash; Where Local Is Celebrated And Cherished &mdash; Umzila-AfriRoute
         </p>
       </div>
     `,
@@ -73,7 +73,7 @@ export async function sendVerificationEmail(to: string, name: string, otp: strin
         </p>
         <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0;" />
         <p style="color:#9CA3AF;font-size:11px;text-align:center;">
-          Vuna &mdash; Reap What Africa Makes &mdash; Umzila-AfriRoute
+          Vuna &mdash; Where Local Is Celebrated And Cherished &mdash; Umzila-AfriRoute
         </p>
       </div>
     `,

@@ -12,6 +12,101 @@
 
 .loading { padding: 48px; text-align: center; color: #6b7280; font-size: 14px; }
 
+/* Manual EFT payment gate */
+.paymentGate {
+  background: #FAFAF9;
+  border: 1px solid #f0ebe8;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+
+.paymentGateLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.paymentWaiting {
+  font-size: 13px;
+  color: #92400E;
+  background: #FEF9C3;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.paymentReview {
+  font-size: 13px;
+}
+
+.paymentReviewHead {
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.paymentReviewHead code {
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.paymentReviewNote {
+  color: #6b7280;
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+
+.paymentReviewActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.viewProofBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  font-size: 13px;
+  color: #374151;
+  text-decoration: none;
+}
+
+.viewProofBtn:hover { background: #f9fafb; }
+
+.verifyBtn {
+  padding: 8px 14px;
+  background: #14532D;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.verifyBtn:hover:not(:disabled) { background: #166534; }
+.verifyBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.paymentVerified {
+  font-size: 13px;
+  color: #065F46;
+  background: #D1FAE5;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
 /* Sections */
 .section { margin-bottom: 32px; }
 

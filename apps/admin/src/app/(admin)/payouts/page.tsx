@@ -38,7 +38,7 @@ export default function AdminPayoutsPage() {
   const filtered = orders.filter(o => o.payoutStatus === filter)
 
   const sellerAmount = (o: PayoutOrder) => {
-    const comm = o.commission ?? o.totalAmount * 0.10
+    const comm = o.commission ?? o.totalAmount * 0.05
     return (o.totalAmount - comm).toFixed(2)
   }
 
@@ -73,7 +73,7 @@ export default function AdminPayoutsPage() {
 
   const pendingTotal = orders
     .filter(o => o.payoutStatus === 'PENDING_PAYOUT')
-    .reduce((sum, o) => sum + (o.totalAmount - (o.commission ?? o.totalAmount * 0.10)), 0)
+    .reduce((sum, o) => sum + (o.totalAmount - (o.commission ?? o.totalAmount * 0.05)), 0)
 
   return (
     <div>
@@ -86,7 +86,7 @@ export default function AdminPayoutsPage() {
         <div className={shared.card}>
           <div className={styles.summaryLabel}>Pending Payout (sellers owed)</div>
           <div className={styles.summaryAmount}>R{pendingTotal.toFixed(2)}</div>
-          <div className={styles.summaryNote}>After Vuna 10% commission</div>
+          <div className={styles.summaryNote}>After Vuna 5% commission</div>
         </div>
       </div>
 
@@ -165,7 +165,7 @@ export default function AdminPayoutsPage() {
                   <div className={styles.payoutAmounts}>
                     <div className={styles.payoutGross}>R{order.totalAmount.toFixed(2)}</div>
                     <div className={styles.payoutComm}>
-                      Commission: R{(order.commission ?? order.totalAmount * 0.10).toFixed(2)}
+                      Commission: R{(order.commission ?? order.totalAmount * 0.05).toFixed(2)}
                     </div>
                     <div className={styles.payoutNet}>
                       Seller receives: <strong>R{sellerAmount(order)}</strong>

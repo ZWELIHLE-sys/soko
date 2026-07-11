@@ -12,29 +12,18 @@ interface Props {
 }
 
 export function AdminLocationFilter({ value, onChange }: Props) {
-  const [countries, setCountries]   = useState<Location[]>([])
   const [provinces, setProvinces]   = useState<Location[]>([])
   const [districts, setDistricts]   = useState<Location[]>([])
   const [cities, setCities]         = useState<Location[]>([])
-  const [countryId, setCountryId]   = useState('')
   const [provinceId, setProvinceId] = useState('')
   const [districtId, setDistrictId] = useState('')
 
   useEffect(() => {
-    fetch('/api/countries')
-      .then(r => r.json())
-      .then((data: Location[]) => {
-        setCountries(data)
-        if (data.length === 1) setCountryId(data[0].id)
-      })
-  }, [])
-
-  useEffect(() => {
-    if (!countryId) return
-    fetch(`/api/locations/children?parentId=${countryId}`)
+    fetch('/api/locations/provinces')
       .then(r => r.json())
       .then(setProvinces)
-  }, [countryId])
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     if (!provinceId) return
@@ -50,13 +39,6 @@ export function AdminLocationFilter({ value, onChange }: Props) {
       .then(setCities)
   }, [districtId])
 
-  const handleCountry = (id: string) => {
-    setProvinceId(''); setDistrictId('')
-    setProvinces([]); setDistricts([]); setCities([])
-    setCountryId(id)
-    onChange('')
-  }
-
   const handleProvince = (id: string) => {
     setDistrictId('')
     setDistricts([]); setCities([])
@@ -71,25 +53,17 @@ export function AdminLocationFilter({ value, onChange }: Props) {
   }
 
   const clear = () => {
-    setCountryId(''); setProvinceId(''); setDistrictId('')
-    setProvinces([]); setDistricts([]); setCities([])
+    setProvinceId(''); setDistrictId('')
+    setDistricts([]); setCities([])
     onChange('')
   }
 
-  const isFiltering = !!value || !!countryId
+  const isFiltering = !!value || !!provinceId
 
   return (
     <div className={styles.row}>
       <MapPin size={13} className={styles.icon} />
       <span className={styles.label}>Location</span>
-
-      {countries.length > 0 && (
-        <select className={styles.select} value={countryId}
-          onChange={e => handleCountry(e.target.value)}>
-          <option value="">All countries</option>
-          {countries.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-        </select>
-      )}
 
       {provinces.length > 0 && (
         <select className={styles.select} value={provinceId}

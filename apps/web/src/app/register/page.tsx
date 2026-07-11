@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingBag, HandHeart, Globe, ShieldCheck } from 'lucide-react'
 import styles from './register.module.css'
 
@@ -13,9 +14,11 @@ export default function RegisterPage() {
         <div className={styles.wrapper}>
 
           <div className={styles.logoBox}>
-            <div className={styles.logoIcon}>V</div>
+            <div className={styles.logoImgWrap}>
+              <Image src="/images/handlogo-full.png" alt="Vuna Marketplace" fill sizes="200px" className={styles.logoImg} />
+            </div>
             <div className={styles.logoTitle}>Join Vuna</div>
-            <div className={styles.logoSub}>Africa&apos;s own marketplace — To The World</div>
+            <div className={styles.logoSub}>Your local marketplace</div>
           </div>
 
           <div className={styles.grid}>
@@ -23,7 +26,7 @@ export default function RegisterPage() {
               <div className={styles.card}>
                 <div className={styles.cardIcon}><ShoppingBag size={36} strokeWidth={1.5} /></div>
                 <div className={styles.cardTitle}>I want to Shop</div>
-                <div className={styles.cardDesc}>Browse and buy authentic African made products</div>
+                <div className={styles.cardDesc}>Browse and buy authentic locally made products</div>
               </div>
             </Link>
 
@@ -31,7 +34,7 @@ export default function RegisterPage() {
               <div className={`${styles.card} ${styles.cardSeller}`}>
                 <div className={styles.cardIcon}><HandHeart size={36} strokeWidth={1.5} /></div>
                 <div className={styles.cardTitle}>I want to Sell</div>
-                <div className={styles.cardDesc}>Sell your African made products to the world</div>
+                <div className={styles.cardDesc}>Sell your locally made products to buyers across the country</div>
               </div>
             </Link>
           </div>
@@ -39,7 +42,7 @@ export default function RegisterPage() {
           <div className={styles.sacredRules}>
             <div className={styles.sacredTitle}>Vuna&apos;s 3 Sacred Rules for Sellers</div>
             <div className={styles.sacredList}>
-              <div className={styles.sacredItem}><Globe size={14} /> African owned</div>
+              <div className={styles.sacredItem}><Globe size={14} /> Locally owned</div>
               <div className={styles.sacredItem}><HandHeart size={14} /> Maker made</div>
               <div className={styles.sacredItem}><ShieldCheck size={14} /> Vuna Verified</div>
             </div>

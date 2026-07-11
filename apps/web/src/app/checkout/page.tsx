@@ -98,26 +98,20 @@ export default function CheckoutPage() {
     })
 
     const orderData = await orderRes.json()
-    if (!orderRes.ok) { setError(orderData.error); setLoading(false); return }
-
-    const pfRes = await fetch('/api/payfast/initiate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        orderId:   paymentRef,
-        amount:    subtotal.toFixed(2),
-        firstName: form.firstName,
-        lastName:  form.lastName,
-        email:     session?.user?.email || '',
-        itemName:  `Vuna Order — ${cart.length} item${cart.length !== 1 ? 's' : ''}`,
-      }),
-    })
-
-    const pfData = await pfRes.json()
     setLoading(false)
+    if (!orderRes.ok) { setError(orderData.error); return }
 
-    if (!pfRes.ok) { setError('Payment initiation failed. Please try again.'); return }
-    setPayFastFields(pfData.fields)
+    // Clear cart and send buyer to the manual EFT payment page for their first order.
+    // For multi-seller carts they'll see a different order to pay for each via /buyer/orders.
+    localStorage.removeItem('vuna_cart')
+    window.dispatchEvent(new Event('vuna_cart_updated'))
+
+    const firstOrderId = orderData.orders?.[0]?.id
+    if (firstOrderId) {
+      router.push(`/buyer/orders/${firstOrderId}/pay`)
+    } else {
+      router.push('/buyer/orders')
+    }
   }
 
   return (

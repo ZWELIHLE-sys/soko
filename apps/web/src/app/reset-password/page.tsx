@@ -1,8 +1,9 @@
-﻿'use client'
+'use client'
 
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './reset.module.css'
 
 function ResetPasswordForm() {
@@ -129,9 +130,10 @@ export default function ResetPasswordPage() {
         <div className={styles.wrapper}>
 
           <div className={styles.logoBox}>
-            <div className={styles.logoIcon}>V</div>
-            <div className={styles.logoTitle}>Vuna</div>
-            <div className={styles.logoSub}>Reap What Africa Makes</div>
+            <div className={styles.logoImgWrap}>
+              <Image src="/images/handlogo-full.png" alt="Vuna Marketplace" fill sizes="200px" className={styles.logoImg} />
+            </div>
+            <div className={styles.logoSub}>Where Local Is Celebrated And Cherished</div>
           </div>
 
           <Suspense fallback={<div className={styles.card}><p className={styles.cardSub}>Loading...</p></div>}>

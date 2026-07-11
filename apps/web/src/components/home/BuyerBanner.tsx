@@ -16,11 +16,11 @@ export default function BuyerBanner() {
       <div className={styles.content}>
         <div className={styles.eyebrow}>For Shoppers</div>
         <h2 className={styles.heading}>
-          Ready to buy something<br />real from Africa?
+          Ready to buy something<br />real and local?
         </h2>
         <p className={styles.description}>
           Create a free account and start buying directly from
-          verified African creators. Handmade, authentic products —
+          verified local makers. Authentic products —
           delivery arranged directly with the seller.
         </p>
       </div>

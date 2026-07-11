@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Trash2 } from 'lucide-react'
 import shared from '../../admin.module.css'
 import styles from './products.module.css'
 import { AdminLocationFilter } from '@/components/AdminLocationFilter'
@@ -51,6 +52,19 @@ export default function AdminProductsPage() {
     })
     if (res.ok) {
       setProducts(prev => prev.map(p => p.id === id ? { ...p, status } : p))
+    }
+    setUpdating(null)
+  }
+
+  const deleteProduct = async (id: string, name: string) => {
+    if (!confirm(`Remove "${name}" from the shop? It will be hidden from buyers but past orders that reference it are preserved.`)) return
+    setUpdating(id)
+    const res = await fetch(`/api/products/${id}`, { method: 'DELETE' })
+    if (res.ok) {
+      // Remove from the list entirely for a clean "deleted" feel
+      setProducts(prev => prev.filter(p => p.id !== id))
+    } else {
+      alert('Could not delete this product.')
     }
     setUpdating(null)
   }
@@ -128,6 +142,14 @@ export default function AdminProductsPage() {
                         {updating === product.id ? '...' : 'Reinstate'}
                       </button>
                     )}
+                    <button
+                      className={shared.btnDanger}
+                      onClick={() => deleteProduct(product.id, product.name)}
+                      disabled={updating === product.id}
+                      title="Remove this product from the shop (past orders preserved)"
+                    >
+                      <Trash2 size={13} /> Delete
+                    </button>
                   </div>
                 </div>
               </div>

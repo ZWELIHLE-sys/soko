@@ -11,7 +11,6 @@ export interface SellerFormState {
   bio:             string
   categoryId:      string
   customCategory:  string
-  countryId:       string
   provinceId:      string
   districtId:      string
   locationId:      string
@@ -41,6 +40,6 @@ export const EMPTY_FORM: SellerFormState = {
   name: '', email: '', password: '', confirmPassword: '',
   phone: '', brandName: '', bio: '',
   categoryId: '', customCategory: '',
-  countryId: '', provinceId: '', districtId: '', locationId: '', suburb: '',
+  provinceId: '', districtId: '', locationId: '', suburb: '',
   socialMediaLink: '',
 }

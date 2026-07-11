@@ -27,8 +27,6 @@ model Location {
   type       LocationType
   code       String?      // e.g. "KZN", "GP", "ZA"
   parentId   String?
-  isUnlocked Boolean      @default(false) // countries only — admin unlocks to open registration
-
   // Self relation — this is the tree structure
   parent   Location?  @relation("LocationTree", fields: [parentId], references: [id])
   children Location[] @relation("LocationTree")
@@ -148,6 +146,7 @@ model Seller {
   marketListings MarketListing[]
   auctions       Auction[]
   pieces         Piece[]
+  commissionInvoices CommissionInvoice[]
   makerInResidenceMarkets Market[] @relation("MarketMakerInResidence")
 
   createdAt   DateTime     @default(now())
@@ -282,10 +281,15 @@ model Order {
   deliveryTier   DeliveryTier
   trackingNumber String?
 
-  // PayFast payment tracking
-  paymentRef     String?      // Shared across all orders in one checkout (multi-seller)
-  commission     Float?       // Amount Vuna keeps (10% of totalAmount)
-  payoutStatus   String       @default("PENDING_PAYOUT") // PENDING_PAYOUT → PAID_OUT
+  // Manual EFT payment tracking (Mzansi pivot)
+  paymentRef        String?    // Optional reference buyer used in their EFT
+  paymentProofUrl   String?    // Cloudinary URL of proof of payment uploaded by buyer
+  paymentSubmittedAt DateTime? // When buyer uploaded proof
+  paymentVerifiedAt DateTime?  // When seller confirmed receipt of payment
+  commission        Float?     // Amount Vuna invoices the seller monthly (10% of totalAmount)
+  commissionStatus  String     @default("PENDING")  // PENDING → INVOICED → PAID
+  commissionInvoiceId String?
+  commissionInvoice   CommissionInvoice? @relation(fields: [commissionInvoiceId], references: [id])
 
   // Who bought
   buyerId        String
@@ -308,6 +312,31 @@ model Order {
 
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+}
+
+// ================================
+// COMMISSION INVOICES — Monthly Vuna commission billed to sellers
+// Each delivered order has a commission amount (10% of totalAmount).
+// Admin generates a CommissionInvoice per seller per period that bundles
+// the seller's pending commissions. Seller pays Vuna via EFT.
+// ================================
+
+model CommissionInvoice {
+  id           String   @id @default(cuid())
+  sellerId     String
+  seller       Seller   @relation(fields: [sellerId], references: [id])
+  periodStart  DateTime
+  periodEnd    DateTime
+  amount       Float
+  status       String   @default("OUTSTANDING")  // OUTSTANDING | PAID | CANCELLED
+  generatedAt  DateTime @default(now())
+  paidAt       DateTime?
+  paidProofUrl String?  // Seller can upload EFT proof when they pay Vuna
+  adminNote    String?
+
+  orders       Order[]
+
+  @@index([sellerId, status])
 }
 
 model OrderItem {

@@ -22,17 +22,14 @@
 }
 
 .brandIcon {
-  width: 30px;
-  height: 30px;
-  background: #7C2D12;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FEF3C7;
-  font-size: 13px;
-  font-weight: 900;
-  font-family: Georgia, serif;
+  position: relative;
+  width: 46px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.brandLogo {
+  object-fit: contain;
 }
 
 .brandText {
@@ -107,5 +104,33 @@
 
 @media (max-width: 640px) {
   .footer { padding: 28px 20px; }
+
+  .inner {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .brand {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .nav {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .copy { text-align: center; }
+
+  .legal {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+  }
+
   .legalNote { margin-left: 0; }
 }

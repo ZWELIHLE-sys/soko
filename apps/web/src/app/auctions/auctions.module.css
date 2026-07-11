@@ -8,12 +8,12 @@
 /* ── Coming soon hero (no active event) ── */
 .comingSoonHero {
   background:
-    linear-gradient(rgba(28, 10, 0, 0.82), rgba(28, 10, 0, 0.82)),
-    url('/images/african-market.jpg') center / cover no-repeat;
+    linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
+    url('/images/uchansi.jpg') center / cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 64px 24px 56px;
+  padding: 56px 24px 48px;
   text-align: center;
 }
 
@@ -21,9 +21,9 @@
 .hero {
   position: relative;
   background:
-    linear-gradient(rgba(28, 10, 0, 0.82), rgba(28, 10, 0, 0.82)),
-    url('/images/african-market.jpg') center / cover no-repeat;
-  padding: 64px 24px 56px;
+    linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
+    url('/images/uchansi.jpg') center / cover no-repeat;
+  padding: 56px 24px 48px;
   text-align: center;
   display: flex;
   align-items: center;

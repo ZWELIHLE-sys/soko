@@ -216,6 +216,20 @@
 
 .totalNote { color: #9ca3af; font-size: 12px; }
 
+.payBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.payBtn:hover { background: #6B2510; }
+
 /* Confirm delivery button */
 .confirmBtn {
   display: inline-flex;

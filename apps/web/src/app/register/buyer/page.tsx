@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -10,7 +10,6 @@ import { EMPTY_FORM } from './_types'
 
 export default function BuyerRegisterPage() {
   const router = useRouter()
-  const [countries, setCountries] = useState<Location[]>([])
   const [provinces, setProvinces] = useState<Location[]>([])
   const [districts, setDistricts] = useState<Location[]>([])
   const [cities, setCities]       = useState<Location[]>([])
@@ -19,22 +18,10 @@ export default function BuyerRegisterPage() {
   const [loading, setLoading]     = useState(false)
 
   useEffect(() => {
-    fetch('/api/locations/countries')
-      .then(r => r.json())
-      .then((data: Location[]) => {
-        setCountries(data)
-        if (data.length === 1) {
-          setForm(f => ({ ...f, countryId: data[0].id }))
-        }
-      })
-  }, [])
-
-  useEffect(() => {
-    if (!form.countryId) return
-    fetch(`/api/locations/children?parentId=${form.countryId}`)
+    fetch('/api/locations/provinces')
       .then(r => r.json())
       .then(setProvinces)
-  }, [form.countryId])
+  }, [])
 
   useEffect(() => {
     if (!form.provinceId) return
@@ -51,10 +38,7 @@ export default function BuyerRegisterPage() {
   }, [form.districtId])
 
   const handleField = (field: keyof BuyerFormState, value: string) => {
-    if (field === 'countryId') {
-      setProvinces([]); setDistricts([]); setCities([])
-      setForm(f => ({ ...f, countryId: value, provinceId: '', districtId: '', locationId: '' }))
-    } else if (field === 'provinceId') {
+    if (field === 'provinceId') {
       setDistricts([]); setCities([])
       setForm(f => ({ ...f, provinceId: value, districtId: '', locationId: '' }))
     } else if (field === 'districtId') {
@@ -109,7 +93,7 @@ export default function BuyerRegisterPage() {
 
           <div className={styles.heading}>
             <div className={styles.title}>Create Buyer Account</div>
-            <p className={styles.subtitle}>Start shopping authentic African products</p>
+            <p className={styles.subtitle}>Start shopping authentic local products</p>
           </div>
 
           <div className={styles.card}>
@@ -148,9 +132,9 @@ export default function BuyerRegisterPage() {
               </div>
 
               <LocationFields
-                countries={countries} provinces={provinces}
+                provinces={provinces}
                 districts={districts} cities={cities}
-                countryId={form.countryId}   provinceId={form.provinceId}
+                provinceId={form.provinceId}
                 districtId={form.districtId} locationId={form.locationId}
                 suburb={form.suburb} onChange={handleField}
               />

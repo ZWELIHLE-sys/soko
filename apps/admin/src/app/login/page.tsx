@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Lock } from 'lucide-react'
 import styles from './login.module.css'
 
@@ -36,7 +37,9 @@ export default function AdminLoginPage() {
     <div className={styles.page}>
       <div className={styles.card}>
         <div className={styles.brand}>
-          <div className={styles.brandMark}>V</div>
+          <div className={styles.brandMark}>
+            <Image src="/images/handlogo-mark.png" alt="Vuna" fill sizes="40px" className={styles.brandLogo} />
+          </div>
           <div>
             <div className={styles.brandName}>Vuna Admin</div>
             <div className={styles.brandSub}>CONTROL PANEL</div>

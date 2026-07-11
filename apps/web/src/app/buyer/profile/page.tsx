@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
@@ -127,7 +127,7 @@ export default function BuyerProfilePage() {
         <div>
           <div className={styles.avatarName}>{name || session?.user?.name}</div>
           <div className={styles.avatarRole}>
-            Vuna Shopper · Supporting African creators
+            Vuna Shopper · Supporting local makers
           </div>
           {uploading && <div className={styles.uploadingNote}>Uploading photo...</div>}
         </div>
@@ -230,8 +230,8 @@ export default function BuyerProfilePage() {
       <div className={styles.impact}>
         <div className={styles.impactLabel}>Uvunile</div>
         <p className={styles.impactText}>
-          You have reaped from Africa. Every purchase you make on Vuna
-          goes directly to an African maker, grower or builder —
+          You have reaped from home. Every purchase you make on Vuna
+          goes directly to an local maker, grower or builder —
           no middlemen, no exploitation. That is the harvest we are building together.
         </p>
       </div>

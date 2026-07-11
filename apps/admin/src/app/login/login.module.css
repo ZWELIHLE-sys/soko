@@ -36,18 +36,14 @@
 }
 
 .brandMark {
-  width: 36px;
-  height: 36px;
-  background: #7C2D12;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FEF3C7;
-  font-family: Georgia, serif;
-  font-weight: 900;
-  font-size: 16px;
+  position: relative;
+  width: 46px;
+  height: 40px;
   flex-shrink: 0;
+}
+
+.brandLogo {
+  object-fit: contain;
 }
 
 .brandName {

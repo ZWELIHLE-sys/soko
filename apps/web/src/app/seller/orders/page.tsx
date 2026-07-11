@@ -24,6 +24,11 @@ interface Order {
   deliveryAddress: string
   trackingNumber: string | null
   createdAt: string
+  paymentRef: string | null
+  paymentProofUrl: string | null
+  paymentSubmittedAt: string | null
+  paymentVerifiedAt: string | null
+  commission: number | null
   buyer: { name: string; email: string; phone: string | null }
   items: OrderItem[]
 }
@@ -61,12 +66,29 @@ export default function SellerOrdersPage() {
 
   const updateStatus = async (orderId: string, status: string) => {
     setUpdating(orderId)
-    await fetch(`/api/seller/orders/${orderId}`, {
+    const res = await fetch(`/api/seller/orders/${orderId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     })
     setUpdating(null)
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}))
+      alert(d.error ?? 'Could not update order.')
+      return
+    }
+    loadOrders()
+  }
+
+  const verifyPayment = async (orderId: string) => {
+    setUpdating(orderId)
+    const res = await fetch(`/api/seller/orders/${orderId}/verify-payment`, { method: 'POST' })
+    setUpdating(null)
+    if (!res.ok) {
+      const d = await res.json().catch(() => ({}))
+      alert(d.error ?? 'Could not verify payment.')
+      return
+    }
     loadOrders()
   }
 
@@ -143,12 +165,54 @@ export default function SellerOrdersPage() {
               ))}
             </div>
 
+            {/* Manual EFT payment gate — only on PENDING orders */}
+            {order.status === 'PENDING' && (
+              <div className={styles.paymentGate}>
+                <div className={styles.paymentGateLabel}>Payment</div>
+                {!order.paymentProofUrl ? (
+                  <div className={styles.paymentWaiting}>
+                    Waiting for buyer to upload proof of EFT payment.
+                  </div>
+                ) : !order.paymentVerifiedAt ? (
+                  <div className={styles.paymentReview}>
+                    <div className={styles.paymentReviewHead}>
+                      <strong>Proof of payment uploaded</strong>
+                      {order.paymentRef && <span> · ref: <code>{order.paymentRef}</code></span>}
+                    </div>
+                    <p className={styles.paymentReviewNote}>
+                      Check your bank account for R{order.totalAmount.toFixed(2)} from this buyer.
+                      Once you see the deposit, click Verify Payment. Only verified payments can be confirmed.
+                    </p>
+                    <div className={styles.paymentReviewActions}>
+                      <a href={order.paymentProofUrl} target="_blank" rel="noreferrer" className={styles.viewProofBtn}>
+                        View Proof
+                      </a>
+                      <button
+                        className={styles.verifyBtn}
+                        disabled={updating === order.id}
+                        onClick={() => verifyPayment(order.id)}
+                      >
+                        {updating === order.id ? 'Verifying...' : 'Verify Payment Received'}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.paymentVerified}>
+                    ✓ Payment verified. You can now confirm this order.
+                  </div>
+                )}
+              </div>
+            )}
+
             {cfg.next && (
               <div className={styles.actionRow}>
                 <button
                   className={styles.nextBtn}
-                  disabled={updating === order.id}
+                  disabled={updating === order.id || (order.status === 'PENDING' && !order.paymentVerifiedAt)}
                   onClick={() => updateStatus(order.id, cfg.next!.status)}
+                  title={order.status === 'PENDING' && !order.paymentVerifiedAt
+                    ? 'Verify the buyer’s proof of payment first'
+                    : undefined}
                 >
                   {updating === order.id ? 'Updating...' : cfg.next.label}
                 </button>

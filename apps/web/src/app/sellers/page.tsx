@@ -42,15 +42,15 @@ const steps = [
   {
     num: '03',
     title: 'List, Sell & Earn',
-    desc: 'Once verified, upload your products and start reaching buyers across South Africa and the world.',
+    desc: 'Once verified, upload your products and start reaching buyers across the country.',
   },
 ]
 
 const rules = [
   {
     num: '01',
-    title: 'African Owned',
-    desc: 'Every seller must be African or South African.',
+    title: 'Locally Owned',
+    desc: 'Every seller must be a local resident.',
   },
   {
     num: '02',
@@ -105,7 +105,7 @@ export default async function SellersPage({
           <div className={styles.heroEyebrow}>Join Vuna Sellers</div>
           <p className={styles.heroSub}>
             Turn your craft, your harvest, your art into income.
-            Vuna gives you the platform. Africa gives you the story.
+            Vuna gives you the platform. Home gives you the story.
           </p>
           <Link href="/register/seller" className={styles.heroBtn}>
             Apply To Sell on Vuna →
@@ -113,7 +113,7 @@ export default async function SellersPage({
           <p className={styles.heroBuyerNote}>
             Here to shop?{' '}
             <Link href="/shop" className={styles.heroBuyerLink}>
-              Browse African products →
+              Browse local products →
             </Link>
           </p>
         </div>
@@ -123,11 +123,11 @@ export default async function SellersPage({
         <div className={styles.statsInner}>
           <div className={styles.stat}>
             <div className={styles.statNum}>100%</div>
-            <div className={styles.statLabel}>African Made</div>
+            <div className={styles.statLabel}>Locally Made</div>
           </div>
           <div className={styles.stat}>
-            <div className={styles.statNum}>∞</div>
-            <div className={styles.statLabel}>Cape to Cairo</div>
+            <div className={styles.statNum}>Home</div>
+            <div className={styles.statLabel}>Locally Grown</div>
           </div>
           <div className={styles.stat}>
             <div className={styles.statNum}>48h</div>
@@ -145,7 +145,7 @@ export default async function SellersPage({
         <FadeIn>
           <section className={styles.benefitsSection}>
             <div className={styles.sectionEyebrow}>Why Vuna</div>
-            <h2 className={styles.sectionTitle}>Built for African Creators</h2>
+            <h2 className={styles.sectionTitle}>Built for Local Makers</h2>
             <div className={styles.benefitsGrid}>
               {benefits.map(b => (
                 <div key={b.title} className={styles.benefitCard}>
@@ -218,7 +218,7 @@ export default async function SellersPage({
                 <p className={styles.emptySub}>
                   {q || locationId
                     ? 'Try a different name or location to find creators near you.'
-                    : 'African makers are applying and being reviewed right now. Check back soon to meet the creators whose work you will be able to buy on Vuna.'}
+                    : 'local makers are applying and being reviewed right now. Check back soon to meet the creators whose work you will be able to buy on Vuna.'}
                 </p>
                 {(q || locationId) && (
                   <Link href="/sellers" className={styles.emptySellerLink}>
@@ -227,7 +227,7 @@ export default async function SellersPage({
                 )}
                 {!q && !locationId && (
                   <p className={styles.emptySellerCta}>
-                    Are you an African creator?{' '}
+                    Are you an local maker?{' '}
                     <Link href="/register/seller" className={styles.emptySellerLink}>
                       Apply to sell your work →
                     </Link>
@@ -291,7 +291,7 @@ export default async function SellersPage({
           <div className={styles.ctaBanner}>
             <div className={styles.ctaEyebrow}>Join the Harvest</div>
             <h2 className={styles.ctaTitle}>
-              Africa makes it. Vuna brings it to the world.
+              Locally made. Vuna brings it home.
             </h2>
             <p className={styles.ctaSub}>
               Whether you are here to sell your craft or to discover something

@@ -71,32 +71,24 @@ export default async function AuctionsPage() {
             <div className={styles.eyebrow}>One of a Kind</div>
             <h1 className={styles.heroTitle}>Vuna Auctions</h1>
             <p className={styles.heroSub}>
-              Curated auction events featuring rare, one-of-a-kind pieces from verified African makers.
+              Curated auction events featuring rare, one-of-a-kind pieces from verified local makers.
               Next event being announced — check back here first.
             </p>
             <div className={styles.heroBadge}><Lock size={12} /> Verified buyers only</div>
           </div>
         </div>
         <div className={styles.inner}>
-          {recentlyEnded.length > 0 ? (
-            <section className={styles.section}>
-              <FadeIn>
-                <div className={styles.sectionHeader}>
-                  <h2 className={styles.sectionTitle}>Recently Ended</h2>
-                </div>
-              </FadeIn>
-              <div className={styles.grid}>
-                <FadeIn stagger>
-                  {recentlyEnded.map(a => <AuctionCard key={a.id} auction={a} />)}
-                </FadeIn>
-              </div>
-            </section>
-          ) : (
-            <FadeIn>
-              <div className={styles.emptyState}>
-                <Gavel size={48} className={styles.emptyIcon} />
-                <h2 className={styles.emptyTitle}>No auctions yet</h2>
-                <p className={styles.emptySub}>The first Vuna auction event is being prepared. Check back soon.</p>
+          <FadeIn>
+            <div className={styles.emptyState}>
+              <Gavel size={48} className={styles.emptyIcon} />
+              <h2 className={styles.emptyTitle}>No auctions yet</h2>
+              <p className={styles.emptySub}>The first Vuna auction event is being prepared. Check back soon.</p>
+            </div>
+          </FadeIn>
+          {recentlyEnded.length > 0 && (
+            <FadeIn delay={120}>
+              <div className={styles.historyFooter}>
+                <Link href="/auctions/history" className={styles.historyLink}>View auction history →</Link>
               </div>
             </FadeIn>
           )}
@@ -202,36 +194,6 @@ export default async function AuctionsPage() {
               </p>
             </div>
           </FadeIn>
-        )}
-
-        {endedItems.length > 0 && (
-          <section className={styles.section}>
-            <FadeIn delay={80}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Recently Ended</h2>
-              </div>
-            </FadeIn>
-            <div className={styles.grid}>
-              <FadeIn stagger>
-                {endedItems.map(a => <AuctionCard key={a.id} auction={a} />)}
-              </FadeIn>
-            </div>
-          </section>
-        )}
-
-        {recentlyEnded.length > 0 && (
-          <section className={styles.section}>
-            <FadeIn delay={100}>
-              <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>Past Auctions</h2>
-              </div>
-            </FadeIn>
-            <div className={styles.grid}>
-              <FadeIn stagger>
-                {recentlyEnded.map(a => <AuctionCard key={a.id} auction={a} />)}
-              </FadeIn>
-            </div>
-          </section>
         )}
 
         <FadeIn delay={120}>

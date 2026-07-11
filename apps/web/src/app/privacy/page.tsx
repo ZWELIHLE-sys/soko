@@ -1,4 +1,4 @@
-﻿import Navbar from '@/components/layout/Navbar'
+import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from '../legal.module.css'
@@ -14,6 +14,7 @@ const buyerData = [
   'Location — province, district and city (optional)',
   'Delivery address (for order fulfilment)',
   'Order and purchase history',
+  'Proof of payment uploads (for order verification)',
 ]
 
 const sellerData = [
@@ -21,30 +22,30 @@ const sellerData = [
   'Brand name and personal story (bio)',
   'Location — province, district and city',
   'Proof photos submitted during verification',
-  'Bank account details (for payouts)',
+  'Bank account details (shared with buyers for direct EFT payment)',
   'Product listings, descriptions and images',
 ]
 
 const purposes = [
-  ['To operate your account',  'Creating and managing your buyer or seller account on Vuna'],
-  ['To process orders',        'Facilitating purchases between buyers and sellers via PayFast'],
-  ['To arrange delivery',      'Sharing your delivery address with the seller for fulfilment. Vuna does not manage delivery — logistics are handled between buyer and seller'],
-  ['To pay sellers',           'Processing payouts to verified sellers using their banking details'],
-  ['To verify sellers',        'Reviewing seller applications to maintain the authenticity of the platform'],
-  ['To communicate with you',  'Sending order confirmations, updates, and platform notifications'],
-  ['For platform security',    'Detecting and preventing fraud, abuse and unauthorised access'],
+  ['To operate your account',   'Creating and managing your buyer or seller account on Vuna.'],
+  ['To connect buyer and seller','Sharing a seller’s banking details with a buyer at checkout so the buyer can pay the seller directly via EFT. Vuna does not process, hold or route any payment funds.'],
+  ['To verify payment',          'Storing the buyer’s proof-of-payment upload so the seller can confirm they received the EFT before fulfilling the order.'],
+  ['To arrange delivery',        'Sharing your delivery address with the seller so they can arrange delivery with you directly. Vuna does not manage, fulfil or insure delivery — the method, cost and timeframe are agreed between buyer and seller after payment is verified.'],
+  ['To verify sellers',          'Reviewing seller applications to maintain the authenticity of the platform.'],
+  ['To invoice commission',      'Recording seller sales so Vuna can calculate and invoice its monthly 5% platform commission from the seller.'],
+  ['To communicate with you',    'Sending order confirmations, updates, and platform notifications.'],
+  ['For platform security',      'Detecting and preventing fraud, abuse and unauthorised access.'],
 ]
 
 const partners = [
-  ['PayFast',    'Payment processing — buyer payment details for secure transaction completion'],
-  ['Cloudinary', 'Image storage — seller product photos and profile images'],
+  ['Cloudinary',  'Image storage — seller product photos, verification proof, and buyer proof-of-payment uploads.'],
 ]
 
 const security = [
   'Passwords are never stored in plain text — they are encrypted before saving',
   'All data sent between you and Vuna is encrypted in transit',
   'Database access is restricted and monitored',
-  'Banking details are stored with encryption and never displayed in full',
+  'Seller banking details are only revealed to buyers who have placed a real order with that seller — never public',
   'Sessions expire automatically for your protection',
 ]
 
@@ -64,7 +65,7 @@ export default function PrivacyPolicyPage() {
       <div className={styles.hero}>
         <div className={styles.heroEyebrow}>Legal</div>
         <h1 className={styles.heroTitle}>Privacy Policy</h1>
-        <p className={styles.heroSub}>Last updated: 1 June 2026</p>
+        <p className={styles.heroSub}>Last updated: 8 June 2026</p>
       </div>
 
       <div className={styles.body}>
@@ -73,9 +74,9 @@ export default function PrivacyPolicyPage() {
           <div className={styles.section}>
             <h2 className={styles.sectionHeading}>1. Who We Are</h2>
             <p className={styles.bodyText}>
-              Vuna is an African marketplace operated by <strong>Umzila-AfriRoute</strong>,
-              a technology and communication company based in Durban, KwaZulu-Natal.
-              We connect verified African creators with buyers across Africa and beyond.
+              Vuna is a local marketplace operated by <strong>Umzila-AfriRoute</strong>,
+              a technology and communications company based in Jolivet, Highflats, KwaZulu-Natal.
+              We connect verified local makers with buyers in their neighbourhoods and beyond.
             </p>
             <p className={styles.bodyText}>
               For privacy enquiries contact us at <strong>privacy@vunamarketplace.co.za</strong>
@@ -101,6 +102,11 @@ export default function PrivacyPolicyPage() {
         <FadeIn delay={60}>
           <div className={styles.section}>
             <h2 className={styles.sectionHeading}>3. Why We Collect It</h2>
+            <p className={styles.bodyText}>
+              <strong>Important — Vuna is not a payment processor.</strong> We do not accept,
+              hold, route or refund money on behalf of buyers or sellers. All money moves directly
+              between buyer and seller via EFT. What we collect is used only for the following purposes:
+            </p>
             {purposes.map(([purpose, description]) => (
               <div key={purpose} className={styles.purposeRow}>
                 <div className={styles.purposeKey}>{purpose}</div>
@@ -114,7 +120,8 @@ export default function PrivacyPolicyPage() {
           <div className={styles.section}>
             <h2 className={styles.sectionHeading}>4. Who We Share It With</h2>
             <p className={styles.bodyText}>
-              We do not sell your personal information. We share only what is necessary with these service providers:
+              We do not sell your personal information. We share only what is strictly necessary
+              with these service providers, and only for the purposes of running the platform:
             </p>
             {partners.map(([partner, purpose]) => (
               <div key={partner} className={styles.partnerRow}>
@@ -122,6 +129,11 @@ export default function PrivacyPolicyPage() {
                 <div className={styles.partnerVal}>{purpose}</div>
               </div>
             ))}
+            <p className={styles.bodyTextMt}>
+              Seller banking details are shared with a buyer <strong>only</strong> after that buyer has
+              placed an order with that seller. Vuna does not use, store or display those details for
+              any other purpose.
+            </p>
           </div>
         </FadeIn>
 

@@ -33,7 +33,7 @@ export default async function Testimonials() {
           <div className={styles.eyebrow}>Uvunile — You Have Reaped</div>
           <h2 className={styles.heading}>What our buyers say</h2>
           <p className={styles.sub}>
-            Real people. Real purchases. Real impact on African creators.
+            Real people. Real purchases. Real impact on local makers.
           </p>
         </FadeIn>
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, XCircle, Eye, Trophy, ShieldAlert, MapPin } from 'lucide-react'
+import { CheckCircle, XCircle, Eye, Trophy, ShieldAlert, MapPin, Trash2 } from 'lucide-react'
 import shared from '../../../admin.module.css'
 import styles from '../auctions.module.css'
 import type { AuctionItem, EventStatus } from '../_types'
@@ -11,9 +11,10 @@ interface Props {
   eventStatus: EventStatus
   onReview: (id: string, action: 'APPROVED' | 'CANCELLED') => void
   onViewBids: (item: AuctionItem) => void
+  onDelete: (id: string) => void
 }
 
-export function AuctionItemCard({ item, eventStatus, onReview, onViewBids }: Props) {
+export function AuctionItemCard({ item, eventStatus, onReview, onViewBids, onDelete }: Props) {
   const isc        = ITEM_STATUS_STYLE[item.status] ?? ITEM_STATUS_STYLE.PENDING
   const reserveMet = item.reservePrice != null && item.currentBid != null
     && item.currentBid >= item.reservePrice
@@ -127,18 +128,27 @@ export function AuctionItemCard({ item, eventStatus, onReview, onViewBids }: Pro
           <div className={styles.adminNote}>Admin note: {item.adminNote}</div>
         )}
 
-        {item.status === 'PENDING' && (
-          <div className={styles.itemActions}>
-            <button className={shared.btnSuccess}
-              onClick={() => onReview(item.id, 'APPROVED')}>
-              <CheckCircle size={14} /> Approve into Catalogue
-            </button>
-            <button className={shared.btnDanger}
-              onClick={() => onReview(item.id, 'CANCELLED')}>
-              <XCircle size={14} /> Reject
-            </button>
-          </div>
-        )}
+        <div className={styles.itemActions}>
+          {item.status === 'PENDING' && (
+            <>
+              <button className={shared.btnSuccess}
+                onClick={() => onReview(item.id, 'APPROVED')}>
+                <CheckCircle size={14} /> Approve into Catalogue
+              </button>
+              <button className={shared.btnDanger}
+                onClick={() => onReview(item.id, 'CANCELLED')}>
+                <XCircle size={14} /> Reject
+              </button>
+            </>
+          )}
+          <button
+            className={shared.btnDanger}
+            onClick={() => onDelete(item.id)}
+            title="Delete this auction item permanently (also clears its bids)"
+          >
+            <Trash2 size={14} /> Delete
+          </button>
+        </div>
       </div>
     </div>
   )

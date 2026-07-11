@@ -31,17 +31,21 @@
 }
 
 .brandIcon {
-  width: 40px;
+  position: relative;
+  width: 46px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.brandWordmark {
+  position: relative;
+  width: 108px;
   height: 40px;
-  background: #7C2D12;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FEF3C7;
-  font-family: Georgia, serif;
-  font-weight: 900;
-  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.brandLogo {
+  object-fit: contain;
 }
 
 .brandName {

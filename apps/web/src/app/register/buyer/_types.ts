@@ -6,7 +6,6 @@ export interface BuyerFormState {
   password:        string
   confirmPassword: string
   phone:           string
-  countryId:       string
   provinceId:      string
   districtId:      string
   locationId:      string
@@ -16,5 +15,5 @@ export interface BuyerFormState {
 export const EMPTY_FORM: BuyerFormState = {
   name: '', email: '', password: '', confirmPassword: '',
   phone: '',
-  countryId: '', provinceId: '', districtId: '', locationId: '', suburb: '',
+  provinceId: '', districtId: '', locationId: '', suburb: '',
 }

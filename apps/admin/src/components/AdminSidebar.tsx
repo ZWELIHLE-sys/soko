@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 import {
   LayoutDashboard, Users, Package, ShoppingBag,
   UserCheck, Wallet, Store, Gavel, MessageSquare,
-  Activity, LogOut, Star, Globe, Sparkles,
+  Activity, LogOut, Star, Sparkles, FileText, Settings,
 } from 'lucide-react'
 import styles from './sidebar.module.css'
 
@@ -23,13 +24,14 @@ const navItems = [
   { label: 'Orders',        href: '/orders',       Icon: ShoppingBag },
   { label: 'Buyers',        href: '/buyers',       Icon: Users },
   { label: 'Payouts',       href: '/payouts',      Icon: Wallet },
+  { label: 'Commissions',   href: '/commissions',  Icon: FileText },
   { label: 'Market',        href: '/market',       Icon: Store },
   { label: 'Auctions',      href: '/auctions',     Icon: Gavel },
   { label: 'Pieces',        href: '/pieces',       Icon: Sparkles },
   { label: 'Featured',      href: '/featured',     Icon: Star },
   { label: 'Testimonials',  href: '/testimonials', Icon: MessageSquare },
-  { label: 'Countries',     href: '/countries',    Icon: Globe },
   { label: 'Monitoring',    href: '/monitoring',   Icon: Activity },
+  { label: 'Settings',      href: '/settings',     Icon: Settings },
 ]
 
 export default function AdminSidebar({ user }: { user: AdminUser }) {
@@ -40,7 +42,9 @@ export default function AdminSidebar({ user }: { user: AdminUser }) {
       <div className={styles.strip} />
 
       <Link href="/" className={styles.brand}>
-        <div className={styles.brandMark}>V</div>
+        <div className={styles.brandMark}>
+          <Image src="/images/handlogo-mark.png" alt="Vuna" fill sizes="40px" className={styles.brandLogo} />
+        </div>
         <div>
           <div className={styles.brandName}>Vuna Admin</div>
           <div className={styles.brandSub}>CONTROL PANEL</div>

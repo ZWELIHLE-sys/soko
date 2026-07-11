@@ -31,19 +31,15 @@
   margin-bottom: 32px;
 }
 
-.logoIcon {
-  width: 52px;
-  height: 52px;
-  background: #7C2D12;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #FEF3C7;
-  font-size: 20px;
-  font-weight: 900;
-  font-family: Georgia, serif;
-  margin-bottom: 12px;
+.logoImgWrap {
+  position: relative;
+  width: 180px;
+  height: 148px;
+  margin: 0 auto 4px;
+}
+
+.logoImg {
+  object-fit: contain;
 }
 
 .logoTitle {

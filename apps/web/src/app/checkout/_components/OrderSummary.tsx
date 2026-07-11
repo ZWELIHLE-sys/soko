@@ -8,7 +8,7 @@ import styles from '../checkout.module.css'
 const SECURITY_ITEMS = [
   { Icon: Lock,       text: '256-bit SSL secured' },
   { Icon: BadgeCheck, text: 'PayFast certified' },
-  { Icon: Globe,      text: 'Supporting African creators' },
+  { Icon: Globe,      text: 'Supporting local makers' },
 ]
 
 interface Props {

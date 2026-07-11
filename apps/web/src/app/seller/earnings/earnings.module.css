@@ -41,8 +41,8 @@
 .summaryLabel { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 3px; }
 .summaryNote  { font-size: 12px; color: #9ca3af; }
 
-/* PayFast banner */
-.payfastBanner {
+/* EFT banner */
+.eftBanner {
   background:
     linear-gradient(rgba(28, 10, 0, 0.88), rgba(28, 10, 0, 0.88)),
     url('/images/uchansi.jpg')
@@ -52,7 +52,7 @@
   margin-bottom: 32px;
 }
 
-.payfastEyebrow {
+.eftEyebrow {
   font-size: 11px;
   font-weight: 600;
   color: #D97706;
@@ -61,7 +61,7 @@
   margin-bottom: 6px;
 }
 
-.payfastTitle {
+.eftTitle {
   font-family: Georgia, serif;
   font-size: 20px;
   font-weight: 700;
@@ -69,7 +69,7 @@
   margin-bottom: 10px;
 }
 
-.payfastText {
+.eftText {
   font-size: 13px;
   color: #A8A29E;
   line-height: 1.75;
@@ -77,14 +77,14 @@
   max-width: 560px;
 }
 
-.payfastSteps {
+.eftSteps {
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-bottom: 18px;
 }
 
-.payfastStep {
+.eftStep {
   display: flex;
   gap: 16px;
   align-items: flex-start;
@@ -109,13 +109,190 @@
 
 .stepDesc { font-size: 12px; color: #78716C; line-height: 1.5; }
 
-.payfastNote {
+.eftNote {
   display: flex;
   align-items: center;
   gap: 7px;
   font-size: 12px;
-  color: #57534E;
+  color: #A8A29E;
   font-style: italic;
+}
+
+.eftLink {
+  color: #D97706;
+  text-decoration: underline;
+}
+
+/* Commission card */
+.commissionCard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.commissionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.commissionIcon {
+  width: 36px;
+  height: 36px;
+  background: #fff7ed;
+  color: #7C2D12;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.commissionTitle {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.commissionSub {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.commissionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.commissionStat {
+  background: #FAFAF9;
+  border: 1px solid #f0ebe8;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.commissionStatOutstanding {
+  background: #FEF9C3;
+  border-color: #FDE68A;
+}
+
+.commissionStatPaid {
+  background: #D1FAE5;
+  border-color: #BBF7D0;
+}
+
+.commissionStatNum {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.commissionStatLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.commissionStatNote {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.commissionAlert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.commissionAllClear {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #065F46;
+  margin-bottom: 14px;
+}
+
+.invoiceList {
+  border-top: 1px solid #f0ebe8;
+  padding-top: 16px;
+  margin-top: 8px;
+}
+
+.invoiceListTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+.invoiceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: #FAFAF9;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.invoicePeriod {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.invoiceMeta {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.invoiceRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.invoiceBadgePaid {
+  font-size: 11px;
+  font-weight: 600;
+  color: #065F46;
+  background: #D1FAE5;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.invoiceBadgeDue {
+  font-size: 11px;
+  font-weight: 600;
+  color: #92400E;
+  background: #FEF3C7;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.invoiceAmount {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #7C2D12;
 }
 
 /* Sections */
@@ -242,7 +419,7 @@
 }
 
 @media (max-width: 640px) {
-  .payfastBanner { padding: 20px 18px; }
-  .payfastSteps  { gap: 12px; }
+  .eftBanner { padding: 20px 18px; }
+  .eftSteps  { gap: 12px; }
   .orderRight    { flex-direction: column; align-items: flex-end; gap: 4px; }
 }

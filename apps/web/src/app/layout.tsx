@@ -5,8 +5,8 @@ import CookieBanner from '@/components/layout/CookieBanner'
 
 
 export const metadata: Metadata = {
-  title: 'Vuna — Reap What Africa Makes',
-  description: "Africa's own marketplace. Every product African made, African owned.",
+  title: 'Vuna — Where Local Is Celebrated And Cherished',
+  description: "Your local marketplace. Every product locally made, Vuna verified.",
 }
 
 export default function RootLayout({

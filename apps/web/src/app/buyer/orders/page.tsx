@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
@@ -18,6 +18,8 @@ interface Order {
   deliveryTier: string
   trackingNumber: string | null
   createdAt: string
+  paymentProofUrl: string | null
+  paymentVerifiedAt: string | null
   seller: { brandName: string }
   items: {
     quantity: number
@@ -175,7 +177,7 @@ export default function BuyerOrdersPage() {
           <Package size={48} className={styles.emptyIcon} />
           <h2 className={styles.emptyTitle}>No orders yet</h2>
           <p className={styles.emptyText}>
-            Discover and support African creators — your first order is waiting.
+            Discover and support local makers — your first order is waiting.
           </p>
           <Link href="/shop" className={styles.emptyBtn}>
             Start Shopping <ArrowRight size={14} />
@@ -257,6 +259,13 @@ export default function BuyerOrdersPage() {
                       ? 'Arranged by seller'
                       : order.deliveryTier.replace(/_/g, ' ')}
                   </span>
+                  {order.status === 'PENDING' && !order.paymentVerifiedAt && (
+                    <Link href={`/buyer/orders/${order.id}/pay`} className={styles.payBtn}>
+                      {order.paymentProofUrl
+                        ? 'View Payment Status →'
+                        : 'Pay Now (EFT) →'}
+                    </Link>
+                  )}
                   {order.status === 'IN_TRANSIT' && (
                     <button
                       className={styles.confirmBtn}
@@ -267,7 +276,7 @@ export default function BuyerOrdersPage() {
                       {confirming === order.id ? 'Confirming...' : 'Confirm Delivery'}
                     </button>
                   )}
-                  {order.status !== 'IN_TRANSIT' && (
+                  {order.status !== 'IN_TRANSIT' && order.status !== 'PENDING' && (
                     <span className={styles.totalNote}>Total: R{order.totalAmount.toFixed(2)}</span>
                   )}
                 </div>

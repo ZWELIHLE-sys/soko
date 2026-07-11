@@ -31,9 +31,9 @@ const quickActions = [
 ]
 
 const impactItems = [
-  { Icon: Globe,     text: 'Supporting African livelihoods' },
-  { Icon: Handshake, text: 'Buying authentic African goods' },
-  { Icon: Sprout,    text: 'Growing the African economy' },
+  { Icon: Globe,     text: 'Supporting local livelihoods' },
+  { Icon: Handshake, text: 'Buying authentic local goods' },
+  { Icon: Sprout,    text: 'Growing the local economy' },
 ]
 
 export default function BuyerDashboard() {
@@ -63,7 +63,7 @@ export default function BuyerDashboard() {
             Welcome back, {session?.user?.name?.split(' ')[0]}
           </h1>
           <p className={styles.subtitle}>
-            Thank you for supporting African creators. Every purchase makes a difference.
+            Thank you for supporting local makers. Every purchase makes a difference.
           </p>
         </div>
       </FadeIn>
@@ -114,12 +114,12 @@ export default function BuyerDashboard() {
 
       <FadeIn delay={120}>
         <div className={styles.impact}>
-          <div className={styles.impactLabel}>Uvunile — You Have Reaped From Africa</div>
-          <h2 className={styles.impactTitle}>Every purchase empowers an African creator</h2>
+          <div className={styles.impactLabel}>Uvunile — You Have Reaped From Home</div>
+          <h2 className={styles.impactTitle}>Every purchase empowers an local maker</h2>
           <p className={styles.impactText}>
             When you buy on Vuna your money goes directly to the person
             who made, grew or built the product. No middlemen. No exploitation.
-            Just African work, fairly paid.
+            Just local work, fairly paid.
           </p>
           <div className={styles.impactItems}>
             {impactItems.map(({ Icon, text }) => (

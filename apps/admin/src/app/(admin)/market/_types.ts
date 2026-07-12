@@ -41,14 +41,16 @@ export interface Market {
   listings:            { id: string }[]
 }
 
+// Two market flavours — the DAY they run is entirely the admin's choice.
+// Sunday/Friday rhythms are an operating tradition, never a system rule.
 export const TYPE_LABEL: Record<MarketType, string> = {
-  SUNDAY_MARKET:       'Sunday Vuna Market',
-  FRIDAY_NIGHT_MARKET: 'Friday Night Market',
+  SUNDAY_MARKET:       'Vuna Day Market',
+  FRIDAY_NIGHT_MARKET: 'Vuna Night Market',
 }
 
 export const TYPE_TIMES: Record<MarketType, string> = {
-  SUNDAY_MARKET:       '8:00 AM – 6:00 PM · Weekly',
-  FRIDAY_NIGHT_MARKET: '5:00 PM – 11:00 PM · Monthly (last Friday)',
+  SUNDAY_MARKET:       'Daytime event — you choose the date & hours',
+  FRIDAY_NIGHT_MARKET: 'Evening event — you choose the date & hours',
 }
 
 export const TYPE_COLOR: Record<MarketType, { color: string; bg: string }> = {

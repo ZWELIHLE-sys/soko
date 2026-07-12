@@ -339,7 +339,7 @@ export default function NewPiecePage() {
 
         <p className={styles.disclaimer}>
           Once submitted, admin will review your piece and assign it to an upcoming
-          Sunday Market. You will see updates here as the piece moves through the journey.
+          market day. You will see updates here as the piece moves through the journey.
         </p>
       </form>
     </div>

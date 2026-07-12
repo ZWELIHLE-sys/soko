@@ -41,7 +41,7 @@ export function CreateMarketForm({ form, saving, error, onFormChange, onCreate, 
             className={shared.formInput}
             value={form.title}
             onChange={e => onFormChange({ title: e.target.value })}
-            placeholder="e.g. Sunday Vuna Market — 1 June 2026"
+            placeholder="e.g. Vuna Day Market — 16 August 2026"
           />
         </div>
         <div className={shared.formGroup}>

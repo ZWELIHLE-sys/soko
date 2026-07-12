@@ -11,6 +11,7 @@ interface Announcement {
   message: string
   link: string | null
   kind: string
+  channel: string
   expiresAt: string | null
   createdAt: string
 }
@@ -119,9 +120,10 @@ export default function LiveBanner() {
 
   if (!data) return null
 
-  // On air = not expired; expired ones stay in the day's feed, not the strip
+  // The strip is the marketing mic: Everywhere announcements only.
+  // Market/auction/shop moments stay inside their own rooms' feeds.
   const onAir = (data.announcements ?? []).filter(
-    a => !a.expiresAt || new Date(a.expiresAt).getTime() > now,
+    a => a.channel === 'GLOBAL' && (!a.expiresAt || new Date(a.expiresAt).getTime() > now),
   )
 
   // MC speaks first; drumbeat carries the room between announcements

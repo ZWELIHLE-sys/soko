@@ -1,5 +1,5 @@
 import {
-  Megaphone, PartyPopper, Store, AlarmClock, Gavel,
+  Megaphone, PartyPopper, Store, AlarmClock, Gavel, Sunset,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -10,6 +10,7 @@ export const KIND_ICONS: Record<string, LucideIcon> = {
   SPOTLIGHT:   Store,
   LAST_CHANCE: AlarmClock,
   HAMMER:      Gavel,
+  CLOSING:     Sunset,
 }
 
 export function kindIcon(kind: string): LucideIcon {

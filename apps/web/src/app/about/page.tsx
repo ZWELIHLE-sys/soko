@@ -44,7 +44,7 @@ const vunaRoles = [
   {
     Icon: Calendar,
     title: 'The Stage Host',
-    desc: 'Sunday Markets. Monday Auctions. Friday Night Markets. We create the events that pull buyers in and give sellers their moment. The market is not always open — that is the magic.',
+    desc: 'Market days. Auction days. Night markets. We create the events that pull buyers in and give sellers their moment. The market is not always open — that is the magic.',
   },
   {
     Icon: Sparkles,

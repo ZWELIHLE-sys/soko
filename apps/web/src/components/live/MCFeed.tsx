@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Radio, ArrowRight } from 'lucide-react'
+import { Radio, ArrowRight, Sunset } from 'lucide-react'
 import { kindIcon } from './liveIcons'
 import styles from './MCFeed.module.css'
 
@@ -12,11 +12,14 @@ interface Announcement {
   link: string | null
   kind: string
   channel: string
+  marketId: string | null
+  auctionEventId: string | null
   expiresAt: string | null
   createdAt: string
 }
 
 interface EventDates {
+  id: string
   startDate?: string
   endDate?: string
   biddingStartDate?: string
@@ -31,9 +34,10 @@ interface LiveData {
 
 const POLL_MS = 20_000
 
-// The MC's stage inside the venue: every moment of the day, newest first.
-// Each room hears its own channel plus GLOBAL; renders nothing when there
-// is no live event and nothing has been said.
+// The MC's stage inside the venue. Market and auction feeds are anchored to the
+// ACTUAL event the page is showing — only that event's announcements appear,
+// and after the event ends the room shows its formal close until the closing
+// window passes. The shop room hears the SHOP channel (no event structure).
 export default function MCFeed({ channel }: { channel: 'MARKET' | 'AUCTION' | 'SHOP' }) {
   const [data, setData] = useState<LiveData | null>(null)
   const [now, setNow] = useState(() => Date.now())
@@ -54,20 +58,34 @@ export default function MCFeed({ channel }: { channel: 'MARKET' | 'AUCTION' | 'S
 
   const m = data.nextMarket
   const a = data.nextAuction
-  const marketLive = !!(m?.startDate && m?.endDate &&
-    now >= new Date(m.startDate).getTime() && now <= new Date(m.endDate).getTime())
-  const auctionLive = !!(a?.biddingStartDate && a?.biddingEndDate &&
-    now >= new Date(a.biddingStartDate).getTime() && now <= new Date(a.biddingEndDate).getTime())
-  // ON AIR means THIS room's event is running, not any event on the platform.
-  // The shop has no scheduled event — its feed only appears once the MC speaks to it.
-  const eventLive =
-    channel === 'MARKET'  ? marketLive :
-    channel === 'AUCTION' ? auctionLive :
-    false
 
-  const moments = (data.announcements ?? []).filter(
-    ann => ann.channel === channel || ann.channel === 'GLOBAL',
-  )
+  // This room's event and its life state
+  let eventLive = false
+  let eventClosed = false
+  let moments: Announcement[] = []
+
+  if (channel === 'MARKET') {
+    if (!m) return null
+    moments = (data.announcements ?? []).filter(ann => ann.marketId === m.id)
+    if (m.startDate && m.endDate) {
+      const start = new Date(m.startDate).getTime()
+      const end = new Date(m.endDate).getTime()
+      eventLive = now >= start && now <= end
+      eventClosed = now > end
+    }
+  } else if (channel === 'AUCTION') {
+    if (!a) return null
+    moments = (data.announcements ?? []).filter(ann => ann.auctionEventId === a.id)
+    if (a.biddingStartDate && a.biddingEndDate) {
+      const start = new Date(a.biddingStartDate).getTime()
+      const end = new Date(a.biddingEndDate).getTime()
+      eventLive = now >= start && now <= end
+      eventClosed = now > end
+    }
+  } else {
+    moments = (data.announcements ?? []).filter(ann => ann.channel === 'SHOP')
+  }
+
   if (!eventLive && moments.length === 0) return null
 
   const isOnAir = (ann: Announcement) =>
@@ -84,6 +102,11 @@ export default function MCFeed({ channel }: { channel: 'MARKET' | 'AUCTION' | 'S
         {eventLive && (
           <span className={styles.onAirBadge}>
             <span className={styles.liveDot} /> ON AIR
+          </span>
+        )}
+        {eventClosed && (
+          <span className={styles.closedBadge}>
+            <Sunset size={11} /> EVENT CLOSED
           </span>
         )}
       </div>

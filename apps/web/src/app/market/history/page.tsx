@@ -17,8 +17,8 @@ function fmtShort(d: Date) {
 }
 
 const MARKET_TYPE_LABEL: Record<string, string> = {
-  SUNDAY_MARKET:      'Sunday Market',
-  FRIDAY_NIGHT_MARKET: 'Friday Night Market',
+  SUNDAY_MARKET:      'Day Market',
+  FRIDAY_NIGHT_MARKET: 'Night Market',
 }
 
 export default async function MarketHistoryPage() {

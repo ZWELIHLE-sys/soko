@@ -108,7 +108,7 @@ export default function SellerPiecesPage() {
           <Sparkles size={40} className={styles.emptyIcon} />
           <h2 className={styles.emptyTitle}>No special pieces yet</h2>
           <p className={styles.emptyText}>
-            Submit a special piece to enter the Vuna journey — Market debut, Monday auction,
+            Submit a special piece to enter the Vuna journey — Market debut, then the auction,
             then Shop listing if unsold. Choose pieces that deserve the spotlight.
           </p>
           <Link href="/seller/pieces/new" className={styles.emptyBtn}>
@@ -140,7 +140,7 @@ export default function SellerPiecesPage() {
                   <div className={styles.category}>{piece.category.name}</div>
                   <p className={styles.stageSub}>
                     {piece.currentStage === 'MARKET' && piece.marketListings.length === 0
-                      ? 'Submitted. Waiting for admin to assign your piece to a Sunday Market.'
+                      ? 'Submitted. Waiting for admin to assign your piece to an upcoming market day.'
                       : cfg.sub}
                   </p>
 

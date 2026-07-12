@@ -229,3 +229,56 @@
 }
 
 .endBtn:hover { background: #FEF2F2; }
+
+/* ── Event mic states ── */
+.headerEvent {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.stateBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.stateUPCOMING { background: #FEF3C7; color: #92400E; }
+.stateLIVE     { background: #D1FAE5; color: #065F46; }
+.stateCLOSING  { background: #FFE4E6; color: #9F1239; }
+
+.stateBadge + .onAir { margin-left: 8px; }
+
+.micOff {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: #FAFAF9;
+  border: 1px dashed #d1d5db;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.channelNote {
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
+  align-self: center;
+}
+
+.templateChipUrgent {
+  border-color: #9F1239;
+  background: #FFF1F2;
+  color: #9F1239;
+  font-weight: 600;
+}

@@ -165,11 +165,19 @@ model Announcement {
   id        String    @id @default(cuid())
   message   String
   link      String?   // optional CTA link e.g. /market or /product/xyz
-  kind      String    @default("GENERAL") // GENERAL | SPOTLIGHT | LAST_CHANCE | HAMMER | WELCOME
+  kind      String    @default("GENERAL") // GENERAL | SPOTLIGHT | LAST_CHANCE | HAMMER | WELCOME | CLOSING
   channel   String    @default("GLOBAL")  // GLOBAL | MARKET | AUCTION | SHOP — which room hears it (agri gets its own later)
   isActive  Boolean   @default(true)      // shown in the live banner while active
   expiresAt DateTime? // optional auto-expiry
   createdAt DateTime  @default(now())
+
+  // Event anchoring — a market/auction announcement belongs to a SPECIFIC event,
+  // displays only on that event's page, and dies with the event (after the
+  // formal closing window). GLOBAL/SHOP announcements carry no event.
+  marketId       String?
+  market         Market?       @relation(fields: [marketId], references: [id])
+  auctionEventId String?
+  auctionEvent   AuctionEvent? @relation(fields: [auctionEventId], references: [id])
 
   // Optional: tie an MC moment to a piece so its journey page can replay "this happened"
   pieceId   String?
@@ -177,6 +185,8 @@ model Announcement {
 
   @@index([isActive, createdAt])
   @@index([channel, isActive])
+  @@index([marketId, isActive])
+  @@index([auctionEventId, isActive])
 }
 
 model FeaturedMaker {
@@ -597,7 +607,8 @@ model Market {
   makerInResidenceId  String?
   makerInResident     Seller?    @relation("MarketMakerInResidence", fields: [makerInResidenceId], references: [id])
 
-  listings  MarketListing[]
+  listings      MarketListing[]
+  announcements Announcement[]  // MC moments spoken into this market event
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -666,6 +677,7 @@ model AuctionEvent {
   isActive           Boolean            @default(true)
 
   items              Auction[]
+  announcements      Announcement[]     // MC moments spoken into this auction event
 
   createdAt          DateTime           @default(now())
   updatedAt          DateTime           @updatedAt

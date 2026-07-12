@@ -20,8 +20,9 @@ export function CreateEventForm({ form, saving, error, onFormChange, onCreate, o
     <div className={`${shared.card} ${styles.createForm}`}>
       <h2 className={shared.cardTitle}>Create Auction Event</h2>
       <p className={styles.createNote}>
-        Monday Vuna Auction runs every Monday 12:00 PM – 8:00 PM.
-        One-of-a-kind pieces only. Set the dates below and sellers can submit items immediately.
+        You choose the dates — the journey order is what matters: pieces show at a market first
+        (the viewing), then the hammer lifts here. One-of-a-kind pieces only. Set the dates below
+        and sellers can submit items immediately.
       </p>
       <div className={styles.formGrid}>
         <div className={shared.formGroup}>

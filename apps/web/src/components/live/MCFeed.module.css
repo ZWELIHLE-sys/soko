@@ -134,3 +134,17 @@
   .stage { padding: 16px; }
   .momentTime { display: none; }
 }
+
+.closedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #9F1239;
+  background: #FFE4E6;
+  padding: 3px 10px;
+  border-radius: 12px;
+}

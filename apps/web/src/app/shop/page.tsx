@@ -1,5 +1,7 @@
 import { prisma } from '@vuna/db'
 import Navbar from '@/components/layout/Navbar'
+import LiveBanner from '@/components/live/LiveBanner'
+import MCFeed from '@/components/live/MCFeed'
 import Footer from '@/components/layout/Footer'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -49,9 +51,9 @@ const categoryIconsSmall: Record<string, React.ReactNode> = {
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string; locationId?: string }>
+  searchParams: Promise<{ category?: string; q?: string; locationId?: string; seller?: string }>
 }) {
-  const { category: categorySlug, q, locationId } = await searchParams
+  const { category: categorySlug, q, locationId, seller: sellerId } = await searchParams
 
   const category = categorySlug
     ? await prisma.category.findUnique({ where: { slug: categorySlug } })
@@ -68,6 +70,7 @@ export default async function ShopPage({
         ],
       } : {}),
       ...(locationId ? { locationId } : {}),
+      ...(sellerId ? { sellerId } : {}),
     },
     orderBy: { createdAt: 'desc' },
     include: {
@@ -85,6 +88,7 @@ export default async function ShopPage({
   return (
     <div className={styles.page}>
       <Navbar />
+      <LiveBanner />
 
       <div className={styles.hero}>
         <div className={styles.heroInner}>
@@ -124,6 +128,9 @@ export default async function ShopPage({
 
       <FadeIn>
       <div className={styles.inner}>
+        {/* Shop-room MC moments — "just off the hammer" drops land here */}
+        <MCFeed channel="SHOP" />
+
         {products.length === 0 ? (
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>

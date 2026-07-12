@@ -7,7 +7,7 @@ import Image from 'next/image'
 import {
   LayoutDashboard, Users, Package, ShoppingBag,
   UserCheck, Store, Gavel, MessageSquare,
-  Activity, LogOut, Star, Sparkles, FileText, Settings,
+  Activity, LogOut, Star, Sparkles, FileText, Settings, Radio,
 } from 'lucide-react'
 import styles from './sidebar.module.css'
 
@@ -19,6 +19,7 @@ interface AdminUser {
 
 const navItems = [
   { label: 'Dashboard',     href: '/dashboard',    Icon: LayoutDashboard },
+  { label: 'Live MC',       href: '/live',         Icon: Radio },
   { label: 'Sellers',       href: '/sellers',      Icon: UserCheck },
   { label: 'Products',      href: '/products',     Icon: Package },
   { label: 'Orders',        href: '/orders',       Icon: ShoppingBag },

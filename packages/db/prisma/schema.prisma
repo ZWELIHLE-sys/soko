@@ -147,10 +147,49 @@ model Seller {
   auctions       Auction[]
   pieces         Piece[]
   commissionInvoices CommissionInvoice[]
+  featuredMakerSpots FeaturedMaker[]
   makerInResidenceMarkets Market[] @relation("MarketMakerInResidence")
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+}
+
+// ================================
+// LIVE ENERGY — Admin as live MC
+// Announcements fire instantly onto the live banner across the platform.
+// FeaturedMaker is the weekly spotlight (the PR trade: seller donates a
+// welcome piece, gets a week of amplification on the homepage).
+// ================================
+
+model Announcement {
+  id        String    @id @default(cuid())
+  message   String
+  link      String?   // optional CTA link e.g. /market or /product/xyz
+  kind      String    @default("GENERAL") // GENERAL | SPOTLIGHT | LAST_CHANCE | HAMMER | WELCOME
+  channel   String    @default("GLOBAL")  // GLOBAL | MARKET | AUCTION | SHOP — which room hears it (agri gets its own later)
+  isActive  Boolean   @default(true)      // shown in the live banner while active
+  expiresAt DateTime? // optional auto-expiry
+  createdAt DateTime  @default(now())
+
+  // Optional: tie an MC moment to a piece so its journey page can replay "this happened"
+  pieceId   String?
+  piece     Piece?    @relation(fields: [pieceId], references: [id])
+
+  @@index([isActive, createdAt])
+  @@index([channel, isActive])
+}
+
+model FeaturedMaker {
+  id             String   @id @default(cuid())
+  sellerId       String
+  seller         Seller   @relation(fields: [sellerId], references: [id])
+  note           String?  // admin's one-liner: why this maker, this week
+  welcomeProductId String? // the donated welcome piece (optional)
+  isActive       Boolean  @default(true) // only one active at a time (enforced in service)
+  weekStart      DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  @@index([isActive])
 }
 
 // ================================
@@ -291,6 +330,9 @@ model Order {
   commissionInvoiceId String?
   commissionInvoice   CommissionInvoice? @relation(fields: [commissionInvoiceId], references: [id])
 
+  // Live energy — set when this order was among the first 3 placed during a live market day
+  firstThreeMarketId String?
+
   // Who bought
   buyerId        String
   buyer          User         @relation(fields: [buyerId], references: [id])
@@ -413,6 +455,7 @@ model Review {
 enum PieceStage {
   MARKET      // Currently in a market event
   AUCTION     // Currently in an auction event
+  FEATURED    // Victory lap: homepage featured spotlight (time-boxed), buyable, auto-lands in SHOP on expiry
   SHOP        // Available in shop (post-auction, unsold or buy-it-now)
   SOLD        // Sold — to auction winner or shop buyer
   RETIRED     // Seller pulled the piece from the journey
@@ -435,6 +478,7 @@ model Piece {
   marketListings  MarketListing[]
   auctions        Auction[]
   products        Product[]
+  announcements   Announcement[]  // MC moments about this piece across its journey
 
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt

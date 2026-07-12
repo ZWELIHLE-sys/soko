@@ -10,7 +10,30 @@ export async function tickEventLifecycle() {
   await Promise.all([
     tickAuctionEvents(now),
     tickMarketApplications(now),
+    tickFeaturedPieces(now),
   ])
+}
+
+// FEATURED → SHOP: when a piece's homepage spotlight window has expired,
+// it settles into a normal shop listing (in its own category) automatically.
+// The product itself doesn't change — the piece just steps off the homepage.
+async function tickFeaturedPieces(now: Date) {
+  const landed = await prisma.piece.findMany({
+    where: {
+      currentStage: 'FEATURED',
+      products: {
+        none: { featuredListing: { expiresAt: { gt: now } } },
+      },
+    },
+    select: { id: true },
+  })
+
+  if (landed.length > 0) {
+    await prisma.piece.updateMany({
+      where: { id: { in: landed.map(p => p.id) } },
+      data:  { currentStage: 'SHOP' },
+    })
+  }
 }
 
 async function tickAuctionEvents(now: Date) {

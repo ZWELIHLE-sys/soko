@@ -11,6 +11,7 @@ import { MarketCard } from './_components/MarketCard'
 import { ReviewModal } from './_components/ReviewModal'
 import { MirModal } from './_components/MirModal'
 import { AdminLocationFilter } from '@/components/AdminLocationFilter'
+import LiveMCComposer from '@/components/LiveMCComposer'
 
 export default function AdminMarketPage() {
   const [markets, setMarkets]         = useState<Market[]>([])
@@ -155,6 +156,12 @@ export default function AdminMarketPage() {
           <Plus size={14} /> New Market
         </button>
       </div>
+
+      <LiveMCComposer
+        channel="MARKET"
+        collapsible
+        subtitle="Speak to everyone on the market floor — announcements land on the market page instantly"
+      />
 
       <div className={styles.typeLegend}>
         {(['SUNDAY_MARKET', 'FRIDAY_NIGHT_MARKET'] as const).map(t => (

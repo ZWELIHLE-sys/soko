@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { prisma } from '@vuna/db'
-import { Sprout, MapPin, ShieldCheck } from 'lucide-react'
+import { prisma, tickEventLifecycle } from '@vuna/db'
+import { Sprout, MapPin, ShieldCheck, Gavel } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './FeaturedProducts.module.css'
 
 async function getFeaturedProducts() {
+  // Settles expired victory laps (FEATURED → SHOP) before we read the spotlight
+  await tickEventLifecycle()
   const now = new Date()
   const listings = await prisma.featuredListing.findMany({
     where: { expiresAt: { gte: now } },
@@ -75,10 +77,17 @@ export default async function FeaturedProducts() {
                         <ShieldCheck size={10} /> Vuna
                       </span>
                     )}
+                    {product.pieceId && (
+                      <span className={styles.hammerBadge}>
+                        <Gavel size={10} /> Off the Hammer
+                      </span>
+                    )}
                   </div>
                   <div className={styles.info}>
                     <div className={styles.productName}>{product.name}</div>
-                    <div className={styles.sellerName}>by {product.seller.brandName}</div>
+                    <div className={styles.sellerName}>
+                      by {product.seller.brandName} · {product.category.name}
+                    </div>
                     <div className={styles.priceRow}>
                       <span className={styles.price}>R{product.price.toFixed(2)}</span>
                       <span className={styles.location}>

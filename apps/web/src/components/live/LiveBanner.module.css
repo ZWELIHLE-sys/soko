@@ -1,0 +1,74 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* MC announcement / live state — brand terracotta, cream text */
+.mc {
+  background: #7C2D12;
+  color: #FEF3C7;
+}
+
+.mc:hover { background: #6b2610; }
+
+/* Drumbeat — quieter amber build-up strip */
+.drumbeat {
+  background: #FEF3C7;
+  color: #7C2D12;
+  border-bottom: 1px solid #FDE68A;
+  font-weight: 500;
+}
+
+.drumbeat:hover { background: #FDE68A; }
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: #4ADE80;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+  0%   { box-shadow: 0 0 0 0   rgba(74, 222, 128, 0.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);   }
+  100% { box-shadow: 0 0 0 0   rgba(74, 222, 128, 0);   }
+}
+
+.mcTag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: rgba(254, 243, 199, 0.18);
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.message {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  animation: msgIn 0.35s ease;
+}
+
+.msgIcon { flex-shrink: 0; }
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.arrow { flex-shrink: 0; }
+
+@media (max-width: 640px) {
+  .banner { font-size: 12px; padding: 8px 12px; }
+}

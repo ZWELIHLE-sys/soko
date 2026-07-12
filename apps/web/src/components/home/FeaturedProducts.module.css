@@ -145,6 +145,22 @@
   gap: 3px;
 }
 
+/* Journey pieces on their victory lap — fresh from the auction floor */
+.hammerBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
 .info {
   padding: 12px 14px;
 }

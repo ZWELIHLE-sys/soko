@@ -11,6 +11,7 @@ import { EventCard } from './_components/EventCard'
 import { ItemReviewModal } from './_components/ItemReviewModal'
 import { BidHistoryModal } from './_components/BidHistoryModal'
 import { AdminLocationFilter } from '@/components/AdminLocationFilter'
+import LiveMCComposer from '@/components/LiveMCComposer'
 
 export default function AdminAuctionsPage() {
   const [events, setEvents]         = useState<AuctionEvent[]>([])
@@ -151,6 +152,12 @@ export default function AdminAuctionsPage() {
           <Plus size={14} /> New Auction Event
         </button>
       </div>
+
+      <LiveMCComposer
+        channel="AUCTION"
+        collapsible
+        subtitle="Speak to the auction room — piece spotlights, last calls, hammer moments"
+      />
 
       {showCreate && (
         <CreateEventForm

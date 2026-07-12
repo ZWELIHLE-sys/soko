@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Gavel, Store, Package, CheckCircle2, XCircle, Sparkles, AlertTriangle, Plus } from 'lucide-react'
+import { Gavel, Store, Package, CheckCircle2, XCircle, Sparkles, AlertTriangle, Plus, Star } from 'lucide-react'
 import styles from './pieces.module.css'
 
-type Stage = 'MARKET' | 'AUCTION' | 'SHOP' | 'SOLD' | 'RETIRED'
+type Stage = 'MARKET' | 'AUCTION' | 'FEATURED' | 'SHOP' | 'SOLD' | 'RETIRED'
 
 interface Piece {
   id:           string
@@ -22,11 +22,12 @@ interface Piece {
 }
 
 const STAGE_STYLE: Record<Stage, { bg: string; color: string; label: string; Icon: React.ElementType; sub: string }> = {
-  MARKET:  { bg: '#FFEDD5', color: '#9A3412', label: 'In Market',  Icon: Store,        sub: 'Currently showing at a Vuna market.' },
-  AUCTION: { bg: '#FEF9C3', color: '#92400E', label: 'In Auction', Icon: Gavel,        sub: 'Up for bidding right now. Cannot be retired during active bidding.' },
-  SHOP:    { bg: '#D1FAE5', color: '#065F46', label: 'In Shop',    Icon: Package,      sub: 'Available for direct purchase in the shop.' },
-  SOLD:    { bg: '#DCFCE7', color: '#14532D', label: 'Sold',       Icon: CheckCircle2, sub: 'This piece has been sold. Sivunile.' },
-  RETIRED: { bg: '#F3F4F6', color: '#6B7280', label: 'Retired',    Icon: XCircle,      sub: 'You retired this piece from the journey.' },
+  MARKET:   { bg: '#FFEDD5', color: '#9A3412', label: 'In Market',  Icon: Store,        sub: 'Currently showing at a Vuna market.' },
+  AUCTION:  { bg: '#FEF9C3', color: '#92400E', label: 'In Auction', Icon: Gavel,        sub: 'Up for bidding right now. Cannot be retired during active bidding.' },
+  FEATURED: { bg: '#FDE68A', color: '#7C2D12', label: 'Featured',   Icon: Star,         sub: 'On the Vuna homepage spotlight — buyable now, settles into the shop when the feature ends.' },
+  SHOP:     { bg: '#D1FAE5', color: '#065F46', label: 'In Shop',    Icon: Package,      sub: 'Available for direct purchase in the shop.' },
+  SOLD:     { bg: '#DCFCE7', color: '#14532D', label: 'Sold',       Icon: CheckCircle2, sub: 'This piece has been sold. Sivunile.' },
+  RETIRED:  { bg: '#F3F4F6', color: '#6B7280', label: 'Retired',    Icon: XCircle,      sub: 'You retired this piece from the journey.' },
 }
 
 const CAN_RETIRE: Stage[] = ['MARKET', 'SHOP']
@@ -64,11 +65,12 @@ export default function SellerPiecesPage() {
   }
 
   const counts = {
-    MARKET:  pieces.filter(p => p.currentStage === 'MARKET').length,
-    AUCTION: pieces.filter(p => p.currentStage === 'AUCTION').length,
-    SHOP:    pieces.filter(p => p.currentStage === 'SHOP').length,
-    SOLD:    pieces.filter(p => p.currentStage === 'SOLD').length,
-    RETIRED: pieces.filter(p => p.currentStage === 'RETIRED').length,
+    MARKET:   pieces.filter(p => p.currentStage === 'MARKET').length,
+    AUCTION:  pieces.filter(p => p.currentStage === 'AUCTION').length,
+    FEATURED: pieces.filter(p => p.currentStage === 'FEATURED').length,
+    SHOP:     pieces.filter(p => p.currentStage === 'SHOP').length,
+    SOLD:     pieces.filter(p => p.currentStage === 'SOLD').length,
+    RETIRED:  pieces.filter(p => p.currentStage === 'RETIRED').length,
   }
 
   return (
@@ -92,6 +94,7 @@ export default function SellerPiecesPage() {
         <div className={styles.statRow}>
           <div className={styles.stat}><Store size={12} /> {counts.MARKET} in market</div>
           <div className={styles.stat}><Gavel size={12} /> {counts.AUCTION} in auction</div>
+          {counts.FEATURED > 0 && <div className={styles.stat}><Star size={12} /> {counts.FEATURED} featured</div>}
           <div className={styles.stat}><Package size={12} /> {counts.SHOP} in shop</div>
           <div className={styles.stat}><CheckCircle2 size={12} /> {counts.SOLD} sold</div>
           {counts.RETIRED > 0 && <div className={styles.stat}><XCircle size={12} /> {counts.RETIRED} retired</div>}

@@ -8,7 +8,7 @@ import Image from 'next/image'
 import {
   ChevronRight, ArrowLeft, MapPin, BadgeCheck,
   ShoppingCart, CheckCircle, AlertTriangle, PackageX, Handshake, Globe,
-  Sparkles, Store, Gavel
+  Sparkles, Store, Gavel, Star
 } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -25,7 +25,7 @@ interface Review {
 interface PieceJourney {
   id: string
   title: string
-  currentStage: 'MARKET' | 'AUCTION' | 'SHOP' | 'SOLD' | 'RETIRED'
+  currentStage: 'MARKET' | 'AUCTION' | 'FEATURED' | 'SHOP' | 'SOLD' | 'RETIRED'
   createdAt: string
   marketListings: { id: string; market: { id: string; title: string; startDate: string; endDate: string } }[]
   auctions: {
@@ -334,13 +334,25 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
               ))}
-              <div className={styles.journeyStep}>
-                <div className={`${styles.journeyDot} ${styles.journeyDotCurrent}`}><CheckCircle size={11} /></div>
-                <div className={styles.journeyStepBody}>
-                  <div className={styles.journeyStepTitle}>Now available in shop</div>
-                  <div className={styles.journeyStepMeta}>You can buy it directly today.</div>
+              {product.piece.currentStage === 'FEATURED' ? (
+                <div className={styles.journeyStep}>
+                  <div className={`${styles.journeyDot} ${styles.journeyDotCurrent}`}><Star size={11} /></div>
+                  <div className={styles.journeyStepBody}>
+                    <div className={styles.journeyStepTitle}>Featured on the Vuna homepage</div>
+                    <div className={styles.journeyStepMeta}>
+                      Taking its victory lap right now — you can buy it today before it settles into the shop.
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className={styles.journeyStep}>
+                  <div className={`${styles.journeyDot} ${styles.journeyDotCurrent}`}><CheckCircle size={11} /></div>
+                  <div className={styles.journeyStepBody}>
+                    <div className={styles.journeyStepTitle}>Now available in shop</div>
+                    <div className={styles.journeyStepMeta}>You can buy it directly today.</div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           </FadeIn>

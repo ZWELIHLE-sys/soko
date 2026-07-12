@@ -47,6 +47,17 @@
   color: #D97706;
   font-weight: 600;
 }
+
+.eyebrowLiveDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #16a34a;
+  border-radius: 50%;
+  margin-right: 7px;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.25);
+  animation: pulse 2s ease infinite;
+}
 .heroTitle {
   font-family: Georgia, serif;
   font-size: clamp(28px, 5vw, 46px);

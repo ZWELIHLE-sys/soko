@@ -1,0 +1,231 @@
+.wrap {
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.headerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #7C2D12;
+  color: #FEF3C7;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.headerSub {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 1px;
+}
+
+.onAir {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: #065F46;
+  background: #D1FAE5;
+  padding: 3px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.chevron {
+  color: #9ca3af;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.chevronOpen { transform: rotate(180deg); }
+
+.header .onAir + .chevron { margin-left: 8px; }
+
+.body {
+  margin-top: 16px;
+}
+
+.channelRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0ebe8;
+}
+
+.channelChip {
+  padding: 6px 14px;
+  background: #FAFAF9;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.channelChipActive {
+  background: #7C2D12;
+  border-color: #7C2D12;
+  color: #FEF3C7;
+}
+
+.templates {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.templateChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: #FAFAF9;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #374151;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.templateChip:hover {
+  border-color: #7C2D12;
+  background: #fff7ed;
+}
+
+.charCount {
+  font-size: 11px;
+  color: #9ca3af;
+  text-align: right;
+  margin: 4px 0 10px;
+}
+
+.composerRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.errorMsg,
+.successMsg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.errorMsg   { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+.successMsg { background: #D1FAE5; color: #065F46; border: 1px solid #BBF7D0; }
+
+.activeList {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0ebe8;
+}
+
+.activeLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #065F46;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: #16A34A;
+  border-radius: 50%;
+  display: inline-block;
+  animation: mcPulse 2s infinite;
+}
+
+@keyframes mcPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(22, 163, 74, 0.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(22, 163, 74, 0);   }
+  100% { box-shadow: 0 0 0 0   rgba(22, 163, 74, 0);   }
+}
+
+.activeRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.channelBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #7C2D12;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.activeMsg {
+  font-size: 13px;
+  color: #14532D;
+  flex: 1;
+}
+
+.endBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  background: #fff;
+  border: 1px solid #FECACA;
+  border-radius: 6px;
+  color: #991B1B;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.endBtn:hover { background: #FEF2F2; }

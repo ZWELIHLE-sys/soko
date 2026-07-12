@@ -29,6 +29,7 @@ export { tickEventLifecycle } from './lifecycle'
 export {
   assignPieceToMarket,
   movePieceToAuction,
+  movePieceToFeatured,
   movePieceToShop,
   markPieceSold,
   retirePiece,

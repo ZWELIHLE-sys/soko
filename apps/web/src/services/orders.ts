@@ -26,6 +26,21 @@ export async function createOrders(
     sellerGroups[item.sellerId].push(item)
   }
 
+  // Live energy — if a market is live right now, the first 3 orders of the day
+  // get flagged (admin contacts them to arrange the welcome piece).
+  const now = new Date()
+  const liveMarket = await prisma.market.findFirst({
+    where: { isActive: true, startDate: { lte: now }, endDate: { gte: now } },
+    select: { id: true },
+  })
+  let firstThreeMarketId: string | null = null
+  if (liveMarket) {
+    const flagged = await prisma.order.count({
+      where: { firstThreeMarketId: liveMarket.id },
+    })
+    if (flagged < 3) firstThreeMarketId = liveMarket.id
+  }
+
   const orders = []
 
   for (const [sellerId, sellerItems] of Object.entries(sellerGroups)) {
@@ -45,6 +60,7 @@ export async function createOrders(
         status:         'PENDING',
         paymentRef:     opts.paymentRef ?? null,
         commission,
+        firstThreeMarketId,
         items: {
           create: sellerItems.map(i => ({
             productId: i.productId,

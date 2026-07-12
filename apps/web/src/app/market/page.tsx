@@ -1,5 +1,7 @@
 import { prisma, tickEventLifecycle } from '@vuna/db'
 import Navbar from '@/components/layout/Navbar'
+import LiveBanner from '@/components/live/LiveBanner'
+import MCFeed from '@/components/live/MCFeed'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
 import MarketCountdown from '@/components/market/MarketCountdown'
@@ -51,6 +53,7 @@ export default async function MarketPage() {
     return (
       <div className={styles.page}>
         <Navbar />
+        <LiveBanner />
         <div className={styles.comingSoonHero}>
           <div className={styles.heroInner}>
             <div className={styles.eyebrow}>One of a Kind</div>
@@ -96,12 +99,13 @@ export default async function MarketPage() {
   return (
     <div className={styles.page}>
       <Navbar />
+      <LiveBanner />
 
       {/* Hero */}
       <div className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.eyebrow}>
-            {isLive ? '🟢 Live Now' : 'Vuna Market'}
+            {isLive ? <><span className={styles.eyebrowLiveDot} />Live Now</> : 'Vuna Market'}
           </div>
           <h1 className={styles.heroTitle}>{market.title}</h1>
           {market.theme && (
@@ -149,6 +153,9 @@ export default async function MarketPage() {
       )}
 
       <div className={styles.inner}>
+
+        {/* The MC's stage — live moments inside the venue */}
+        <MCFeed channel="MARKET" />
 
         {/* Description */}
         {market.description && (

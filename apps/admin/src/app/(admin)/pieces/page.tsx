@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
-import { MapPin, Gavel, Store, Package, CheckCircle2, XCircle, ArrowRight, Sparkles } from 'lucide-react'
+import { MapPin, Gavel, Store, Package, CheckCircle2, XCircle, ArrowRight, Sparkles, Star } from 'lucide-react'
 import shared from '../../admin.module.css'
 import styles from './pieces.module.css'
 import type { Piece, Stage, MarketOption, AuctionEventOption } from './_types'
@@ -10,8 +10,9 @@ import { STAGE_STYLE, FILTERS } from './_types'
 import { AssignMarketModal } from './_components/AssignMarketModal'
 import { MoveToAuctionModal } from './_components/MoveToAuctionModal'
 import { MoveToShopModal } from './_components/MoveToShopModal'
+import { FeatureOnHomeModal } from './_components/FeatureOnHomeModal'
 
-type ModalKind = 'assign-market' | 'to-auction' | 'to-shop' | null
+type ModalKind = 'assign-market' | 'to-auction' | 'to-featured' | 'to-shop' | null
 
 export default function AdminPiecesPage() {
   const [pieces, setPieces]   = useState<Piece[]>([])
@@ -164,9 +165,16 @@ export default function AdminPiecesPage() {
                         <button
                           className={shared.btnSuccess}
                           disabled={isBusy}
+                          onClick={() => setModal({ kind: 'to-featured', piece })}
+                        >
+                          <Star size={12} /> Feature on Homepage <ArrowRight size={11} />
+                        </button>
+                        <button
+                          className={shared.btnSecondary}
+                          disabled={isBusy}
                           onClick={() => setModal({ kind: 'to-shop', piece })}
                         >
-                          <Package size={12} /> Move to Shop <ArrowRight size={11} />
+                          <Package size={12} /> Straight to Shop
                         </button>
                         <button
                           className={shared.btnSecondary}
@@ -174,6 +182,27 @@ export default function AdminPiecesPage() {
                           onClick={() => markSold(piece.id)}
                         >
                           <CheckCircle2 size={12} /> Mark Sold (won at auction)
+                        </button>
+                      </>
+                    )}
+                    {piece.currentStage === 'FEATURED' && (
+                      <>
+                        <button
+                          className={shared.btnSecondary}
+                          disabled={isBusy}
+                          onClick={() => {
+                            if (!confirm('End the homepage spotlight early and settle this piece into the shop?')) return
+                            callAction(piece.id, { action: 'to-shop', price: 0 })
+                          }}
+                        >
+                          <Package size={12} /> End Spotlight — Settle in Shop
+                        </button>
+                        <button
+                          className={shared.btnSecondary}
+                          disabled={isBusy}
+                          onClick={() => markSold(piece.id)}
+                        >
+                          <CheckCircle2 size={12} /> Mark Sold
                         </button>
                       </>
                     )}
@@ -220,6 +249,13 @@ export default function AdminPiecesPage() {
           piece={modal.piece}
           onClose={() => setModal({ kind: null, piece: null })}
           onSubmit={(data) => callAction(modal.piece!.id, { action: 'to-shop', ...data })}
+        />
+      )}
+      {modal.kind === 'to-featured' && modal.piece && (
+        <FeatureOnHomeModal
+          piece={modal.piece}
+          onClose={() => setModal({ kind: null, piece: null })}
+          onSubmit={(data) => callAction(modal.piece!.id, { action: 'to-featured', ...data })}
         />
       )}
     </div>

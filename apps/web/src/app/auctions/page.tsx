@@ -1,5 +1,7 @@
 import { prisma, tickEventLifecycle } from '@vuna/db'
 import Navbar from '@/components/layout/Navbar'
+import LiveBanner from '@/components/live/LiveBanner'
+import MCFeed from '@/components/live/MCFeed'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
 import MarketCountdown from '@/components/market/MarketCountdown'
@@ -66,6 +68,7 @@ export default async function AuctionsPage() {
     return (
       <div className={styles.page}>
         <Navbar />
+        <LiveBanner />
         <div className={styles.comingSoonHero}>
           <div className={styles.heroInner}>
             <div className={styles.eyebrow}>One of a Kind</div>
@@ -109,10 +112,13 @@ export default async function AuctionsPage() {
   return (
     <div className={styles.page}>
       <Navbar />
+      <LiveBanner />
 
       <div className={styles.hero}>
         <div className={styles.heroInner}>
-          <div className={styles.eyebrow}>{isLive ? '🟢 Live Now' : 'Vuna Auctions'}</div>
+          <div className={styles.eyebrow}>
+            {isLive ? <><span className={styles.eyebrowLiveDot} />Live Now</> : 'Vuna Auctions'}
+          </div>
           <h1 className={styles.heroTitle}>{featured.title}</h1>
           {featured.theme && <div className={styles.theme}>{featured.theme}</div>}
           <div className={styles.dates}>
@@ -141,6 +147,9 @@ export default async function AuctionsPage() {
       )}
 
       <div className={styles.inner}>
+        {/* The MC's stage — live moments inside the venue */}
+        <MCFeed channel="AUCTION" />
+
         {featured.description && (
           <FadeIn><p className={styles.eventDesc}>{featured.description}</p></FadeIn>
         )}

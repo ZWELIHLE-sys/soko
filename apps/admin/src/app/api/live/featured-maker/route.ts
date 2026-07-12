@@ -25,6 +25,18 @@ export async function GET() {
   return NextResponse.json({ current, history })
 }
 
+// End the current spotlight without setting a new one — homepage section disappears
+export async function DELETE() {
+  const session = await requireAdmin()
+  if (!session) return unauthorized()
+
+  await prisma.featuredMaker.updateMany({
+    where: { isActive: true },
+    data:  { isActive: false },
+  })
+  return NextResponse.json({ ok: true })
+}
+
 export async function POST(req: NextRequest) {
   const session = await requireAdmin()
   if (!session) return unauthorized()

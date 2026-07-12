@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { Radio, Star, Trophy, Clock, Phone, Mail } from 'lucide-react'
+import { Radio, Star, Trophy, Clock, Phone, Mail, CircleStop } from 'lucide-react'
 import shared from '../../admin.module.css'
 import styles from './live.module.css'
 import LiveMCComposer from '@/components/LiveMCComposer'
@@ -63,6 +63,14 @@ export default function AdminLivePage() {
     load()
   }
 
+  const endFeatured = async () => {
+    if (!confirm('Remove the current Featured Maker from the homepage?')) return
+    setSettingFm(true)
+    await fetch('/api/live/featured-maker', { method: 'DELETE' })
+    setSettingFm(false)
+    load()
+  }
+
   const fmtTime = (d: string) =>
     new Date(d).toLocaleTimeString('en-ZA', { hour: '2-digit', minute: '2-digit' })
 
@@ -92,13 +100,21 @@ export default function AdminLivePage() {
           {fm?.current ? (
             <div className={styles.fmCurrent}>
               <div className={styles.fmAvatar}>{fm.current.seller.brandName.charAt(0)}</div>
-              <div>
+              <div className={styles.fmDetails}>
                 <div className={styles.fmName}>{fm.current.seller.brandName}</div>
                 {fm.current.note && <div className={styles.fmNote}>&ldquo;{fm.current.note}&rdquo;</div>}
                 <div className={styles.fmSince}>
                   Featured since {new Date(fm.current.weekStart).toLocaleDateString('en-ZA')}
                 </div>
               </div>
+              <button
+                className={styles.endBtn}
+                onClick={endFeatured}
+                disabled={settingFm}
+                title="Remove from homepage"
+              >
+                <CircleStop size={13} /> End
+              </button>
             </div>
           ) : (
             <div className={styles.fmEmpty}>No featured maker set. Pick one below — they own the homepage spotlight.</div>

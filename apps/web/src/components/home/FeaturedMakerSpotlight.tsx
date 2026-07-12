@@ -21,21 +21,33 @@ async function getSpotlight() {
   })
   if (!featured) return null
 
-  const products = await prisma.product.findMany({
-    where: { sellerId: featured.seller.id, status: 'ACTIVE' },
-    orderBy: { createdAt: 'desc' },
-    take: 3,
-    select: { id: true, name: true, price: true, images: true },
-  })
+  const [products, liveStall] = await Promise.all([
+    prisma.product.findMany({
+      where: { sellerId: featured.seller.id, status: 'ACTIVE' },
+      orderBy: { createdAt: 'desc' },
+      take: 3,
+      select: { id: true, name: true, price: true, images: true },
+    }),
+    // Does this maker have an approved stall at the current/upcoming market?
+    // If so, "their stall" means the market — otherwise it means their shop.
+    prisma.marketListing.findFirst({
+      where: {
+        sellerId: featured.seller.id,
+        status: 'APPROVED',
+        market: { isActive: true, endDate: { gte: new Date() } },
+      },
+      select: { market: { select: { title: true } } },
+    }),
+  ])
 
-  return { ...featured, products }
+  return { ...featured, products, liveStall }
 }
 
 export default async function FeaturedMakerSpotlight() {
   const spotlight = await getSpotlight()
   if (!spotlight) return null
 
-  const { seller, note, products } = spotlight
+  const { seller, note, products, liveStall } = spotlight
 
   return (
     <section className={styles.section}>
@@ -74,9 +86,15 @@ export default async function FeaturedMakerSpotlight() {
               <p className={styles.note}>{seller.bio}</p>
             ) : null}
 
-            <Link href={`/shop?seller=${seller.id}`} className={styles.cta}>
-              Visit their stall →
-            </Link>
+            {liveStall ? (
+              <Link href="/market" className={styles.cta}>
+                Visit their stall at {liveStall.market.title} →
+              </Link>
+            ) : (
+              <Link href={`/shop?seller=${seller.id}`} className={styles.cta}>
+                Visit their shop →
+              </Link>
+            )}
           </div>
 
           {products.length > 0 && (

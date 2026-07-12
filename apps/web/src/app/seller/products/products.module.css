@@ -191,6 +191,29 @@
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.checkRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+  padding: 12px 14px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.checkRow input {
+  margin-top: 2px;
+  accent-color: #7C2D12;
 }
 
 .sectionHint {

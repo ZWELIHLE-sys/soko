@@ -56,11 +56,28 @@ export default function SellerProductsPage() {
   }
 
   const openEdit = (p: Product) => {
+    const ls = p.livestockDetail
     setForm({
       name: p.name, description: p.description, price: String(p.price), stock: String(p.stock),
       categoryId: p.categoryId, images: p.images,
       bulkMinQty: p.bulkMinQty != null ? String(p.bulkMinQty) : '',
       bulkPrice: p.bulkPrice != null ? String(p.bulkPrice) : '',
+      isHarvestPreOrder: p.isHarvestPreOrder ?? false,
+      plantedAt: p.plantedAt ? p.plantedAt.slice(0, 10) : '',
+      expectedHarvestDate: p.expectedHarvestDate ? p.expectedHarvestDate.slice(0, 10) : '',
+      estimatedYield: p.estimatedYield != null ? String(p.estimatedYield) : '',
+      yieldUnit: p.yieldUnit ?? '',
+      lsSpecies: ls?.species ?? '',
+      lsBreed: ls?.breed ?? '',
+      lsPurpose: ls?.purpose ?? '',
+      lsSex: ls?.sex ?? '',
+      lsAgeMonths: ls?.approxAgeMonths != null ? String(ls.approxAgeMonths) : '',
+      lsWeightKg: ls?.weightKg != null ? String(ls.weightKg) : '',
+      lsColour: ls?.colour ?? '',
+      lsBrandMark: ls?.brandMark ?? '',
+      lsVaccinations: ls?.vaccinations ?? '',
+      lsDipRecords: ls?.dipRecords ?? '',
+      lsBreedingHistory: ls?.breedingHistory ?? '',
     })
     setEditingId(p.id)
     setError('')

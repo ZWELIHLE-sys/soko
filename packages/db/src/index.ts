@@ -27,6 +27,13 @@ export const prisma: PrismaClientType = new Proxy({} as PrismaClientType, {
 
 export { tickEventLifecycle } from './lifecycle'
 export {
+  LivestockSpecies,
+  LivestockPurpose,
+  LivestockSex,
+  HarvestStatus,
+  ProductStatus,
+} from './generated/prisma/enums'
+export {
   assignPieceToMarket,
   movePieceToAuction,
   movePieceToFeatured,

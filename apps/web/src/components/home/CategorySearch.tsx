@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {
   Search, Shirt, Palette, Sofa, Wheat, Sparkles, Gem,
   Cpu, BookOpen, Home, Scissors, Hammer, Leaf, PenLine,
-  Camera, Package, type LucideIcon,
+  Camera, Package, PawPrint, Sprout, type LucideIcon,
 } from 'lucide-react'
 import styles from './CategorySearch.module.css'
 
@@ -14,6 +14,8 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
   art:         Palette,
   furniture:   Sofa,
   food:        Wheat,
+  livestock:   PawPrint,
+  produce:     Sprout,
   beauty:      Sparkles,
   sculpture:   Gem,
   electronics: Cpu,

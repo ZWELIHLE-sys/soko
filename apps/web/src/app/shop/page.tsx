@@ -8,7 +8,7 @@ import Image from 'next/image'
 import {
   Shirt, Palette, Armchair, Wheat, Sparkles, Box,
   Cpu, BookOpen, Lamp, Scissors, Hammer, Leaf, Pencil, Camera,
-  Tag, Sprout, ArrowLeft, ShieldCheck, MapPin,
+  Tag, Sprout, ArrowLeft, ShieldCheck, MapPin, PawPrint, Carrot,
 } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './shop.module.css'
@@ -19,6 +19,8 @@ const categoryIcons: Record<string, React.ReactNode> = {
   art:         <Palette size={32} />,
   furniture:   <Armchair size={32} />,
   food:        <Wheat size={32} />,
+  livestock:   <PawPrint size={32} />,
+  produce:     <Carrot size={32} />,
   beauty:      <Sparkles size={32} />,
   sculpture:   <Box size={32} />,
   electronics: <Cpu size={32} />,
@@ -36,6 +38,8 @@ const categoryIconsSmall: Record<string, React.ReactNode> = {
   art:         <Palette size={16} />,
   furniture:   <Armchair size={16} />,
   food:        <Wheat size={16} />,
+  livestock:   <PawPrint size={16} />,
+  produce:     <Carrot size={16} />,
   beauty:      <Sparkles size={16} />,
   sculpture:   <Box size={16} />,
   electronics: <Cpu size={16} />,

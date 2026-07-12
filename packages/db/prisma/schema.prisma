@@ -254,14 +254,95 @@ model Product {
   pieceId     String?
   piece       Piece?        @relation(fields: [pieceId], references: [id])
 
+  // ── Harvest pre-order (Farm Produce category) ──
+  // A future harvest: buyers RESERVE now, money only moves when the farmer
+  // marks it HARVEST_READY. Nullable — every non-agri product is unaffected.
+  isHarvestPreOrder   Boolean        @default(false)
+  plantedAt           DateTime?
+  expectedHarvestDate DateTime?
+  estimatedYield      Int?           // total quantity offered for pre-order
+  yieldUnit           String?        // "bunches" | "kg" | "crates" | "bags" | "heads"
+  harvestStatus       HarvestStatus?
+
   // Relations
   orderItems       OrderItem[]
   reviews          Review[]
   wishlist         Wishlist[]
   featuredListing  FeaturedListing?
+  livestockDetail  LivestockDetail?
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+}
+
+// ================================
+// AGRICULTURE — Livestock & Harvest Pre-Orders
+// Livestock: three axes, all first-class — species → breed → purpose.
+// Live animals carry a LivestockDetail; packaged farm products (milk,
+// amasi, eggs, packaged meat) are normal products under 'produce'.
+// ================================
+
+enum HarvestStatus {
+  GROWING       // Listed as a future harvest — reservations open
+  HARVEST_READY // Farmer confirmed the crop is in — reserved buyers now pay
+  FULFILLED     // All reservations settled
+  FAILED        // Crop failed — reservations cancel cleanly, nobody pays
+}
+
+enum LivestockSpecies {
+  CATTLE
+  SHEEP
+  GOAT
+  PIG
+  POULTRY
+}
+
+enum LivestockPurpose {
+  MEAT
+  MILK
+  WOOL
+  EGGS
+  BREEDING
+  DUAL_PURPOSE  // "some do everything together"
+}
+
+enum LivestockSex {
+  MALE
+  FEMALE
+  CASTRATED
+}
+
+model LivestockDetail {
+  id              String           @id @default(cuid())
+  species         LivestockSpecies
+  breed           String           // Real names buyers use: Nguni, Boran, Brahman, Dorper, Merino,
+                                   // Boer, Traditional chicken, Broiler (Lamuthuthu) — free text with
+                                   // per-species suggestions in the listing form
+  purpose         LivestockPurpose
+  sex             LivestockSex?
+  dateOfBirth     DateTime?
+  approxAgeMonths Int?             // when exact DOB is unknown (common in rural herds)
+  weightKg        Float?
+  colour          String?
+
+  // Compliance — Animal Identification Act & provenance (anti-theft trail)
+  brandMark       String?          // registered brand/tattoo mark
+  vaccinations    String?          // vaccine + date lines
+  dipRecords      String?
+  breedingHistory String?          // for breeding stock
+
+  // Attaches to whichever record carries the animal right now.
+  // Journey animals (premium bulls/rams): the Piece holds the detail through all stages.
+  productId       String?          @unique
+  product         Product?         @relation(fields: [productId], references: [id])
+  auctionId       String?          @unique
+  auction         Auction?         @relation(fields: [auctionId], references: [id])
+  pieceId         String?          @unique
+  piece           Piece?           @relation(fields: [pieceId], references: [id])
+
+  createdAt       DateTime         @default(now())
+
+  @@index([species, purpose])
 }
 
 // ================================
@@ -285,7 +366,8 @@ model FeaturedListing {
 // ================================
 
 enum OrderStatus {
-  PENDING      // Just placed
+  RESERVED     // Harvest pre-order: reservation only — NO payment due until HARVEST_READY
+  PENDING      // Just placed (or harvest confirmed — payment now due)
   CONFIRMED    // Seller confirmed
   PACKED       // Ready for pickup
   IN_TRANSIT   // With rider or courier
@@ -479,6 +561,7 @@ model Piece {
   auctions        Auction[]
   products        Product[]
   announcements   Announcement[]  // MC moments about this piece across its journey
+  livestockDetail LivestockDetail? // journey animals: the detail rides the piece through all stages
 
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
@@ -629,6 +712,7 @@ model Auction {
   piece           Piece?        @relation(fields: [pieceId], references: [id])
 
   bids            Bid[]
+  livestockDetail LivestockDetail?  // breed/purpose/compliance when the lot is an animal
 
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt

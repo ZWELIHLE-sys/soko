@@ -19,8 +19,8 @@ async function main() {
   // COUNTRY — South Africa (unlocked — primary market)
   const southAfrica = await prisma.location.upsert({
     where: { id: 'country-za' },
-    update: { isUnlocked: true },
-    create: { id: 'country-za', name: 'South Africa', type: LocationType.COUNTRY, code: 'ZA', parentId: africa.id, isUnlocked: true }
+    update: {},
+    create: { id: 'country-za', name: 'South Africa', type: LocationType.COUNTRY, code: 'ZA', parent: { connect: { id: africa.id } } }
   })
 
   // ALL OTHER AFRICAN COUNTRIES — seeded but locked until admin unlocks
@@ -82,7 +82,7 @@ async function main() {
     await prisma.location.upsert({
       where: { id: c.id },
       update: {},
-      create: { id: c.id, name: c.name, type: LocationType.COUNTRY, code: c.code, parentId: africa.id, isUnlocked: false }
+      create: { id: c.id, name: c.name, type: LocationType.COUNTRY, code: c.code, parent: { connect: { id: africa.id } } }
     })
   }
 
@@ -101,7 +101,7 @@ async function main() {
   for (const p of provinces) {
     await prisma.location.upsert({
       where: { id: p.id }, update: {},
-      create: { id: p.id, name: p.name, type: LocationType.PROVINCE, code: p.code, parentId: southAfrica.id }
+      create: { id: p.id, name: p.name, type: LocationType.PROVINCE, code: p.code, parent: { connect: { id: southAfrica.id } } }
     })
   }
 
@@ -122,7 +122,7 @@ async function main() {
   for (const d of kznDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-kzn' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-kzn' } } }
     })
   }
 
@@ -137,7 +137,7 @@ async function main() {
   for (const d of gpDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-gp' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-gp' } } }
     })
   }
 
@@ -150,7 +150,7 @@ async function main() {
   for (const d of wcDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-wc' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-wc' } } }
     })
   }
 
@@ -167,7 +167,7 @@ async function main() {
   for (const c of ethekwiniCities) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-ethekwini' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-ethekwini' } } }
     })
   }
 
@@ -179,7 +179,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-umgungundlovu' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-umgungundlovu' } } }
     })
   }
 
@@ -193,7 +193,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-city-joburg' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-city-joburg' } } }
     })
   }
 
@@ -206,7 +206,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-city-tshwane' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-city-tshwane' } } }
     })
   }
 
@@ -220,7 +220,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-city-cape-town' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-city-cape-town' } } }
     })
   }
 
@@ -233,7 +233,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-stellenbosch' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-stellenbosch' } } }
     })
   }
 
@@ -246,7 +246,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-george' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-george' } } }
     })
   }
 
@@ -260,7 +260,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-ekurhuleni' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-ekurhuleni' } } }
     })
   }
 
@@ -272,7 +272,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-sedibeng' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-sedibeng' } } }
     })
   }
 
@@ -284,7 +284,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-westrand' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-westrand' } } }
     })
   }
 
@@ -297,7 +297,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-uthukela' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-uthukela' } } }
     })
   }
 
@@ -309,7 +309,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-ilembe' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-ilembe' } } }
     })
   }
 
@@ -322,7 +322,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-zululand' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-zululand' } } }
     })
   }
 
@@ -335,7 +335,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-umkhanyakude' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-umkhanyakude' } } }
     })
   }
 
@@ -350,7 +350,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-harry-gwala' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-harry-gwala' } } }
     })
   }
 
@@ -362,7 +362,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-king-cetshwayo' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-king-cetshwayo' } } }
     })
   }
 
@@ -374,7 +374,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-amajuba' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-amajuba' } } }
     })
   }
 
@@ -388,7 +388,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-ugu' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-ugu' } } }
     })
   }
 
@@ -401,7 +401,7 @@ async function main() {
   ]) {
     await prisma.location.upsert({
       where: { id: c.id }, update: {},
-      create: { id: c.id, name: c.name, type: LocationType.CITY, parentId: 'dist-umzinyathi' }
+      create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: 'dist-umzinyathi' } } }
     })
   }
 
@@ -419,7 +419,7 @@ async function main() {
   for (const d of ecDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-ec' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-ec' } } }
     })
   }
   for (const [parentId, cities] of [
@@ -435,7 +435,7 @@ async function main() {
     for (const c of cities) {
       await prisma.location.upsert({
         where: { id: c.id }, update: {},
-        create: { id: c.id, name: c.name, type: LocationType.CITY, parentId }
+        create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: parentId } } }
       })
     }
   }
@@ -451,7 +451,7 @@ async function main() {
   for (const d of fsDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-fs' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-fs' } } }
     })
   }
   for (const [parentId, cities] of [
@@ -464,7 +464,7 @@ async function main() {
     for (const c of cities) {
       await prisma.location.upsert({
         where: { id: c.id }, update: {},
-        create: { id: c.id, name: c.name, type: LocationType.CITY, parentId }
+        create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: parentId } } }
       })
     }
   }
@@ -480,7 +480,7 @@ async function main() {
   for (const d of lpDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-lp' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-lp' } } }
     })
   }
   for (const [parentId, cities] of [
@@ -493,7 +493,7 @@ async function main() {
     for (const c of cities) {
       await prisma.location.upsert({
         where: { id: c.id }, update: {},
-        create: { id: c.id, name: c.name, type: LocationType.CITY, parentId }
+        create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: parentId } } }
       })
     }
   }
@@ -507,7 +507,7 @@ async function main() {
   for (const d of mpDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-mp' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-mp' } } }
     })
   }
   for (const [parentId, cities] of [
@@ -518,7 +518,7 @@ async function main() {
     for (const c of cities) {
       await prisma.location.upsert({
         where: { id: c.id }, update: {},
-        create: { id: c.id, name: c.name, type: LocationType.CITY, parentId }
+        create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: parentId } } }
       })
     }
   }
@@ -533,7 +533,7 @@ async function main() {
   for (const d of nwDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-nw' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-nw' } } }
     })
   }
   for (const [parentId, cities] of [
@@ -545,7 +545,7 @@ async function main() {
     for (const c of cities) {
       await prisma.location.upsert({
         where: { id: c.id }, update: {},
-        create: { id: c.id, name: c.name, type: LocationType.CITY, parentId }
+        create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: parentId } } }
       })
     }
   }
@@ -561,7 +561,7 @@ async function main() {
   for (const d of ncDistricts) {
     await prisma.location.upsert({
       where: { id: d.id }, update: {},
-      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parentId: 'prov-nc' }
+      create: { id: d.id, name: d.name, type: LocationType.DISTRICT, code: d.code, parent: { connect: { id: 'prov-nc' } } }
     })
   }
   for (const [parentId, cities] of [
@@ -574,17 +574,22 @@ async function main() {
     for (const c of cities) {
       await prisma.location.upsert({
         where: { id: c.id }, update: {},
-        create: { id: c.id, name: c.name, type: LocationType.CITY, parentId }
+        create: { id: c.id, name: c.name, type: LocationType.CITY, parent: { connect: { id: parentId } } }
       })
     }
   }
 
-  // CATEGORIES (14 African product categories + Other)
+  // CATEGORIES (product categories + Other)
+  // Agriculture split (2026-07-12): 'livestock' = live animals (breed/purpose detail form),
+  // 'produce' = crops incl. harvest pre-orders + farm products (milk, amasi, eggs).
+  // 'food' remains for prepared/processed food.
   const categories = [
     { id: 'cat-fashion',     name: 'Fashion & Clothing', slug: 'fashion',     icon: '👗' },
     { id: 'cat-art',         name: 'Art & Paintings',    slug: 'art',         icon: '🎨' },
     { id: 'cat-furniture',   name: 'Furniture',          slug: 'furniture',   icon: '🪑' },
-    { id: 'cat-food',        name: 'Food & Agriculture', slug: 'food',        icon: '🌽' },
+    { id: 'cat-food',        name: 'Food',               slug: 'food',        icon: '🌽' },
+    { id: 'cat-livestock',   name: 'Livestock',          slug: 'livestock',   icon: '🐄' },
+    { id: 'cat-produce',     name: 'Farm Produce',       slug: 'produce',     icon: '🥬' },
     { id: 'cat-beauty',      name: 'Beauty & Skincare',  slug: 'beauty',      icon: '💄' },
     { id: 'cat-sculpture',   name: 'Sculpture & Crafts', slug: 'sculpture',   icon: '🗿' },
     { id: 'cat-electronics', name: 'Electronics',        slug: 'electronics', icon: '🔌' },

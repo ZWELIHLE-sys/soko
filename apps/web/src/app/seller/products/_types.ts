@@ -34,6 +34,7 @@ export interface Product {
   yieldUnit: string | null
   harvestStatus: string | null
   livestockDetail: LivestockDetail | null
+  orderItems?: { quantity: number }[]  // open RESERVED quantities (harvest listings)
 }
 
 export interface ProductStat {

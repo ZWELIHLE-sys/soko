@@ -99,6 +99,11 @@ export async function getSellerProducts(sellerId: string) {
     include: {
       category: { select: { name: true, slug: true } },
       livestockDetail: true,
+      // Open reservations against this harvest — the card shows the tally
+      orderItems: {
+        where:  { order: { status: 'RESERVED' } },
+        select: { quantity: true },
+      },
     },
     orderBy: { createdAt: 'desc' },
   })
@@ -191,6 +196,53 @@ export async function updateProduct(
       }),
     },
   })
+}
+
+/**
+ * Harvest day. READY: the product opens for normal buying and every RESERVED
+ * order flips to PENDING — payment is now due, buyers get emailed the pay link.
+ * FAILED: reservations cancel cleanly and buyers are told they owe nothing.
+ * Returns the affected orders (with buyer contact) so the route can send mail.
+ */
+export async function resolveHarvest(
+  sellerId: string,
+  productId: string,
+  outcome: 'READY' | 'FAILED',
+) {
+  const product = await prisma.product.findFirst({
+    where: { id: productId, sellerId },
+    select: { id: true, name: true, isHarvestPreOrder: true, harvestStatus: true },
+  })
+  if (!product) return { error: 'Product not found.' }
+  if (!product.isHarvestPreOrder) return { error: 'This is not a harvest pre-order listing.' }
+  if (product.harvestStatus !== 'GROWING') return { error: 'This harvest has already been resolved.' }
+
+  const reservations = await prisma.order.findMany({
+    where: {
+      status: 'RESERVED',
+      items: { some: { productId } },
+    },
+    select: {
+      id: true,
+      orderNumber: true,
+      buyer: { select: { name: true, email: true } },
+    },
+  })
+
+  const orderIds = reservations.map(r => r.id)
+
+  await prisma.$transaction([
+    prisma.product.update({
+      where: { id: productId },
+      data:  { harvestStatus: outcome === 'READY' ? 'HARVEST_READY' : 'FAILED' },
+    }),
+    prisma.order.updateMany({
+      where: { id: { in: orderIds } },
+      data:  { status: outcome === 'READY' ? 'PENDING' : 'CANCELLED' },
+    }),
+  ])
+
+  return { product, reservations }
 }
 
 export async function softDeleteProduct(productId: string) {

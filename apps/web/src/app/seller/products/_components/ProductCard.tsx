@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Edit2, Trash2 } from 'lucide-react'
+import { Edit2, Trash2, Sprout, CheckCircle2, XCircle } from 'lucide-react'
 import type { Product, ProductStat } from '../_types'
 import styles from '../products.module.css'
 
@@ -9,11 +9,25 @@ interface Props {
   product: Product
   stat: ProductStat | undefined
   deleting: boolean
+  harvesting: boolean
   onEdit: () => void
   onDelete: () => void
+  onHarvest: (action: 'ready' | 'failed') => void
 }
 
-export function ProductCard({ product, stat, deleting, onEdit, onDelete }: Props) {
+const HARVEST_CHIP: Record<string, { label: string; className: string }> = {
+  GROWING:       { label: 'Growing',       className: 'chipGrowing' },
+  HARVEST_READY: { label: 'Harvest Ready', className: 'chipReady' },
+  FULFILLED:     { label: 'Fulfilled',     className: 'chipReady' },
+  FAILED:        { label: 'Crop Failed',   className: 'chipFailed' },
+}
+
+export function ProductCard({ product, stat, deleting, harvesting, onEdit, onDelete, onHarvest }: Props) {
+  const reservedQty = (product.orderItems ?? []).reduce((sum, i) => sum + i.quantity, 0)
+  const harvestChip = product.isHarvestPreOrder && product.harvestStatus
+    ? HARVEST_CHIP[product.harvestStatus]
+    : null
+
   return (
     <div className={styles.productCard}>
       <div className={styles.productImg}>
@@ -39,6 +53,47 @@ export function ProductCard({ product, stat, deleting, onEdit, onDelete }: Props
         ) : (
           <div className={styles.productStatsEmpty}>No orders yet</div>
         )}
+
+        {/* Harvest pre-order state + the farmer's moment of truth */}
+        {product.isHarvestPreOrder && (
+          <div className={styles.harvestBlock}>
+            <div className={styles.harvestChipRow}>
+              {harvestChip && (
+                <span className={`${styles.harvestChip} ${styles[harvestChip.className]}`}>
+                  <Sprout size={11} /> {harvestChip.label}
+                </span>
+              )}
+              {product.harvestStatus === 'GROWING' && (
+                <span className={styles.harvestReservedNote}>
+                  {reservedQty > 0
+                    ? `${reservedQty} of ${product.estimatedYield ?? '?'} ${product.yieldUnit ?? ''} reserved`
+                    : 'No reservations yet'}
+                </span>
+              )}
+            </div>
+            {product.harvestStatus === 'GROWING' && (
+              <div className={styles.harvestActions}>
+                <button
+                  type="button"
+                  className={styles.harvestReadyBtn}
+                  disabled={harvesting}
+                  onClick={() => onHarvest('ready')}
+                >
+                  <CheckCircle2 size={12} /> Harvest Ready
+                </button>
+                <button
+                  type="button"
+                  className={styles.harvestFailBtn}
+                  disabled={harvesting}
+                  onClick={() => onHarvest('failed')}
+                >
+                  <XCircle size={12} /> Crop Failed
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className={styles.productActions}>
           <span className={`${styles.statusChip} ${product.status === 'ACTIVE' ? styles.chipActive : styles.chipDraft}`}>
             {product.status}

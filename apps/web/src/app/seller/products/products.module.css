@@ -381,3 +381,77 @@
   .twoCol { grid-template-columns: 1fr; }
   .formCard { padding: 20px 16px; }
 }
+
+/* ── Harvest pre-order controls on the product card ── */
+.harvestBlock {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.harvestChipRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.harvestChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.chipGrowing { background: #DCFCE7; color: #14532D; }
+.chipReady   { background: #FEF3C7; color: #92400E; }
+.chipFailed  { background: #FEE2E2; color: #991B1B; }
+
+.harvestReservedNote {
+  font-size: 11px;
+  color: #166534;
+}
+
+.harvestActions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.harvestReadyBtn,
+.harvestFailBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.harvestReadyBtn {
+  background: #14532D;
+  color: #fff;
+  border: none;
+}
+
+.harvestReadyBtn:hover:not(:disabled) { background: #166534; }
+
+.harvestFailBtn {
+  background: #fff;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+.harvestFailBtn:hover:not(:disabled) { background: #FEF2F2; }
+
+.harvestReadyBtn:disabled,
+.harvestFailBtn:disabled { opacity: 0.6; cursor: default; }

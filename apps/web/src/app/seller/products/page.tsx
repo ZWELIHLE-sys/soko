@@ -20,6 +20,7 @@ export default function SellerProductsPage() {
   const [saving, setSaving]         = useState(false)
   const [error, setError]           = useState('')
   const [deleting, setDeleting]     = useState<string | null>(null)
+  const [harvesting, setHarvesting] = useState<string | null>(null)
 
   const load = useCallback(() => {
     Promise.all([
@@ -109,6 +110,26 @@ export default function SellerProductsPage() {
     load()
   }
 
+  const resolveHarvest = async (id: string, action: 'ready' | 'failed') => {
+    const confirmMsg = action === 'ready'
+      ? 'Mark this harvest as READY? Every buyer with a reservation will be asked to pay now.'
+      : 'Mark this crop as FAILED? All reservations will be cancelled and buyers told they owe nothing. This cannot be undone.'
+    if (!confirm(confirmMsg)) return
+    setHarvesting(id)
+    const res = await fetch(`/api/seller/products/${id}/harvest`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action }),
+    })
+    const data = await res.json().catch(() => ({}))
+    setHarvesting(null)
+    if (!res.ok) { alert(data.error ?? 'Could not update the harvest.'); return }
+    alert(action === 'ready'
+      ? `Harvest marked ready. ${data.notified} buyer${data.notified !== 1 ? 's' : ''} notified to pay.`
+      : `Crop marked failed. ${data.notified} reservation${data.notified !== 1 ? 's' : ''} cancelled — nobody pays.`)
+    load()
+  }
+
   if (loading) return <div className={styles.loading}>Loading products...</div>
 
   return (
@@ -162,8 +183,10 @@ export default function SellerProductsPage() {
                 product={p}
                 stat={stats[p.id]}
                 deleting={deleting === p.id}
+                harvesting={harvesting === p.id}
                 onEdit={() => openEdit(p)}
                 onDelete={() => deleteProduct(p.id)}
+                onHarvest={action => resolveHarvest(p.id, action)}
               />
             ))}
           </div>

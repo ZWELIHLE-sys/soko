@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import Image from 'next/image'
 import {
   Clock, CheckCircle2, Package, Truck,
-  PackageCheck, XCircle, RotateCcw, Phone, Mail,
+  PackageCheck, XCircle, RotateCcw, Phone, Mail, Sprout,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import styles from './orders.module.css'
@@ -41,6 +41,7 @@ interface StatusConfig {
 }
 
 const statusConfig: Record<string, StatusConfig> = {
+  RESERVED:   { label: 'Harvest Reservation', Icon: Sprout, badgeClass: styles.statusReserved ?? styles.statusPending, next: null },
   PENDING:    { label: 'New Order',     Icon: Clock,        badgeClass: styles.statusPending,    next: { label: 'Confirm Order',  status: 'CONFIRMED'  } },
   CONFIRMED:  { label: 'Confirmed',     Icon: CheckCircle2, badgeClass: styles.statusConfirmed,  next: { label: 'Mark as Packed', status: 'PACKED'     } },
   PACKED:     { label: 'Packed',        Icon: Package,      badgeClass: styles.statusPacked,     next: { label: 'Handed to Rider', status: 'IN_TRANSIT' } },

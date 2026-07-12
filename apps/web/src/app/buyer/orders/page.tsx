@@ -6,7 +6,7 @@ import Image from 'next/image'
 import {
   Clock, CheckCircle2, Package, Truck,
   PackageCheck, XCircle, RotateCcw,
-  MapPin, ArrowRight, Star, CheckCheck,
+  MapPin, ArrowRight, Star, CheckCheck, Sprout,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import styles from './orders.module.css'
@@ -41,6 +41,7 @@ interface StatusConfig {
 }
 
 const statusConfig: Record<string, StatusConfig> = {
+  RESERVED:   { label: 'Reserved — pay at harvest', Icon: Sprout, badgeClass: styles.statusReserved },
   PENDING:    { label: 'Order Placed',  Icon: Clock,         badgeClass: styles.statusPending },
   CONFIRMED:  { label: 'Confirmed',     Icon: CheckCircle2,  badgeClass: styles.statusConfirmed },
   PACKED:     { label: 'Packed',        Icon: Package,       badgeClass: styles.statusPacked },
@@ -259,6 +260,11 @@ export default function BuyerOrdersPage() {
                       ? 'Arranged by seller'
                       : order.deliveryTier.replace(/_/g, ' ')}
                   </span>
+                  {order.status === 'RESERVED' && (
+                    <span className={styles.reservedNote}>
+                      <Sprout size={12} /> You&apos;ll pay when the farmer marks the harvest ready
+                    </span>
+                  )}
                   {order.status === 'PENDING' && !order.paymentVerifiedAt && (
                     <Link href={`/buyer/orders/${order.id}/pay`} className={styles.payBtn}>
                       {order.paymentProofUrl

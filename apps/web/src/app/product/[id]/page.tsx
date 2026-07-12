@@ -8,11 +8,12 @@ import Image from 'next/image'
 import {
   ChevronRight, ArrowLeft, MapPin, BadgeCheck,
   ShoppingCart, CheckCircle, AlertTriangle, PackageX, Handshake, Globe,
-  Sparkles, Store, Gavel, Star
+  Sparkles, Store, Gavel, Star, PawPrint, Sprout, CalendarDays
 } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
+import { SPECIES, PURPOSES, SEXES } from '@/lib/livestock'
 import styles from './product.module.css'
 
 interface Review {
@@ -37,6 +38,19 @@ interface PieceJourney {
   }[]
 }
 
+interface LivestockPapers {
+  species: string
+  breed: string
+  purpose: string
+  sex: string | null
+  approxAgeMonths: number | null
+  weightKg: number | null
+  colour: string | null
+  brandMark: string | null
+  vaccinations: string | null
+  breedingHistory: string | null
+}
+
 interface Product {
   id: string
   name: string
@@ -44,6 +58,14 @@ interface Product {
   price: number
   stock: number
   images: string[]
+  livestockDetail: LivestockPapers | null
+  isHarvestPreOrder: boolean
+  plantedAt: string | null
+  expectedHarvestDate: string | null
+  estimatedYield: number | null
+  yieldUnit: string | null
+  harvestStatus: string | null
+  reservedQty: number
   seller: {
     id: string
     brandName: string
@@ -84,6 +106,12 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity]           = useState(1)
   const [addingToCart, setAddingToCart]   = useState(false)
   const [cartMessage, setCartMessage]     = useState('')
+
+  // Harvest reservation
+  const [reserveAddress, setReserveAddress] = useState('')
+  const [reserving, setReserving]           = useState(false)
+  const [reserveError, setReserveError]     = useState('')
+  const [reservedOk, setReservedOk]         = useState(false)
 
   useEffect(() => {
     if (!params.id) return
@@ -134,6 +162,25 @@ export default function ProductDetailPage() {
   setTimeout(() => setCartMessage(''), 3000)
 }
 
+  const handleReserve = async () => {
+    if (!session) { router.push('/login'); return }
+    if (!product) return
+    setReserving(true)
+    setReserveError('')
+    const res = await fetch('/api/orders/reserve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: product.id, quantity, deliveryAddress: reserveAddress }),
+    })
+    setReserving(false)
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      setReserveError(data.error ?? 'Could not reserve. Try again.')
+      return
+    }
+    setReservedOk(true)
+  }
+
   if (loading) {
     return (
       <div className={styles.page}>
@@ -163,6 +210,17 @@ export default function ProductDetailPage() {
   const avgRating = product.reviews.length > 0
     ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
     : 0
+
+  const papers = product.livestockDetail
+  const isGrowingPreOrder = product.isHarvestPreOrder && product.harvestStatus === 'GROWING'
+  const harvestFailed     = product.isHarvestPreOrder && product.harvestStatus === 'FAILED'
+  const remainingYield    = Math.max(0, (product.estimatedYield ?? 0) - product.reservedQty)
+
+  const speciesLabel = (v: string) => SPECIES.find(s => s.value === v)?.label ?? v
+  const purposeLabel = (v: string) => PURPOSES.find(p => p.value === v)?.label ?? v
+  const sexLabel     = (v: string) => SEXES.find(s => s.value === v)?.label ?? v
+  const fmtDate = (d: string) =>
+    new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })
 
   return (
     <div className={styles.page}>
@@ -251,34 +309,142 @@ export default function ProductDetailPage() {
 
             <p className={styles.description}>{product.description}</p>
 
-            <div className={`${styles.stockBadge} ${product.stock > 5 ? styles.stockGood : styles.stockLow}`}>
-              {product.stock > 5
-                ? <><CheckCircle size={12} /> {product.stock} in stock</>
-                : <><AlertTriangle size={12} /> Only {product.stock} left</>
-              }
-            </div>
+            {/* Animal papers — livestock listings carry what real buyers ask first */}
+            {papers && (
+              <div className={styles.papersCard}>
+                <div className={styles.papersTitle}><PawPrint size={13} /> Animal Details</div>
+                <div className={styles.papersGrid}>
+                  <div className={styles.papersRow}><span>Species</span><strong>{speciesLabel(papers.species)}</strong></div>
+                  <div className={styles.papersRow}><span>Breed</span><strong>{papers.breed}</strong></div>
+                  <div className={styles.papersRow}><span>Purpose</span><strong>{purposeLabel(papers.purpose)}</strong></div>
+                  {papers.sex && <div className={styles.papersRow}><span>Sex</span><strong>{sexLabel(papers.sex)}</strong></div>}
+                  {papers.approxAgeMonths != null && (
+                    <div className={styles.papersRow}><span>Approx. age</span><strong>{papers.approxAgeMonths} months</strong></div>
+                  )}
+                  {papers.weightKg != null && (
+                    <div className={styles.papersRow}><span>Weight</span><strong>{papers.weightKg} kg</strong></div>
+                  )}
+                  {papers.colour && <div className={styles.papersRow}><span>Colour</span><strong>{papers.colour}</strong></div>}
+                  {papers.brandMark && <div className={styles.papersRow}><span>Brand mark</span><strong>{papers.brandMark}</strong></div>}
+                </div>
+                {papers.vaccinations && (
+                  <div className={styles.papersNotes}>
+                    <span>Vaccinations & dip records</span>
+                    <p>{papers.vaccinations}</p>
+                  </div>
+                )}
+                {papers.breedingHistory && (
+                  <div className={styles.papersNotes}>
+                    <span>Breeding history</span>
+                    <p>{papers.breedingHistory}</p>
+                  </div>
+                )}
+                <div className={styles.papersFootnote}>
+                  Movement documents and collection are arranged directly between buyer and seller.
+                </div>
+              </div>
+            )}
 
-            <div className={styles.qtyLabel}>Quantity</div>
-            <div className={styles.qtyRow}>
-              <button className={styles.qtyBtn} onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
-              <span className={styles.qtyNum}>{quantity}</span>
-              <button className={styles.qtyBtn} onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}>+</button>
-            </div>
+            {harvestFailed ? (
+              <div className={styles.harvestFailed}>
+                <AlertTriangle size={15} />
+                This harvest did not come in. All reservations were cancelled — nobody paid a cent.
+              </div>
+            ) : isGrowingPreOrder ? (
+              /* ── Future harvest: reserve now, pay when it comes in ── */
+              <div className={styles.harvestCard}>
+                <div className={styles.harvestTitle}><Sprout size={14} /> Future Harvest — Reserve Your Share</div>
+                <div className={styles.harvestMeta}>
+                  {product.plantedAt && (
+                    <span><CalendarDays size={12} /> Planted {fmtDate(product.plantedAt)}</span>
+                  )}
+                  {product.expectedHarvestDate && (
+                    <span><CalendarDays size={12} /> Expected {fmtDate(product.expectedHarvestDate)}</span>
+                  )}
+                </div>
+                <div className={`${styles.stockBadge} ${remainingYield > 5 ? styles.stockGood : styles.stockLow}`}>
+                  {remainingYield > 0
+                    ? <><CheckCircle size={12} /> {remainingYield} of {product.estimatedYield} {product.yieldUnit} still open</>
+                    : <><AlertTriangle size={12} /> Fully reserved</>
+                  }
+                </div>
 
-            {cartMessage ? (
-              <div className={styles.cartSuccess}>
-                <CheckCircle size={15} />
-                {cartMessage}
+                {reservedOk ? (
+                  <div className={styles.cartSuccess}>
+                    <CheckCircle size={15} />
+                    Reserved! You&apos;ll pay only when the farmer marks this harvest ready.{' '}
+                    <Link href="/buyer/orders" className={styles.harvestOrdersLink}>View my orders →</Link>
+                  </div>
+                ) : remainingYield > 0 ? (
+                  <>
+                    <div className={styles.qtyLabel}>Quantity ({product.yieldUnit})</div>
+                    <div className={styles.qtyRow}>
+                      <button className={styles.qtyBtn} onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
+                      <span className={styles.qtyNum}>{quantity}</span>
+                      <button className={styles.qtyBtn} onClick={() => setQuantity(q => Math.min(remainingYield, q + 1))}>+</button>
+                    </div>
+                    <textarea
+                      className={styles.harvestAddress}
+                      rows={2}
+                      placeholder="Delivery address — where should your share go?"
+                      value={reserveAddress}
+                      onChange={e => setReserveAddress(e.target.value)}
+                    />
+                    {reserveError && (
+                      <div className={styles.harvestError}><AlertTriangle size={13} /> {reserveError}</div>
+                    )}
+                    <button
+                      className={styles.addToCartBtn}
+                      onClick={handleReserve}
+                      disabled={reserving || !reserveAddress.trim()}
+                    >
+                      <Sprout size={18} />
+                      {reserving ? 'Reserving...' : `Reserve ${quantity} ${product.yieldUnit}`}
+                    </button>
+                    <div className={styles.harvestPromise}>
+                      No payment now. When the crop comes in, the farmer marks it harvest-ready and
+                      you pay the normal way. If the crop fails, your reservation cancels — you owe nothing.
+                    </div>
+                  </>
+                ) : null}
               </div>
             ) : (
-              <button
-                className={styles.addToCartBtn}
-                onClick={handleAddToCart}
-                disabled={addingToCart || product.stock === 0}
-              >
-                <ShoppingCart size={18} />
-                {product.stock === 0 ? 'Out of Stock' : addingToCart ? 'Adding...' : 'Add to Cart'}
-              </button>
+              <>
+                {product.isHarvestPreOrder && product.harvestStatus === 'HARVEST_READY' && (
+                  <div className={styles.harvestReady}>
+                    <Sprout size={13} /> The harvest is in — fresh and ready now
+                  </div>
+                )}
+                <div className={`${styles.stockBadge} ${product.stock > 5 ? styles.stockGood : styles.stockLow}`}>
+                  {product.stock > 5
+                    ? <><CheckCircle size={12} /> {product.stock} in stock</>
+                    : <><AlertTriangle size={12} /> Only {product.stock} left</>
+                  }
+                </div>
+
+                <div className={styles.qtyLabel}>Quantity</div>
+                <div className={styles.qtyRow}>
+                  <button className={styles.qtyBtn} onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
+                  <span className={styles.qtyNum}>{quantity}</span>
+                  <button className={styles.qtyBtn} onClick={() => setQuantity(q => Math.min(product.stock, q + 1))}>+</button>
+                </div>
+
+                {cartMessage ? (
+                  <div className={styles.cartSuccess}>
+                    <CheckCircle size={15} />
+                    {cartMessage}
+                  </div>
+                ) : (
+                  <button
+                    className={styles.addToCartBtn}
+                    onClick={handleAddToCart}
+                    disabled={addingToCart || product.stock === 0}
+                  >
+                    <ShoppingCart size={18} />
+                    {product.stock === 0 ? 'Out of Stock' : addingToCart ? 'Adding...' : 'Add to Cart'}
+                  </button>
+                )}
+              </>
             )}
 
             <Link href="/shop" className={styles.continueBtn}>

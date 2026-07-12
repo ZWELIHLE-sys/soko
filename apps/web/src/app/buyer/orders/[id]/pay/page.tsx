@@ -103,6 +103,27 @@ export default function PayOrderPage() {
   if (loading) return <div className={styles.loading}>Loading order...</div>
   if (!order)  return <div className={styles.loading}>{error || 'Order not found.'}</div>
 
+  // Harvest reservations owe nothing yet — payment opens when the farmer marks it ready
+  if (order.status === 'RESERVED') {
+    return (
+      <div className={styles.page}>
+        <Link href="/buyer/orders" className={styles.back}><ArrowLeft size={14} /> All Orders</Link>
+        <div className={styles.statusCard}>
+          <div className={`${styles.statusIcon} ${styles.statusPending}`}><Clock size={20} /></div>
+          <div>
+            <div className={styles.statusTitle}>Reserved — nothing to pay yet</div>
+            <p className={styles.statusText}>
+              This is a harvest reservation. When the farmer marks the crop harvest-ready,
+              this order opens for payment and we&apos;ll let you know. If the crop fails,
+              the reservation cancels and you owe nothing.
+            </p>
+            <Link href="/buyer/orders" className={styles.statusBtn}>View My Orders</Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   const bankReady = order.seller.bankName && order.seller.accountNumber && order.seller.accountHolder
   const submitted = !!order.paymentProofUrl
   const verified  = !!order.paymentVerifiedAt

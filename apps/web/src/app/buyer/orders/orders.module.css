@@ -120,6 +120,7 @@
 }
 
 /* Status variants */
+.statusReserved   { background: #F0FDF4; color: #14532D; border: 1px solid #BBF7D0; }
 .statusPending    { background: #FEF9C3; color: #92400E; }
 .statusConfirmed  { background: #D1FAE5; color: #065F46; }
 .statusPacked     { background: #FFEDD5; color: #7C2D12; }
@@ -127,6 +128,15 @@
 .statusDelivered  { background: #DCFCE7; color: #14532D; }
 .statusCancelled  { background: #FEE2E2; color: #991B1B; }
 .statusRefunded   { background: #F3F4F6; color: #374151; }
+
+.reservedNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #14532D;
+  font-style: italic;
+}
 
 .orderAmount {
   font-family: Georgia, serif;

@@ -25,6 +25,7 @@ export async function GET(
       },
       category: { select: { name: true, icon: true, slug: true } },
       location: { select: { name: true } },
+      livestockDetail: true,
       reviews: {
         include: { user: { select: { name: true, avatar: true } } },
         orderBy: { createdAt: 'desc' },
@@ -62,5 +63,15 @@ export async function GET(
     return NextResponse.json({ error: 'Product not found' }, { status: 404 })
   }
 
-  return NextResponse.json(product)
+  // Harvest pre-orders: how much of the estimated yield is already spoken for
+  let reservedQty = 0
+  if (product.isHarvestPreOrder) {
+    const agg = await prisma.orderItem.aggregate({
+      where: { productId: id, order: { status: { not: 'CANCELLED' } } },
+      _sum:  { quantity: true },
+    })
+    reservedQty = agg._sum?.quantity ?? 0
+  }
+
+  return NextResponse.json({ ...product, reservedQty })
 }

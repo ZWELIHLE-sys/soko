@@ -85,7 +85,84 @@ export async function createOrders(
   return orders
 }
 
+/**
+ * Harvest pre-order reservation — the heart of "money moves on a harvest,
+ * never on a promise". Creates a RESERVED order with NO payment due.
+ * When the farmer marks the crop HARVEST_READY, reservations flip to
+ * PENDING and the normal EFT + proof flow takes over.
+ */
+export async function reserveHarvest(
+  buyerId: string,
+  productId: string,
+  quantity: number,
+  deliveryAddress: string,
+) {
+  if (!Number.isFinite(quantity) || quantity < 1) return { error: 'Quantity must be at least 1.' }
+  if (!deliveryAddress?.trim()) return { error: 'Please give a delivery address so the farmer knows where your share goes.' }
+
+  const [product, buyer] = await Promise.all([
+    prisma.product.findUnique({
+      where: { id: productId },
+      select: {
+        id: true, name: true, price: true, status: true, sellerId: true, locationId: true,
+        bulkMinQty: true, bulkPrice: true,
+        isHarvestPreOrder: true, harvestStatus: true, estimatedYield: true, yieldUnit: true,
+      },
+    }),
+    prisma.user.findUnique({ where: { id: buyerId }, select: { locationId: true } }),
+  ])
+
+  if (!product || product.status !== 'ACTIVE') return { error: 'This listing is not available.' }
+  if (!product.isHarvestPreOrder || product.harvestStatus !== 'GROWING') {
+    return { error: 'This harvest is no longer open for reservations.' }
+  }
+
+  // Yield accounting: everything reserved or carried through to sale counts
+  // against the estimated yield. Cancelled orders release their share.
+  const reserved = await prisma.orderItem.aggregate({
+    where: { productId, order: { status: { not: 'CANCELLED' } } },
+    _sum: { quantity: true },
+  })
+  const taken = reserved._sum?.quantity ?? 0
+  const available = (product.estimatedYield ?? 0) - taken
+  if (quantity > available) {
+    return {
+      error: available > 0
+        ? `Only ${available} ${product.yieldUnit ?? 'units'} of this harvest are still open for reservation.`
+        : 'This harvest is fully reserved.',
+    }
+  }
+
+  // Bulk pricing honours the same rule as normal orders
+  const unitPrice = product.bulkMinQty && product.bulkPrice && quantity >= product.bulkMinQty
+    ? product.bulkPrice
+    : product.price
+  const totalAmount = parseFloat((unitPrice * quantity).toFixed(2))
+  const commission  = parseFloat((totalAmount * COMMISSION_RATE).toFixed(2))
+
+  const order = await prisma.order.create({
+    data: {
+      buyerId,
+      sellerId:        product.sellerId,
+      totalAmount,
+      deliveryFee:     0,
+      deliveryTier:    'SELLER_ARRANGED',
+      deliveryAddress: deliveryAddress.trim(),
+      deliveryCityId:  buyer?.locationId ?? product.locationId,
+      status:          'RESERVED',
+      commission,
+      items: {
+        create: [{ productId, quantity, price: unitPrice }],
+      },
+    },
+    include: { items: true },
+  })
+
+  return { order }
+}
+
 const VALID_TRANSITIONS: Record<string, string[]> = {
+  RESERVED:   ['CANCELLED'],   // buyers/sellers can release a reservation; payment flow starts only via harvest-ready
   PENDING:    ['CONFIRMED', 'CANCELLED'],
   CONFIRMED:  ['PACKED', 'CANCELLED'],
   PACKED:     ['IN_TRANSIT'],

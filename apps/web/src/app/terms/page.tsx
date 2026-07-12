@@ -49,6 +49,8 @@ const prohibited = [
   'Creating fake reviews or manipulating the ratings system',
   'Accepting orders from Vuna buyers and then completing the sale off-platform to avoid Vuna commission',
   'Falsifying, forging or reusing proof-of-payment documents',
+  'Misrepresenting an animal’s breed, health records, identification marks or legal status, or listing animals you are not entitled to sell',
+  'Requesting or accepting payment for a harvest pre-order before marking the harvest ready on the platform',
   'Listing products that infringe on intellectual property rights',
   'Using automated bots or scrapers on the platform',
 ]
@@ -69,7 +71,7 @@ export default function TermsPage() {
         <div className={styles.heroEyebrow}>Legal</div>
         <h1 className={styles.heroTitle}>Terms of Service</h1>
         <p className={styles.heroSub}>
-          Last updated: 8 June 2026 — Governed by the laws of the Republic of South Africa
+          Last updated: 12 July 2026 — Governed by the laws of the Republic of South Africa
         </p>
       </div>
 
@@ -196,7 +198,58 @@ export default function TermsPage() {
 
         <FadeIn delay={60}>
           <div className={styles.section}>
-            <h2 className={styles.sectionHeading}>7. Dispute Mediation</h2>
+            <h2 className={styles.sectionHeading}>7. Livestock Sales</h2>
+            <p className={styles.bodyText}>
+              Live animals may be listed under the Livestock category, sold directly from the shop,
+              or entered into Vuna market and auction events — where a market appearance serves as a
+              <strong> viewing day</strong> and bidding takes place at the subsequent auction. In all
+              cases Vuna acts as an <strong>introducer only</strong>: Vuna is not an auctioneer of
+              record, livestock agent or dealer, and is not a party to the sale of any animal.
+            </p>
+            <div className={styles.subHeading}>7.1 Seller Warranties</div>
+            {[
+              'Sellers warrant compliance with the Animal Identification Act 6 of 2002, including registered brand or tattoo marks where required by law',
+              'All listed animal details — species, breed, purpose, sex, age, weight, vaccination and dip records, breeding history — must be accurate and honest',
+              'Sellers may not list animals they are not legally entitled to sell, or animals whose movement is prohibited under animal disease control regulations (including controlled or restricted areas)',
+              'Sellers must make the animal reasonably available for inspection on viewing days and before collection',
+            ].map(item => (
+              <div key={item} className={styles.listItem}>• {item}</div>
+            ))}
+            <div className={styles.subHeading}>7.2 Movement and Collection</div>
+            <p className={styles.bodyText}>
+              Stock movement documents, removal certificates and any permits required by South African
+              law are the joint responsibility of the buyer and the seller. Collection and transport of
+              the animal are arranged directly between the parties. The documented sale record on Vuna
+              serves both parties as a provenance trail, but does not replace any legally required
+              documentation.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={60}>
+          <div className={styles.section}>
+            <h2 className={styles.sectionHeading}>8. Harvest Pre-Orders</h2>
+            <p className={styles.bodyText}>
+              Farmers may list a future harvest for pre-order. On Vuna,{' '}
+              <strong>money moves on a harvest, never on a promise</strong>:
+            </p>
+            {[
+              'A harvest reservation is NOT a purchase and creates NO payment obligation at the time of reservation',
+              'No money is due, requested or paid until the farmer marks the harvest as ready on the platform',
+              'When the harvest is marked ready, the reservation becomes a normal order and the buyer pays the seller directly via EFT with proof of payment, as with any Vuna order',
+              'If the crop fails, the farmer must mark it as failed on the platform — all reservations cancel automatically and no party owes anything',
+              'Planted dates, expected harvest dates and estimated yields are good-faith estimates by the farmer, not guarantees',
+              'Buyers should complete payment within 7 days of the harvest-ready notice; after that the farmer may release the reserved share to other buyers',
+              'Requesting or accepting payment for a pre-order before the harvest is marked ready on the platform is prohibited conduct',
+            ].map(item => (
+              <div key={item} className={styles.listItem}>• {item}</div>
+            ))}
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={60}>
+          <div className={styles.section}>
+            <h2 className={styles.sectionHeading}>9. Dispute Mediation</h2>
             <p className={styles.bodyText}>
               While Vuna is not a party to the sale contract, we act as an impartial mediator for disputes
               arising from transactions on the platform. Buyers or sellers who wish to raise a dispute must
@@ -211,7 +264,7 @@ export default function TermsPage() {
 
         <FadeIn delay={60}>
           <div className={styles.section}>
-            <h2 className={styles.sectionHeading}>8. Prohibited Conduct</h2>
+            <h2 className={styles.sectionHeading}>10. Prohibited Conduct</h2>
             <p className={styles.bodyText}>The following are strictly prohibited on Vuna:</p>
             {prohibited.map(item => (
               <div key={item} className={styles.listItem}>• {item}</div>
@@ -221,7 +274,7 @@ export default function TermsPage() {
 
         <FadeIn delay={60}>
           <div className={styles.section}>
-            <h2 className={styles.sectionHeading}>9. Intellectual Property</h2>
+            <h2 className={styles.sectionHeading}>11. Intellectual Property</h2>
             <p className={styles.bodyText}>
               Sellers retain all intellectual property rights to their original creations listed on Vuna.
               By listing on Vuna, sellers grant Umzila-AfriRoute a non-exclusive licence to display,
@@ -236,7 +289,7 @@ export default function TermsPage() {
 
         <FadeIn delay={60}>
           <div className={styles.section}>
-            <h2 className={styles.sectionHeading}>10. Limitation of Liability</h2>
+            <h2 className={styles.sectionHeading}>12. Limitation of Liability</h2>
             <p className={styles.bodyText}>
               Vuna is a marketplace platform that facilitates the introduction of buyers and sellers and
               records the commission owing on each completed sale. Vuna is not a party to any sale contract.
@@ -250,7 +303,7 @@ export default function TermsPage() {
 
         <FadeIn delay={60}>
           <div className={styles.section}>
-            <h2 className={styles.sectionHeading}>11. Account Termination</h2>
+            <h2 className={styles.sectionHeading}>13. Account Termination</h2>
             <p className={styles.bodyText}>
               Vuna reserves the right to suspend or permanently terminate any account that violates
               these Terms of Service, our 3 Sacred Rules, or applicable South African law. Users may
@@ -263,7 +316,7 @@ export default function TermsPage() {
 
         <FadeIn delay={60}>
           <div className={styles.section}>
-            <h2 className={styles.sectionHeading}>12. Governing Law</h2>
+            <h2 className={styles.sectionHeading}>14. Governing Law</h2>
             <p className={styles.bodyText}>
               These Terms of Service are governed by the laws of the Republic of South Africa.
               Any disputes shall be subject to the jurisdiction of the South African courts.

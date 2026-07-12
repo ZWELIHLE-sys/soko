@@ -377,3 +377,5 @@
   .inner { padding: 40px 16px 64px; }
   .grid  { grid-template-columns: 1fr; }
 }
+
+.shareRow { margin-top: 14px; }

@@ -5,6 +5,7 @@ import MCFeed from '@/components/live/MCFeed'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
 import MarketCountdown from '@/components/market/MarketCountdown'
+import WhatsAppShare from '@/components/ui/WhatsAppShare'
 import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, BadgeCheck, CalendarDays, ShoppingBag, Store, Clock, Sparkles, PawPrint } from 'lucide-react'
@@ -148,6 +149,14 @@ export default async function MarketPage() {
               Apply to sell at this market
             </Link>
           )}
+
+          <div className={styles.shareRow}>
+            <WhatsAppShare
+              text={isLive
+                ? `I'm at ${market.title} on Vuna right now — it closes soon. Come see!`
+                : `${market.title} is coming to Vuna on ${formatDate(market.startDate)} — come with me!`}
+            />
+          </div>
         </div>
       </div>
 

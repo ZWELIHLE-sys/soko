@@ -13,6 +13,7 @@ import {
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
+import WhatsAppShare from '@/components/ui/WhatsAppShare'
 import { SPECIES, PURPOSES, SEXES } from '@/lib/livestock'
 import styles from './product.module.css'
 
@@ -453,6 +454,13 @@ export default function ProductDetailPage() {
               <ArrowLeft size={14} />
               Continue Shopping
             </Link>
+
+            <div className={styles.shareRow}>
+              <WhatsAppShare
+                text={`Look what I found on Vuna — “${product.name}” by ${product.seller.brandName}.`}
+                label="Share this find"
+              />
+            </div>
 
             <div className={styles.promise}>
               <div className={styles.promiseLabel}>The Vuna Promise</div>

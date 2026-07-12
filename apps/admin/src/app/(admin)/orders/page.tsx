@@ -19,6 +19,7 @@ interface Order {
 }
 
 const statusStyle: Record<string, { color: string; bg: string }> = {
+  RESERVED:   { color: '#14532D', bg: '#F0FDF4' },  // harvest pre-order — no payment due yet
   PENDING:    { color: '#92400E', bg: '#FEF9C3' },
   CONFIRMED:  { color: '#9A3412', bg: '#FED7AA' },
   PACKED:     { color: '#7C2D12', bg: '#FFEDD5' },
@@ -28,7 +29,7 @@ const statusStyle: Record<string, { color: string; bg: string }> = {
   REFUNDED:   { color: '#991B1B', bg: '#FEE2E2' },
 }
 
-const FILTERS = ['ALL', 'PENDING', 'CONFIRMED', 'PACKED', 'IN_TRANSIT', 'DELIVERED', 'CANCELLED']
+const FILTERS = ['ALL', 'RESERVED', 'PENDING', 'CONFIRMED', 'PACKED', 'IN_TRANSIT', 'DELIVERED', 'CANCELLED']
 
 export default function AdminOrdersPage() {
   const [orders, setOrders]   = useState<Order[]>([])

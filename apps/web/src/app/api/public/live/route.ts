@@ -85,5 +85,82 @@ export async function GET() {
 
   const nextMarket = currentMarket ?? gracedMarket ?? null
 
-  return NextResponse.json({ announcements, featuredMaker, nextMarket, nextAuction })
+  // ── The crowd noise ──────────────────────────────────────────────────
+  // A real MC never lets the room go quiet. Real activity during a live
+  // event becomes auto-moments in the feed — sellers celebrated by name,
+  // buyers always anonymous. Derived at read time: nothing stored, nothing
+  // for the admin to manage, and the human MC's voice stays the soul.
+  type Moment = {
+    id: string; message: string; link: string | null; kind: string; channel: string
+    marketId: string | null; auctionEventId: string | null
+    expiresAt: Date; createdAt: Date
+  }
+  const FRESH_MS = 15 * 60 * 1000 // moments glow as "on air" for 15 min, then settle into history
+  const moments: Moment[] = []
+
+  if (nextMarket && now >= new Date(nextMarket.startDate)) {
+    const marketSales = await prisma.order.findMany({
+      where: {
+        createdAt: { gte: nextMarket.startDate },
+        status:    { not: 'CANCELLED' },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 6,
+      select: {
+        id: true, status: true, createdAt: true,
+        seller: { select: { brandName: true } },
+        items:  { take: 1, select: { quantity: true, product: { select: { name: true, yieldUnit: true } } } },
+      },
+    })
+    for (const o of marketSales) {
+      const item = o.items[0]
+      if (!item) continue
+      moments.push(o.status === 'RESERVED'
+        ? {
+            id: `auto-reserve-${o.id}`,
+            message: `Harvest claimed — ${item.quantity} ${item.product.yieldUnit ?? ''} of “${item.product.name}” reserved from ${o.seller.brandName}.`,
+            link: null, kind: 'HARVEST', channel: 'MARKET',
+            marketId: nextMarket.id, auctionEventId: null,
+            expiresAt: new Date(o.createdAt.getTime() + FRESH_MS), createdAt: o.createdAt,
+          }
+        : {
+            id: `auto-sale-${o.id}`,
+            message: `SOLD — “${item.product.name}” from ${o.seller.brandName} finds a home. Sivunile.`,
+            link: null, kind: 'HAMMER', channel: 'MARKET',
+            marketId: nextMarket.id, auctionEventId: null,
+            expiresAt: new Date(o.createdAt.getTime() + FRESH_MS), createdAt: o.createdAt,
+          })
+    }
+  }
+
+  if (nextAuction && now >= new Date(nextAuction.biddingStartDate)) {
+    const recentBids = await prisma.bid.findMany({
+      where: {
+        createdAt: { gte: nextAuction.biddingStartDate },
+        auction:   { auctionEventId: nextAuction.id },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 6,
+      select: {
+        id: true, amount: true, createdAt: true,
+        auction: { select: { id: true, title: true } },
+      },
+    })
+    for (const b of recentBids) {
+      moments.push({
+        id: `auto-bid-${b.id}`,
+        message: `New bid — R${b.amount.toFixed(2)} on “${b.auction.title}”. The hammer is warming.`,
+        link: `/auctions/${b.auction.id}`, kind: 'BID', channel: 'AUCTION',
+        marketId: null, auctionEventId: nextAuction.id,
+        expiresAt: new Date(b.createdAt.getTime() + FRESH_MS), createdAt: b.createdAt,
+      })
+    }
+  }
+
+  // MC's own words first at equal times; newest overall first; cap the feed
+  const feed = [...announcements, ...moments]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 14)
+
+  return NextResponse.json({ announcements: feed, featuredMaker, nextMarket, nextAuction })
 }

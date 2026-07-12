@@ -5,6 +5,7 @@ import MCFeed from '@/components/live/MCFeed'
 import Footer from '@/components/layout/Footer'
 import FadeIn from '@/components/ui/FadeIn'
 import MarketCountdown from '@/components/market/MarketCountdown'
+import WhatsAppShare from '@/components/ui/WhatsAppShare'
 import Link from 'next/link'
 import { Gavel, Lock, CalendarDays, BookOpen } from 'lucide-react'
 import styles from './auctions.module.css'
@@ -134,6 +135,14 @@ export default async function AuctionsPage() {
           {(isCatOpen || isLive) && (
             <div className={styles.heroBadge}><Lock size={12} /> Verified buyers only</div>
           )}
+
+          <div className={styles.shareRow}>
+            <WhatsAppShare
+              text={isLive
+                ? `Bidding is LIVE at ${featured.title} on Vuna — come watch the hammer!`
+                : `${featured.title} on Vuna — bidding opens ${fmtShort(featured.biddingStartDate)}. Come see the pieces!`}
+            />
+          </div>
         </div>
       </div>
 

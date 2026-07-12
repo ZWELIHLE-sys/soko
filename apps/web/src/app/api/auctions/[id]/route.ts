@@ -12,6 +12,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
       seller:       { select: { brandName: true, isVerified: true, bio: true, location: { select: { name: true } } } },
       category:     { select: { name: true, slug: true, icon: true } },
       auctionEvent: { select: { biddingStartDate: true, biddingEndDate: true, title: true } },
+      // Animal papers — on the lot itself, or riding the piece through its journey
+      livestockDetail: true,
+      piece: { select: { livestockDetail: true } },
       bids: {
         orderBy: { createdAt: 'desc' },
         take: 20,

@@ -346,3 +346,69 @@
   .timeWrap { text-align: left; }
   .timeValue { justify-content: flex-start; }
 }
+
+/* ── Animal papers (livestock lots) ── */
+.papersCard {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.papersTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 12px;
+}
+
+.papersGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+}
+
+.papersRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  border-bottom: 1px dashed #FDE68A;
+  padding-bottom: 6px;
+}
+
+.papersRow span { color: #92400E; }
+.papersRow strong { color: #1a1a1a; font-weight: 600; text-align: right; }
+
+.papersNotes { margin-top: 12px; }
+.papersNotes span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #92400E;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.papersNotes p {
+  font-size: 13px;
+  color: #374151;
+  white-space: pre-line;
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+.papersFootnote {
+  margin-top: 12px;
+  font-size: 11px;
+  color: #A16207;
+  font-style: italic;
+}
+
+@media (max-width: 560px) {
+  .papersGrid { grid-template-columns: 1fr; }
+}

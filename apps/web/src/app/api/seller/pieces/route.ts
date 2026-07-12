@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireSeller, unauthorized, badRequest } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
+import { parseAgriInput } from '@/services/products'
 
 export const dynamic = 'force-dynamic'
 
@@ -57,6 +58,11 @@ export async function POST(req: NextRequest) {
     return badRequest('You can upload up to 5 photos.')
   }
 
+  // Livestock pieces carry the animal's papers through the whole journey:
+  // viewing day at the market → auction day → shop
+  const agri = await parseAgriInput(categoryId, body)
+  if (agri.error) return badRequest(agri.error)
+
   const piece = await prisma.piece.create({
     data: {
       title:        title.trim(),
@@ -65,6 +71,9 @@ export async function POST(req: NextRequest) {
       sellerId:     seller.id,
       categoryId,
       currentStage: 'MARKET',
+      ...(agri.livestock && {
+        livestockDetail: { create: agri.livestock },
+      }),
     },
   })
 

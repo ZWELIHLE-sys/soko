@@ -37,6 +37,7 @@ export async function GET(
           title: true,
           currentStage: true,
           createdAt: true,
+          livestockDetail: true,
           marketListings: {
             select: {
               id: true,

@@ -4,7 +4,8 @@ import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Sparkles, Upload, X, ArrowLeft, ImagePlus } from 'lucide-react'
+import { Sparkles, Upload, X, ArrowLeft, ImagePlus, PawPrint } from 'lucide-react'
+import { SPECIES, BREED_SUGGESTIONS, PURPOSES, SPECIES_PURPOSES, SEXES, type Species } from '@/lib/livestock'
 import styles from './new.module.css'
 
 interface Category { id: string; name: string; slug: string }
@@ -21,6 +22,18 @@ export default function NewPiecePage() {
   const [uploading, setUploading]     = useState(false)
   const [saving, setSaving]           = useState(false)
   const [error, setError]             = useState('')
+
+  // Livestock pieces — the animal's papers travel the whole journey
+  const [ls, setLs] = useState({
+    lsSpecies: '', lsBreed: '', lsPurpose: '', lsSex: '',
+    lsAgeMonths: '', lsWeightKg: '', lsColour: '', lsBrandMark: '', lsVaccinations: '',
+  })
+  const setLsField = (updates: Partial<typeof ls>) => setLs(prev => ({ ...prev, ...updates }))
+
+  const isLivestock = categories.find(c => c.id === categoryId)?.slug === 'livestock'
+  const purposeOptions = ls.lsSpecies
+    ? PURPOSES.filter(p => SPECIES_PURPOSES[ls.lsSpecies as Species]?.includes(p.value))
+    : PURPOSES
 
   useEffect(() => {
     fetch('/api/categories').then(r => r.json()).then(setCategories).catch(() => {})
@@ -73,7 +86,7 @@ export default function NewPiecePage() {
     const res = await fetch('/api/seller/pieces', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, description, images, categoryId }),
+      body: JSON.stringify({ title, description, images, categoryId, ...ls }),
     })
     const data = await res.json()
     setSaving(false)
@@ -145,6 +158,124 @@ export default function NewPiecePage() {
             ))}
           </select>
         </div>
+
+        {isLivestock && (
+          <div className={styles.livestockSection}>
+            <div className={styles.livestockTitle}>
+              <PawPrint size={13} /> Animal Details — travels with this animal from viewing day to the hammer
+            </div>
+            <div className={styles.twoCol}>
+              <div className={styles.field}>
+                <label className={styles.label}>Species</label>
+                <select
+                  className={styles.input}
+                  required
+                  value={ls.lsSpecies}
+                  onChange={e => setLsField({ lsSpecies: e.target.value, lsPurpose: '', lsBreed: '' })}
+                >
+                  <option value="">Select species</option>
+                  {SPECIES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>Breed</label>
+                <input
+                  className={styles.input}
+                  required
+                  list="piece-breed-suggestions"
+                  value={ls.lsBreed}
+                  onChange={e => setLsField({ lsBreed: e.target.value })}
+                  placeholder={ls.lsSpecies === 'POULTRY' ? 'e.g. Traditional chicken, Broiler (Lamuthuthu)' : 'e.g. Nguni, Dorper, Boer'}
+                />
+                <datalist id="piece-breed-suggestions">
+                  {(ls.lsSpecies ? BREED_SUGGESTIONS[ls.lsSpecies as Species] ?? [] : []).map(b => (
+                    <option key={b} value={b} />
+                  ))}
+                </datalist>
+              </div>
+            </div>
+            <div className={styles.twoCol}>
+              <div className={styles.field}>
+                <label className={styles.label}>Purpose</label>
+                <select
+                  className={styles.input}
+                  required
+                  value={ls.lsPurpose}
+                  onChange={e => setLsField({ lsPurpose: e.target.value })}
+                >
+                  <option value="">What is this animal for?</option>
+                  {purposeOptions.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>Sex (optional)</label>
+                <select
+                  className={styles.input}
+                  value={ls.lsSex}
+                  onChange={e => setLsField({ lsSex: e.target.value })}
+                >
+                  <option value="">Not specified</option>
+                  {SEXES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                </select>
+              </div>
+            </div>
+            <div className={styles.twoCol}>
+              <div className={styles.field}>
+                <label className={styles.label}>Approx. age (months, optional)</label>
+                <input
+                  className={styles.input}
+                  type="number"
+                  min="0"
+                  value={ls.lsAgeMonths}
+                  onChange={e => setLsField({ lsAgeMonths: e.target.value })}
+                  placeholder="e.g. 30"
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>Weight (kg, optional)</label>
+                <input
+                  className={styles.input}
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  value={ls.lsWeightKg}
+                  onChange={e => setLsField({ lsWeightKg: e.target.value })}
+                  placeholder="e.g. 450"
+                />
+              </div>
+            </div>
+            <div className={styles.twoCol}>
+              <div className={styles.field}>
+                <label className={styles.label}>Colour (optional)</label>
+                <input
+                  className={styles.input}
+                  value={ls.lsColour}
+                  onChange={e => setLsField({ lsColour: e.target.value })}
+                  placeholder="e.g. Black with white patches"
+                />
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>Brand / tattoo mark (optional)</label>
+                <input
+                  className={styles.input}
+                  value={ls.lsBrandMark}
+                  onChange={e => setLsField({ lsBrandMark: e.target.value })}
+                  placeholder="Registered mark (Animal Identification Act)"
+                />
+              </div>
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label}>Vaccinations & dip records (optional)</label>
+              <textarea
+                className={`${styles.input} ${styles.textarea}`}
+                rows={2}
+                value={ls.lsVaccinations}
+                onChange={e => setLsField({ lsVaccinations: e.target.value })}
+                placeholder={'e.g. Anthrax — March 2026\nDipped — June 2026'}
+              />
+            </div>
+          </div>
+        )}
 
         <div className={styles.field}>
           <label className={styles.label}>

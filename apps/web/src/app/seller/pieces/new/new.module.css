@@ -225,3 +225,34 @@
   .actions { flex-direction: column-reverse; }
   .cancelBtn, .submitBtn { width: 100%; text-align: center; }
 }
+
+/* ── Livestock piece details ── */
+.livestockSection {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+
+.livestockTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7C2D12;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 560px) {
+  .twoCol { grid-template-columns: 1fr; }
+}

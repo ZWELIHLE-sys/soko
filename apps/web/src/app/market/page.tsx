@@ -7,7 +7,7 @@ import FadeIn from '@/components/ui/FadeIn'
 import MarketCountdown from '@/components/market/MarketCountdown'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, BadgeCheck, CalendarDays, ShoppingBag, Store, Clock } from 'lucide-react'
+import { MapPin, BadgeCheck, CalendarDays, ShoppingBag, Store, Clock, Sparkles, PawPrint } from 'lucide-react'
 import styles from './market.module.css'
 
 export const revalidate = 60
@@ -31,6 +31,18 @@ async function getMarket() {
               isVerified: true,
               location: { select: { name: true } },
               category: { select: { name: true, icon: true, slug: true } },
+            },
+          },
+          // Track B: the special piece on viewing day (livestock papers ride along)
+          piece: {
+            select: {
+              id: true,
+              title: true,
+              images: true,
+              currentStage: true,
+              livestockDetail: {
+                select: { species: true, breed: true, purpose: true, sex: true, approxAgeMonths: true, weightKg: true },
+              },
             },
           },
         },
@@ -226,6 +238,44 @@ export default async function MarketPage() {
 
                     {listing.seller.bio && (
                       <p className={styles.sellerBio}>{listing.seller.bio}</p>
+                    )}
+
+                    {/* Viewing day — the special piece this stall brought to the market */}
+                    {listing.piece && listing.piece.currentStage === 'MARKET' && (
+                      <div className={styles.viewingCard}>
+                        <div className={styles.viewingThumb}>
+                          {listing.piece.images[0] ? (
+                            <Image
+                              src={listing.piece.images[0]}
+                              alt={listing.piece.title}
+                              fill
+                              className={styles.thumbImg}
+                              sizes="88px"
+                            />
+                          ) : (
+                            <div className={styles.thumbFallback}><Sparkles size={18} /></div>
+                          )}
+                        </div>
+                        <div className={styles.viewingBody}>
+                          <div className={styles.viewingEyebrow}>
+                            <Sparkles size={10} /> On viewing today
+                          </div>
+                          <div className={styles.viewingTitle}>{listing.piece.title}</div>
+                          {listing.piece.livestockDetail && (
+                            <div className={styles.viewingPapers}>
+                              <PawPrint size={10} />
+                              {listing.piece.livestockDetail.breed}
+                              {' · '}{listing.piece.livestockDetail.purpose.replace('_', ' ').toLowerCase()}
+                              {listing.piece.livestockDetail.sex && <> · {listing.piece.livestockDetail.sex.toLowerCase()}</>}
+                              {listing.piece.livestockDetail.approxAgeMonths != null && <> · {listing.piece.livestockDetail.approxAgeMonths} months</>}
+                              {listing.piece.livestockDetail.weightKg != null && <> · {listing.piece.livestockDetail.weightKg} kg</>}
+                            </div>
+                          )}
+                          <div className={styles.viewingNote}>
+                            Inspect it here — bidding opens at the next auction
+                          </div>
+                        </div>
+                      </div>
                     )}
 
                     {products.length > 0 && (

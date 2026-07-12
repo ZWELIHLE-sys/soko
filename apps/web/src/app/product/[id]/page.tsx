@@ -28,6 +28,7 @@ interface PieceJourney {
   title: string
   currentStage: 'MARKET' | 'AUCTION' | 'FEATURED' | 'SHOP' | 'SOLD' | 'RETIRED'
   createdAt: string
+  livestockDetail: LivestockPapers | null
   marketListings: { id: string; market: { id: string; title: string; startDate: string; endDate: string } }[]
   auctions: {
     id: string
@@ -211,7 +212,8 @@ export default function ProductDetailPage() {
     ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
     : 0
 
-  const papers = product.livestockDetail
+  // Journey animals carry their papers on the piece; direct listings on the product
+  const papers = product.livestockDetail ?? product.piece?.livestockDetail ?? null
   const isGrowingPreOrder = product.isHarvestPreOrder && product.harvestStatus === 'GROWING'
   const harvestFailed     = product.isHarvestPreOrder && product.harvestStatus === 'FAILED'
   const remainingYield    = Math.max(0, (product.estimatedYield ?? 0) - product.reservedQty)

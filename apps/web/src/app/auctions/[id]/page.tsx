@@ -9,8 +9,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   Gavel, Clock, MapPin, BadgeCheck, ArrowLeft,
-  ChevronRight, AlertTriangle, Lock, CheckCircle,
+  ChevronRight, AlertTriangle, Lock, CheckCircle, PawPrint,
 } from 'lucide-react'
+import { SPECIES, PURPOSES, SEXES } from '@/lib/livestock'
 import styles from './auction.module.css'
 
 interface Bid {
@@ -20,6 +21,19 @@ interface Bid {
   bidder: { name: string }
 }
 
+interface LivestockPapers {
+  species: string
+  breed: string
+  purpose: string
+  sex: string | null
+  approxAgeMonths: number | null
+  weightKg: number | null
+  colour: string | null
+  brandMark: string | null
+  vaccinations: string | null
+  breedingHistory: string | null
+}
+
 interface Auction {
   id: string
   title: string
@@ -27,6 +41,8 @@ interface Auction {
   images: string[]
   startPrice: number
   currentBid: number | null
+  livestockDetail: LivestockPapers | null
+  piece: { livestockDetail: LivestockPapers | null } | null
   auctionEvent: {
     biddingStartDate: string
     biddingEndDate: string
@@ -210,6 +226,48 @@ export default function AuctionDetailPage() {
             </div>
 
             <p className={styles.description}>{auction.description}</p>
+
+            {/* Animal papers — livestock lots carry breed, purpose and records to the hammer */}
+            {(() => {
+              const papers = auction.livestockDetail ?? auction.piece?.livestockDetail
+              if (!papers) return null
+              const label = (list: readonly { value: string; label: string }[], v: string | null) =>
+                v ? (list.find(x => x.value === v)?.label ?? v) : null
+              return (
+                <div className={styles.papersCard}>
+                  <div className={styles.papersTitle}><PawPrint size={13} /> Animal Details</div>
+                  <div className={styles.papersGrid}>
+                    <div className={styles.papersRow}><span>Species</span><strong>{label(SPECIES, papers.species)}</strong></div>
+                    <div className={styles.papersRow}><span>Breed</span><strong>{papers.breed}</strong></div>
+                    <div className={styles.papersRow}><span>Purpose</span><strong>{label(PURPOSES, papers.purpose)}</strong></div>
+                    {papers.sex && <div className={styles.papersRow}><span>Sex</span><strong>{label(SEXES, papers.sex)}</strong></div>}
+                    {papers.approxAgeMonths != null && (
+                      <div className={styles.papersRow}><span>Approx. age</span><strong>{papers.approxAgeMonths} months</strong></div>
+                    )}
+                    {papers.weightKg != null && (
+                      <div className={styles.papersRow}><span>Weight</span><strong>{papers.weightKg} kg</strong></div>
+                    )}
+                    {papers.colour && <div className={styles.papersRow}><span>Colour</span><strong>{papers.colour}</strong></div>}
+                    {papers.brandMark && <div className={styles.papersRow}><span>Brand mark</span><strong>{papers.brandMark}</strong></div>}
+                  </div>
+                  {papers.vaccinations && (
+                    <div className={styles.papersNotes}>
+                      <span>Vaccinations & dip records</span>
+                      <p>{papers.vaccinations}</p>
+                    </div>
+                  )}
+                  {papers.breedingHistory && (
+                    <div className={styles.papersNotes}>
+                      <span>Breeding history</span>
+                      <p>{papers.breedingHistory}</p>
+                    </div>
+                  )}
+                  <div className={styles.papersFootnote}>
+                    Movement documents and collection are arranged directly between winning bidder and seller.
+                  </div>
+                </div>
+              )
+            })()}
 
             {/* Bid status */}
             <div className={styles.bidStatus}>

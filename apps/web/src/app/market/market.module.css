@@ -369,3 +369,64 @@
   .inner { padding: 40px 16px 64px; }
   .sellersGrid { grid-template-columns: 1fr; }
 }
+
+/* ── Viewing day — the stall's special piece ── */
+.viewingCard {
+  display: flex;
+  gap: 12px;
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.viewingThumb {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #FEF3C7;
+}
+
+.viewingBody { min-width: 0; }
+
+.viewingEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #B45309;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 3px;
+}
+
+.viewingTitle {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 3px;
+}
+
+.viewingPapers {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: #92400E;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.viewingNote {
+  font-size: 11px;
+  color: #A16207;
+  font-style: italic;
+}

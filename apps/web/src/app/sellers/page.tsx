@@ -64,32 +64,52 @@ const rules = [
   },
 ]
 
+const PAGE_SIZE = 24
+
 export default async function SellersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; locationId?: string }>
+  searchParams: Promise<{ q?: string; locationId?: string; page?: string }>
 }) {
-  const { q, locationId } = await searchParams
+  const { q, locationId, page: pageParam } = await searchParams
+  const page = Math.max(1, parseInt(pageParam ?? '1') || 1)
 
-  const sellers = await prisma.seller.findMany({
-    where: {
-      isVerified: true,
-      status: 'VERIFIED',
-      ...(q ? {
-        OR: [
-          { brandName: { contains: q, mode: 'insensitive' } },
-          { name:      { contains: q, mode: 'insensitive' } },
-          { bio:       { contains: q, mode: 'insensitive' } },
-        ],
-      } : {}),
-      ...(locationId ? { locationId } : {}),
-    },
-    orderBy: { brandName: 'asc' },
-    include: {
-      location: { select: { name: true } },
-      category: { select: { name: true } },
-    },
-  })
+  const where = {
+    isVerified: true,
+    status: 'VERIFIED' as const,
+    ...(q ? {
+      OR: [
+        { brandName: { contains: q, mode: 'insensitive' as const } },
+        { name:      { contains: q, mode: 'insensitive' as const } },
+        { bio:       { contains: q, mode: 'insensitive' as const } },
+      ],
+    } : {}),
+    ...(locationId ? { locationId } : {}),
+  }
+
+  const [sellers, totalCount] = await Promise.all([
+    prisma.seller.findMany({
+      where,
+      orderBy: { brandName: 'asc' },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+      include: {
+        location: { select: { name: true } },
+        category: { select: { name: true } },
+      },
+    }),
+    prisma.seller.count({ where }),
+  ])
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+
+  const pageHref = (p: number) => {
+    const params = new URLSearchParams()
+    if (q) params.set('q', q)
+    if (locationId) params.set('locationId', locationId)
+    if (p > 1) params.set('page', String(p))
+    const qs = params.toString()
+    return qs ? `/sellers?${qs}` : '/sellers'
+  }
 
   return (
     <div className={styles.page}>
@@ -283,6 +303,18 @@ export default async function SellersPage({
                   </div>
                 ))}
               </div>
+            )}
+
+            {totalPages > 1 && (
+              <nav className={styles.pagination} aria-label="Seller pages">
+                {page > 1 && (
+                  <Link href={pageHref(page - 1)} className={styles.pageLink}>← Previous</Link>
+                )}
+                <span className={styles.pageStatus}>Page {page} of {totalPages}</span>
+                {page < totalPages && (
+                  <Link href={pageHref(page + 1)} className={styles.pageLink}>Next →</Link>
+                )}
+              </nav>
             )}
           </section>
         </FadeIn>

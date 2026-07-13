@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { useState, useEffect } from 'react'
@@ -56,8 +57,12 @@ export default function SellerSidebar({ user }: { user: SidebarUser }) {
 
         <div className={styles.asideHeader}>
           <Link href="/" className={styles.logoLink} onClick={close}>
-            <div className={styles.logoIcon}>V</div>
-            <span className={styles.logoName}>Vuna</span>
+            <div className={styles.logoIcon}>
+              <Image src="/images/handlogo-mark.png" alt="" fill sizes="34px" className={styles.logoImg} />
+            </div>
+            <div className={styles.logoName}>
+              <Image src="/images/handlogo-text.png" alt="Vuna Marketplace" fill sizes="92px" className={styles.logoImg} />
+            </div>
           </Link>
           <button className={styles.closeBtn} onClick={close} aria-label="Close menu">
             <X size={18} />

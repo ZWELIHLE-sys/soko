@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAdmin, unauthorized, badRequest } from '@/lib/auth-helpers'
 import { prisma } from '@vuna/db'
 import bcrypt from 'bcryptjs'
+import { checkRateLimit } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,12 +10,15 @@ export async function POST(req: NextRequest) {
   const session = await requireAdmin()
   if (!session?.user?.email) return unauthorized()
 
+  const limited = checkRateLimit(req, 'admin-password', 5, 60_000)
+  if (limited) return limited
+
   const { currentPassword, newPassword } = await req.json()
   if (!currentPassword || !newPassword) {
     return badRequest('Current password and new password are required.')
   }
-  if (newPassword.length < 8) {
-    return badRequest('New password must be at least 8 characters.')
+  if (typeof newPassword !== 'string' || newPassword.length < 8 || newPassword.length > 200) {
+    return badRequest('New password must be between 8 and 200 characters.')
   }
 
   const user = await prisma.user.findUnique({ where: { email: session.user.email } })

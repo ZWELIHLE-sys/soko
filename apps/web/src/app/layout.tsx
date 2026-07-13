@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Providers from './providers'
 import CookieBanner from '@/components/layout/CookieBanner'
+import AdBanner from '@/components/layout/AdBanner'
 
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body>
         <Providers>{children}</Providers>
         <CookieBanner />
+        <AdBanner />
       </body>
     </html>
   )

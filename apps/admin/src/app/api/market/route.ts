@@ -18,8 +18,16 @@ export async function POST(req: Request) {
   const body = await req.json()
   const { marketType, title, description, theme, startDate, endDate, applicationDeadline, maxListings, welcomeVideoUrl } = body
 
-  if (!title || !startDate || !endDate || !applicationDeadline)
-    return badRequest('Missing required fields')
+  if (typeof title !== 'string' || !title.trim() || title.length > 120)
+    return badRequest('A title (up to 120 characters) is required.')
+
+  const start = new Date(startDate)
+  const end = new Date(endDate)
+  const deadline = new Date(applicationDeadline)
+  if ([start, end, deadline].some(d => Number.isNaN(d.getTime())))
+    return badRequest('Start, end and application deadline dates are required and must be valid.')
+  if (!(deadline <= start && start < end))
+    return badRequest('Dates must run in order: application deadline → market start → market end.')
 
   const market = await createMarket({
     marketType,

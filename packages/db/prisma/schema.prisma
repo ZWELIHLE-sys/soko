@@ -804,3 +804,22 @@ model Testimonial {
 
   createdAt  DateTime @default(now())
 }
+
+// ================================
+// AD BANNERS — Paid advertising slots (site-wide bottom bar)
+// The advertiser brings their OWN designed banner image (their brand,
+// their colours). Admin only uploads it, links it, and schedules it —
+// admin does NOT compose the creative. Image-based, not text.
+// ================================
+model AdBanner {
+  id             String    @id @default(cuid())
+  advertiserName String    // who the ad is for (admin reference)
+  imageUrl       String    // the advertiser's finished banner image (Cloudinary)
+  linkUrl        String?   // click-through destination
+  isActive       Boolean   @default(true)
+  startDate      DateTime? // optional schedule window — null = show immediately
+  endDate        DateTime? // null = no end
+  createdAt      DateTime  @default(now())
+
+  @@index([isActive])
+}

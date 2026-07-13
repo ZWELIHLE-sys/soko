@@ -86,7 +86,9 @@ export default function BuyerDashboard() {
                 <card.Icon size={20} />
               </div>
               <div className={`${styles.statValue} ${styles[`statValue${card.variant}` as keyof typeof styles]}`}>
-                {getStatValue(card)}
+                {!stats && !statsError
+                  ? <span className={styles.statSkeleton} />
+                  : getStatValue(card)}
               </div>
               <div className={styles.statLabel}>{card.label}</div>
             </Link>

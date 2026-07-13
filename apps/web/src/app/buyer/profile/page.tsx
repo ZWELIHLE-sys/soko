@@ -219,7 +219,7 @@ export default function BuyerProfilePage() {
           <div className={styles.errorMsg}><AlertTriangle size={14} /> {tError}</div>
         )}
         {tSuccess && (
-          <div className={styles.success}><CheckCircle2 size={14} /> Thank you — your feedback has been submitted!</div>
+          <div className={styles.success}><CheckCircle2 size={14} /> Thank you! Your feedback is with our team for review before it goes live.</div>
         )}
 
         <button type="submit" disabled={tSaving} className={styles.saveBtn}>

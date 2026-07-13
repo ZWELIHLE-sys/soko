@@ -1,0 +1,21 @@
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+}
+
+.shimmer {
+  width: 100%;
+  max-width: 1100px;
+  height: 180px;
+  border-radius: 16px;
+  background: linear-gradient(100deg, #FAFAF9 30%, #F3EEE9 50%, #FAFAF9 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

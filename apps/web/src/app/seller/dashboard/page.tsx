@@ -33,6 +33,7 @@ export default function SellerDashboard() {
   }, [])
 
   const firstName = session?.user?.brandName ?? session?.user?.name?.split(' ')[0]
+  const loading = !stats && !statsError
 
   return (
     <div>
@@ -87,7 +88,7 @@ export default function SellerDashboard() {
               <Package size={20} />
             </div>
             <div className={`${styles.statValue} ${styles.statValueProducts}`}>
-              {stats?.totalProducts ?? '—'}
+              {loading ? <span className={styles.statSkeleton} /> : (stats?.totalProducts ?? '—')}
             </div>
             <div className={styles.statLabel}>Products Listed</div>
           </Link>
@@ -97,7 +98,7 @@ export default function SellerDashboard() {
               <Clock size={20} />
             </div>
             <div className={`${styles.statValue} ${styles.statValuePending}`}>
-              {stats?.pendingOrders ?? '—'}
+              {loading ? <span className={styles.statSkeleton} /> : (stats?.pendingOrders ?? '—')}
             </div>
             <div className={styles.statLabel}>Pending Orders</div>
           </Link>
@@ -107,7 +108,7 @@ export default function SellerDashboard() {
               <ShoppingBag size={20} />
             </div>
             <div className={`${styles.statValue} ${styles.statValueOrders}`}>
-              {stats?.totalOrders ?? '—'}
+              {loading ? <span className={styles.statSkeleton} /> : (stats?.totalOrders ?? '—')}
             </div>
             <div className={styles.statLabel}>Total Orders</div>
           </Link>
@@ -117,7 +118,7 @@ export default function SellerDashboard() {
               <Banknote size={20} />
             </div>
             <div className={`${styles.statValue} ${styles.statValueEarnings}`}>
-              R{stats ? stats.totalEarnings.toFixed(2) : '—'}
+              {loading ? <span className={styles.statSkeleton} /> : (stats ? `R${stats.totalEarnings.toFixed(2)}` : '—')}
             </div>
             <div className={styles.statLabel}>Total Earnings</div>
           </div>

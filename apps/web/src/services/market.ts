@@ -24,20 +24,25 @@ export async function getCurrentMarket() {
 
   if (!market) return null
 
-  const listingsWithProducts = await Promise.all(
-    market.listings.map(async listing => {
-      const products = listing.productIds.length > 0
-        ? await prisma.product.findMany({
-            where: { id: { in: listing.productIds }, status: 'ACTIVE' },
-            select: {
-              id: true, name: true, price: true, images: true, stock: true,
-              category: { select: { name: true, icon: true, slug: true } },
-            },
-          })
-        : []
-      return { ...listing, products }
-    }),
-  )
+  // Batch every stall's products into ONE query (was N+1 — one query per stall)
+  const allProductIds = [...new Set(market.listings.flatMap(l => l.productIds))]
+  const products = allProductIds.length > 0
+    ? await prisma.product.findMany({
+        where:  { id: { in: allProductIds }, status: 'ACTIVE' },
+        select: {
+          id: true, name: true, price: true, images: true, stock: true,
+          category: { select: { name: true, icon: true, slug: true } },
+        },
+      })
+    : []
+  const productsById = new Map(products.map(p => [p.id, p]))
+
+  const listingsWithProducts = market.listings.map(listing => ({
+    ...listing,
+    products: listing.productIds
+      .map(id => productsById.get(id))
+      .filter((p): p is NonNullable<typeof p> => p != null),
+  }))
 
   return { ...market, listings: listingsWithProducts }
 }

@@ -52,37 +52,61 @@ const categoryIconsSmall: Record<string, React.ReactNode> = {
   photography: <Camera size={16} />,
 }
 
+const PAGE_SIZE = 24
+
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string; locationId?: string; seller?: string }>
+  searchParams: Promise<{ category?: string; q?: string; locationId?: string; seller?: string; page?: string }>
 }) {
-  const { category: categorySlug, q, locationId, seller: sellerId } = await searchParams
+  const { category: categorySlug, q, locationId, seller: sellerId, page: pageParam } = await searchParams
+  const page = Math.max(1, parseInt(pageParam ?? '1') || 1)
 
   const category = categorySlug
     ? await prisma.category.findUnique({ where: { slug: categorySlug } })
     : null
 
-  const products = await prisma.product.findMany({
-    where: {
-      status: 'ACTIVE',
-      ...(category ? { categoryId: category.id } : {}),
-      ...(q ? {
-        OR: [
-          { name:        { contains: q, mode: 'insensitive' } },
-          { description: { contains: q, mode: 'insensitive' } },
-        ],
-      } : {}),
-      ...(locationId ? { locationId } : {}),
-      ...(sellerId ? { sellerId } : {}),
-    },
-    orderBy: { createdAt: 'desc' },
-    include: {
-      seller:   { select: { brandName: true, isVerified: true } },
-      category: { select: { name: true, icon: true, slug: true } },
-      location: { select: { name: true } },
-    },
-  })
+  const where = {
+    status: 'ACTIVE' as const,
+    ...(category ? { categoryId: category.id } : {}),
+    ...(q ? {
+      OR: [
+        { name:        { contains: q, mode: 'insensitive' as const } },
+        { description: { contains: q, mode: 'insensitive' as const } },
+      ],
+    } : {}),
+    ...(locationId ? { locationId } : {}),
+    ...(sellerId ? { sellerId } : {}),
+  }
+
+  // Fetch one page + the total count in parallel (count powers the page controls)
+  const [products, totalCount] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+      include: {
+        seller:   { select: { brandName: true, isVerified: true } },
+        category: { select: { name: true, icon: true, slug: true } },
+        location: { select: { name: true } },
+      },
+    }),
+    prisma.product.count({ where }),
+  ])
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+
+  // Preserve active filters when moving between pages
+  const pageHref = (p: number) => {
+    const params = new URLSearchParams()
+    if (categorySlug) params.set('category', categorySlug)
+    if (q) params.set('q', q)
+    if (locationId) params.set('locationId', locationId)
+    if (sellerId) params.set('seller', sellerId)
+    if (p > 1) params.set('page', String(p))
+    const qs = params.toString()
+    return qs ? `/shop?${qs}` : '/shop'
+  }
 
   const allCategories = await prisma.category.findMany({
     where: { isActive: true },
@@ -118,7 +142,7 @@ export default async function ShopPage({
 
           <p className={styles.heroSub}>
             {q
-              ? `${products.length} product${products.length !== 1 ? 's' : ''} found`
+              ? `${totalCount} product${totalCount !== 1 ? 's' : ''} found`
               : category?.description ?? 'Every product. locally made. Vuna verified.'}
           </p>
         </div>
@@ -243,6 +267,18 @@ export default async function ShopPage({
               </Link>
             ))}
           </div>
+        )}
+
+        {totalPages > 1 && (
+          <nav className={styles.pagination} aria-label="Shop pages">
+            {page > 1 && (
+              <Link href={pageHref(page - 1)} className={styles.pageLink}>← Previous</Link>
+            )}
+            <span className={styles.pageStatus}>Page {page} of {totalPages}</span>
+            {page < totalPages && (
+              <Link href={pageHref(page + 1)} className={styles.pageLink}>Next →</Link>
+            )}
+          </nav>
         )}
       </div>
       </FadeIn>

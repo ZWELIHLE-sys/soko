@@ -152,6 +152,9 @@ model Seller {
 
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+
+  @@index([status])       // admin pending/verified lists + commission seller list
+  @@index([locationId])   // location filtering
 }
 
 // ================================
@@ -283,6 +286,13 @@ model Product {
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+
+  // Postgres does NOT auto-index foreign keys — these back the shop filters,
+  // seller listings and location filtering (all hot paths, all were seq scans)
+  @@index([status, categoryId])
+  @@index([status, createdAt])
+  @@index([sellerId])
+  @@index([locationId])
 }
 
 // ================================
@@ -446,6 +456,11 @@ model Order {
 
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
+  @@index([sellerId, status])         // seller dashboard + commission queries
+  @@index([buyerId])                  // buyer's orders list
+  @@index([commissionInvoiceId])      // invoice detail joins
+  @@index([firstThreeMarketId])       // live-market first-three lookup
 }
 
 // ================================
@@ -534,6 +549,9 @@ model Review {
   product   Product @relation(fields: [productId], references: [id])
 
   createdAt DateTime @default(now())
+
+  @@index([productId])   // reviews shown on a product page
+  @@index([sellerId])    // reviews aggregated per seller
 }
 
 // ================================
@@ -647,6 +665,7 @@ model MarketListing {
   updatedAt DateTime @updatedAt
 
   @@unique([marketId, sellerId])
+  @@index([sellerId])   // a seller's listings across all markets
 }
 
 // ================================
@@ -730,6 +749,10 @@ model Auction {
 
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+
+  @@index([auctionEventId, status])  // the auctions page items query
+  @@index([status])                  // recently-ended lots
+  @@index([sellerId])                // a seller's auction submissions
 }
 
 model Bid {
@@ -743,6 +766,9 @@ model Bid {
   bidder    User     @relation("UserBids", fields: [bidderId], references: [id])
 
   createdAt DateTime @default(now())
+
+  @@index([auctionId])   // bid history + current-bid lookups
+  @@index([bidderId])    // a buyer's bids
 }
 
 // ================================

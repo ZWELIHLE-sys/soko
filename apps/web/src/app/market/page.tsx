@@ -16,7 +16,7 @@ export const revalidate = 60
 async function getMarket() {
   await tickEventLifecycle()
   const now = new Date()
-  return prisma.market.findFirst({
+  const market = await prisma.market.findFirst({
     where: { isActive: true, endDate: { gte: now } },
     orderBy: { startDate: 'asc' },
     include: {
@@ -52,6 +52,26 @@ async function getMarket() {
       },
     },
   })
+  if (!market) return null
+
+  // Batch every stall's products into ONE query (was N+1 — one query per stall)
+  const allProductIds = [...new Set(market.listings.flatMap(l => l.productIds))]
+  const products = allProductIds.length > 0
+    ? await prisma.product.findMany({
+        where:  { id: { in: allProductIds }, status: 'ACTIVE' },
+        select: { id: true, name: true, price: true, images: true },
+      })
+    : []
+  const productsById = new Map(products.map(p => [p.id, p]))
+
+  const listings = market.listings.map(l => ({
+    ...l,
+    products: l.productIds
+      .map(id => productsById.get(id))
+      .filter((p): p is NonNullable<typeof p> => p != null),
+  }))
+
+  return { ...market, listings }
 }
 
 function formatDate(date: Date) {
@@ -224,13 +244,8 @@ export default async function MarketPage() {
           </FadeIn>
         ) : (
           <div className={styles.sellersGrid}>
-            {market.listings.map(async (listing) => {
-              const products = listing.productIds.length > 0
-                ? await prisma.product.findMany({
-                    where: { id: { in: listing.productIds }, status: 'ACTIVE' },
-                    select: { id: true, name: true, price: true, images: true },
-                  })
-                : []
+            {market.listings.map((listing) => {
+              const products = listing.products
 
               return (
                 <FadeIn key={listing.id}>

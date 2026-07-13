@@ -46,7 +46,7 @@ export default function AdminDashboard() {
         <p className={shared.pageSub}>Platform overview — everything happening on Vuna right now.</p>
       </div>
 
-      {stats?.sellers?.pending > 0 && (
+      {(stats?.sellers?.pending ?? 0) > 0 && (
         <div className={shared.alertBanner}>
           <div>
             <div className={shared.alertTitle}>

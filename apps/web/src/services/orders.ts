@@ -20,11 +20,39 @@ export async function createOrders(
     paymentRef?: string
   },
 ) {
-  const sellerGroups: Record<string, CartItem[]> = {}
+  // Trust ONLY productId + quantity from the client. Price, seller and stock
+  // are authoritative from the database — never the cart. This is what stops a
+  // crafted cart from dictating its own prices or totals.
+  const wanted = new Map<string, number>()
   for (const item of items) {
-    if (!sellerGroups[item.sellerId]) sellerGroups[item.sellerId] = []
-    sellerGroups[item.sellerId].push(item)
+    const qty = Math.floor(Number(item?.quantity))
+    if (typeof item?.productId !== 'string' || !Number.isFinite(qty) || qty < 1) {
+      return { error: 'Your cart contains an invalid item.' }
+    }
+    wanted.set(item.productId, (wanted.get(item.productId) ?? 0) + qty)
   }
+  if (wanted.size === 0) return { error: 'No items in cart.' }
+
+  const products = await prisma.product.findMany({
+    where:  { id: { in: [...wanted.keys()] }, status: 'ACTIVE' },
+    select: { id: true, name: true, price: true, stock: true, sellerId: true, bulkMinQty: true, bulkPrice: true },
+  })
+  if (products.length !== wanted.size) {
+    return { error: 'One or more products are no longer available.' }
+  }
+
+  // Group by seller using DB values only; apply bulk pricing server-side
+  const bySeller = new Map<string, Array<{ productId: string; quantity: number; unitPrice: number }>>()
+  for (const p of products) {
+    const qty = wanted.get(p.id)!
+    if (qty > p.stock) return { error: `Not enough stock for ${p.name}.` }
+    const unitPrice = p.bulkMinQty && p.bulkPrice && qty >= p.bulkMinQty ? p.bulkPrice : p.price
+    const arr = bySeller.get(p.sellerId) ?? []
+    arr.push({ productId: p.id, quantity: qty, unitPrice })
+    bySeller.set(p.sellerId, arr)
+  }
+
+  const deliveryFee = Math.max(0, Number(opts.deliveryFee) || 0)
 
   // Live energy — if a market is live right now, the first 3 orders of the day
   // get flagged (admin contacts them to arrange the welcome piece).
@@ -43,9 +71,9 @@ export async function createOrders(
 
   const orders = []
 
-  for (const [sellerId, sellerItems] of Object.entries(sellerGroups)) {
-    const itemsTotal = sellerItems.reduce((sum, i) => sum + i.price * i.quantity, 0)
-    const orderTotal = itemsTotal + opts.deliveryFee
+  for (const [sellerId, sellerItems] of bySeller) {
+    const itemsTotal = sellerItems.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
+    const orderTotal = parseFloat((itemsTotal + deliveryFee).toFixed(2))
     const commission = parseFloat((orderTotal * COMMISSION_RATE).toFixed(2))
 
     const order = await prisma.order.create({
@@ -53,7 +81,7 @@ export async function createOrders(
         buyerId,
         sellerId,
         totalAmount:    orderTotal,
-        deliveryFee:    opts.deliveryFee,
+        deliveryFee,
         deliveryTier:   opts.deliveryTier as never,
         deliveryAddress: opts.deliveryAddress,
         deliveryCityId:  opts.deliveryCityId,
@@ -65,24 +93,26 @@ export async function createOrders(
           create: sellerItems.map(i => ({
             productId: i.productId,
             quantity:  i.quantity,
-            price:     i.price,
+            price:     i.unitPrice,
           })),
         },
       },
       include: { items: true },
     })
 
-    for (const item of sellerItems) {
-      await prisma.product.update({
-        where: { id: item.productId },
-        data: { stock: { decrement: item.quantity } },
+    // Guarded decrement — only succeeds if stock is still sufficient, so two
+    // simultaneous checkouts can't push stock negative
+    for (const i of sellerItems) {
+      await prisma.product.updateMany({
+        where: { id: i.productId, stock: { gte: i.quantity } },
+        data:  { stock: { decrement: i.quantity } },
       })
     }
 
     orders.push(order)
   }
 
-  return orders
+  return { orders }
 }
 
 /**

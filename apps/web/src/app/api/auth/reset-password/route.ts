@@ -2,16 +2,23 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@vuna/db'
 import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { vString, vPassword, validationError } from '@/lib/validation'
 
 export async function POST(req: NextRequest) {
-  try {
-    const { token, password } = await req.json()
+  const limited = checkRateLimit(req, 'reset-password', 5, 60_000)
+  if (limited) return limited
 
-    if (!token || !password) {
-      return NextResponse.json({ error: 'Token and new password are required' }, { status: 400 })
-    }
-    if (password.length < 6) {
-      return NextResponse.json({ error: 'Password must be at least 6 characters' }, { status: 400 })
+  try {
+    const body = await req.json()
+
+    let token: string, password: string
+    try {
+      token    = vString(body.token, 'Token', { max: 200 })
+      password = vPassword(body.password)
+    } catch (err) {
+      const bad = validationError(err); if (bad) return bad
+      throw err
     }
 
     const tokenHash = crypto.createHash('sha256').update(token).digest('hex')

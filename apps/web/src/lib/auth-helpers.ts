@@ -21,6 +21,13 @@ export async function requireBuyer() {
   return prisma.user.findUnique({ where: { id: session.user.id } })
 }
 
+// Any authenticated user (buyer or seller) — used by shared endpoints like uploads
+export async function requireSession() {
+  const session = await getServerSession(authOptions)
+  if (!session?.user) return null
+  return session
+}
+
 export function unauthorized(msg = 'Unauthorised') {
   return NextResponse.json({ error: msg }, { status: 401 })
 }

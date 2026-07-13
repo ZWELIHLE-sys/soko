@@ -1,12 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@vuna/db'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { vEmail, vString, validationError } from '@/lib/validation'
 
 export async function POST(req: NextRequest) {
-  try {
-    const { email, otp } = await req.json()
+  // A 6-digit OTP is brute-forceable — cap attempts hard
+  const limited = checkRateLimit(req, 'verify-email', 8, 60_000)
+  if (limited) return limited
 
-    if (!email || !otp) {
-      return NextResponse.json({ error: 'Email and code are required' }, { status: 400 })
+  try {
+    const body = await req.json()
+
+    let email: string, otp: string
+    try {
+      email = vEmail(body.email)
+      otp   = vString(body.otp, 'Code', { min: 6, max: 6 })
+    } catch (err) {
+      const bad = validationError(err); if (bad) return bad
+      throw err
     }
 
     const user = await prisma.user.findUnique({ where: { email } })

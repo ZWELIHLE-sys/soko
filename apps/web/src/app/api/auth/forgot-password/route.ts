@@ -2,12 +2,21 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@vuna/db'
 import crypto from 'crypto'
 import { sendPasswordResetEmail } from '@/lib/email'
+import { checkRateLimit } from '@/lib/rate-limit'
+import { vEmail, validationError } from '@/lib/validation'
 
 export async function POST(req: NextRequest) {
+  // Tight limit — stops reset-email spamming of any address
+  const limited = checkRateLimit(req, 'forgot-password', 3, 60_000)
+  if (limited) return limited
+
   try {
-    const { email } = await req.json()
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+    let email: string
+    try {
+      email = vEmail((await req.json()).email)
+    } catch (err) {
+      const bad = validationError(err); if (bad) return bad
+      throw err
     }
 
     const token = crypto.randomBytes(32).toString('hex')

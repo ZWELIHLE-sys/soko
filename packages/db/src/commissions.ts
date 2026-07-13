@@ -1,4 +1,5 @@
 import { prisma } from './index'
+import type { OrderStatus } from './generated/prisma/enums'
 
 /**
  * Vuna commission ledger.
@@ -13,7 +14,7 @@ import { prisma } from './index'
  *  4. Admin marks invoice PAID → linked orders flip to PAID.
  */
 
-const PAYABLE_ORDER_STATUSES = ['CONFIRMED', 'PACKED', 'IN_TRANSIT', 'DELIVERED']
+const PAYABLE_ORDER_STATUSES: OrderStatus[] = ['CONFIRMED', 'PACKED', 'IN_TRANSIT', 'DELIVERED']
 
 export async function getSellerCommissionSummary(sellerId: string) {
   const [pendingAgg, invoiced, paid] = await Promise.all([
@@ -25,27 +26,27 @@ export async function getSellerCommissionSummary(sellerId: string) {
         commission:       { not: null },
       },
       _sum:   { commission: true },
-      _count: { _all: true },
+      _count: true,
     }),
     prisma.commissionInvoice.aggregate({
       where: { sellerId, status: 'OUTSTANDING' },
       _sum:  { amount: true },
-      _count: { _all: true },
+      _count: true,
     }),
     prisma.commissionInvoice.aggregate({
       where: { sellerId, status: 'PAID' },
       _sum:  { amount: true },
-      _count: { _all: true },
+      _count: true,
     }),
   ])
 
   return {
-    pendingAmount:   pendingAgg._sum.commission ?? 0,
-    pendingOrders:   pendingAgg._count._all,
-    outstandingAmount: invoiced._sum.amount ?? 0,
-    outstandingInvoices: invoiced._count._all,
-    paidAmount:      paid._sum.amount ?? 0,
-    paidInvoices:    paid._count._all,
+    pendingAmount:       pendingAgg._sum?.commission ?? 0,
+    pendingOrders:       pendingAgg._count ?? 0,
+    outstandingAmount:   invoiced._sum?.amount ?? 0,
+    outstandingInvoices: invoiced._count ?? 0,
+    paidAmount:          paid._sum?.amount ?? 0,
+    paidInvoices:        paid._count ?? 0,
   }
 }
 
@@ -83,7 +84,7 @@ export async function listAllSellersWithCommission() {
         commission:       { not: null },
       },
       _sum:   { commission: true },
-      _count: { _all: true },
+      _count: true,
     }),
     prisma.commissionInvoice.groupBy({
       by: ['sellerId'],
@@ -103,10 +104,10 @@ export async function listAllSellersWithCommission() {
 
   return sellers.map(s => ({
     ...s,
-    pendingAmount:     pMap.get(s.id)?._sum.commission ?? 0,
-    pendingOrders:     pMap.get(s.id)?._count._all      ?? 0,
-    outstandingAmount: oMap.get(s.id)?._sum.amount      ?? 0,
-    paidAmount:        pdMap.get(s.id)?._sum.amount     ?? 0,
+    pendingAmount:     pMap.get(s.id)?._sum?.commission ?? 0,
+    pendingOrders:     pMap.get(s.id)?._count          ?? 0,
+    outstandingAmount: oMap.get(s.id)?._sum?.amount     ?? 0,
+    paidAmount:        pdMap.get(s.id)?._sum?.amount    ?? 0,
   }))
 }
 

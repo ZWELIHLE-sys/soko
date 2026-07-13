@@ -14,7 +14,12 @@ export async function POST(
   const { id } = await params
   const { proofUrl, paymentRef } = await req.json()
 
-  if (!proofUrl) return badRequest('proofUrl is required.')
+  if (typeof proofUrl !== 'string' || !proofUrl.trim() || proofUrl.length > 600) {
+    return badRequest('A valid proof of payment is required.')
+  }
+  if (paymentRef != null && (typeof paymentRef !== 'string' || paymentRef.length > 120)) {
+    return badRequest('Payment reference is too long.')
+  }
 
   const result = await submitPaymentProof(id, buyerId, proofUrl, paymentRef)
   if (result.error) return badRequest(result.error)

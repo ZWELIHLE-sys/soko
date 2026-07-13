@@ -10,16 +10,16 @@ export async function getSellerProfile(sellerId: string) {
 export async function updateSellerProfile(
   sellerId: string,
   data: Partial<{
-    bio: string
-    avatar: string
-    banner: string
+    bio: string | null
+    avatar: string | null
+    banner: string | null
     phone: string
-    suburb: string
-    bankName: string
-    accountHolder: string
-    accountNumber: string
-    accountType: string
-    branchCode: string
+    suburb: string | null
+    bankName: string | null
+    accountHolder: string | null
+    accountNumber: string | null
+    accountType: string | null
+    branchCode: string | null
   }>,
 ) {
   return prisma.seller.update({ where: { id: sellerId }, data })

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Heart, Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './wishlist.module.css'
 
 interface WishlistItem {
@@ -55,7 +56,7 @@ export default function BuyerWishlistPage() {
       </div>
 
       {loading ? (
-        <div className={styles.loading}>Loading your wishlist...</div>
+        <PageLoader text="Loading your wishlist..." />
       ) : items.length === 0 ? (
         <div className={styles.empty}>
           <Heart size={48} className={styles.emptyIcon} />

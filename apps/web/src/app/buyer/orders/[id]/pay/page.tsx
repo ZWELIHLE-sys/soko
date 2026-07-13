@@ -7,6 +7,7 @@ import Image from 'next/image'
 import {
   Banknote, Copy, CheckCircle2, AlertTriangle, Upload, ArrowLeft, ShieldCheck, Clock,
 } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './pay.module.css'
 
 interface OrderForPayment {
@@ -100,7 +101,7 @@ export default function PayOrderPage() {
     setOrder(refreshed)
   }
 
-  if (loading) return <div className={styles.loading}>Loading order...</div>
+  if (loading) return <PageLoader text="Loading order..." />
   if (!order)  return <div className={styles.loading}>{error || 'Order not found.'}</div>
 
   // Harvest reservations owe nothing yet — payment opens when the farmer marks it ready

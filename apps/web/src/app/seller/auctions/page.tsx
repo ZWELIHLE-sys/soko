@@ -6,6 +6,7 @@ import {
   Gavel, Clock, CheckCircle2, Zap, XCircle, Timer,
   BookOpen, Calendar,
 } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './auctions.module.css'
 import { LiveMonitor } from './_components/LiveMonitor'
 import { SubmitForm } from './_components/SubmitForm'
@@ -59,7 +60,7 @@ export default function SellerAuctionsPage() {
   const fmt = (d: string) =>
     new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })
 
-  if (loading) return <div className={styles.loading}>Loading auctions...</div>
+  if (loading) return <PageLoader text="Loading auctions..." />
 
   const itemsByEvent: Record<string, MyItem[]> = {}
   const noEventItems: MyItem[] = []

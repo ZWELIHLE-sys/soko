@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Gavel, Store, Package, CheckCircle2, XCircle, Sparkles, AlertTriangle, Plus, Star } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './pieces.module.css'
 
 type Stage = 'MARKET' | 'AUCTION' | 'FEATURED' | 'SHOP' | 'SOLD' | 'RETIRED'
@@ -102,7 +103,7 @@ export default function SellerPiecesPage() {
       )}
 
       {loading ? (
-        <div className={styles.loading}>Loading your pieces...</div>
+        <PageLoader text="Loading your pieces..." />
       ) : pieces.length === 0 ? (
         <div className={styles.empty}>
           <Sparkles size={40} className={styles.emptyIcon} />

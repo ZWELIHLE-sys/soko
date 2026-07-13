@@ -7,6 +7,7 @@ import {
   PackageCheck, XCircle, RotateCcw, Phone, Mail, Sprout,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './orders.module.css'
 
 interface OrderItem {
@@ -234,7 +235,7 @@ export default function SellerOrdersPage() {
     )
   }
 
-  if (loading) return <div className={styles.loading}>Loading orders...</div>
+  if (loading) return <PageLoader text="Loading orders..." />
 
   return (
     <div>

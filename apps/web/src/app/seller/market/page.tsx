@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { Store, CheckCircle2 } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './market.module.css'
 import { MarketAnnouncement } from './_components/MarketAnnouncement'
 import { VirtualStall } from './_components/VirtualStall'
@@ -36,7 +37,7 @@ export default function SellerMarketPage() {
 
   const appliedIds = new Set(listings.map(l => l.market.id))
 
-  if (loading) return <div className={styles.loading}>Loading market info...</div>
+  if (loading) return <PageLoader text="Loading market info..." />
 
   return (
     <div>

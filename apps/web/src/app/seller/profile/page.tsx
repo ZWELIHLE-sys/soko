@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ShieldCheck, Clock, XCircle, CheckCircle2, User } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './profile.module.css'
 import { AppearanceSection } from './_components/AppearanceSection'
 import { PaymentSection } from './_components/PaymentSection'
@@ -70,7 +71,7 @@ export default function SellerProfilePage() {
     setTimeout(() => setSuccess(false), 3000)
   }
 
-  if (!profile) return <div className={styles.loading}>Loading profile...</div>
+  if (!profile) return <PageLoader text="Loading profile..." />
 
   const statusCfg = STATUS_CONFIG[profile.status] ?? STATUS_CONFIG.PENDING
 

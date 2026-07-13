@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Gavel, Trophy, Clock, ArrowRight } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './auctions.module.css'
 
 interface AuctionSummary {
@@ -52,7 +53,7 @@ export default function BuyerAuctionsPage() {
   const formatDate = (d: string) =>
     new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })
 
-  if (loading) return <div className={styles.loading}>Loading your auctions...</div>
+  if (loading) return <PageLoader text="Loading your auctions..." />
 
   return (
     <div>

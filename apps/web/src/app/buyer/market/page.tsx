@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Store, CalendarDays, Users, ArrowRight, MapPin, Clock } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './market.module.css'
 
 interface MarketEvent {
@@ -42,7 +43,7 @@ export default function BuyerMarketPage() {
   const fmtDate = (d: string) =>
     new Date(d).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })
 
-  if (loading) return <div className={styles.loading}>Loading market events...</div>
+  if (loading) return <PageLoader text="Loading market events..." />
 
   return (
     <div>

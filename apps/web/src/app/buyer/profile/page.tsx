@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { CheckCircle2, AlertTriangle, Camera, Star } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './profile.module.css'
 
 export default function BuyerProfilePage() {
@@ -88,7 +89,7 @@ export default function BuyerProfilePage() {
     setTimeout(() => setTSuccess(false), 4000)
   }
 
-  if (loading) return <div className={styles.loading}>Loading your profile...</div>
+  if (loading) return <PageLoader text="Loading your profile..." />
 
   return (
     <div className={styles.page}>

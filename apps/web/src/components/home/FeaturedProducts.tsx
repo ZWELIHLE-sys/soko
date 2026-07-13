@@ -1,29 +1,38 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { prisma, tickEventLifecycle } from '@vuna/db'
+import { unstable_cache } from 'next/cache'
 import { Sprout, MapPin, ShieldCheck, Gavel } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './FeaturedProducts.module.css'
 
-async function getFeaturedProducts() {
-  // Settles expired victory laps (FEATURED → SHOP) before we read the spotlight
-  await tickEventLifecycle()
-  const now = new Date()
-  const listings = await prisma.featuredListing.findMany({
-    where: { expiresAt: { gte: now } },
-    orderBy: { createdAt: 'desc' },
-    take: 8,
-    include: {
-      product: {
-        include: {
-          seller:   { select: { brandName: true, isVerified: true } },
-          category: { select: { name: true, icon: true } },
-          location: { select: { name: true } },
+// The read is cached 60s; the lifecycle tick (writes) runs uncached before it
+const getFeaturedListings = unstable_cache(
+  async () => {
+    const listings = await prisma.featuredListing.findMany({
+      where: { expiresAt: { gte: new Date() } },
+      orderBy: { createdAt: 'desc' },
+      take: 8,
+      include: {
+        product: {
+          include: {
+            seller:   { select: { brandName: true, isVerified: true } },
+            category: { select: { name: true, icon: true } },
+            location: { select: { name: true } },
+          },
         },
       },
-    },
-  })
-  return listings.map(l => l.product)
+    })
+    return listings.map(l => l.product)
+  },
+  ['home-featured-products'],
+  { revalidate: 60, tags: ['featured-products'] },
+)
+
+async function getFeaturedProducts() {
+  // Settle expired victory laps (FEATURED → SHOP) — must run live, not cached
+  await tickEventLifecycle()
+  return getFeaturedListings()
 }
 
 export default async function FeaturedProducts() {

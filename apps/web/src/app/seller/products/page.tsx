@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { Plus, Package, X } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './products.module.css'
 import { ProductForm } from './_components/ProductForm'
 import { ProductCard } from './_components/ProductCard'
@@ -130,7 +131,7 @@ export default function SellerProductsPage() {
     load()
   }
 
-  if (loading) return <div className={styles.loading}>Loading products...</div>
+  if (loading) return <PageLoader text="Loading products..." />
 
   return (
     <div>

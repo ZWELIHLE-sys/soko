@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Banknote, Clock, CheckCircle2, TrendingUp, Info, FileText, AlertTriangle } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './earnings.module.css'
 
 interface OrderItem {
@@ -68,7 +69,7 @@ export default function SellerEarningsPage() {
     day: 'numeric', month: 'short', year: 'numeric',
   })
 
-  if (loading) return <div className={styles.loading}>Loading earnings...</div>
+  if (loading) return <PageLoader text="Loading earnings..." />
   if (!data)   return null
 
   const months = Object.entries(data.byMonth)

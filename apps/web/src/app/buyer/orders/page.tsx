@@ -9,6 +9,7 @@ import {
   MapPin, ArrowRight, Star, CheckCheck, Sprout,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import PageLoader from '@/components/ui/PageLoader'
 import styles from './orders.module.css'
 
 interface Order {
@@ -172,7 +173,7 @@ export default function BuyerOrdersPage() {
       )}
 
       {loading ? (
-        <div className={styles.loading}>Loading your orders...</div>
+        <PageLoader text="Loading your orders..." />
       ) : orders.length === 0 ? (
         <div className={styles.empty}>
           <Package size={48} className={styles.emptyIcon} />

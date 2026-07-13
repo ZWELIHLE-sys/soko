@@ -1,26 +1,32 @@
+import { unstable_cache } from 'next/cache'
 import { prisma } from '@vuna/db'
 import { Star } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './Testimonials.module.css'
 
-async function getTestimonials() {
-  try {
-    return await prisma.testimonial.findMany({
-      where:   { isApproved: true },
-      orderBy: { createdAt: 'desc' },
-      take:    6,
-      select: {
-        id:        true,
-        content:   true,
-        rating:    true,
-        createdAt: true,
-        user:      { select: { name: true, avatar: true } },
-      },
-    })
-  } catch {
-    return []
-  }
-}
+// Cached 2 min — approved testimonials change rarely, no need to re-query per visit
+const getTestimonials = unstable_cache(
+  async () => {
+    try {
+      return await prisma.testimonial.findMany({
+        where:   { isApproved: true },
+        orderBy: { createdAt: 'desc' },
+        take:    6,
+        select: {
+          id:        true,
+          content:   true,
+          rating:    true,
+          createdAt: true,
+          user:      { select: { name: true, avatar: true } },
+        },
+      })
+    } catch {
+      return []
+    }
+  },
+  ['home-testimonials'],
+  { revalidate: 120, tags: ['testimonials'] },
+)
 
 export default async function Testimonials() {
   const testimonials = await getTestimonials()

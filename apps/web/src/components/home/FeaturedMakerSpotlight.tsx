@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { unstable_cache } from 'next/cache'
 import { prisma } from '@vuna/db'
 import { MapPin, BadgeCheck, Star, Tag, Package } from 'lucide-react'
 import FadeIn from '@/components/ui/FadeIn'
 import styles from './FeaturedMakerSpotlight.module.css'
 
-async function getSpotlight() {
+// Cached 2 min — the featured maker changes weekly, its products rarely
+const getSpotlight = unstable_cache(async () => {
   const featured = await prisma.featuredMaker.findFirst({
     where: { isActive: true },
     orderBy: { createdAt: 'desc' },
@@ -41,7 +43,7 @@ async function getSpotlight() {
   ])
 
   return { ...featured, products, liveStall }
-}
+}, ['home-featured-maker'], { revalidate: 120, tags: ['featured-maker'] })
 
 export default async function FeaturedMakerSpotlight() {
   const spotlight = await getSpotlight()

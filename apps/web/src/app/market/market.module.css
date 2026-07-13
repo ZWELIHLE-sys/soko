@@ -432,3 +432,60 @@
 }
 
 .shareRow { margin-top: 14px; }
+
+/* ── MC welcome video ── */
+.welcomeVideoCard {
+  background: #7C2D12;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.welcomeVideoLabel {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FEF3C7;
+  margin-bottom: 10px;
+}
+
+.welcomeVideo {
+  width: 100%;
+  max-height: 380px;
+  border-radius: 10px;
+  background: #000;
+  display: block;
+}
+
+/* ── Viewing-day piece video ── */
+.viewingVideo {
+  width: 100%;
+  max-height: 220px;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ── Maker craft video at the stall ── */
+.makerVideoDetails { margin-bottom: 12px; }
+
+.makerVideoSummary {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7C2D12;
+  cursor: pointer;
+  padding: 6px 0;
+  list-style: none;
+}
+
+.makerVideoSummary::-webkit-details-marker { display: none; }
+
+.makerVideo {
+  width: 100%;
+  max-height: 240px;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+  margin-top: 6px;
+}

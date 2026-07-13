@@ -38,6 +38,7 @@ export async function GET(
           currentStage: true,
           createdAt: true,
           livestockDetail: true,
+          videoUrl: true,
           marketListings: {
             select: {
               id: true,

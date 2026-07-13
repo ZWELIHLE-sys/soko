@@ -21,6 +21,7 @@ export async function createMarket(data: {
   endDate: string
   applicationDeadline: string
   maxListings?: number | null
+  welcomeVideoUrl?: string | null
 }) {
   return prisma.market.create({
     data: {
@@ -32,6 +33,7 @@ export async function createMarket(data: {
       endDate:             new Date(data.endDate),
       applicationDeadline: new Date(data.applicationDeadline),
       maxListings:         data.maxListings ?? null,
+      welcomeVideoUrl:     data.welcomeVideoUrl || null,
     },
   })
 }

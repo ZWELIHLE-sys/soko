@@ -558,6 +558,7 @@ model Piece {
   title        String      // Stays consistent across stages
   description  String
   images       String[]    @default([])
+  videoUrl     String?     // 30-60s clip — for livestock, buyers must see the animal move
   currentStage PieceStage  @default(MARKET)
 
   sellerId     String
@@ -600,6 +601,7 @@ model Market {
   endDate             DateTime
   applicationDeadline DateTime
   bannerImage         String?
+  welcomeVideoUrl     String?    // the MC's face — a short welcome clip at the top of the market page
   isActive            Boolean    @default(true)
   maxListings         Int?       // stall limit — scarcity is intentional
 

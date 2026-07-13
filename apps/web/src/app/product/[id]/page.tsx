@@ -30,6 +30,7 @@ interface PieceJourney {
   currentStage: 'MARKET' | 'AUCTION' | 'FEATURED' | 'SHOP' | 'SOLD' | 'RETIRED'
   createdAt: string
   livestockDetail: LivestockPapers | null
+  videoUrl: string | null
   marketListings: { id: string; market: { id: string; title: string; startDate: string; endDate: string } }[]
   auctions: {
     id: string
@@ -311,6 +312,13 @@ export default function ProductDetailPage() {
             </div>
 
             <p className={styles.description}>{product.description}</p>
+
+            {/* See it move — the piece's journey video */}
+            {product.piece?.videoUrl && (
+              <div className={styles.pieceVideoWrap}>
+                <video src={product.piece.videoUrl} controls preload="metadata" className={styles.pieceVideo} />
+              </div>
+            )}
 
             {/* Animal papers — livestock listings carry what real buyers ask first */}
             {papers && (

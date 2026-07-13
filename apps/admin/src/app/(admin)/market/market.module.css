@@ -436,3 +436,44 @@
   font-size: 12px;
   color: #6b7280;
 }
+
+/* ── MC welcome video upload ── */
+.welcomeVideoRow { max-width: 360px; }
+
+.welcomeVideoPreview {
+  width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+}
+
+.welcomeVideoRemove {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 5px 10px;
+  background: #fff;
+  border: 1px solid #FECACA;
+  border-radius: 6px;
+  color: #991B1B;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.welcomeVideoUpload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 1.5px dashed #d1d5db;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.welcomeVideoUpload:hover { border-color: #7C2D12; color: #7C2D12; }

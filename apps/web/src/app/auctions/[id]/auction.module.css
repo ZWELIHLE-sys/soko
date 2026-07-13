@@ -412,3 +412,14 @@
 @media (max-width: 560px) {
   .papersGrid { grid-template-columns: 1fr; }
 }
+
+/* ── Lot video — see it move before you bid ── */
+.lotVideoWrap { margin-bottom: 18px; }
+
+.lotVideo {
+  width: 100%;
+  max-height: 360px;
+  border-radius: 12px;
+  background: #000;
+  display: block;
+}

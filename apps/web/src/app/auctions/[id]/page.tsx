@@ -42,7 +42,7 @@ interface Auction {
   startPrice: number
   currentBid: number | null
   livestockDetail: LivestockPapers | null
-  piece: { livestockDetail: LivestockPapers | null } | null
+  piece: { livestockDetail: LivestockPapers | null; videoUrl: string | null } | null
   auctionEvent: {
     biddingStartDate: string
     biddingEndDate: string
@@ -226,6 +226,13 @@ export default function AuctionDetailPage() {
             </div>
 
             <p className={styles.description}>{auction.description}</p>
+
+            {/* See it move — the piece's video, essential for livestock lots */}
+            {auction.piece?.videoUrl && (
+              <div className={styles.lotVideoWrap}>
+                <video src={auction.piece.videoUrl} controls preload="metadata" className={styles.lotVideo} />
+              </div>
+            )}
 
             {/* Animal papers — livestock lots carry breed, purpose and records to the hammer */}
             {(() => {

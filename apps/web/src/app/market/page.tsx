@@ -30,6 +30,7 @@ async function getMarket() {
               bio: true,
               avatar: true,
               isVerified: true,
+              videoUrl: true,  // the maker's verification craft video — the stall plays it
               location: { select: { name: true } },
               category: { select: { name: true, icon: true, slug: true } },
             },
@@ -40,6 +41,7 @@ async function getMarket() {
               id: true,
               title: true,
               images: true,
+              videoUrl: true,
               currentStage: true,
               livestockDetail: {
                 select: { species: true, breed: true, purpose: true, sex: true, approxAgeMonths: true, weightKg: true },
@@ -175,6 +177,16 @@ export default async function MarketPage() {
 
       <div className={styles.inner}>
 
+        {/* A welcome from your MC — a human face opens the market */}
+        {market.welcomeVideoUrl && (
+          <FadeIn>
+            <div className={styles.welcomeVideoCard}>
+              <div className={styles.welcomeVideoLabel}>A welcome from your MC</div>
+              <video src={market.welcomeVideoUrl} controls preload="metadata" className={styles.welcomeVideo} />
+            </div>
+          </FadeIn>
+        )}
+
         {/* The MC's stage — live moments inside the venue */}
         <MCFeed channel="MARKET" />
 
@@ -283,8 +295,31 @@ export default async function MarketPage() {
                           <div className={styles.viewingNote}>
                             Inspect it here — bidding opens at the next auction
                           </div>
+                          {listing.piece.videoUrl && (
+                            <video
+                              src={listing.piece.videoUrl}
+                              controls
+                              preload="none"
+                              className={styles.viewingVideo}
+                            />
+                          )}
                         </div>
                       </div>
+                    )}
+
+                    {/* The maker at work — their verification craft video, replayed at the stall */}
+                    {listing.seller.videoUrl && (
+                      <details className={styles.makerVideoDetails}>
+                        <summary className={styles.makerVideoSummary}>
+                          ▶ Watch {listing.seller.brandName} at work
+                        </summary>
+                        <video
+                          src={listing.seller.videoUrl}
+                          controls
+                          preload="none"
+                          className={styles.makerVideo}
+                        />
+                      </details>
                     )}
 
                     {products.length > 0 && (

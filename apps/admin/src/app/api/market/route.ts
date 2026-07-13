@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   if (!session) return unauthorized()
 
   const body = await req.json()
-  const { marketType, title, description, theme, startDate, endDate, applicationDeadline, maxListings } = body
+  const { marketType, title, description, theme, startDate, endDate, applicationDeadline, maxListings, welcomeVideoUrl } = body
 
   if (!title || !startDate || !endDate || !applicationDeadline)
     return badRequest('Missing required fields')
@@ -30,6 +30,7 @@ export async function POST(req: Request) {
     endDate,
     applicationDeadline,
     maxListings: maxListings ? parseInt(maxListings) : null,
+    welcomeVideoUrl,
   })
 
   return NextResponse.json(market)

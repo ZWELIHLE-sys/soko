@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+import { Video, X, Upload } from 'lucide-react'
 import shared from '../../../admin.module.css'
 import styles from '../market.module.css'
 import type { MarketType, EMPTY_MARKET_FORM } from '../_types'
@@ -17,6 +19,25 @@ interface Props {
 }
 
 export function CreateMarketForm({ form, saving, error, onFormChange, onCreate, onCancel }: Props) {
+  const [videoUploading, setVideoUploading] = useState(false)
+  const [videoError, setVideoError] = useState('')
+
+  const uploadWelcomeVideo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setVideoUploading(true)
+    setVideoError('')
+    const fd = new FormData()
+    fd.append('file', file)
+    fd.append('folder', 'vuna/mc-welcome')
+    const res = await fetch('/api/upload', { method: 'POST', body: fd })
+    const data = await res.json().catch(() => ({}))
+    if (data.url) onFormChange({ welcomeVideoUrl: data.url })
+    else setVideoError(data.error ?? 'Video upload failed.')
+    setVideoUploading(false)
+    e.target.value = ''
+  }
+
   return (
     <div className={`${shared.card} ${styles.createForm}`}>
       <h2 className={shared.cardTitle}>Create Market Event</h2>
@@ -84,6 +105,31 @@ export function CreateMarketForm({ form, saving, error, onFormChange, onCreate, 
           value={form.description}
           onChange={e => onFormChange({ description: e.target.value })}
           placeholder="Describe this market event..." />
+      </div>
+
+      <div className={shared.formGroup}>
+        <label className={shared.formLabel}>MC Welcome Video (optional)</label>
+        {form.welcomeVideoUrl ? (
+          <div className={styles.welcomeVideoRow}>
+            <video src={form.welcomeVideoUrl} controls preload="metadata" className={styles.welcomeVideoPreview} />
+            <button type="button" className={styles.welcomeVideoRemove} onClick={() => onFormChange({ welcomeVideoUrl: '' })}>
+              <X size={12} /> Remove
+            </button>
+          </div>
+        ) : (
+          <label className={styles.welcomeVideoUpload}>
+            {videoUploading ? <Upload size={15} /> : <Video size={15} />}
+            <span>{videoUploading ? 'Uploading...' : 'Upload a short welcome clip — your face opens the market (MP4/MOV, max 150 MB)'}</span>
+            <input
+              type="file"
+              accept="video/mp4,video/quicktime,video/webm"
+              style={{ display: 'none' }}
+              onChange={uploadWelcomeVideo}
+              disabled={videoUploading}
+            />
+          </label>
+        )}
+        {videoError && <div className={shared.errorMsg} style={{ marginTop: 8 }}>{videoError}</div>}
       </div>
 
       {error && <div className={shared.errorMsg} style={{ marginBottom: 12 }}>{error}</div>}

@@ -75,6 +75,7 @@ export const EMPTY_MARKET_FORM = {
   title: '', description: '', theme: '',
   startDate: '', endDate: '', applicationDeadline: '',
   maxListings: '',
+  welcomeVideoUrl: '',
 }
 
 export function getEventStatus(startDate: string, endDate: string): 'UPCOMING' | 'LIVE' | 'ENDED' {

@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
       title:        title.trim(),
       description:  description.trim(),
       images,
+      videoUrl:     typeof body.videoUrl === 'string' && body.videoUrl.trim() ? body.videoUrl.trim() : null,
       sellerId:     seller.id,
       categoryId,
       currentStage: 'MARKET',

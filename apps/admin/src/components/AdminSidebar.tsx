@@ -7,7 +7,7 @@ import Image from 'next/image'
 import {
   LayoutDashboard, Users, Package, ShoppingBag,
   UserCheck, Store, Gavel, MessageSquare,
-  Activity, LogOut, Star, Sparkles, FileText, Settings, Radio,
+  Activity, LogOut, Star, Sparkles, FileText, Settings, Radio, Sprout,
 } from 'lucide-react'
 import styles from './sidebar.module.css'
 
@@ -24,6 +24,7 @@ const navItems = [
   { label: 'Products',      href: '/products',     Icon: Package },
   { label: 'Orders',        href: '/orders',       Icon: ShoppingBag },
   { label: 'Buyers',        href: '/buyers',       Icon: Users },
+  { label: 'Agriculture',   href: '/agri',         Icon: Sprout },
   { label: 'Commissions',   href: '/commissions',  Icon: FileText },
   { label: 'Market',        href: '/market',       Icon: Store },
   { label: 'Auctions',      href: '/auctions',     Icon: Gavel },

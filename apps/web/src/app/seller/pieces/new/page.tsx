@@ -19,6 +19,8 @@ export default function NewPiecePage() {
   const [description, setDescription] = useState('')
   const [categoryId, setCategoryId]   = useState('')
   const [images, setImages]           = useState<string[]>([])
+  const [videoUrl, setVideoUrl]       = useState('')
+  const [videoUploading, setVideoUploading] = useState(false)
   const [uploading, setUploading]     = useState(false)
   const [saving, setSaving]           = useState(false)
   const [error, setError]             = useState('')
@@ -69,6 +71,22 @@ export default function NewPiecePage() {
 
   const removeImage = (idx: number) => setImages(images.filter((_, i) => i !== idx))
 
+  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setVideoUploading(true)
+    setError('')
+    const fd = new FormData()
+    fd.append('file', file)
+    fd.append('folder', 'vuna/pieces/video')
+    const res  = await fetch('/api/upload', { method: 'POST', body: fd })
+    const data = await res.json()
+    if (data.url) setVideoUrl(data.url)
+    else setError(data.error ?? 'Video upload failed.')
+    setVideoUploading(false)
+    e.target.value = ''
+  }
+
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     setError('')
@@ -86,7 +104,7 @@ export default function NewPiecePage() {
     const res = await fetch('/api/seller/pieces', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title, description, images, categoryId, ...ls }),
+      body: JSON.stringify({ title, description, images, categoryId, videoUrl: videoUrl || undefined, ...ls }),
     })
     const data = await res.json()
     setSaving(false)
@@ -322,6 +340,34 @@ export default function NewPiecePage() {
             style={{ display: 'none' }}
             onChange={handleUpload}
           />
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label}>
+            Video <span className={styles.hint}>
+              (optional, 30–60s — {isLivestock ? 'let buyers see the animal move; it sells the animal' : 'show the piece in your hands; it sells the story'})
+            </span>
+          </label>
+          {videoUrl ? (
+            <div className={styles.videoPreview}>
+              <video src={videoUrl} controls preload="metadata" className={styles.videoPlayer} />
+              <button type="button" className={styles.videoRemove} onClick={() => setVideoUrl('')}>
+                <X size={12} /> Remove video
+              </button>
+            </div>
+          ) : (
+            <label className={styles.videoUploadBtn}>
+              {videoUploading ? <Upload size={18} className={styles.spin} /> : <ImagePlus size={18} />}
+              <span>{videoUploading ? 'Uploading video...' : 'Add video (MP4/MOV/WebM, max 150 MB)'}</span>
+              <input
+                type="file"
+                accept="video/mp4,video/quicktime,video/webm"
+                style={{ display: 'none' }}
+                onChange={handleVideoUpload}
+                disabled={videoUploading}
+              />
+            </label>
+          )}
         </div>
 
         {error && <div className={styles.error}>{error}</div>}
